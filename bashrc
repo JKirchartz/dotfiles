@@ -11,9 +11,6 @@ export HISTSIZE=10000 HISTFILESIZE=10000
 export HISTIGNORE="&:ls:ll:pwd:exit:clear"
 shopt -s histappend
 
-
-
-
 #basic aliases
 alias ll='ls -ahlFG'
 alias grep='grep --color=auto'
