@@ -12,7 +12,7 @@ alias ll='ls -ahlFG'
 alias grep='grep --color=auto'
 alias pg='ps -ef | grep'
 alias cd..='cd ..'
-alias more='less'
+alias more='less' #less is more, more or less.
 #alternative to cd -
 alias back='cd $OLDPWD' 
 
@@ -23,7 +23,7 @@ alias codeprint='enscript --line-number --pretty-print --fancy-header --landscap
 # pretty-print git logs
 alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
-
+# easy unzip
 function extract () {
     if [ -f $1 ] ; then
         case $1 in
@@ -44,6 +44,7 @@ function extract () {
      fi
 }
 
+#simple calculator
 function calc () { 
     echo "$*" | bc -l; 
 }
@@ -57,7 +58,7 @@ function new_post () {
         TITLE="$1"
     fi
     FILE=$( echo $TITLE | tr A-Z a-z | tr ' ' _ )
-    echo -e '---\nlayout: post\ntitle: '$TITLE'\npublished: false\n---\n' > $(date '+%Y-%m-%d-')"$FILE"'.md'
+    echo -e '---\nlayout: post\ntitle: '$TITLE'\npublished: false\ntags:\n---\n' > $(date '+%Y-%m-%d-')"$FILE"'.md'
 }
 
 # easier git commit & push
@@ -79,11 +80,7 @@ export PATH
 export GEM_HOME=~/gems
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-##
-# Your previous /Users/jkirchartz/.bash_profile file was backed up as /Users/jkirchartz/.bash_profile.macports-saved_2012-09-05_at_18:43:43
-##
-
-# MacPorts Installer addition on 2012-09-05_at_18:43:43: adding an appropriate PATH variable for use with MacPorts.
+# MacPorts Installer: adding an appropriate PATH variable for use with MacPorts.
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 # Finished adapting your PATH environment variable for use with MacPorts.
 

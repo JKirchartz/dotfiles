@@ -1,5 +1,4 @@
 if [[ "$OSTYPE" =~ ^darwin ]]; then
-    echo "running on mac"
     source ~/.bashrc
 fi
 
