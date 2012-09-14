@@ -1,10 +1,6 @@
 set -o vi
 PS1="\$\w>"
 
-if [ -f ~/.bashrc ]; then
-    source ~/.bashrc
-fi
-
 #fix history
 export HISTCONTROL=ignoredups
 export HISTSIZE=10000 HISTFILESIZE=10000
@@ -20,16 +16,6 @@ alias more='less'
 #alternative to cd -
 alias back='cd $OLDPWD' 
 
-# dealing with Java & ant deployment
-alias kj='killall -9 java && say die java scum!'
-alias rl='killall -9 java && ant all && say relaunching now && ~/contentManager.sh'
-alias rs='killall -9 java && say restarting now && ~/contentManager.sh'
-alias ad='ant deploy-jsp && date'
-alias aa='ant all && date && say ant all completed'
-alias lp='ant all && say launching now && ~/contentManager.sh'
-# other work stuff
-alias gatherconf='sudo vi $GATHER_PROP_FILE'
-alias con='cd $CURRENT_CONTENTMANAGER'
 
 # physically print code nicely to the default printer
 alias codeprint='enscript --line-number --pretty-print --fancy-header --landscape '
