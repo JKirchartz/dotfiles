@@ -1,6 +1,6 @@
 set -o vi
 #PS1="\$\w>"
-export PS1="\[$(tput setaf 1)\]\n---\[$(tput setaf 6)\]\u@\h\[$(tput setaf 1)\]]-[\[$(tput setaf 6)\]\w\[\[$(tput setaf 1)\]]-[\[$(tput setaf 6)\]\t\[$(tput setaf 1)\]]---\n-[\[$(tput setaf 6)\]\!\[$(tput setaf 1)\]]-\[$(tput setaf 6)\]\$>\[$(tput sgr0)\]"
+export PS1="\[$(tput setaf 1)\]\n---[\[$(tput setaf 6)\]\w\[$(tput setaf 1)\]]-[\[$(tput setaf 6)\]\u@\h\[\[$(tput setaf 1)\]]-[\[$(tput setaf 6)\]\D{%x %X}\[$(tput setaf 1)\]]---\n-[\[$(tput setaf 6)\]\!\[$(tput setaf 1)\]]-\[$(tput setaf 6)\]\$>\[$(tput sgr0)\]"
 export PS2="\[$(tput setaf 6)\]>\[$(tput sgr0)\]"
 
 #fix history
