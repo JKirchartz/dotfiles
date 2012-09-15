@@ -1,13 +1,13 @@
 set -o vi
 #PS1="\$\w>"
-export PS1="\[$(tput setaf 1)\]\n---[\u@\h]--[\w]--[\t]---\n\[$(tput setaf 6)\]\$>\[$(tput sgr0)\]";
-export PS2=">"
+export PS1="\[$(tput setaf 1)\]\n---[\[$(tput setaf 6)\]\u@\h\[$(tput setaf 1)\]]--[\[$(tput setaf 6)\]\w\[\[$(tput setaf 1)\]]--[\[$(tput setaf 6)\]\t\[$(tput setaf 1)\]]---\n-[\[$(tput setaf 6)\]\!\[$(tput setaf 1)\]]-\[$(tput setaf 6)\]\$>\[$(tput sgr0)\]"
+export PS2="\[$(tput setaf 6)\]>\[$(tput sgr0)\]"
 
 #fix history
 export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
 export HISTSIZE=1000                     # big history
 export HISTFILESIZE=100000               # big history
-export HISTIGNORE="&:ls:ll:pwd:exit:clear"
+export HISTIGNORE="&:ls:ll:pwd:exit:clear:[ \t]*"
 shopt -s histappend                      # append to history, don't overwrite it
 
 # Save and reload the history after each command finishes
