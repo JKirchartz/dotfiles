@@ -74,6 +74,8 @@ imap <Tab><Tab> <C-P>
 " paste while keeping the current indent
 nnoremap <leader>p p`[v`]=
 
+" paste mode toggle
+set pastetoggle=<F2>
 
 " overwrite common misfires
 command W w
@@ -84,3 +86,8 @@ command WQ wq
 " Security fix: modelines have been an avenue for trojan attacks against
 " VIM-users, so we'll disable that.
 set nomodeline
+
+
+" pathogen
+call pathogen#infect()
+
