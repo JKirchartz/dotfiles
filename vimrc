@@ -14,6 +14,9 @@ set noswapfile
 set backspace=indent,eol,start
 set nowrap
 
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
 set smartcase " smart case matching
 set incsearch " incremental search
 set hlsearch  " highlight search
@@ -54,6 +57,9 @@ if has("autocmd")
       " Jump to last position when reopening files
       au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
           \| exe "normal g'\"" | endif
+      
+      " liquid highlighting
+      au BufNewFile,BufRead *.liquid   setf liquid      
       
       "enable omnicomplete
       autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
