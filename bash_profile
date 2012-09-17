@@ -17,7 +17,7 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
     alias ad='ant deploy-jsp && date'
     alias aa='ant all && date && say ant all completed'
     alias lp='ant all && say launching now && ~/contentManager.sh'
-    alias gatherconf='sudo vi $GATHER_PROP_FILE'
+    alias gatherconf='sudo vi $GATHER_CONFIG'
     alias con='cd $CURRENT_CONTENTMANAGER'
 fi
 
