@@ -19,5 +19,6 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
     alias lp='ant all && say launching now && ~/contentManager.sh'
     alias gatherconf='sudo vi $GATHER_CONFIG'
     alias con='cd $CURRENT_CONTENTMANAGER'
+    alias jksky='cd ~/Dropbox/JKsky'
 fi
 
