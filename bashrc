@@ -23,6 +23,8 @@ alias more='less' #less is more, more or less.
 #alternative to cd -
 alias back='cd $OLDPWD' 
 
+# when's this month's buildguild?
+alias buildguild='ncal | grep We | awk \'{print $ 3}\''
 
 # physically print code nicely to the default printer
 alias codeprint='enscript --line-number --pretty-print --fancy-header --landscape '
