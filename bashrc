@@ -56,6 +56,18 @@ function calc () {
     echo "$*" | bc -l; 
 }
 
+# send a note to myself with futz.me
+function futz () {
+    if [ -z "$1" ]
+    then
+        read -p "Futz what?" MSG 
+    else 
+        MSG="$1"
+    fi
+    #replace with your username, and please don't spam me!
+    curl -Ls futz.me/jkirchartz%20$(echo $MSG | tr ' ' + ) > /dev/null
+}
+
 # easier jekyll post
 function new_post () {
     if [ -z "$1" ]
