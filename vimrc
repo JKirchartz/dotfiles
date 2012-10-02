@@ -14,29 +14,20 @@ set noswapfile
 set backspace=indent,eol,start
 set nowrap
 
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
-
+set ffs=unix,dos,mac " Use Unix as the standard file type
 set smartcase " smart case matching
 set incsearch " incremental search
 set hlsearch  " highlight search
 set showmode
 set showcmd
-
-set mouse=a   " my mouse is bored, lemme use it occasionally.
-set mousehide " don't show the mouse while typing.
 set wildmenu  " better autocomplete for commands
 
 syntax on
 filetype plugin indent on
 
 " colorscheme
-colorscheme solarized
-if has('gui_running')
-	set background=light
-else
-	set background=dark
-endif
+colorscheme molokai
+set background=dark
 
 let html_use_css=1
 
