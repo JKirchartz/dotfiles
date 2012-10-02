@@ -66,7 +66,7 @@ function futz () {
     else 
         MSG="$1"
     fi
-    #replace with your username, and please don't spam me!
+    #replace with your username, please don't spam me!
     curl -Ls futz.me/jkirchartz%20$(echo $MSG | tr ' ' + ) > /dev/null
 }
 
