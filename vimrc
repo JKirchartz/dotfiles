@@ -1,14 +1,20 @@
+syntax on
+filetype plugin indent on
+
+" colorscheme
+set background=dark
+"uncomment next line to use terminal with 256 color support
+let g:solarized_termcolors=256
+colorscheme solarized
+
 set nocompatible " work like VIM dammit!
 set magic " NEVER TURN THIS OFF!
-
+:set encoding=utf-8 " utf-8 paranoia
 
 " live dangerously:
 set history=100
 set nobackup
 set noswapfile
-
-"utf-8 paranoia
-:set encoding=utf-8
 
 " osx backspace fix
 set backspace=indent,eol,start
@@ -22,15 +28,6 @@ set showmode
 set showcmd
 set wildmenu  " better autocomplete for commands
 
-syntax on
-filetype plugin indent on
-
-" colorscheme
-colorscheme molokai
-set background=dark
-
-let html_use_css=1
-
 " tabs & indents
 set autoindent         " Use indent from previous line
 set smarttab           " Smart handling of the tab key
@@ -43,6 +40,8 @@ set backspace=2        " Allow backspacing over indent, eol, start
 " show line number & cursor positition
 set number
 set ruler
+
+let html_use_css=1
 
 if has("autocmd")
       " Jump to last position when reopening files
@@ -60,13 +59,25 @@ endif
 " forgot to sudo vi? w!!
 cmap w!! %!sudo tee > /dev/null % 
 
+" double tab for autocomplete
 imap <Tab><Tab> <C-P>
 
 " paste while keeping the current indent
 nnoremap <leader>p p`[v`]=
 
-" paste mode toggle
+" paste mode toggle (F2)
 set pastetoggle=<F2>
+
+" spell check toggle (F5)
+inoremap <silent> <F5> <c -O>:call SpellToggle()<cr>
+map <silent> <F5> :call SpellToggle()<cr>
+function SpellToggle()
+    if &spell == 1
+        set nospell
+    else
+        set spell
+    endif
+endfunction
 
 " overwrite common misfires
 command W w
@@ -77,7 +88,6 @@ command WQ wq
 " Security fix: modelines have been an avenue for trojan attacks against
 " VIM-users, so we'll disable that.
 set nomodeline
-
 
 " pathogen
 call pathogen#infect()

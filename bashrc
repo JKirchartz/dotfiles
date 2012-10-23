@@ -1,7 +1,7 @@
 set -o vi
 #PS1="\$\w>"
-export PS1="\[$(tput setaf 1)\]\n---[\[$(tput setaf 6)\]\w\[$(tput setaf 1)\]]-[\[$(tput setaf 6)\]\u@\h\[\[$(tput setaf 1)\]]-[\[$(tput setaf 6)\]\D{%x %X}\[$(tput setaf 1)\]]---\n-[\[$(tput setaf 6)\]\!\[$(tput setaf 1)\]]-\[$(tput setaf 6)\]\$>\[$(tput sgr0)\]"
-export PS2="\[$(tput setaf 6)\]>\[$(tput sgr0)\]"
+export PS1="\[$(tput setaf 1)\]\n|---[\[$(tput setaf 6)\]\w\[$(tput setaf 1)\]]-[\[$(tput setaf 6)\]\u@\h\[\[$(tput setaf 1)\]]-[\[$(tput setaf 6)\]\D{%x %X}\[$(tput setaf 1)\]]---\n|[\[$(tput setaf 6)\]\!\[$(tput setaf 1)\]]-\[$(tput setaf 6)\]\$>\[$(tput sgr0)\]"
+export PS2="\[$(tput setaf 1)\]|\[$(tput setaf 6)\]>\[$(tput sgr0)\]"
 
 #fix history
 export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
@@ -16,14 +16,20 @@ export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 #basic aliases
 alias ll='ls -ahlFG'
+alias lm='ls -ahlFG | more'
 alias grep='grep --color=auto'
 alias pg='ps -ef | grep'
 alias cd..='cd ..'
 alias more='less' #less is more, more or less.
+alias py='python'
+alias ping='ping -c 10' 
+alias please='sudo !!'
 #alternative to cd -
 alias back='cd $OLDPWD' 
+alias home='cd ~'
+alias dotfiles='cd ~/dotfiles'
 
-# when's this month's buildguild?
+# what date is this month's buildguild?
 alias buildguild="ncal | grep We | awk '{print $ 3}'"
 
 # physically print code nicely to the default printer
@@ -31,6 +37,9 @@ alias codeprint='enscript --line-number --pretty-print --fancy-header --landscap
 
 # pretty-print git logs
 alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+# serve dir as static site
+alias serve="python -m SimpleHTTPServer"
 
 # easy unzip
 function extract () {
