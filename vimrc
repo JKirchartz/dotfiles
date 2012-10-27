@@ -10,6 +10,14 @@ set background=dark
 "uncomment next line to use terminal with 256 color support
 let g:solarized_termcolors=256
 colorscheme solarized
+
+if has('gui_running')
+    set background=light
+else
+    set background=dark
+endif
+
+set list
 " Use the same symbols as TextMate for tabstops and EOLs
 set listchars=tab:▶-,trail:•,extends:»,precedes:«,eol:¬
 
