@@ -9,6 +9,7 @@ set encoding=utf-8 " utf-8 paranoia
 set background=dark
 "uncomment next line to use terminal with 256 color support
 let g:solarized_termcolors=256
+let g:solarized_visibility="high"
 colorscheme solarized
 
 if has('gui_running')
@@ -53,14 +54,14 @@ if has("autocmd")
           \| exe "normal g'\"" | endif
 
       " liquid highlighting
-      au BufNewFile,BufRead *.liquid   setf liquid      
+      au BufNewFile,BufRead *.liquid   setf liquid
 
       "enable omnicomplete
       autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 endif
 
 " forgot to sudo vi? w!!
-cmap w!! %!sudo tee > /dev/null % 
+cmap w!! %!sudo tee > /dev/null %
 
 " double tab for autocomplete
 imap <Tab><Tab> <C-P>
