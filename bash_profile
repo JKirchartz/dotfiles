@@ -11,6 +11,7 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
     export GATHER_PROP_FILE=/home/gather/configs/build.properties
     export CURRENT_CONTENTMANAGER="/Users/jkirchartz/Documents/workspace/contentManager_trunk"
     export CONTENTMANAGER_TOMCAT=/Users/jkirchartz/Documents/workspace/contentManager_trunk/apache-tomcat-6.0.14
+    # these aliases talk because they're from the future.
     alias kj='killall -9 java && say die java scum!'
     alias rl='killall -9 java && ant all && say relaunching now && ~/contentManager.sh'
     alias rs='killall -9 java && say restarting now && ~/contentManager.sh'

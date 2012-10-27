@@ -1,45 +1,41 @@
 syntax on
 filetype plugin indent on
 
+set nocompatible " work like VIM dammit!
+set magic " NEVER TURN THIS OFF!
+set encoding=utf-8 " utf-8 paranoia
+
 " colorscheme
 set background=dark
 "uncomment next line to use terminal with 256 color support
 let g:solarized_termcolors=256
 colorscheme solarized
-
-set nocompatible " work like VIM dammit!
-set magic " NEVER TURN THIS OFF!
-:set encoding=utf-8 " utf-8 paranoia
+" Use the same symbols as TextMate for tabstops and EOLs
+set listchars=tab:▶-,trail:•,extends:»,precedes:«,eol:¬
 
 " live dangerously:
-set history=100
-set nobackup
-set noswapfile
+set history=100 nobackup noswapfile
 
 " osx backspace fix
-set backspace=indent,eol,start
-set nowrap
+set nowrap backspace=indent,eol,start
 
 set ffs=unix,dos,mac " Use Unix as the standard file type
 set smartcase " smart case matching
 set incsearch " incremental search
 set hlsearch  " highlight search
+set wildmenu  " better autocomplete for commands
 set showmode
 set showcmd
-set wildmenu  " better autocomplete for commands
 
 " tabs & indents
 set autoindent         " Use indent from previous line
 set smarttab           " Smart handling of the tab key
-set expandtab          " Use spaces for tabs
 set shiftround         " Round indent to multiple of shiftwidth
 set shiftwidth=4       " Number of spaces for each indent
 set softtabstop=4      " Number of spaces for tab key
-set backspace=2        " Allow backspacing over indent, eol, start
 
 " show line number & cursor positition
-set number
-set ruler
+set number ruler
 
 let html_use_css=1
 
@@ -47,14 +43,13 @@ if has("autocmd")
       " Jump to last position when reopening files
       au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
           \| exe "normal g'\"" | endif
-      
+
       " liquid highlighting
       au BufNewFile,BufRead *.liquid   setf liquid      
-      
+
       "enable omnicomplete
       autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 endif
-
 
 " forgot to sudo vi? w!!
 cmap w!! %!sudo tee > /dev/null % 
@@ -64,6 +59,9 @@ imap <Tab><Tab> <C-P>
 
 " paste while keeping the current indent
 nnoremap <leader>p p`[v`]=
+
+" Shortcut to rapidly toggle `set list`
+nmap <leader>l :set list!<CR>
 
 " paste mode toggle (F2)
 set pastetoggle=<F2>
