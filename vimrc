@@ -37,11 +37,12 @@ set showmode
 set showcmd
 
 " tabs & indents
-set autoindent         " Use indent from previous line
-set smarttab           " Smart handling of the tab key
-set shiftround         " Round indent to multiple of shiftwidth
-set shiftwidth=4       " Number of spaces for each indent
-set softtabstop=4      " Number of spaces for tab key
+set smartindent
+set shiftround
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
 
 " show line number & cursor positition
 set number ruler
