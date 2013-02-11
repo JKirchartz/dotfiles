@@ -1,42 +1,67 @@
-syntax on
+"------------------------------------------------------------
+" Standard Tweaks
+"------------------------------------------------------------
+set  nocompatible " work like VIM dammit! MUST be first!
+set magic " NEVER TURN THIS OFF! WIZARDS WILL GET YOU!
+set ffs=unix,dos,mac " Use *nix as the default file type
+set encoding=utf-8 " ensure encoding
+set nomodeline " Security fix: modelines have been an avenue for trojan attacks
+syntax on " highlight that syntax, please
 filetype plugin indent on
+set clipboard=unnamed
+set history=100 nobackup noswapfile " live dangerously
+set nowrap backspace=indent,eol,start " fix backspace
+set number ruler " show line number & cursor positition
+set wildmenu  " better autocomplete
+set showmode
+set showcmd
+let mapleader = "/<space>"
 
-set nocompatible " work like VIM dammit!
-set magic " NEVER TURN THIS OFF!
-set encoding=utf-8 " utf-8 paranoia
 
-" colorscheme
-set background=dark
-"uncomment next line to use terminal with 256 color support
-let g:solarized_termcolors=256
-let g:solarized_visibility="high"
+"------------------------------------------------------------
+" Set Terminal Title for Tmux
+"------------------------------------------------------------
+set title
+autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
+
+
+"------------------------------------------------------------
+" Setup Colors
+"------------------------------------------------------------
 colorscheme solarized
-
 if has('gui_running')
     set background=light
 else
     set background=dark
 endif
+" force 256 colors
+set t_Co=256
+" let g:solarized_termcolors=256
+" let g:solarized_visibility="high" " highlight trailing spaces etc from list
 
+
+"------------------------------------------------------------
+" Show Whitespace
+"------------------------------------------------------------
+set listchars=tab:▶-,trail:•,extends:»,precedes:«,eol:¬ " same symbols as TextMate
 set list
-" Use the same symbols as TextMate for tabstops and EOLs
-set listchars=tab:▶-,trail:•,extends:»,precedes:«,eol:¬
+nmap <leader>l :set list!<CR> " toggle whitespace
 
-" live dangerously:
-set history=100 nobackup noswapfile
 
-" osx backspace fix
-set nowrap backspace=indent,eol,start
-
-set ffs=unix,dos,mac " Use Unix as the standard file type
+"------------------------------------------------------------
+" Search & Highlighting
+"------------------------------------------------------------
 set smartcase " smart case matching
 set incsearch " incremental search
 set hlsearch  " highlight search
-set wildmenu  " better autocomplete for commands
-set showmode
-set showcmd
+set ignorecase " make /foo match FOO & FOo but /FOO only match FOO
+nmap <leader>q :nohlsearch<CR> " clear search highlight
 
-" tabs & indents
+
+"------------------------------------------------------------
+" Tabs & Indents
+" All tabs are replaced by 4 spaces (Yes I'm *that* guy)
+"------------------------------------------------------------
 set smartindent
 set shiftround
 set tabstop=4
@@ -44,9 +69,14 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 
-" show line number & cursor positition
-set number ruler
 
+"------------------------------------------------------------
+" 80 column rule
+"------------------------------------------------------------
+set colorcolumn=81
+highlight ColorColumn ctermbg=Black
+
+" highlight css in html(?)
 let html_use_css=1
 
 if has("autocmd")
@@ -64,21 +94,32 @@ endif
 " forgot to sudo vi? w!!
 cmap w!! %!sudo tee > /dev/null %
 
-" double tab for autocomplete
-imap <Tab><Tab> <C-P>
-
 " paste while keeping the current indent
 nnoremap <leader>p p`[v`]=
 
-" Shortcut to rapidly toggle `set list`
-nmap <leader>l :set list!<CR>
+"------------------------------------------------------------
+" Function Keys
+"------------------------------------------------------------
+
+" No Help, please (F1)
+nmap <F1> <Esc>
 
 " paste mode toggle (F2)
 set pastetoggle=<F2>
 
-" spell check toggle (F5)
-inoremap <silent> <F5> <c -O>:call SpellToggle()<cr>
-map <silent> <F5> :call SpellToggle()<cr>
+" autocomplete (F3)
+imap <F3> <C-P>
+
+" A command to delete all trailing whitespace from a file.
+command! DeleteTrailingWhitespace %s:\(\S*\)\s\+$:\1:
+nnoremap <silent><F4> :DeleteTrailingWhitespace<CR>
+
+"toggle solarized bg
+call togglebg#map("<F5>")
+
+" spell check toggle (F7)
+inoremap <silent> <F7> <c -O>:call SpellToggle()<cr>
+map <silent> <F7> :call SpellToggle()<cr>
 function SpellToggle()
     if &spell == 1
         set nospell
@@ -93,10 +134,68 @@ command Q q
 command Wq wq
 command WQ wq
 
-" Security fix: modelines have been an avenue for trojan attacks against
-" VIM-users, so we'll disable that.
-set nomodeline
 
+"------------------------------------------------------------
+" Improved Hex Editing
+" http://vim.wikia.com/wiki/Improved_hex_editing
+"------------------------------------------------------------
+nnoremap <C-H> :Hexmode<CR>
+inoremap <C-H> <Esc>:Hexmode<CR>
+vnoremap <C-H> :<C-U>Hexmode<CR>
+
+command -bar Hexmode call ToggleHex()
+
+" helper function to toggle hex mode
+function ToggleHex()
+  " hex mode should be considered a read-only operation
+  " save values for modified and read-only for restoration later,
+  " and clear the read-only flag for now
+  let l:modified=&mod
+  let l:oldreadonly=&readonly
+  let &readonly=0
+  let l:oldmodifiable=&modifiable
+  let &modifiable=1
+  if !exists("b:editHex") || !b:editHex
+    " save old options
+    let b:oldft=&ft
+    let b:oldbin=&bin
+    " set new options
+    setlocal binary " make sure it overrides any textwidth, etc.
+    let &ft="xxd"
+    " set status
+    let b:editHex=1
+    " switch to hex editor
+    %!xxd
+  else
+    " restore old options
+    let &ft=b:oldft
+    if !b:oldbin
+      setlocal nobinary
+    endif
+    " set status
+    let b:editHex=0
+    " return to normal editing
+    %!xxd -r
+  endif
+  " restore values for modified and read only state
+  let &mod=l:modified
+  let &readonly=l:oldreadonly
+  let &modifiable=l:oldmodifiable
+endfunction
+
+"------------------------------------------------------------
 " pathogen
+"------------------------------------------------------------
+runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
+call pathogen#helptags()
+
+
+"------------------------------------------------------------
+" NerdTree
+"------------------------------------------------------------
+nmap <leader>t :NERDTreeToggle<CR>
+let g:NERDChristmasTree=1    " more colorful NERDTree
+" close VIM "normally" if NERDTree is running
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 

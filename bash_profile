@@ -1,26 +1,62 @@
-# mac uses bash_profile instead of bashrc
-if [[ "$OSTYPE" =~ ^darwin ]]; then
-    #import bashrc
-    source ~/.bashrc
-    
-    # stuff for the 9-5
-    export PATH=${PATH}:$JAVA_HOME:$GATHER_CONFIG:$GATHER_CONFIG_DIR:$GATHER_PROP_FILE:$CONTENTMANAGER_TOMCAT:/opt/android/tools:/usr/local/mysql/bin
-    export JAVA_HOME=$(/usr/libexec/java_home)
-    export GATHER_CONFIG=/home/gather/configs/gather_config.xml
-    export GATHER_CONFIG_DIR=/home/gather/configs
-    export GATHER_PROP_FILE=/home/gather/configs/build.properties
-    export CURRENT_CONTENTMANAGER="/Users/jkirchartz/Documents/workspace/contentManager_trunk"
-    export CONTENTMANAGER_TOMCAT=/Users/jkirchartz/Documents/workspace/contentManager_trunk/apache-tomcat-6.0.14
-    # these aliases talk because they're from the future.
-    alias kj='killall -9 java && say die java scum!'
-    alias rl='killall -9 java && ant all && say relaunching now && ~/contentManager.sh'
-    alias rs='killall -9 java && say restarting now && ~/contentManager.sh'
-    alias ad='ant deploy-jsp && date'
-    alias aa='ant all && date && say ant all completed'
-    alias lp='ant all && say launching now && ~/contentManager.sh'
-    alias gatherconf='sudo vi $GATHER_CONFIG'
-    alias hostsconf='sudo vi /etc/hosts'
-    alias con='cd $CURRENT_CONTENTMANAGER'
-    alias jksky='cd ~/Dropbox/JKsky'
-fi
+case $OSTYPE in
+    darwin*)
+        # this is a mac
+        # import bashrc
+        source ~/.bashrc
 
+        export TERM=xterm-256color
+
+        # TMUX
+        if which tmux 2>&1 >/dev/null; then
+            # if no session is started, start a new session
+            test -z ${TMUX} && tmux
+
+            # when quitting tmux, try to attach
+            while test -z ${TMUX}; do
+                tmux attach || break
+            done
+        fi
+
+        # kill apache/tomcat
+        function kill_apache {
+            ps -ae | awk '/([a]pache|[t]omcat)/ {print $1}' | xargs kill -9
+        }
+
+        alias hostsconf='sudo vi /etc/hosts'
+        alias jksky='cd ~/Dropbox/JKsky '
+        alias chrome='open -a Google\ Chrome '
+
+        # homebrew completion
+        source `brew --repository`/Library/Contributions/brew_bash_completion.sh
+
+        # PATHs
+        export NODE_PATH="/usr/local/lib/node"
+        export GEM_HOME=~/gems
+        [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+        # Google tools
+        PATH=$PATH:/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine:~/Documents/android-sdk/platform-tools/
+        # Ruby/Gem & Npm
+        PATH=$PATH:/usr/local/share/npm/bin:~/gems/bin
+        # Python
+        PATH=$PATH:/Library/Frameworks/Python.framework/Versions/2.7/bin:/Library/Frameworks/Python.framework/Versions/Current/bin
+        # Bins
+        export PATH=$PATH:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+        ;;
+    linux*)
+        # this is linux
+        ;;
+
+    *BSD*)
+        # this is a flavor of BSD
+        ;;
+
+    cygwin)
+        # this is a PC with cygwin
+        echo "cygwin!? May God have mercy on your soul."
+        ;;
+
+    *)
+        echo "$OSTYPE unknown in .bash_profile"
+        ;;
+esac

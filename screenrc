@@ -1,0 +1,29 @@
+# use login shell
+shell -${SHELL}
+
+# don't gimme that dumb message
+startup_message off
+
+# utf-8 plz
+defutf8 on
+
+# show where i am
+caption always "%n(%t)"
+
+# visual bell
+vbell on
+vbell_msg " !! PING !!"
+
+# Don't turn this off
+autodetach on
+
+# for crappy connections
+defnonblock on
+
+# modded from billnye's .screenrc
+hardstatus on
+hardstatus alwayslastline
+hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %m/%d %C%a "
+
+# more like my tmux statusbar
+# hardstatus alwayslastline '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %d %M %y %{W}%c %{g}]'

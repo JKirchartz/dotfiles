@@ -1,2 +1,6 @@
 /vim/.netrwhist
 /vim/.VimballRecord
+.vim/view
+.DS_Store
+*~
+*.swp

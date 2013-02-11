@@ -8,7 +8,7 @@
 
 dir=~/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
-files="bashrc bash_profile vimrc vim"    # list of files/folders to symlink in homedir
+files="bashrc bash_profile vimrc vim tmux.conf slate ssh gitconfig screenrc"    # list of files/folders to symlink in homedir
 
 ##########
 
@@ -31,3 +31,7 @@ for file in $files; do
         ln -s $dir/$file ~/.$file
     fi
 done
+
+# setup & get all submodules
+git submodule init
+git submodule update

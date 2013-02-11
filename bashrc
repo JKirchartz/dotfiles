@@ -1,45 +1,63 @@
 set -o vi
-#PS1="\$\w>"
-export PS1="\[$(tput setaf 1)\]\n|---[\[$(tput setaf 6)\]\w\[$(tput setaf 1)\]]-[\[$(tput setaf 6)\]\u@\h\[\[$(tput setaf 1)\]]-[\[$(tput setaf 6)\]\D{%x %X}\[$(tput setaf 1)\]]---\n|[\[$(tput setaf 6)\]\!\[$(tput setaf 1)\]]-\[$(tput setaf 6)\]\$>\[$(tput sgr0)\]"
-export PS2="\[$(tput setaf 1)\]|\[$(tput setaf 6)\]>\[$(tput sgr0)\]"
+
+# login message
+if which fortune > /dev/null; then
+     if which cowsay > /dev/null; then
+        fortune -as | cowsay
+     else
+        fortune -as
+    fi
+fi
+
+
+function __prompt {
+    # sync history across terms
+    history -a
+    history -n
+    # Get directory (and git-prompt) & generate term-wide hr
+    DIR=`pwd|sed -e "s!$HOME!~!";__git_ps1 "(%s)"`
+    #this depends on the calc function
+    cols=`calc $(tput cols) - ${#DIR}`
+    echo
+    echo -n $DIR
+    for ((x = 0; x < cols; x++)); do
+        printf %s -
+    done
+    case "$TERM" in
+        *xterm* )
+            # clear terminal title if set by application etc.
+            echo -e "\033]0;\007"
+        ;;
+    esac
+}
+PROMPT_COMMAND="__prompt"
+export __cr='\e[0;31m' #red
+export __cc='\e[0;36m' #cyan
+export __nc='\e[0m'    #no color
+
+export PS1="\[$__cr\]┌─[\[$__cc\]\D{%x %X}\[$__cr\]]-[\[$__cc\]\j\[$__cr\]]\n\[$__cr\]└─[\[$__cc\]\!\[$__cr\]]-[\[$__cc\]\$>\[$__nc\]"
+export PS2="\[$__cr\]└─\[$__cc\]>\[$__nc\]"
+
+# git-prompt settings
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWUPSTREAM="auto"
+GIT_PS1_SHOWCOLORHINTS=1
 
 #fix history
-export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
-export HISTSIZE=1000                     # big history
-export HISTFILESIZE=100000               # big history
+export HISTCONTROL=ignoredups             # no duplicate entries
+export HISTSIZE=100000                     # big history
+export HISTFILESIZE=20000                 # big history
 export HISTIGNORE="&:ls:ll:pwd:exit:clear:[ \t]*"
-shopt -s histappend                      # append to history, don't overwrite it
+shopt -s histappend                       # append to history, not overwrite it
+shopt -s cdspell                          # spellcheck for cd
+shopt -s nocaseglob                       # ignore case for autoexpansion
+#shopt -s dirspell                         # spellcheck for directories
 
-# Save and reload the history after each command finishes
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+# Grep Colors
+export GREP_OPTIONS='--color=auto' GREP_COLOR='00;38;5;157'
 
-
-#basic aliases
-alias ll='ls -ahlFG'
-alias lm='ls -ahlFG | more'
-alias grep='grep --color=auto'
-alias pg='ps -ef | grep'
-alias cd..='cd ..'
-alias more='less' #less is more, more or less.
-alias py='python'
-alias ping='ping -c 10' 
-alias please='sudo !!'
-#alternative to cd -
-alias back='cd $OLDPWD' 
-alias home='cd ~'
-alias dotfiles='cd ~/dotfiles'
-
-# what date is this month's buildguild?
-alias buildguild="ncal | grep We | awk '{print $ 3}'"
-
-# physically print code nicely to the default printer
-alias codeprint='enscript --line-number --pretty-print --fancy-header --landscape '
-
-# pretty-print git logs
-alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-
-# serve dir as static site
-alias serve="python -m SimpleHTTPServer"
+#simple calculator
+function calc () { echo "$*" | bc -l; }
 
 # easy unzip
 function extract () {
@@ -62,55 +80,17 @@ function extract () {
      fi
 }
 
-#simple calculator
-function calc () { 
-    echo "$*" | bc -l; 
-}
+# git prompt
+source ~/dotfiles/scripts/git-prompt.sh
 
-# send a note to myself with futz.me
-function futz () {
-    if [ -z "$1" ]
-    then
-        read -p "Futz what?" MSG 
-    else 
-        MSG="$1"
-    fi
-    #replace with your username, please don't spam me!
-    curl -Ls futz.me/jkirchartz%20$(echo $MSG | tr ' ' + ) > /dev/null
-}
+# git completion
+source ~/dotfiles/scripts/git-completion.bash
 
-# easier jekyll post
-function new_post () {
-    if [ -z "$1" ]
-    then
-        read -p "Post Title:"  TITLE
-    else
-        TITLE="$1"
-    fi
-    FILE=$( echo $TITLE | tr A-Z a-z | tr ' ' _ )
-    echo -e '---\nlayout: post\ntitle: '$TITLE'\npublished: false\ntags:\n---\n' > $(date '+%Y-%m-%d-')"$FILE"'.md'
-}
+# node completion
+source ~/dotfiles/scripts/npm-completion.bash
 
-# easier git commit & push
-function gcp () {
-    if [ -z "$1" ]
-    then
-        read -p "Commit Message:" MSG
-    else
-        MSG="$1"
-    fi
-    git add .
-    git commit -am "$MSG"
-    git push
-}
+# get aliases
+source ~/dotfiles/bash_aliases
 
-PATH="~/gems/bin:/Library/Frameworks/Python.framework/Versions/2.7/bin:/Library/Frameworks/Python.framework/Versions/Current/bin:${PATH}"
-export PATH
 
-export GEM_HOME=~/gems
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
-# MacPorts Installer: adding an appropriate PATH variable for use with MacPorts.
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-# Finished adapting your PATH environment variable for use with MacPorts.
-
+export PATH=$PATH:~/dotfiles/scripts
