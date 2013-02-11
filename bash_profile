@@ -2,7 +2,7 @@
 if [[ "$OSTYPE" =~ ^darwin ]]; then
     #import bashrc
     source ~/.bashrc
-    
+
     # stuff for the 9-5
     export PATH=${PATH}:$JAVA_HOME:$GATHER_CONFIG:$GATHER_CONFIG_DIR:$GATHER_PROP_FILE:$CONTENTMANAGER_TOMCAT:/opt/android/tools:/usr/local/mysql/bin
     export JAVA_HOME=$(/usr/libexec/java_home)

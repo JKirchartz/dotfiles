@@ -3,6 +3,17 @@ set -o vi
 export PS1="\[$(tput setaf 1)\]\n|---[\[$(tput setaf 6)\]\w\[$(tput setaf 1)\]]-[\[$(tput setaf 6)\]\u@\h\[\[$(tput setaf 1)\]]-[\[$(tput setaf 6)\]\D{%x %X}\[$(tput setaf 1)\]]---\n|[\[$(tput setaf 6)\]\!\[$(tput setaf 1)\]]-\[$(tput setaf 6)\]\$>\[$(tput sgr0)\]"
 export PS2="\[$(tput setaf 1)\]|\[$(tput setaf 6)\]>\[$(tput sgr0)\]"
 
+# # TMUX
+# if which tmux 2>&1 >/dev/null; then
+#    # if no session is started, start a new session
+#    test -z ${TMUX} && tmux
+#
+#    # when quitting tmux, try to attach
+#    while test -z ${TMUX}; do
+#        tmux attach || break
+#    done
+# fi
+
 #fix history
 export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
 export HISTSIZE=1000                     # big history
@@ -13,19 +24,20 @@ shopt -s histappend                      # append to history, don't overwrite it
 # Save and reload the history after each command finishes
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
+# Grep Colors
+export GREP_OPTIONS='--color=auto' GREP_COLOR='00;38;5;157'
 
 #basic aliases
 alias ll='ls -ahlFG'
 alias lm='ls -ahlFG | more'
-alias grep='grep --color=auto'
 alias pg='ps -ef | grep'
 alias cd..='cd ..'
 alias more='less' #less is more, more or less.
 alias py='python'
-alias ping='ping -c 10' 
+alias ping='ping -c 10' #set a default, coz I always forget
 alias please='sudo !!'
 #alternative to cd -
-alias back='cd $OLDPWD' 
+alias back='cd $OLDPWD'
 alias home='cd ~'
 alias dotfiles='cd ~/dotfiles'
 
@@ -37,6 +49,9 @@ alias codeprint='enscript --line-number --pretty-print --fancy-header --landscap
 
 # pretty-print git logs
 alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+# gh-pages jekyll generation
+alias ghp="jekyll --pygments --no-lsi --safe"
 
 # serve dir as static site
 alias serve="python -m SimpleHTTPServer"
