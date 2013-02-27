@@ -33,7 +33,9 @@ function __prompt {
     done
     echo
 }
-
+if which fortune > /dev/null; then
+     fortune -s magic goedel drugs computers wisdom zippy
+fi
 PROMPT_COMMAND="__prompt"
 export PS1="$COLOR_RED$(echo -e "\033(0lqq\033(B")[$COLOR_CYAN\u@\h$COLOR_RED]-[$COLOR_CYAN\D{%x %X}$COLOR_RED]$(echo -e "\033(0q\033(B")\n$(echo -e "\033(0m\033(B")[$COLOR_CYAN\j$COLOR_RED]-[$COLOR_CYAN\!$COLOR_RED]-[$COLOR_CYAN\$>$COLOR_NC"
 export PS2="$COLOR_RED$(echo -e "\033(0m\033(B"))$COLOR_CYAN>$COLOR_NC"
