@@ -1,28 +1,61 @@
 set -o vi
-#PS1="\$\w>"
-export PS1="\[$(tput setaf 1)\]\n|---[\[$(tput setaf 6)\]\w\[$(tput setaf 1)\]]-[\[$(tput setaf 6)\]\u@\h\[\[$(tput setaf 1)\]]-[\[$(tput setaf 6)\]\D{%x %X}\[$(tput setaf 1)\]]---\n|[\[$(tput setaf 6)\]\!\[$(tput setaf 1)\]]-\[$(tput setaf 6)\]\$>\[$(tput sgr0)\]"
-export PS2="\[$(tput setaf 1)\]|\[$(tput setaf 6)\]>\[$(tput sgr0)\]"
+#define colors
+export COLOR_NC='\e[0m' # No Color
+export COLOR_WHITE='\e[1;37m'
+export COLOR_BLACK='\e[0;30m'
+export COLOR_BLUE='\e[0;34m'
+export COLOR_LIGHT_BLUE='\e[1;34m'
+export COLOR_GREEN='\e[0;32m'
+export COLOR_LIGHT_GREEN='\e[1;32m'
+export COLOR_CYAN='\e[0;36m'
+export COLOR_LIGHT_CYAN='\e[1;36m'
+export COLOR_RED='\e[0;31m'
+export COLOR_LIGHT_RED='\e[1;31m'
+export COLOR_PURPLE='\e[0;35m'
+export COLOR_LIGHT_PURPLE='\e[1;35m'
+export COLOR_BROWN='\e[0;33m'
+export COLOR_YELLOW='\e[1;33m'
+export COLOR_GRAY='\e[0;30m'
+export COLOR_LIGHT_GRAY='\e[0;37m'
 
-# # TMUX
-# if which tmux 2>&1 >/dev/null; then
-#    # if no session is started, start a new session
-#    test -z ${TMUX} && tmux
-#
-#    # when quitting tmux, try to attach
-#    while test -z ${TMUX}; do
-#        tmux attach || break
-#    done
-# fi
+function __prompt {
+    # Save and reload the history after each command finishes
+    history -a
+    history -c
+    history -r
+    # Get directory & generate term-wide hr
+    DIR=`pwd|sed -e "s!$HOME!~!"`
+    cols=`calc $(tput cols) - ${#DIR}`
+    echo
+    echo -n $DIR
+    for ((x = 0; x < cols; x++)); do
+        printf %s -
+    done
+    echo
+}
+
+PROMPT_COMMAND="__prompt"
+export PS1="$COLOR_RED$(echo -e "\033(0lqq\033(B")[$COLOR_CYAN\u@\h$COLOR_RED]-[$COLOR_CYAN\D{%x %X}$COLOR_RED]$(echo -e "\033(0q\033(B")\n$(echo -e "\033(0m\033(B")[$COLOR_CYAN\j$COLOR_RED]-[$COLOR_CYAN\!$COLOR_RED]-[$COLOR_CYAN\$>$COLOR_NC"
+export PS2="$COLOR_RED$(echo -e "\033(0m\033(B"))$COLOR_CYAN>$COLOR_NC"
+
+# TMUX
+if which tmux 2>&1 >/dev/null; then
+   # if no session is started, start a new session
+   test -z ${TMUX} && tmux
+
+   # when quitting tmux, try to attach
+   while test -z ${TMUX}; do
+       tmux attach || break
+   done
+fi
 
 #fix history
 export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
 export HISTSIZE=1000                     # big history
-export HISTFILESIZE=100000               # big history
+export HISTFILESIZE=1000                 # big history
 export HISTIGNORE="&:ls:ll:pwd:exit:clear:[ \t]*"
 shopt -s histappend                      # append to history, don't overwrite it
 
-# Save and reload the history after each command finishes
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # Grep Colors
 export GREP_OPTIONS='--color=auto' GREP_COLOR='00;38;5;157'

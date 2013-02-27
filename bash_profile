@@ -24,3 +24,8 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
     alias jksky='cd ~/Dropbox/JKsky'
 fi
 
+
+# MacPorts Installer addition on 2013-02-14_at_20:37:11: adding an appropriate PATH variable for use with MacPorts.
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+# Finished adapting your PATH environment variable for use with MacPorts.
+
