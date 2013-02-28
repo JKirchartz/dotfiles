@@ -35,9 +35,9 @@ function __prompt {
 }
 if which fortune > /dev/null; then
      if which cowsay > /dev/null; then
-        fortune -s magic goedel drugs startrek murphy humorists wisdom zippy | cowsay -f small
+        fortune -s magic goedel drugs startrek humorists wisdom zippy | cowsay -f small
      else
-        fortune -s magic goedel drugs startrek murphy humorists wisdom zippy
+        fortune -s magic goedel drugs startrek humorists wisdom zippy
     fi
 fi
 PROMPT_COMMAND="__prompt"
@@ -164,8 +164,10 @@ function gcp () {
 # to live dangerous
 function gcpp (){
     WTC=$(curl -s http://whatthecommit.com/index.txt)
+    MSG="Automated Message: "$WTC
+    echo $MSG
     git add .
-    git commit -am "Automated Commit Message: "$WTC
+    git commit -am $MSG
     git push
 }
 
