@@ -34,7 +34,11 @@ function __prompt {
     echo
 }
 if which fortune > /dev/null; then
-     fortune -s magic goedel drugs computers wisdom zippy
+     if which cowsay > /dev/null; then
+         fortune -s magic goedel drugs startek murphy humorists wisdom zippy | cowsay -f small
+     else
+        fortune -s magic goedel drugs startek murphy humorists wisdom zippy
+    fi
 fi
 PROMPT_COMMAND="__prompt"
 export PS1="$COLOR_RED$(echo -e "\033(0lqq\033(B")[$COLOR_CYAN\u@\h$COLOR_RED]-[$COLOR_CYAN\D{%x %X}$COLOR_RED]$(echo -e "\033(0q\033(B")\n$(echo -e "\033(0m\033(B")[$COLOR_CYAN\j$COLOR_RED]-[$COLOR_CYAN\!$COLOR_RED]-[$COLOR_CYAN\$>$COLOR_NC"
@@ -151,6 +155,17 @@ function gcp () {
     fi
     git add .
     git commit -am "$MSG"
+    git push
+}
+
+# much easier commit, gets message from whatthecommit.com
+# commit messages are completely random, completely. It may
+# be NSFW, it's probably best not to use this, but it's fun 
+# to live dangerous
+function gcpp (){
+    WTC=$(curl -s http://whatthecommit.com/index.txt)
+    git add .
+    git commit -am "Automated Commit Message: "$WTC
     git push
 }
 
