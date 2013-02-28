@@ -35,9 +35,9 @@ function __prompt {
 }
 if which fortune > /dev/null; then
      if which cowsay > /dev/null; then
-         fortune -s magic goedel drugs startek murphy humorists wisdom zippy | cowsay -f small
+        fortune -s magic goedel drugs startrek murphy humorists wisdom zippy | cowsay -f small
      else
-        fortune -s magic goedel drugs startek murphy humorists wisdom zippy
+        fortune -s magic goedel drugs startrek murphy humorists wisdom zippy
     fi
 fi
 PROMPT_COMMAND="__prompt"
