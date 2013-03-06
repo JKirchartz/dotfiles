@@ -1,4 +1,14 @@
 set -o vi
+export TERM=xterm
+# login message
+if which fortune > /dev/null; then
+     if which cowsay > /dev/null; then
+        fortune -s fortunes magic goedel drugs startrek humorists wisdom zippy | cowsay -f small
+     else
+        fortune -s fortunes magic goedel drugs startrek humorists wisdom zippy
+    fi
+fi
+
 #define colors
 export COLOR_NC='\e[0m' # No Color
 export COLOR_WHITE='\e[1;37m'
@@ -33,13 +43,6 @@ function __prompt {
     done
     echo
 }
-if which fortune > /dev/null; then
-     if which cowsay > /dev/null; then
-        fortune -s magic goedel drugs startrek humorists wisdom zippy | cowsay -f small
-     else
-        fortune -s magic goedel drugs startrek humorists wisdom zippy
-    fi
-fi
 PROMPT_COMMAND="__prompt"
 export PS1="$COLOR_RED$(echo -e "\033(0lqq\033(B")[$COLOR_CYAN\u@\h$COLOR_RED]-[$COLOR_CYAN\D{%x %X}$COLOR_RED]$(echo -e "\033(0q\033(B")\n$(echo -e "\033(0m\033(B")[$COLOR_CYAN\j$COLOR_RED]-[$COLOR_CYAN\!$COLOR_RED]-[$COLOR_CYAN\$>$COLOR_NC"
 export PS2="$COLOR_RED$(echo -e "\033(0m\033(B"))$COLOR_CYAN>$COLOR_NC"
@@ -167,7 +170,7 @@ function gcpp (){
     MSG="Automated Message: "$WTC
     echo $MSG
     git add .
-    git commit -am $MSG
+    git commit -am "$MSG"
     git push
 }
 
