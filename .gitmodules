@@ -1,0 +1,9 @@
+[submodule "nerdtree"]
+    path = vim/bundle/nerdtree
+    url = git://github.com/scrooloose/nerdtree.git
+[submodule "vim-javascript"]
+    path = vim/bundle/vim-javascript
+    url = git://github.com/pangloss/vim-javascript.git
+[submodule "vim-surround"]
+    path = vim/bundle/vim-surround
+    url = git://github.com/tpope/vim-surround.git
