@@ -146,3 +146,5 @@ set nomodeline
 " pathogen
 call pathogen#infect()
 
+" close VIM "normally" if NERDTree is running
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
