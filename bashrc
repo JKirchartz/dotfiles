@@ -3,9 +3,9 @@ export TERM=xterm
 # login message
 if which fortune > /dev/null; then
      if which cowsay > /dev/null; then
-        fortune -s fortunes magic goedel drugs startrek humorists wisdom zippy | cowsay -f small
+        fortune -as | cowsay -f small
      else
-        fortune -s fortunes magic goedel drugs startrek humorists wisdom zippy
+        fortune -as
     fi
 fi
 
@@ -78,8 +78,7 @@ alias more='less' #less is more, more or less.
 alias py='python'
 alias ping='ping -c 10' #set a default, coz I always forget
 alias please='sudo !!'
-alias ff='fortune -s fortunes magic goedel drugs startrek humorists wisdom zippy'
-alias f='fortune -s fortunes magic goedel drugs startrek humorists wisdom zippy | cowsay -f small'
+alias f='fortune -as'
 #alternative to cd -
 alias back='cd $OLDPWD'
 alias home='cd ~'
@@ -185,4 +184,9 @@ export GEM_HOME=~/gems
 # MacPorts Installer: adding an appropriate PATH variable for use with MacPorts.
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 # Finished adapting your PATH environment variable for use with MacPorts.
+
+#node path
+export NODE_PATH="/usr/local/lib/node"
+export PATH="/usr/local/share/npm/bin:$PATH"
+
 
