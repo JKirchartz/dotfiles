@@ -1,6 +1,9 @@
 # Configs
 config defaultToCurrentScreen true
 
+# Window Hints
+bind e:cmd hint ASDFGHJKLQWERTYUIOPCVBN # use whatever keys you want
+
 # Monitor Aliases
 alias man-laptop 1680x1050
 
