@@ -88,6 +88,10 @@ function SpellToggle()
     endif
 endfunction
 
+" A command to delete all trailing whitespace from a file.
+command! DeleteTrailingWhitespace %s:\(\S*\)\s\+$:\1:
+nnoremap <silent><F5> :DeleteTrailingWhitespace<CR>
+
 " overwrite common misfires
 command W w
 command Q q
@@ -145,6 +149,10 @@ set nomodeline
 
 " pathogen
 call pathogen#infect()
+call pathogen#helptags()
 
+" NerdTree
+nmap <leader>t :NERDTreeToggle<CR>
+let g:NERDChristmasTree=1    " more colorful NERDTree
 " close VIM "normally" if NERDTree is running
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif

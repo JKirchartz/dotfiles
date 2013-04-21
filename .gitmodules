@@ -7,3 +7,9 @@
 [submodule "vim-surround"]
     path = vim/bundle/vim-surround
     url = git://github.com/tpope/vim-surround.git
+[submodule "vim/bundle/python.vim"]
+    path = vim/bundle/python.vim
+    url = git://github.com/vim-scripts/python.vim--Vasiliev.git
+[submodule "vim/bundle/vim-markdown"]
+    path = vim/bundle/vim-markdown
+    url = git://github.com/tpope/vim-markdown.git
