@@ -1,7 +1,9 @@
 syntax on
 filetype plugin indent on
 
-set nocompatible " work like VIM dammit!
+let mapleader = ","
+
+set  nocompatible " work like VIM dammit!
 set magic " NEVER TURN THIS OFF!
 set encoding=utf-8 " utf-8 paranoia
 
