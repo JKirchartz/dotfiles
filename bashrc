@@ -1,5 +1,17 @@
 set -o vi
 export TERM=xterm
+
+# TMUX
+if which tmux 2>&1 >/dev/null; then
+   # if no session is started, start a new session
+   test -z ${TMUX} && tmux
+
+   # when quitting tmux, try to attach
+   while test -z ${TMUX}; do
+       tmux attach || break
+   done
+fi
+
 # login message
 if which fortune > /dev/null; then
      if which cowsay > /dev/null; then
@@ -35,6 +47,7 @@ function __prompt {
     history -r
     # Get directory & generate term-wide hr
     DIR=`pwd|sed -e "s!$HOME!~!"`
+    #this depends on the calc function
     cols=`calc $(tput cols) - ${#DIR}`
     echo
     echo -n $DIR
@@ -47,16 +60,6 @@ PROMPT_COMMAND="__prompt"
 export PS1="\[$COLOR_RED\]$(echo -e "\033(0lqq\033(B")[\[$COLOR_CYAN\]\u@\h\[$COLOR_RED\]]-[\[$COLOR_CYAN\]\D{%x %X}\[$COLOR_RED\]]-[\[$COLOR_CYAN\]\j\[$COLOR_RED\]]\n$(echo -e "\033(0m\033(B")[\[$COLOR_CYAN\]\!\[$COLOR_RED\]]-[\[$COLOR_CYAN\]\$>\[$COLOR_NC\]"
 export PS2="\[$COLOR_RED\]$(echo -e "\033(0m\033(B"))\[$COLOR_CYAN\]>\[$COLOR_NC\]"
 
-# TMUX
-if which tmux 2>&1 >/dev/null; then
-   # if no session is started, start a new session
-   test -z ${TMUX} && tmux
-
-   # when quitting tmux, try to attach
-   while test -z ${TMUX}; do
-       tmux attach || break
-   done
-fi
 
 #fix history
 export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
@@ -83,6 +86,9 @@ alias f='fortune -as'
 alias back='cd $OLDPWD'
 alias home='cd ~'
 alias dotfiles='cd ~/dotfiles'
+#script shortcuts
+alias gcpp="~/dotfiles/scripts/gcpp.sh"
+alias gcp="~/dotfiles/scripts/gcp.sh"
 
 # what date is this month's buildguild?
 alias buildguild="ncal | grep We | awk '{print $ 3}'"
@@ -149,31 +155,6 @@ function new_post () {
     echo -e '---\nlayout: post\ntitle: '$TITLE'\npublished: false\ntags:\n---\n' > $(date '+%Y-%m-%d-')"$FILE"'.md'
 }
 
-# easier git commit & push
-function gcp () {
-    if [ -z "$1" ]
-    then
-        read -p "Commit Message:" MSG
-    else
-        MSG="$1"
-    fi
-    git add .
-    git commit -am "$MSG"
-    git push
-}
-
-# much easier commit, gets message from whatthecommit.com
-# commit messages are completely random, completely. It may
-# be NSFW, it's probably best not to use this, but it's fun 
-# to live dangerous
-function gcpp (){
-    WTC=$(curl -s http://whatthecommit.com/index.txt)
-    MSG="'"$WTC"'"
-    echo $MSG
-    git add .
-    git commit -am "$MSG"
-    git push
-}
 
 PATH="~/gems/bin:/Library/Frameworks/Python.framework/Versions/2.7/bin:/Library/Frameworks/Python.framework/Versions/Current/bin:${PATH}"
 export PATH
