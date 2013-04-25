@@ -87,6 +87,8 @@ alias back='cd $OLDPWD'
 alias home='cd ~'
 alias dotfiles='cd ~/dotfiles'
 #script shortcuts
+alias new_post="~/dotfiles/scripts/new_post.sh"
+alias futz="~/dotfiles/scripts/futz.sh"
 alias gcpp="~/dotfiles/scripts/gcpp.sh"
 alias gcp="~/dotfiles/scripts/gcp.sh"
 
@@ -101,6 +103,7 @@ alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Cres
 
 # gh-pages jekyll generation
 alias ghp="jekyll --pygments --no-lsi --safe"
+alias ghps="jekyll --pygments --no-lsi --safe --auto --serve"
 
 # serve dir as static site
 alias serve="python -m SimpleHTTPServer"
@@ -129,30 +132,6 @@ function extract () {
 #simple calculator
 function calc () { 
     echo "$*" | bc -l; 
-}
-
-# send a note to myself with futz.me
-function futz () {
-    if [ -z "$1" ]
-    then
-        read -p "Futz what?" MSG 
-    else 
-        MSG="$1"
-    fi
-    #replace with your username, please don't spam me!
-    curl -Ls futz.me/jkirchartz%20$(echo $MSG | tr ' ' + ) > /dev/null
-}
-
-# easier jekyll post
-function new_post () {
-    if [ -z "$1" ]
-    then
-        read -p "Post Title:"  TITLE
-    else
-        TITLE="$1"
-    fi
-    FILE=$( echo $TITLE | tr A-Z a-z | tr ' ' _ )
-    echo -e '---\nlayout: post\ntitle: '$TITLE'\npublished: false\ntags:\n---\n' > $(date '+%Y-%m-%d-')"$FILE"'.md'
 }
 
 

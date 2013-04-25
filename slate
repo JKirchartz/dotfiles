@@ -25,6 +25,13 @@ alias topRightQuarter ${sox}+${ssx}/2;${soy} ${ssx}/2;${ssy}/2
 alias bottomLeftQuarter ${sox};${soy}+${ssy}/2 ${ssx}/2;${ssy}/2
 alias bottomRightQuarter ${sox}+${ssx}/2;${soy}+${ssy}/2 ${ssx}/2;${ssy}/2
 
+alias topThird ${sox};${soy} ${ssx};${ssy}/3
+alias leftThird ${sox};${soy} ${ssx}/3;${ssy}
+# oops, these don't snap to the bottom
+# they need some thinking I don't have time for right now....
+#alias bottomThird ${sox};${soy}+${ssy}/3 ${ssx};${ssy}/3
+#alias rightThird ${sox}+${ssx}/3;${soy} ${ssx}/3;${ssy}
+
 # Bindings
 bind g:cmd;ctrl move ${centered}
 bind o:cmd;ctrl move ${fullscreen}
@@ -37,3 +44,7 @@ bind i:cmd;ctrl move ${topRightQuarter}
 bind n:cmd;ctrl move ${bottomLeftQuarter}
 bind m:cmd;ctrl move ${bottomRightQuarter}
 
+bind y:cmd;ctrl move ${topThird}
+# bind r:cmd;ctrl move ${bottomThird}
+bind t:cmd;ctrl move ${leftThird}
+# bind f:cmd;ctrl move ${rightThird}
