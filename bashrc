@@ -91,6 +91,7 @@ alias new_post="~/dotfiles/scripts/new_post.sh"
 alias futz="~/dotfiles/scripts/futz.sh"
 alias gcpp="~/dotfiles/scripts/gcpp.sh"
 alias gcp="~/dotfiles/scripts/gcp.sh"
+alias pipes="~/dotfiles/scripts/pipes.sh"
 
 # what date is this month's buildguild?
 alias buildguild="ncal | grep We | awk '{print $ 3}'"
