@@ -1,28 +1,34 @@
-syntax on
-filetype plugin indent on
-
-let mapleader = ","
-
-set  nocompatible " work like VIM dammit!
-set magic " NEVER TURN THIS OFF!
+set  nocompatible " work like VIM dammit! MUST be first!
+set magic " NEVER TURN THIS OFF! BAD MOJO!
 set encoding=utf-8 " utf-8 paranoia
 
-" colorscheme
-set background=dark
-"uncomment next line to use terminal with 256 color support
-let g:solarized_termcolors=256
-let g:solarized_visibility="high"
-colorscheme solarized
+let mapleader="," " backslash is to far away :(
+syntax on " highlight that syntax, please
+filetype plugin indent on
+set clipboard=unnamed
 
+" pathogen
+call pathogen#infect()
+call pathogen#helptags()
+
+" Security fix: modelines have been an avenue for trojan attacks against
+" VIM-users, so we'll disable that.
+set nomodeline
+
+" setup colors
+colorscheme solarized
 if has('gui_running')
     set background=light
 else
     set background=dark
 endif
+set t_Co=256
+let g:solarized_termcolors=256
+let g:solarized_visibility="high" " highlight trailing spaces etc from list
 
-set list
-" Use the same symbols as TextMate for tabstops and EOLs
-set listchars=tab:▶-,trail:•,extends:»,precedes:«,eol:¬
+set list " show trailing spaces, tabs etc
+set listchars=tab:▶-,trail:•,extends:»,precedes:«,eol:¬ " Use the same symbols as TextMate for tabstops and EOLs
+nmap <leader>l :set list!<CR> " Shortcut to rapidly toggle `set list`
 
 " live dangerously:
 set history=100 nobackup noswapfile
@@ -40,6 +46,7 @@ set showcmd
 
 " tabs & indents
 " All tabs are replaced by 4 spaces
+" ALWAYS FOUR SPACES. ALWAYS.
 set smartindent
 set shiftround
 set tabstop=4
@@ -67,21 +74,25 @@ endif
 " forgot to sudo vi? w!!
 cmap w!! %!sudo tee > /dev/null %
 
-" double tab for autocomplete
-imap <Tab><Tab> <C-P>
-
 " paste while keeping the current indent
 nnoremap <leader>p p`[v`]=
 
-" Shortcut to rapidly toggle `set list`
-nmap <leader>l :set list!<CR>
+" No Help, please (F1)
+nmap <F1> <Esc>
 
 " paste mode toggle (F2)
 set pastetoggle=<F2>
 
-" spell check toggle (F5)
-inoremap <silent> <F5> <c -O>:call SpellToggle()<cr>
-map <silent> <F5> :call SpellToggle()<cr>
+" autocomplete (F3)
+imap <F3> <C-P>
+
+" A command to delete all trailing whitespace from a file.
+command! DeleteTrailingWhitespace %s:\(\S*\)\s\+$:\1:
+nnoremap <silent><F5> :DeleteTrailingWhitespace<CR>
+
+" spell check toggle (F7)
+inoremap <silent> <F7> <c -O>:call SpellToggle()<cr>
+map <silent> <F7> :call SpellToggle()<cr>
 function SpellToggle()
     if &spell == 1
         set nospell
@@ -89,10 +100,6 @@ function SpellToggle()
         set spell
     endif
 endfunction
-
-" A command to delete all trailing whitespace from a file.
-command! DeleteTrailingWhitespace %s:\(\S*\)\s\+$:\1:
-nnoremap <silent><F5> :DeleteTrailingWhitespace<CR>
 
 " overwrite common misfires
 command W w
@@ -145,16 +152,10 @@ function ToggleHex()
   let &modifiable=l:oldmodifiable
 endfunction
 
-" Security fix: modelines have been an avenue for trojan attacks against
-" VIM-users, so we'll disable that.
-set nomodeline
-
-" pathogen
-call pathogen#infect()
-call pathogen#helptags()
 
 " NerdTree
 nmap <leader>t :NERDTreeToggle<CR>
 let g:NERDChristmasTree=1    " more colorful NERDTree
 " close VIM "normally" if NERDTree is running
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
