@@ -10,6 +10,6 @@
 For the moment I'm primarily working on OSX, I like to use
 
 * [vim](http://www.vim.org)
-* [tmux]()
-* [bash]()
-* [slate]()
+* [tmux](http://tmux.sourceforge.net/)
+* [bash](http://www.gnu.org/software/bash/bash.html)
+* [slate](https://github.com/jigish/slate)
