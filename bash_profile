@@ -14,10 +14,13 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
     # these aliases talk because they're from the future.
     alias kj='killall -9 java && say -v Trinoids die java scum!'
     alias rl='killall -9 java && ant all && say -v Trinoids relaunching now && ~/contentManager.sh'
+    alias url='svn update && killall -9 java && ant all && say -v Trinoids relaunching now && ~/contentManager.sh'
     alias rs='killall -9 java && say -v Trinoids restarting now && ~/contentManager.sh'
+    alias rs='svn update && killall -9 java && say -v Trinoids restarting now && ~/contentManager.sh'
     alias ad='ant deploy-jsp && fortune -as'
     alias aa='ant all && date && say -v Trinoids ant all completed'
     alias lp='ant all && say -v Trinoids launching now && ~/contentManager.sh'
+    alias ulp='svn update && ant all && say -v Trinoids launching now && ~/contentManager.sh'
     alias gatherconf='sudo vi $GATHER_CONFIG'
     alias hostsconf='sudo vi /etc/hosts'
     alias con='cd $CURRENT_CONTENTMANAGER'

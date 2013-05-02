@@ -43,8 +43,8 @@ export COLOR_LIGHT_GRAY='\e[0;37m'
 function __prompt {
     # Save and reload the history after each command finishes
     history -a
-    history -c
-    history -r
+    # history -c
+    # history -r
     # Get directory & generate term-wide hr
     DIR=`pwd|sed -e "s!$HOME!~!"`
     #this depends on the calc function
@@ -57,10 +57,8 @@ function __prompt {
     echo
 }
 PROMPT_COMMAND="__prompt"
-__top="┌─"
-__bottom="└─"
-export PS1="\[$COLOR_RED\]$__top[\[$COLOR_CYAN\]\u@\h\[$COLOR_RED\]]-[\[$COLOR_CYAN\]\D{%x %X}\[$COLOR_RED\]]-[\[$COLOR_CYAN\]\j\[$COLOR_RED\]]\n$__bottom[\[$COLOR_CYAN\]\!\[$COLOR_RED\]]-[\[$COLOR_CYAN\]\$>\[$COLOR_NC\]"
-export PS2="\[$COLOR_RED\]$__bottom\[$COLOR_CYAN\]>\[$COLOR_NC\]"
+export PS1="\[$COLOR_RED\]┌─[\[$COLOR_CYAN\]\u@\h\[$COLOR_RED\]]-[\[$COLOR_CYAN\]\D{%x %X}\[$COLOR_RED\]]-[\[$COLOR_CYAN\]\j\[$COLOR_RED\]]\n└─[\[$COLOR_CYAN\]\!\[$COLOR_RED\]]-[\[$COLOR_CYAN\]\$>\[$COLOR_NC\]"
+export PS2="\[$COLOR_RED\]└─\[$COLOR_CYAN\]>\[$COLOR_NC\]"
 
 
 #fix history
