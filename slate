@@ -1,13 +1,20 @@
 # Configs
 config defaultToCurrentScreen true
+# show icons & letters on all windows w/ Window Hints
+config windowHintsShowIcons true
+config windowHintsIgnoreHiddenWindows false
+config windowHintsSpread true
 
 # Window Hints
 bind e:cmd hint ASDFGHJKLQWERTYUIOPCVBN # use whatever keys you want
 
 # Monitor Aliases
-alias man-laptop 1680x1050
+alias mon-laptop 1680x1050
+alias mon-left 1920x1080
+alias mon-right 1200x1600
 
 # General aliases
+alias hyper cmd;ctrl
 alias sox screenOriginX
 alias soy screenOriginY
 alias ssx screenSizeX
@@ -33,18 +40,20 @@ alias leftThird ${sox};${soy} ${ssx}/3;${ssy}
 #alias rightThird ${sox}+${ssx}/3;${soy} ${ssx}/3;${ssy}
 
 # Bindings
-bind g:cmd;ctrl move ${centered}
-bind o:cmd;ctrl move ${fullscreen}
-bind h:cmd;ctrl move ${leftHalf}
-bind j:cmd;ctrl move ${bottomHalf}
-bind k:cmd;ctrl move ${topHalf}
-bind l:cmd;ctrl move ${rightHalf}
-bind u:cmd;ctrl move ${topLeftQuarter}
-bind i:cmd;ctrl move ${topRightQuarter}
-bind n:cmd;ctrl move ${bottomLeftQuarter}
-bind m:cmd;ctrl move ${bottomRightQuarter}
+bind g:${hyper} move ${centered}
+bind o:${hyper} move ${fullscreen}
+bind h:${hyper} move ${leftHalf}
+bind j:${hyper} move ${bottomHalf}
+bind k:${hyper} move ${topHalf}
+bind l:${hyper} move ${rightHalf}
+bind u:${hyper} move ${topLeftQuarter}
+bind i:${hyper} move ${topRightQuarter}
+bind n:${hyper} move ${bottomLeftQuarter}
+bind m:${hyper} move ${bottomRightQuarter}
 
-bind y:cmd;ctrl move ${topThird}
-# bind r:cmd;ctrl move ${bottomThird}
-bind t:cmd;ctrl move ${leftThird}
-# bind f:cmd;ctrl move ${rightThird}
+bind y:${hyper} move ${topThird}
+# bind r:${hyper} move ${bottomThird}
+bind t:${hyper} move ${leftThird}
+# bind f:${hyper} move ${rightThird}
+
+
