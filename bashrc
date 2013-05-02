@@ -41,10 +41,9 @@ export COLOR_GRAY='\e[0;30m'
 export COLOR_LIGHT_GRAY='\e[0;37m'
 
 function __prompt {
-    # Save and reload the history after each command finishes
+    # sync history across terms
     history -a
-    # history -c
-    # history -r
+    history -n
     # Get directory & generate term-wide hr
     DIR=`pwd|sed -e "s!$HOME!~!"`
     #this depends on the calc function
@@ -62,12 +61,13 @@ export PS2="\[$COLOR_RED\]└─\[$COLOR_CYAN\]>\[$COLOR_NC\]"
 
 
 #fix history
-export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
-export HISTSIZE=1000                     # big history
-export HISTFILESIZE=1000                 # big history
+export HISTCONTROL=ignoredups             # no duplicate entries
+export HISTSIZE=10000                     # big history
+export HISTFILESIZE=10000                 # big history
 export HISTIGNORE="&:ls:ll:pwd:exit:clear:[ \t]*"
-shopt -s histappend                      # append to history, don't overwrite it
+shopt -s histappend                       # append to history, don't overwrite it
 
+shopt -s cdspell                          # spellcheck for cd
 
 # Grep Colors
 export GREP_OPTIONS='--color=auto' GREP_COLOR='00;38;5;157'
