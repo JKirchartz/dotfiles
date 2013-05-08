@@ -22,8 +22,9 @@ if has('gui_running')
 else
     set background=dark
 endif
-set t_Co=256
-let g:solarized_termcolors=256
+" degrade to 256 color if solarized isn't your TERM colors
+" set t_Co=256
+" let g:solarized_termcolors=256
 let g:solarized_visibility="high" " highlight trailing spaces etc from list
 
 set list " show trailing spaces, tabs etc
@@ -57,6 +58,11 @@ set expandtab
 " show line number & cursor positition
 set number ruler
 
+" 80 column rule
+set colorcolumn=81
+highlight ColorColumn ctermbg=LightRed
+
+" highlight css in html(?)
 let html_use_css=1
 
 if has("autocmd")
@@ -88,7 +94,10 @@ imap <F3> <C-P>
 
 " A command to delete all trailing whitespace from a file.
 command! DeleteTrailingWhitespace %s:\(\S*\)\s\+$:\1:
-nnoremap <silent><F5> :DeleteTrailingWhitespace<CR>
+nnoremap <silent><F4> :DeleteTrailingWhitespace<CR>
+
+"toggle solarized bg
+call togglebg#map("<F5>")
 
 " spell check toggle (F7)
 inoremap <silent> <F7> <c -O>:call SpellToggle()<cr>

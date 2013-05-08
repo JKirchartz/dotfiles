@@ -1,5 +1,5 @@
 set -o vi
-export TERM=xterm
+export TERM=xterm-256color
 
 # TMUX
 if which tmux 2>&1 >/dev/null; then
@@ -56,8 +56,12 @@ function __prompt {
     echo
 }
 PROMPT_COMMAND="__prompt"
-export PS1="\[$COLOR_RED\]┌─[\[$COLOR_CYAN\]\u@\h\[$COLOR_RED\]]-[\[$COLOR_CYAN\]\D{%x %X}\[$COLOR_RED\]]-[\[$COLOR_CYAN\]\j\[$COLOR_RED\]]\n└─[\[$COLOR_CYAN\]\!\[$COLOR_RED\]]-[\[$COLOR_CYAN\]\$>\[$COLOR_NC\]"
-export PS2="\[$COLOR_RED\]└─\[$COLOR_CYAN\]>\[$COLOR_NC\]"
+export __cr=$COLOR_RED
+export __cc=$COLOR_CYAN
+export __nc=$COLOR_NC
+
+export PS1="\[$__cr\]┌─[\[$__cc\]\u@\h\[$__cr\]]-[\[$__cc\]\D{%x %X}\[$__cr\]]-[\[$__cc\]\j\[$__cr\]]\n\[$__cr\]└─[\[$__cc\]\!\[$__cr\]]-[\[$__cc\]\$>\[$__nc\]"
+export PS2="\[$__cr\]└─\[$__cc\]>\[$__nc\]"
 
 
 #fix history
@@ -77,10 +81,12 @@ alias ll='ls -ahlFG'
 alias lm='ls -ahlFG | more'
 alias pg='ps -ef | grep'
 alias cd..='cd ..'
-alias more='less' #less is more, more or less.
+alias more='less'                         # less is more, more or less.
 alias py='python'
-alias ping='ping -c 10' #set a default, coz I always forget
-alias please='sudo !!'
+alias ping='ping -c 10'                   # set a default, coz I always forget
+alias rm='rm -i'                          # confirm, just in case...
+alias sudo='sudo '                        # check for aliases AFTER sudo
+alias please='sudo !! '
 alias f='fortune -as'
 #alternative to cd -
 alias back='cd $OLDPWD'
@@ -88,6 +94,7 @@ alias home='cd ~'
 alias dotfiles='cd ~/dotfiles'
 #script shortcuts
 alias new_post="~/dotfiles/scripts/new_post.sh"
+alias sizetmux="~/dotfiles/scripts/sizetmux.sh"
 alias futz="~/dotfiles/scripts/futz.sh"
 alias gcpp="~/dotfiles/scripts/gcpp.sh"
 alias gcp="~/dotfiles/scripts/gcp.sh"
