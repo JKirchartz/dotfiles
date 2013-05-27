@@ -72,6 +72,7 @@ export HISTIGNORE="&:ls:ll:pwd:exit:clear:[ \t]*"
 shopt -s histappend                       # append to history, don't overwrite it
 
 shopt -s cdspell                          # spellcheck for cd
+#shopt -s dirspell                         # spellcheck for directories
 
 # Grep Colors
 export GREP_OPTIONS='--color=auto' GREP_COLOR='00;38;5;157'
@@ -79,18 +80,18 @@ export GREP_OPTIONS='--color=auto' GREP_COLOR='00;38;5;157'
 #basic aliases
 alias ll='ls -ahlFG'
 alias lm='ls -ahlFG | more'
-alias pg='ps -ef | grep'
+alias pg='ps -ef | grep '
 alias cd..='cd ..'
 alias more='less'                         # less is more, more or less.
-alias py='python'
-alias ping='ping -c 10'                   # set a default, coz I always forget
-alias rm='rm -i'                          # confirm, just in case...
+alias py='python '
+alias ping='ping -c 10 '                   # set a default, coz I always forget
+alias rm='rm -i '                          # confirm, just in case...
 alias sudo='sudo '                        # check for aliases AFTER sudo
 alias please='sudo !! '
 alias f='fortune -as'
 #alternative to cd -
 alias back='cd $OLDPWD'
-alias home='cd ~'
+alias home='cd ~ '
 alias dotfiles='cd ~/dotfiles'
 #script shortcuts
 alias new_post="~/dotfiles/scripts/new_post.sh"
@@ -144,17 +145,20 @@ function calc () {
 
 
 PATH="~/gems/bin:/Library/Frameworks/Python.framework/Versions/2.7/bin:/Library/Frameworks/Python.framework/Versions/Current/bin:${PATH}"
-export PATH
 
 export GEM_HOME=~/gems
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 # MacPorts Installer: adding an appropriate PATH variable for use with MacPorts.
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+PATH=/opt/local/bin:/opt/local/sbin:$PATH
 # Finished adapting your PATH environment variable for use with MacPorts.
 
 #node path
 export NODE_PATH="/usr/local/lib/node"
-export PATH="/usr/local/share/npm/bin:$PATH"
+PATH="/usr/local/share/npm/bin:$PATH"
 
+#GAE path
+PATH="/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine:$PATH"
+
+export PATH
 
