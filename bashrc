@@ -80,7 +80,6 @@ export GREP_OPTIONS='--color=auto' GREP_COLOR='00;38;5;157'
 #basic aliases
 alias ll='ls -ahlFG'
 alias lm='ls -ahlFG | more'
-alias pg='ps -ef | grep '
 alias cd..='cd ..'
 alias more='less'                         # less is more, more or less.
 alias py='python '
@@ -89,6 +88,8 @@ alias rm='rm -i '                          # confirm, just in case...
 alias sudo='sudo '                        # check for aliases AFTER sudo
 alias please='sudo !! '
 alias f='fortune -as'
+alias R='. ~/.bash_profile'
+alias RR='[ $[ $RANDOM % 6 ] == 0 ] && echo *BANG* || echo *Click*'
 #alternative to cd -
 alias back='cd $OLDPWD'
 alias home='cd ~ '
@@ -116,6 +117,9 @@ alias ghps="jekyll --pygments --no-lsi --safe --auto --serve"
 
 # serve dir as static site
 alias serve="python -m SimpleHTTPServer"
+
+# ps + grep (via egghead on freenode#web)
+function pgrep(){ ps aux | grep $1 | grep -v grep }
 
 # easy unzip
 function extract () {

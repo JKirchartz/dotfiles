@@ -1,4 +1,4 @@
-# mac uses bash_profile instead of bashrc
+# test if this is my office mac
 if [[ "$OSTYPE" =~ ^darwin ]]; then
     # import bashrc
     source ~/.bashrc
@@ -17,8 +17,9 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
     export GATHER_CONFIG=/home/gather/configs/gather_config.xml
     export GATHER_CONFIG_DIR=/home/gather/configs
     export GATHER_PROP_FILE=/home/gather/configs/build.properties
-    export CURRENT_CONTENTMANAGER="/Users/jkirchartz/Documents/workspace/contentManager_trunk"
-    export CONTENTMANAGER_TOMCAT=/Users/jkirchartz/Documents/workspace/contentManager_trunk/apache-tomcat-6.0.14
+    #export CURRENT_CONTENTMANAGER="/Users/jkirchartz/Documents/workspace/contentManager_trunk"
+    export CURRENT_CONTENTMANAGER="/Users/jkirchartz/Documents/workspace/contentManager_dragonfly"
+    export CONTENTMANAGER_TOMCAT=$CURRENT_CONTENTMANAGER/apache-tomcat-6.0.14
     # these aliases talk because they're from the future.
     alias kj='kill_apache && say -v Trinoids die java scum!'
     alias rl='kill_apache && ant all && say -v Trinoids relaunching now && ~/contentManager.sh'
