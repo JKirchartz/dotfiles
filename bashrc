@@ -119,7 +119,10 @@ alias ghps="jekyll --pygments --no-lsi --safe --auto --serve"
 alias serve="python -m SimpleHTTPServer"
 
 # ps + grep (via egghead on freenode#web)
-function pgrep(){ ps aux | grep $1 | grep -v grep }
+function pgrep(){ ps -aux | grep $1 | grep -v "grep"; }
+
+#simple calculator
+function calc () { echo "$*" | bc -l; }
 
 # easy unzip
 function extract () {
@@ -142,12 +145,6 @@ function extract () {
      fi
 }
 
-#simple calculator
-function calc () { 
-    echo "$*" | bc -l; 
-}
-
-
 PATH="~/gems/bin:/Library/Frameworks/Python.framework/Versions/2.7/bin:/Library/Frameworks/Python.framework/Versions/Current/bin:${PATH}"
 
 export GEM_HOME=~/gems
@@ -165,4 +162,3 @@ PATH="/usr/local/share/npm/bin:$PATH"
 PATH="/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine:$PATH"
 
 export PATH
-
