@@ -96,6 +96,7 @@ alias home='cd ~ '
 alias dotfiles='cd ~/dotfiles'
 #script shortcuts
 alias new_post="~/dotfiles/scripts/new_post.sh"
+alias publish="~/dotfiles/scripts/publish.sh"
 alias sizetmux="~/dotfiles/scripts/sizetmux.sh"
 alias futz="~/dotfiles/scripts/futz.sh"
 alias gcpp="~/dotfiles/scripts/gcpp.sh"
