@@ -21,24 +21,8 @@ if which fortune > /dev/null; then
     fi
 fi
 
-#define colors
-export COLOR_NC='\e[0m' # No Color
-export COLOR_WHITE='\e[1;37m'
-export COLOR_BLACK='\e[0;30m'
-export COLOR_BLUE='\e[0;34m'
-export COLOR_LIGHT_BLUE='\e[1;34m'
-export COLOR_GREEN='\e[0;32m'
-export COLOR_LIGHT_GREEN='\e[1;32m'
-export COLOR_CYAN='\e[0;36m'
-export COLOR_LIGHT_CYAN='\e[1;36m'
-export COLOR_RED='\e[0;31m'
-export COLOR_LIGHT_RED='\e[1;31m'
-export COLOR_PURPLE='\e[0;35m'
-export COLOR_LIGHT_PURPLE='\e[1;35m'
-export COLOR_BROWN='\e[0;33m'
-export COLOR_YELLOW='\e[1;33m'
-export COLOR_GRAY='\e[0;30m'
-export COLOR_LIGHT_GRAY='\e[0;37m'
+# get aliases
+source ~/dotfiles/bash_aliases
 
 function __prompt {
     # sync history across terms
@@ -56,13 +40,12 @@ function __prompt {
     echo
 }
 PROMPT_COMMAND="__prompt"
-export __cr=$COLOR_RED
-export __cc=$COLOR_CYAN
-export __nc=$COLOR_NC
+export __cr='\e[0;31m' #red
+export __cc='\e[0;36m' #cyan
+export __nc='\e[0m'    #no color
 
 export PS1="\[$__cr\]┌─[\[$__cc\]\u@\h\[$__cr\]]-[\[$__cc\]\D{%x %X}\[$__cr\]]-[\[$__cc\]\j\[$__cr\]]\n\[$__cr\]└─[\[$__cc\]\!\[$__cr\]]-[\[$__cc\]\$>\[$__nc\]"
 export PS2="\[$__cr\]└─\[$__cc\]>\[$__nc\]"
-
 
 #fix history
 export HISTCONTROL=ignoredups             # no duplicate entries
@@ -70,57 +53,15 @@ export HISTSIZE=10000                     # big history
 export HISTFILESIZE=10000                 # big history
 export HISTIGNORE="&:ls:ll:pwd:exit:clear:[ \t]*"
 shopt -s histappend                       # append to history, don't overwrite it
-
 shopt -s cdspell                          # spellcheck for cd
+shopt -s nocaseglob                       # ignore case for autoexpansion
 #shopt -s dirspell                         # spellcheck for directories
 
 # Grep Colors
 export GREP_OPTIONS='--color=auto' GREP_COLOR='00;38;5;157'
 
-#basic aliases
-alias ll='ls -ahlFG'
-alias lm='ls -ahlFG | more'
-alias cd..='cd ..'
-alias more='less'                         # less is more, more or less.
-alias py='python '
-alias ping='ping -c 10 '                   # set a default, coz I always forget
-alias rm='rm -i '                          # confirm, just in case...
-alias sudo='sudo '                        # check for aliases AFTER sudo
-alias please='sudo !! '
-alias f='fortune -as'
-alias R='. ~/.bash_profile'
-alias RR='[ $[ $RANDOM % 6 ] == 0 ] && echo *BANG* || echo *Click*'
-#alternative to cd -
-alias back='cd $OLDPWD'
-alias home='cd ~ '
-alias dotfiles='cd ~/dotfiles'
-#script shortcuts
-alias new_post="~/dotfiles/scripts/new_post.sh"
-alias publish="~/dotfiles/scripts/publish.sh"
-alias sizetmux="~/dotfiles/scripts/sizetmux.sh"
-alias futz="~/dotfiles/scripts/futz.sh"
-alias gcpp="~/dotfiles/scripts/gcpp.sh"
-alias gcp="~/dotfiles/scripts/gcp.sh"
-alias pipes="~/dotfiles/scripts/pipes.sh"
-
-# what date is this month's buildguild?
-alias buildguild="ncal | grep We | awk '{print $ 3}'"
-
-# physically print code nicely to the default printer
-alias codeprint='enscript --line-number --pretty-print --fancy-header --landscape '
-
-# pretty-print git logs
-alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-
-# gh-pages jekyll generation
-alias ghp="jekyll --pygments --no-lsi --safe"
-alias ghps="jekyll --pygments --no-lsi --safe --auto --serve"
-
-# serve dir as static site
-alias serve="python -m SimpleHTTPServer"
-
 # ps + grep (via egghead on freenode#web)
-function pgrep(){ ps -aux | grep $1 | grep -v "grep"; }
+function pgrep(){ ps -ax | grep $1 | grep -v "grep"; }
 
 #simple calculator
 function calc () { echo "$*" | bc -l; }
@@ -146,19 +87,16 @@ function extract () {
      fi
 }
 
-PATH="~/gems/bin:/Library/Frameworks/Python.framework/Versions/2.7/bin:/Library/Frameworks/Python.framework/Versions/Current/bin:${PATH}"
-
+export NODE_PATH="/usr/local/lib/node"
 export GEM_HOME=~/gems
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
+PATH="~/dotfiles/scripts:~/gems/bin:/Library/Frameworks/Python.framework/Versions/2.7/bin:/Library/Frameworks/Python.framework/Versions/Current/bin:${PATH}"
 # MacPorts Installer: adding an appropriate PATH variable for use with MacPorts.
 PATH=/opt/local/bin:/opt/local/sbin:$PATH
 # Finished adapting your PATH environment variable for use with MacPorts.
-
 #node path
-export NODE_PATH="/usr/local/lib/node"
 PATH="/usr/local/share/npm/bin:$PATH"
-
 #GAE path
 PATH="/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine:$PATH"
 
