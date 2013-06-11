@@ -15,6 +15,9 @@ call pathogen#helptags()
 " VIM-users, so we'll disable that.
 set nomodeline
 
+" set terminal title
+set title
+
 " setup colors
 colorscheme solarized
 if has('gui_running')
