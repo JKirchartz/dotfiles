@@ -28,8 +28,8 @@ function __prompt {
     # sync history across terms
     history -a
     history -n
-    # Get directory & generate term-wide hr
-    DIR=`pwd|sed -e "s!$HOME!~!"`
+    # Get directory (and git-prompt) & generate term-wide hr
+    DIR=`pwd|sed -e "s!$HOME!~!";__git_ps1 "(%s)"`
     #this depends on the calc function
     cols=`calc $(tput cols) - ${#DIR}`
     echo
@@ -44,15 +44,20 @@ export __cr='\e[0;31m' #red
 export __cc='\e[0;36m' #cyan
 export __nc='\e[0m'    #no color
 
-export PS1="\[$__cr\]┌─[\[$__cc\]\u@\h\[$__cr\]]-[\[$__cc\]\D{%x %X}\[$__cr\]]-[\[$__cc\]\j\[$__cr\]]\n\[$__cr\]└─[\[$__cc\]\!\[$__cr\]]-[\[$__cc\]\$>\[$__nc\]"
+export PS1="\[$__cr\]┌─[\[$__cc\]\D{%x %X}\[$__cr\]]-[\[$__cc\]\j\[$__cr\]]\n\[$__cr\]└─[\[$__cc\]\!\[$__cr\]]-[\[$__cc\]\$>\[$__nc\]"
 export PS2="\[$__cr\]└─\[$__cc\]>\[$__nc\]"
+
+# git-prompt settings
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWUPSTREAM="auto"
+GIT_PS1_SHOWCOLORHINTS=1
 
 #fix history
 export HISTCONTROL=ignoredups             # no duplicate entries
 export HISTSIZE=10000                     # big history
 export HISTFILESIZE=10000                 # big history
 export HISTIGNORE="&:ls:ll:pwd:exit:clear:[ \t]*"
-shopt -s histappend                       # append to history, don't overwrite it
+shopt -s histappend                       # append to history, not overwrite it
 shopt -s cdspell                          # spellcheck for cd
 shopt -s nocaseglob                       # ignore case for autoexpansion
 #shopt -s dirspell                         # spellcheck for directories
@@ -86,6 +91,12 @@ function extract () {
         echo "'$1' is not a valid file"
      fi
 }
+
+#git propt
+source ~/dotfiles/scripts/git-prompt.sh
+
+# git completion
+source ~/dotfiles/scripts/git-completion.bash
 
 export NODE_PATH="/usr/local/lib/node"
 export GEM_HOME=~/gems
