@@ -34,6 +34,9 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
     alias hostsconf='sudo vi /etc/hosts'
     alias con='cd $CURRENT_CONTENTMANAGER'
     alias jksky='cd ~/Dropbox/JKsky'
+
+    # homebrew completion
+    source `brew --repository`/Library/Contributions/brew_bash_completion.sh
 fi
 
 
