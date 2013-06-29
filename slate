@@ -51,6 +51,12 @@ bind i:${hyper} move ${topRightQuarter}
 bind n:${hyper} move ${bottomLeftQuarter}
 bind m:${hyper} move ${bottomRightQuarter}
 
+# One-Handed
+bind a:${hyper} move ${fullscreen}
+bind s:${hyper} move ${leftHalf}
+bind d:${hyper} move ${rightHalf}
+
+
 bind y:${hyper} move ${topThird}
 # bind r:${hyper} move ${bottomThird}
 bind t:${hyper} move ${leftThird}

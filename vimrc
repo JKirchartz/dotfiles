@@ -63,7 +63,7 @@ set number ruler
 
 " 80 column rule
 set colorcolumn=81
-highlight ColorColumn ctermbg=LightRed
+highlight ColorColumn ctermbg=Grey
 
 " highlight css in html(?)
 let html_use_css=1
@@ -163,6 +163,10 @@ function ToggleHex()
   let &readonly=l:oldreadonly
   let &modifiable=l:oldmodifiable
 endfunction
+
+" Calculator
+" https://nixtricks.wordpress.com/2009/10/30/vim-simple-calculator-in-vim/
+nnoremap c :echo string(eval(input("calc: ")))
 
 
 " NerdTree
