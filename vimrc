@@ -29,7 +29,8 @@ endif
 " degrade to 256 color if solarized isn't your TERM colors
 " set t_Co=256
 " let g:solarized_termcolors=256
-let g:solarized_visibility="high" " highlight trailing spaces etc from list
+" let g:solarized_visibility="high" " highlight trailing spaces etc from list
+
 
 set list " show trailing spaces, tabs etc
 set listchars=tab:▶-,trail:•,extends:»,precedes:«,eol:¬ " Use the same symbols as TextMate for tabstops and EOLs

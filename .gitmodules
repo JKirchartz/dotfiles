@@ -17,5 +17,5 @@
     path = vim/bundle/vim-colors-solarized
     url = git://github.com/altercation/vim-colors-solarize.git
 [submodule "vim/bundle/zencoding-vim"]
-	path = vim/bundle/zencoding-vim
-	url = http://github.com/mattn/zencoding-vim.git
+    path = vim/bundle/zencoding-vim
+    url = http://github.com/mattn/zencoding-vim.git
