@@ -17,6 +17,8 @@ set nomodeline
 
 " set terminal title
 set title
+" set tmux title
+autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
 
 " setup colors
 colorscheme solarized

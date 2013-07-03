@@ -37,7 +37,8 @@ function __prompt {
     for ((x = 0; x < cols; x++)); do
         printf %s -
     done
-    echo
+    # clear terminal title if set by application etc.
+    echo -e "\033]0;\007"
 }
 PROMPT_COMMAND="__prompt"
 export __cr='\e[0;31m' #red
@@ -102,6 +103,7 @@ export NODE_PATH="/usr/local/lib/node"
 export GEM_HOME=~/gems
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
+PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 PATH="~/dotfiles/scripts:~/gems/bin:/Library/Frameworks/Python.framework/Versions/2.7/bin:/Library/Frameworks/Python.framework/Versions/Current/bin:${PATH}"
 # MacPorts Installer: adding an appropriate PATH variable for use with MacPorts.
 PATH=/opt/local/bin:/opt/local/sbin:$PATH
