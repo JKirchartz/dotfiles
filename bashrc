@@ -1,5 +1,5 @@
 set -o vi
-export TERM=xterm-256color
+# export TERM=xterm-256color
 
 # TMUX
 if which tmux 2>&1 >/dev/null; then

@@ -15,9 +15,8 @@ call pathogen#helptags()
 " VIM-users, so we'll disable that.
 set nomodeline
 
-" set terminal title
+" set terminal title for tmux
 set title
-" set tmux title
 autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
 
 " setup colors
