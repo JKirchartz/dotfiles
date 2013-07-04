@@ -4,11 +4,11 @@ set -o vi
 # TMUX
 if which tmux 2>&1 >/dev/null; then
     # if no session is started, start a new session
-    test -z ${TMUX} && tmux
+    test -z ${TMUX} && tmux -2
 
     # when quitting tmux, try to attach
     while test -z ${TMUX}; do
-        tmux attach || break
+        tmux -2 attach || break
     done
 fi
 
