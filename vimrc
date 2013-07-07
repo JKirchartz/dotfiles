@@ -26,8 +26,8 @@ if has('gui_running')
 else
     set background=dark
 endif
-" degrade to 256 color if solarized isn't your TERM colors
-" set t_Co=256
+" force 256 colors
+set t_Co=256
 " let g:solarized_termcolors=256
 " let g:solarized_visibility="high" " highlight trailing spaces etc from list
 
