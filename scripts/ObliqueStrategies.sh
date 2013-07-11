@@ -2,9 +2,22 @@
 
 ###############################################################################
 #
-# Oblique strategies is a set of cards created by
-# Brian Eno and Peter Schmidt used to break deadlocks
-# in creative situations.
+# Oblique strategies is a set of cards created to break deadlocks in creative
+# situations. This script randomly "draws" a card from the deck.
+#
+# OBLIQUE STRATEGIES
+# Over 100 worthwhile dilemmas by Brian Eno & Peter Schmidt
+#
+#  These cards evolved from our separate observations of the principles
+#  underlying what we were doing.  Sometimes they were recognized in retro-
+#  spect (intellect catching up with intuition), sometimes they were formulated.
+#  They can be used as a pack (a set of possibilities being continuously
+#  reviewed in the mind) or by drawing a single card from the shuffled pack
+#  when a dilemma occurs in a working situation.  In this case the card is
+#  trusted even if its appropriateness is quite unclear.  They are not final,
+#  as new ideas will present themselves, and others will become self-evident.
+#
+#  -- [First published 1975, slightly revised 1978]
 #
 ##############################################################################
 
