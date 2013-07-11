@@ -68,6 +68,8 @@ export GREP_OPTIONS='--color=auto' GREP_COLOR='00;38;5;157'
 
 # ps + grep (via egghead on freenode#web)
 function pgrep(){ ps -ax | grep $1 | grep -v "grep"; }
+# why not history
+function hgrep(){ history | grep $1 | grep -v "grep"; }
 
 #simple calculator
 function calc () { echo "$*" | bc -l; }
