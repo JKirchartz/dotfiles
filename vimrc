@@ -12,9 +12,10 @@ set clipboard=unnamed
 set history=100 nobackup noswapfile " live dangerously
 set nowrap backspace=indent,eol,start " fix backspace
 set number ruler " show line number & cursor positition
-set wildmenu  " better autocomplete for commands
+set wildmenu  " better autocomplete
 set showmode
 set showcmd
+let mapleader = "/<space>"
 
 
 "------------------------------------------------------------
