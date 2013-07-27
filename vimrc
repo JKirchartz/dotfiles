@@ -1,25 +1,32 @@
+"------------------------------------------------------------
+" Standard Tweaks
+"------------------------------------------------------------
 set  nocompatible " work like VIM dammit! MUST be first!
-set magic " NEVER TURN THIS OFF! BAD MOJO!
-set encoding=utf-8 " utf-8 paranoia
-
-let mapleader="," " backslash is to far away :(
+set magic " NEVER TURN THIS OFF! WIZARDS WILL GET YOU!
+set ffs=unix,dos,mac " Use *nix as the default file type
+set encoding=utf-8 " ensure encoding
+set nomodeline " Security fix: modelines have been an avenue for trojan attacks
 syntax on " highlight that syntax, please
 filetype plugin indent on
 set clipboard=unnamed
+set history=100 nobackup noswapfile " live dangerously
+set nowrap backspace=indent,eol,start " fix backspace
+set number ruler " show line number & cursor positition
+set wildmenu  " better autocomplete for commands
+set showmode
+set showcmd
 
-" pathogen
-call pathogen#infect()
-call pathogen#helptags()
 
-" Security fix: modelines have been an avenue for trojan attacks against
-" VIM-users, so we'll disable that.
-set nomodeline
-
-" set terminal title for tmux
+"------------------------------------------------------------
+" Set Terminal Title for Tmux
+"------------------------------------------------------------
 set title
 autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
 
-" setup colors
+
+"------------------------------------------------------------
+" Setup Colors
+"------------------------------------------------------------
 colorscheme solarized
 if has('gui_running')
     set background=light
@@ -32,27 +39,28 @@ set t_Co=256
 " let g:solarized_visibility="high" " highlight trailing spaces etc from list
 
 
-set list " show trailing spaces, tabs etc
-set listchars=tab:▶-,trail:•,extends:»,precedes:«,eol:¬ " Use the same symbols as TextMate for tabstops and EOLs
-nmap <leader>l :set list!<CR> " Shortcut to rapidly toggle `set list`
+"------------------------------------------------------------
+" Show Whitespace
+"------------------------------------------------------------
+set listchars=tab:▶-,trail:•,extends:»,precedes:«,eol:¬ " same symbols as TextMate
+set list
+nmap <leader>l :set list!<CR> " toggle whitespace
 
-" live dangerously:
-set history=100 nobackup noswapfile
 
-" osx backspace fix
-set nowrap backspace=indent,eol,start
-
-set ffs=unix,dos,mac " Use Unix as the standard file type
+"------------------------------------------------------------
+" Search & Highlighting
+"------------------------------------------------------------
 set smartcase " smart case matching
 set incsearch " incremental search
 set hlsearch  " highlight search
-set wildmenu  " better autocomplete for commands
-set showmode
-set showcmd
+set ignorecase " make /foo match FOO & FOo but /FOO only match FOO
+nmap <leader>q :nohlsearch<CR> " clear search highlight
 
-" tabs & indents
-" All tabs are replaced by 4 spaces
-" ALWAYS FOUR SPACES. ALWAYS.
+
+"------------------------------------------------------------
+" Tabs & Indents
+" All tabs are replaced by 4 spaces (Yes I'm *that* guy)
+"------------------------------------------------------------
 set smartindent
 set shiftround
 set tabstop=4
@@ -60,12 +68,12 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 
-" show line number & cursor positition
-set number ruler
 
+"------------------------------------------------------------
 " 80 column rule
+"------------------------------------------------------------
 set colorcolumn=81
-highlight ColorColumn ctermbg=Grey
+highlight ColorColumn ctermbg=Black
 
 " highlight css in html(?)
 let html_use_css=1
@@ -87,6 +95,10 @@ cmap w!! %!sudo tee > /dev/null %
 
 " paste while keeping the current indent
 nnoremap <leader>p p`[v`]=
+
+"------------------------------------------------------------
+" Function Keys
+"------------------------------------------------------------
 
 " No Help, please (F1)
 nmap <F1> <Esc>
@@ -121,7 +133,11 @@ command Q q
 command Wq wq
 command WQ wq
 
+
+"------------------------------------------------------------
+" Improved Hex Editing
 " http://vim.wikia.com/wiki/Improved_hex_editing
+"------------------------------------------------------------
 nnoremap <C-H> :Hexmode<CR>
 inoremap <C-H> <Esc>:Hexmode<CR>
 vnoremap <C-H> :<C-U>Hexmode<CR>
@@ -166,12 +182,16 @@ function ToggleHex()
   let &modifiable=l:oldmodifiable
 endfunction
 
-" Calculator
-" https://nixtricks.wordpress.com/2009/10/30/vim-simple-calculator-in-vim/
-nnoremap c :echo string(eval(input("calc: ")))
+"------------------------------------------------------------
+" pathogen
+"------------------------------------------------------------
+call pathogen#infect()
+call pathogen#helptags()
 
 
+"------------------------------------------------------------
 " NerdTree
+"------------------------------------------------------------
 nmap <leader>t :NERDTreeToggle<CR>
 let g:NERDChristmasTree=1    " more colorful NERDTree
 " close VIM "normally" if NERDTree is running
