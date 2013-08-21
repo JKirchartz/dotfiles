@@ -28,3 +28,6 @@
 [submodule "vim/bundle/snipmate.vim"]
     path = vim/bundle/snipmate.vim
     url = https://github.com/msanders/snipmate.vim.git
+[submodule "vim/bundle/syntastic"]
+	path = vim/bundle/syntastic
+	url = https://github.com/scrooloose/syntastic.git
