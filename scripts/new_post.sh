@@ -10,7 +10,7 @@ else
     TITLE="$1"
 fi
 FILE=$( echo $TITLE | tr A-Z a-z | tr -d '[:punct:]' | tr ' ' _  )
-FILENAME='unpublished-'"$FILE"'.md'
+FILENAME="$FILE"'.md'
 echo -e '---\nlayout: post\ntitle: '$TITLE'\npublished: false\ntags: article\n---\n' > $FILENAME
 
 if [ -n "$2" ]
