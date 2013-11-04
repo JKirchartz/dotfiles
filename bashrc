@@ -1,5 +1,5 @@
 set -o vi
-# export TERM=xterm-256color
+export TERM=xterm-256color
 
 # TMUX
 if which tmux 2>&1 >/dev/null; then
@@ -15,7 +15,7 @@ fi
 # login message
 if which fortune > /dev/null; then
      if which cowsay > /dev/null; then
-        fortune -as | cowsay -f small
+        fortune -as | cowsay
      else
         fortune -as
     fi
@@ -38,7 +38,7 @@ function __prompt {
         printf %s -
     done
     # clear terminal title if set by application etc.
-    echo -e "\033]0;\007"
+    # echo -e "\033]0;\007"
 }
 PROMPT_COMMAND="__prompt"
 export __cr='\e[0;31m' #red
