@@ -45,6 +45,9 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
     alias hostsconf='sudo vi /etc/hosts'
     alias con='cd $CURRENT_CONTENTMANAGER '
     alias jksky='cd ~/Dropbox/JKsky '
+    alias chrome='open -a Google\ Chrome '
+
+    alias client_icons='scp developer@10.0.2.15:/storage/client_icons_program.tgz /home/skyword/san/client_icons/program/'
 
     export PATH=${PATH}:$JAVA_HOME:$GATHER_CONFIG:$GATHER_CONFIG_DIR:$GATHER_PROP_FILE:$CONTENTMANAGER_TOMCAT:/opt/android/tools:/usr/local/mysql/bin
 

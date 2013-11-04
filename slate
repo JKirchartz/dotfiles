@@ -6,7 +6,7 @@ config windowHintsIgnoreHiddenWindows false
 config windowHintsSpread true
 
 # Window Hints
-bind e:cmd hint ASDFGHJKLQWERTYUIOPCVBN # use whatever keys you want
+bind e:cmd hint ASDFGQWERTZXCVBN # use whatever keys you want
 
 # Monitor Aliases
 alias mon-laptop 1680x1050
