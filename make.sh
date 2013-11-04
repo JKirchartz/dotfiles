@@ -31,3 +31,7 @@ for file in $files; do
         ln -s $dir/$file ~/.$file
     fi
 done
+
+# setup & get all submodules
+git submodule init
+git submodule update

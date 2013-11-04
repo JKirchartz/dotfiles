@@ -1,0 +1,4 @@
+autodetach on
+startup_message off
+vbell on
+vbell_msg " !! PING !!"
