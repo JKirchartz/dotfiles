@@ -38,7 +38,7 @@ function __prompt {
         printf %s -
     done
     # clear terminal title if set by application etc.
-    echo -e "\033]0;\007"
+    # echo -e "\033]0;\007"
 }
 PROMPT_COMMAND="__prompt"
 export __cr='\e[0;31m' #red
