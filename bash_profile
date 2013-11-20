@@ -1,61 +1,41 @@
-# test if this is my office mac
-if [[ "$OSTYPE" =~ ^darwin ]]; then
-    # import bashrc
-    source ~/.bashrc
+case $OSTYPE in
+    darwin*)
+        # this is a mac
+        # import bashrc
+        source ~/.bashrc
 
-    # ####################
-    # stuff for the 9-5
-    # ####################
+        # kill apache/tomcat
+        function kill_apache {
+            ps -ae | awk '/([a]pache|[t]omcat)/ {print $1}' | xargs kill -9
+        }
 
-    function kill_apache {
-        ps -ae | awk '/([a]pache|[t]omcat)/ {print $1}' | xargs kill -9
-    }
-    export JAVA_HOME=$(/usr/libexec/java_home)
-    export GATHER_CONFIG=/home/gather/configs/gather_config.xml
-    export GATHER_CONFIG_DIR=/home/gather/configs
-    export GATHER_PROP_FILE=/home/gather/configs/build.properties
-    export CM_Current="/Users/jkirchartz/Documents/workspace/contentManager_trunk"
-    export CM_Previous="/Users/jkirchartz/Documents/workspace/contentManager_dragonfly"
-    export CURRENT_CONTENTMANAGER=$CM_Current
-    export CONTENTMANAGER_TOMCAT=$CURRENT_CONTENTMANAGER/apache-tomcat-6.0.14
-    function toggleCM {
-        if [ $CURRENT_CONTENTMANAGER = $CM_Current ]; then
-            export CURRENT_CONTENTMANAGER=$CM_Previous
-        elif [ $CURRENT_CONTENTMANAGER = $CM_Previous ]; then
-            export CURRENT_CONTENTMANAGER=$CM_Current
-        else 
-            echo "uh-oh, if you're seeing this something went horribly wrong"
-        fi
-        export PATH=${PATH//$CONTENTMANAGER_TOMCAT/}
-        export CONTENTMANAGER_TOMCAT=$CURRENT_CONTENTMANAGER/apache-tomcat-6.0.14
-        export PATH=$PATH:$CONTENTMANAGER_TOMCAT
-        echo "CURRENT_CONTENTMANAGER is now " $CURRENT_CONTENTMANAGER
-    }
-    # these aliases talk because they're from the future.
-    alias kj='kill_apache && say -v Trinoids die java scum!'
-    alias rl='kill_apache && ant all && say -v Trinoids relaunching now && ~/contentManager.sh'
-    alias url='svn update && kill_apache && ant all && say -v Trinoids relaunching now && ~/contentManager.sh'
-    alias rs='kill_apache && say -v Trinoids restarting now && ~/contentManager.sh'
-    alias rs='svn update && kill_apache && say -v Trinoids restarting now && ~/contentManager.sh'
-    alias ad='ant deploy-jsp && fortune -as' # say something fun when I deploy
-    alias aa='ant all && date && say -v Trinoids ant all completed'
-    alias lp='ant all && say -v Trinoids launching now && ~/contentManager.sh'
-    alias ulp='svn update && ant all && say -v Trinoids launching now && ~/contentManager.sh'
-    alias gatherconf='sudo vi $GATHER_CONFIG'
-    alias hostsconf='sudo vi /etc/hosts'
-    alias con='cd $CURRENT_CONTENTMANAGER '
-    alias jksky='cd ~/Dropbox/JKsky '
-    alias chrome='open -a Google\ Chrome '
+        alias hostsconf='sudo vi /etc/hosts'
+        alias jksky='cd ~/Dropbox/JKsky '
+        alias chrome='open -a Google\ Chrome '
 
-    alias client_icons='scp developer@10.0.2.15:/storage/client_icons_program.tgz /home/skyword/san/client_icons/program/'
+        # homebrew completion
+        source `brew --repository`/Library/Contributions/brew_bash_completion.sh
 
-    export PATH=${PATH}:$JAVA_HOME:$GATHER_CONFIG:$GATHER_CONFIG_DIR:$GATHER_PROP_FILE:$CONTENTMANAGER_TOMCAT:/opt/android/tools:/usr/local/mysql/bin
+        # brew/macports bins
+        export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+        ;;
 
-    # homebrew completion
-    source `brew --repository`/Library/Contributions/brew_bash_completion.sh
-fi
+    linux*)
+        # this is linux
+        ;;
 
-# MacPorts Installer addition on 2013-02-14_at_20:37:11: adding an appropriate PATH variable for use with MacPorts.
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-# Finished adapting your PATH environment variable for use with MacPorts.
+    *BSD*)
+        # this is a flavor of BSD
+        ;;
+
+    cygwin)
+        # this is a PC with cygwin
+        echo "cygwin!? May God have mercy on your soul."
+        ;;
+
+    *)
+        echo "$OSTYPE unknown in .bash_profile"
+        ;;
+esac
+
 
