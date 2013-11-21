@@ -2,15 +2,15 @@ set -o vi
 export TERM=xterm-256color
 
 # TMUX
-#if which tmux 2>&1 >/dev/null; then
-#    # if no session is started, start a new session
-#    test -z ${TMUX} && tmux
-#
-#    # when quitting tmux, try to attach
-#    while test -z ${TMUX}; do
-#        tmux attach || break
-#    done
-#fi
+if which tmux 2>&1 >/dev/null; then
+    # if no session is started, start a new session
+    test -z ${TMUX} && tmux
+
+    # when quitting tmux, try to attach
+    while test -z ${TMUX}; do
+        tmux attach || break
+    done
+fi
 
 # login message
 if which fortune > /dev/null; then
@@ -38,7 +38,7 @@ function __prompt {
         printf %s -
     done
     # clear terminal title if set by application etc.
-    # echo -e "\033]0;\007"
+    echo -e "\033]0;\007"
 }
 PROMPT_COMMAND="__prompt"
 export __cr='\e[0;31m' #red
@@ -95,7 +95,7 @@ function extract () {
      fi
 }
 
-#git propt
+# git prompt
 source ~/dotfiles/scripts/git-prompt.sh
 
 # git completion

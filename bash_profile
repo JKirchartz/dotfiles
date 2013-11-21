@@ -37,5 +37,3 @@ case $OSTYPE in
         echo "$OSTYPE unknown in .bash_profile"
         ;;
 esac
-
-
