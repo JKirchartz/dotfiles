@@ -16,8 +16,8 @@ case $OSTYPE in
         # homebrew completion
         source `brew --repository`/Library/Contributions/brew_bash_completion.sh
 
-        # brew/macports bins
-        export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+        # brew/macports bins & android sdk
+        export PATH=/opt/local/bin:/opt/local/sbin:~/Documents/android-sdk/platform-tools/:$PATH
         ;;
 
     linux*)
