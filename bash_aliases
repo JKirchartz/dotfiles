@@ -1,6 +1,6 @@
 #basic aliases
-alias ll='ls -ahlFG'
-alias lm='ls -ahlFG | more'
+alias ll='ls -aoF'
+alias lm='ls -aoF | more'
 alias cd..='cd ..'
 alias more='less'                         # less is more, more or less.
 alias py='python '
