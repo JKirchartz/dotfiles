@@ -53,8 +53,8 @@ GIT_PS1_SHOWCOLORHINTS=1
 
 #fix history
 export HISTCONTROL=ignoredups             # no duplicate entries
-export HISTSIZE=10000                     # big history
-export HISTFILESIZE=10000                 # big history
+export HISTSIZE=100000                     # big history
+export HISTFILESIZE=20000                 # big history
 export HISTIGNORE="&:ls:ll:pwd:exit:clear:[ \t]*"
 shopt -s histappend                       # append to history, not overwrite it
 shopt -s cdspell                          # spellcheck for cd
@@ -104,3 +104,6 @@ source ~/dotfiles/scripts/npm-completion.bash
 
 # get aliases
 source ~/dotfiles/bash_aliases
+
+
+export PATH=$PATH:~/dotfiles/scripts
