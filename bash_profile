@@ -4,6 +4,19 @@ case $OSTYPE in
         # import bashrc
         source ~/.bashrc
 
+        export TERM=xterm-256color
+
+        # TMUX
+        if which tmux 2>&1 >/dev/null; then
+            # if no session is started, start a new session
+            test -z ${TMUX} && tmux
+
+            # when quitting tmux, try to attach
+            while test -z ${TMUX}; do
+                tmux attach || break
+            done
+        fi
+
         # kill apache/tomcat
         function kill_apache {
             ps -ae | awk '/([a]pache|[t]omcat)/ {print $1}' | xargs kill -9
@@ -30,7 +43,6 @@ case $OSTYPE in
         # Bins
         export PATH=$PATH:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
         ;;
-
     linux*)
         # this is linux
         ;;
