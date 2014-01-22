@@ -23,6 +23,7 @@ case $OSTYPE in
         }
 
         alias hostsconf='sudo vi /etc/hosts'
+        alias db='~/Dropbox '
         alias jksky='cd ~/Dropbox/JKsky '
         alias chrome='open -a Google\ Chrome '
 
