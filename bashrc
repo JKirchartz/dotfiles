@@ -1,16 +1,4 @@
 set -o vi
-export TERM=xterm-256color
-
-# TMUX
-if which tmux 2>&1 >/dev/null; then
-    # if no session is started, start a new session
-    test -z ${TMUX} && tmux
-
-    # when quitting tmux, try to attach
-    while test -z ${TMUX}; do
-        tmux attach || break
-    done
-fi
 
 # login message
 if which fortune > /dev/null; then
@@ -35,8 +23,12 @@ function __prompt {
     for ((x = 0; x < cols; x++)); do
         printf %s -
     done
-    # clear terminal title if set by application etc.
-    echo -e "\033]0;\007"
+    case "$TERM" in
+        *xterm* )
+            # clear terminal title if set by application etc.
+            echo -e "\033]0;\007"
+        ;;
+    esac
 }
 PROMPT_COMMAND="__prompt"
 export __cr='\e[0;31m' #red
@@ -63,11 +55,6 @@ shopt -s nocaseglob                       # ignore case for autoexpansion
 
 # Grep Colors
 export GREP_OPTIONS='--color=auto' GREP_COLOR='00;38;5;157'
-
-# ps + grep (via egghead on freenode#web)
-function pgrep(){ ps -ax | grep $1 | grep -v "grep"; }
-# why not history
-function hgrep(){ history | grep $1 | grep -v "grep"; }
 
 #simple calculator
 function calc () { echo "$*" | bc -l; }

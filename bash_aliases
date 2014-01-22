@@ -26,6 +26,17 @@ alias gcpp="~/dotfiles/scripts/gcpp.sh"
 alias gcp="~/dotfiles/scripts/gcp.sh"
 alias pipes="~/dotfiles/scripts/pipes.sh"
 
+# grep helpers
+alias notes='cat $HISTFILE | grep ^#'
+alias csgrep=' grep -Ir --exclude-dir="\.svn" --exclude="*\.css" '
+alias sgrep=' grep -Ir --exclude-dir="\.svn" '
+
+# ps + grep (via egghead on freenode#web)
+function pgrep(){ ps -ax | grep $1 | grep -v "grep"; }
+# why not history
+function hgrep(){ history | grep $1 | grep -v "grep"; }
+
+
 # OSX list listening ports:
 alias ports="sudo lsof -i -P | grep -i \"listen\""
 # get internal ip
