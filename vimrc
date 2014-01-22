@@ -15,7 +15,8 @@ set number ruler " show line number & cursor positition
 set wildmenu  " better autocomplete
 set showmode
 set showcmd
-let mapleader = "/<space>"
+nnoremap <Space> <Nop>
+let mapleader = "/<Space>"
 
 
 "------------------------------------------------------------
@@ -28,17 +29,10 @@ autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
 "------------------------------------------------------------
 " Setup Colors
 "------------------------------------------------------------
-colorscheme solarized
-if has('gui_running')
-    set background=light
-else
-    set background=dark
-endif
+colorscheme guardian
+set background=dark
 " force 256 colors
-set t_Co=256
-" let g:solarized_termcolors=256
-" let g:solarized_visibility="high" " highlight trailing spaces etc from list
-
+"set t_Co=256
 
 "------------------------------------------------------------
 " Show Whitespace
@@ -114,9 +108,6 @@ imap <F3> <C-P>
 command! DeleteTrailingWhitespace %s:\(\S*\)\s\+$:\1:
 nnoremap <silent><F4> :DeleteTrailingWhitespace<CR>
 
-"toggle solarized bg
-call togglebg#map("<F5>")
-
 " spell check toggle (F7)
 inoremap <silent> <F7> <c -O>:call SpellToggle()<cr>
 map <silent> <F7> :call SpellToggle()<cr>
@@ -133,6 +124,7 @@ command W w
 command Q q
 command Wq wq
 command WQ wq
+command Bn bn
 
 
 "------------------------------------------------------------
