@@ -1,6 +1,13 @@
 /vim/.netrwhist
 /vim/.VimballRecord
-.vim/view
+/vim/bundle
+/vim/view
+/ssh/id_rsa
+/ssh/id_rsa.pub
+/ssh/known_hosts
+/ssh/authorized_keys
 .DS_Store
 *~
 *.swp
+id_rsa*
+known_host*

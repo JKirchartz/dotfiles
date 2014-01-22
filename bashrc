@@ -1,14 +1,5 @@
 set -o vi
 
-# login message
-if which fortune > /dev/null; then
-     if which cowsay > /dev/null; then
-        fortune -as | cowsay
-     else
-        fortune -as
-    fi
-fi
-
 
 function __prompt {
     # sync history across terms
@@ -16,13 +7,11 @@ function __prompt {
     history -n
     # Get directory (and git-prompt) & generate term-wide hr
     DIR=`pwd|sed -e "s!$HOME!~!";__git_ps1 "(%s)"`
-    #this depends on the calc function
-    cols=`calc $(tput cols) - ${#DIR}`
+    #draw horizontal rule
     echo
-    echo -n $DIR
-    for ((x = 0; x < cols; x++)); do
-        printf %s -
-    done
+    printf '\e[0;31m%*s\n\e[m' "${COLUMNS:-$(tput cols)}" '' | tr ' ' \#
+    echo
+    echo $DIR
     case "$TERM" in
         *xterm* )
             # clear terminal title if set by application etc.
@@ -31,9 +20,10 @@ function __prompt {
     esac
 }
 PROMPT_COMMAND="__prompt"
-export __cr='\e[0;31m' #red
-export __cc='\e[0;36m' #cyan
-export __nc='\e[0m'    #no color
+source ~/dotfiles/bash_colors
+export __cr=$COLOR_RED #red
+export __cc=$COLOR_CYAN #cyan
+export __nc=$COLOR_NC #no color
 
 export PS1="\[$__cr\]┌─[\[$__cc\]\D{%x %X}\[$__cr\]]-[\[$__cc\]\j\[$__cr\]]\n\[$__cr\]└─[\[$__cc\]\!\[$__cr\]]-[\[$__cc\]\$>\[$__nc\]"
 export PS2="\[$__cr\]└─\[$__cc\]>\[$__nc\]"
@@ -53,8 +43,20 @@ shopt -s cdspell                          # spellcheck for cd
 shopt -s nocaseglob                       # ignore case for autoexpansion
 #shopt -s dirspell                         # spellcheck for directories
 
-# Grep Colors
-export GREP_OPTIONS='--color=auto' GREP_COLOR='00;38;5;157'
+# search-path for CD command
+export CDPATH=".:~:~/projects:~/Dropbox/projects"
+
+# enable color support of ls and also add handy aliases (ala ubuntu)
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
 
 #simple calculator
 function calc () { echo "$*" | bc -l; }
@@ -92,5 +94,10 @@ source ~/dotfiles/scripts/npm-completion.bash
 # get aliases
 source ~/dotfiles/bash_aliases
 
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+      . /etc/bash_completion
+fi
 
-export PATH=$PATH:~/dotfiles/scripts
+# Bins
+export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/bin:.:~/dotfiles/scripts:$PATH
+

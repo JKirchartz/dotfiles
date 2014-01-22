@@ -1,10 +1,23 @@
+function cowmotd {
+        # login message
+        if which fortune > /dev/null; then
+            if which cowsay > /dev/null; then
+                fortune -as | cowsay
+            else
+                fortune -as
+            fi
+        fi
+}
+
+
 case $OSTYPE in
     darwin*)
         # this is a mac
-        # import bashrc
-        source ~/.bashrc
 
         export TERM=xterm-256color
+        export SVN_EDITOR=vim
+
+        cowmotd
 
         # TMUX
         if which tmux 2>&1 >/dev/null; then
@@ -23,6 +36,7 @@ case $OSTYPE in
         }
 
         alias hostsconf='sudo vi /etc/hosts'
+        alias db='~/Dropbox '
         alias jksky='cd ~/Dropbox/JKsky '
         alias chrome='open -a Google\ Chrome '
 
@@ -35,28 +49,50 @@ case $OSTYPE in
         [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
         # Google tools
-        PATH=$PATH:/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine:~/Documents/android-sdk/platform-tools/
+        #PATH=$PATH:/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine:~/Documents/android-sdk/platform-tools
+        # Added by the Heroku Toolbelt
+        export PATH="/usr/local/heroku/bin:$PATH"
         # Ruby/Gem & Npm
         PATH=$PATH:/usr/local/share/npm/bin:~/gems/bin
         # Python
-        PATH=$PATH:/Library/Frameworks/Python.framework/Versions/2.7/bin:/Library/Frameworks/Python.framework/Versions/Current/bin
-        # Bins
-        export PATH=$PATH:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+        #PATH=$PATH:/System/Library/Frameworks/Python.framework/Versions/2.7/bin:/System/Library/Frameworks/Python.framework/Versions/Current/bin
         ;;
     linux*)
         # this is linux
+        case $HOSTNAME in
+            triton)
+                [[ -n '$STY' ]] && scr
+                ;;
+            lucid32)
+                ### Added by the Heroku Toolbelt
+                export PATH="/usr/local/heroku/bin:$PATH"
+                ;;
+            crunchbang)
+                # The next line updates PATH for the Google Cloud SDK.
+                source '/home/vagrant/google-cloud-sdk/path.bash.inc'
+                # The next line enables bash completion for gcloud.
+                source '/home/vagrant/google-cloud-sdk/completion.bash.inc'
+                ;;
+        esac
         ;;
-
     *BSD*)
         # this is a flavor of BSD
         ;;
-
     cygwin)
         # this is a PC with cygwin
-        echo "cygwin!? May God have mercy on your soul."
+        fortune -as
+        export PATH="/cygdrive/c/Program Files/Oracle/VirtualBox:$PATH"
         ;;
-
+    msys)
+        fortune -as
+        export PATH="/mingw/bin:/c/Program Files/Oracle/VirtualBox:$PATH"
+        ;;
     *)
         echo "$OSTYPE unknown in .bash_profile"
         ;;
 esac
+
+export PATH="$PATH:."
+# import bashrc
+source ~/.bashrc
+

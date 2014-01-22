@@ -1,17 +1,14 @@
 [user]
-	name = Joel Kirchartz
-	email = JKirchartz@gmail.com
-[credential]
-	helper = osxkeychain
+    name = Joel Kirchartz
+    email = jkirchartz@gmail.com
 
 [color]
     diff = auto
     status = auto
     branch = auto
-    ui = auto
 
 [push]
-    default = simple
+   default = current
 
 [core]
     editor = vi
@@ -24,5 +21,3 @@
     co = checkout
     df = diff
     ls = ls-files
-    # pretty print logs via https://coderwall.com/p/euwpig
-    lg = log --graph --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'\'' --abbrev-commit
