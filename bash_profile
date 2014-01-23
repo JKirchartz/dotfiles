@@ -36,6 +36,8 @@ case $OSTYPE in
 
         # Google tools
         PATH=$PATH:/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine:~/Documents/android-sdk/platform-tools/
+        # Added by the Heroku Toolbelt
+        export PATH="/usr/local/heroku/bin:$PATH"
         # Ruby/Gem & Npm
         PATH=$PATH:/usr/local/share/npm/bin:~/gems/bin
         # Python
