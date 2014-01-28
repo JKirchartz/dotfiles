@@ -53,6 +53,9 @@ shopt -s cdspell                          # spellcheck for cd
 shopt -s nocaseglob                       # ignore case for autoexpansion
 #shopt -s dirspell                         # spellcheck for directories
 
+# search-path for CD command
+export CDPATH=".:~:~/projects:~/Dropbox/projects"
+
 # Grep Colors
 export GREP_OPTIONS='--color=auto' GREP_COLOR='00;38;5;157'
 
