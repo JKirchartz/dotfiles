@@ -16,7 +16,7 @@ set wildmenu  " better autocomplete
 set showmode
 set showcmd
 nnoremap <Space> <Nop>
-let mapleader = "/<Space>"
+let mapleader = " "
 
 
 "------------------------------------------------------------
@@ -29,8 +29,8 @@ autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
 "------------------------------------------------------------
 " Setup Colors
 "------------------------------------------------------------
-colorscheme guardian
-set background=dark
+colorscheme molokai
+"set background=dark
 " force 256 colors
 "set t_Co=256
 
@@ -93,6 +93,8 @@ nnoremap <leader>p p`[v`]=
 
 "------------------------------------------------------------
 " Function Keys
+
+
 "------------------------------------------------------------
 
 " No Help, please (F1)
