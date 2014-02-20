@@ -19,9 +19,6 @@
 [submodule "vim/bundle/vim-markdown"]
     path = vim/bundle/vim-markdown
     url = git://github.com/tpope/vim-markdown.git
-[submodule "vim/bundle/vim-colors-solarized"]
-    path = vim/bundle/vim-colors-solarized
-    url = git://github.com/altercation/vim-colors-solarize.git
 [submodule "vim/bundle/nerdcommenter"]
     path = vim/bundle/nerdcommenter
     url = https://github.com/scrooloose/nerdcommenter.git
@@ -29,5 +26,8 @@
     path = vim/bundle/snipmate.vim
     url = https://github.com/msanders/snipmate.vim.git
 [submodule "vim/bundle/vim-pathogen"]
-	path = vim/bundle/vim-pathogen
-	url = git://github.com/tpope/vim-pathogen.git
+    path = vim/bundle/vim-pathogen
+    url = https://github.com/tpope/vim-pathogen.git
+[submodule "vim/bundle/vim-colors-solarized"]
+   path = vim/bundle/vim-colors-solarized
+   url = https://github.com/altercation/vim-colors-solarized.git
