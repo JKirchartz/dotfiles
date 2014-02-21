@@ -8,7 +8,7 @@ startup_message off
 defutf8 on
 
 # show where i am
-caption always "%n(%t)"
+# caption always "%n(%t)"
 
 # visual bell
 vbell on
@@ -23,7 +23,7 @@ defnonblock on
 # modded from billnye's .screenrc
 hardstatus on
 hardstatus alwayslastline
-hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %m/%d %C%a "
+hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} "
 
 # more like my tmux statusbar
 # hardstatus alwayslastline '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %d %M %y %{W}%c %{g}]'
