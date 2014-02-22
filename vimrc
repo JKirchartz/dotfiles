@@ -18,6 +18,12 @@ set showcmd
 nnoremap <Space> <Nop>
 let mapleader = " "
 
+"------------------------------------------------------------
+" pathogen
+"------------------------------------------------------------
+source ~/dotfiles/vim/bundle/vim-pathogen/autoload/pathogen.vim
+call pathogen#infect()
+call pathogen#helptags()
 
 "------------------------------------------------------------
 " Set Terminal Title for Tmux
@@ -177,12 +183,6 @@ function ToggleHex()
   let &modifiable=l:oldmodifiable
 endfunction
 
-"------------------------------------------------------------
-" pathogen
-"------------------------------------------------------------
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-call pathogen#infect()
-call pathogen#helptags()
 
 
 "------------------------------------------------------------
