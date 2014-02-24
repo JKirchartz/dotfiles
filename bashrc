@@ -16,13 +16,15 @@ function __prompt {
     history -n
     # Get directory (and git-prompt) & generate term-wide hr
     DIR=`pwd|sed -e "s!$HOME!~!";__git_ps1 "(%s)"`
+    #draw horizontal rule
+    ~/hr.sh
     #this depends on the calc function
-    cols=`calc $(tput cols) - ${#DIR}`
+    #cols=`calc $(tput cols) - ${#DIR}`
     echo
     echo -n $DIR
-    for ((x = 0; x < cols; x++)); do
-        printf %s -
-    done
+    #for ((x = 0; x < cols; x++)); do
+    #    printf %s -
+    #done
     case "$TERM" in
         *xterm* )
             # clear terminal title if set by application etc.
