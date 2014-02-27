@@ -32,5 +32,8 @@
    path = vim/bundle/vim-colors-solarized
    url = https://github.com/altercation/vim-colors-solarized.git
 [submodule "vim/bundle/colorschemes"]
-	path = vim/bundle/colorschemes
-	url = git@github.com:flazz/vim-colorschemes.git
+   path = vim/bundle/colorschemes
+   url = git@github.com:flazz/vim-colorschemes.git
+[submodule "vim/bundle/MatchTagAlways"]
+	path = vim/bundle/MatchTagAlways
+	url = https://github.com/Valloric/MatchTagAlways.git

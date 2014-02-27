@@ -1,22 +1,28 @@
 "------------------------------------------------------------
 " Standard Tweaks
 "------------------------------------------------------------
-set  nocompatible " work like VIM dammit! MUST be first!
+set nocompatible " work like VIM dammit! MUST be first!
 set magic " NEVER TURN THIS OFF! WIZARDS WILL GET YOU!
 set ffs=unix,dos,mac " Use *nix as the default file type
 set encoding=utf-8 " ensure encoding
-set nomodeline " Security fix: modelines have been an avenue for trojan attacks
-syntax on " highlight that syntax, please
-filetype plugin indent on
 set clipboard=unnamed
-set history=100 nobackup noswapfile " live dangerously
+set history=200 nobackup noswapfile " live dangerously
 set nowrap backspace=indent,eol,start " fix backspace
 set number ruler " show line number & cursor positition
 set wildmenu  " better autocomplete
 set showmode
 set showcmd
+set autoread " Set to auto read when a file is changed from the outside
+
+"map leader to space for faster & easier shortcuts
 nnoremap <Space> <Nop>
 let mapleader = " "
+
+" write quickly
+nmap <leader>w :w!<cr> 
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 "------------------------------------------------------------
 " pathogen
@@ -26,7 +32,7 @@ call pathogen#infect()
 call pathogen#helptags()
 
 "------------------------------------------------------------
-" Set Terminal Title for Tmux
+" Tell Text's Title to Terminal/Tmux
 "------------------------------------------------------------
 set title
 autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
@@ -36,7 +42,8 @@ autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
 " Setup Colors
 "------------------------------------------------------------
 colorscheme molokai
-"set background=dark
+set background=dark
+syntax on " highlight that syntax, please
 " force 256 colors
 "set t_Co=256
 
@@ -55,14 +62,15 @@ set smartcase " smart case matching
 set incsearch " incremental search
 set hlsearch  " highlight search
 set ignorecase " make /foo match FOO & FOo but /FOO only match FOO
-nmap <leader>q :nohlsearch<CR> " clear search highlight
+nmap <leader><cr> :nohlsearch<CR> " clear search highlight
 
 
 "------------------------------------------------------------
 " Tabs & Indents
 " All tabs are replaced by 4 spaces (Yes I'm *that* guy)
 "------------------------------------------------------------
-set smartindent
+filetype plugin indent on
+set autoindent
 set shiftround
 set tabstop=4
 set shiftwidth=4
