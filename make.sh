@@ -31,4 +31,5 @@ for file in $files; do
 done
 
 # setup & get all submodules
-git submodule update --init
+git submodule init
+git submodule update
