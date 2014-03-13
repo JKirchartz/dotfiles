@@ -48,6 +48,11 @@ case $OSTYPE in
         ;;
     linux*)
         # this is linux
+        case $(hostname) in
+            triton)
+                scr
+                ;;
+        esac
         ;;
 
     *BSD*)
