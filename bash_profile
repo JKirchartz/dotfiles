@@ -48,6 +48,7 @@ case $OSTYPE in
         ;;
     linux*)
         # this is linux
+        source ~/.bashrc
         case $(hostname) in
             triton)
                 scr

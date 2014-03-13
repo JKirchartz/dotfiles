@@ -24,13 +24,12 @@ echo "...done"
 
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks 
 for file in $files; do
-    if [[ -f $file ]]; then
-        echo "Moving any existing dotfiles from ~ to $olddir"
-        mv ~/.$file ~/dotfiles_old/
-        echo "Creating symlink to $file in home directory."
-        ln -s $dir/$file ~/.$file
-    fi
+    echo "Moving any existing dotfiles from ~ to $olddir"
+    mv ~/.$file ~/dotfiles_old/
+    echo "Creating symlink to $file in home directory."
+    ln -s $dir/$file ~/.$file
 done
 
 # setup & get all submodules
-git submodule update --init
+git submodule init
+git submodule update
