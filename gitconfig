@@ -19,4 +19,3 @@
     co = checkout
     df = diff
     ls = ls-files
-    # pretty print logs via https://coderwall.com/p/euwpig
