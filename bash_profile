@@ -51,7 +51,7 @@ case $OSTYPE in
         source ~/.bashrc
         case $(hostname) in
             triton)
-                scr
+                [ ! '$STY' ] && scr
                 ;;
         esac
         ;;
