@@ -48,14 +48,18 @@ case $OSTYPE in
         ;;
     linux*)
         # this is linux
+        # import bashrc
         source ~/.bashrc
         case $(hostname) in
             triton)
                 [ ! '$STY' ] && scr
                 ;;
+            lucid32)
+                ### Added by the Heroku Toolbelt
+                export PATH="/usr/local/heroku/bin:$PATH"
+                ;;
         esac
         ;;
-
     *BSD*)
         # this is a flavor of BSD
         ;;
