@@ -52,7 +52,7 @@ case $OSTYPE in
         source ~/.bashrc
         case $(hostname) in
             triton)
-                [ ! '$STY' ] && scr
+                [[ -n '$STY' ]] && scr
                 ;;
             lucid32)
                 ### Added by the Heroku Toolbelt
