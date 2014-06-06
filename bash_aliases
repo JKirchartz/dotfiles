@@ -30,6 +30,7 @@ alias pipes="~/dotfiles/scripts/pipes.sh"
 alias notes='cat $HISTFILE | grep ^#'
 alias csgrep=' grep -Ir --exclude-dir="\.svn" --exclude="*\.css" '
 alias sgrep=' grep -Ir --exclude-dir="\.svn" '
+alias psgrep='ps aux | grep $(echo $1 | sed "s/^\(.\)/[\1]/g")'
 
 # ps + grep (via egghead on freenode#web)
 function pgrep(){ ps -ax | grep $1 | grep -v "grep"; }
