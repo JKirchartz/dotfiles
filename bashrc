@@ -100,3 +100,4 @@ source ~/dotfiles/bash_aliases
 
 export PATH=$PATH:~/dotfiles/scripts
 
+
