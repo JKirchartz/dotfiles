@@ -81,7 +81,7 @@ set expandtab
 "------------------------------------------------------------
 " 80 column rule
 "------------------------------------------------------------
-set colorcolumn=81
+"set colorcolumn=81
 highlight ColorColumn ctermbg=Black
 
 " highlight css in html(?)

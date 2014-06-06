@@ -4,3 +4,5 @@
 .DS_Store
 *~
 *.swp
+id_rsa*
+known_host*
