@@ -1,3 +1,21 @@
 [user]
-	email = JKirchartz@gmail.com
 	name = Joel Kirchartz
+	email = JKirchartz@gmail.com
+
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+
+
+[core]
+    editor = vi
+    pager = less -R
+
+[alias]
+    st = status
+    ci = commit
+    br = branch
+    co = checkout
+    df = diff
+    ls = ls-files
