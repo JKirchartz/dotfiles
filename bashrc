@@ -17,7 +17,7 @@ function __prompt {
     # Get directory (and git-prompt) & generate term-wide hr
     DIR=`pwd|sed -e "s!$HOME!~!";__git_ps1 "(%s)"`
     #draw horizontal rule
-    ~/hr.sh
+    ~/dotfiles/scripts/hr.sh
     #this depends on the calc function
     #cols=`calc $(tput cols) - ${#DIR}`
     echo
