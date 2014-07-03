@@ -27,23 +27,15 @@ alias gcp="~/dotfiles/scripts/gcp.sh"
 alias pipes="~/dotfiles/scripts/pipes.sh"
 
 # grep helpers
-alias notes='cat $HISTFILE | grep ^#'
+alias notes='cat $HISTFILE | grep ^\#'
 alias csgrep=' grep -Ir --exclude-dir="\.svn" --exclude="*\.css" '
 alias sgrep=' grep -Ir --exclude-dir="\.svn" '
 alias psgrep='ps aux | grep $(echo $1 | sed "s/^\(.\)/[\1]/g")'
-
-# ps + grep (via egghead on freenode#web)
-function pgrep(){ ps -ax | grep $1 | grep -v "grep"; }
-# why not history
-function hgrep(){ history | grep $1 | grep -v "grep"; }
-
-
-# OSX list listening ports:
-alias ports="sudo lsof -i -P | grep -i \"listen\""
-# get internal ip
-alias iip="ifconfig | grep broadcast | awk '{print $ 2}'"
-#get external ip
-alias eip="dig +short myip.opendns.com @resolver1.opendns.com"
+function pgrep(){ ps -ax | grep $1 | grep -v "grep"; } # ps + grep (via egghead on freenode#web)
+function hgrep(){ history | grep $1 | grep -v "grep"; } # why not history
+alias ports="sudo lsof -i -P | grep -i \"listen\"" # OSX list listening ports:
+alias iip="ifconfig | grep broadcast | awk '{print $ 2}'" # get internal ip
+alias eip="dig +short myip.opendns.com @resolver1.opendns.com" #get external ip
 
 # what date is this month's buildguild?
 alias buildguild="ncal | grep We | awk '{print $ 3}'"
