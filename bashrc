@@ -19,6 +19,7 @@ function __prompt {
     #draw horizontal rule
     echo
     printf '\e[0;31m%*s\n\e[m' "${COLUMNS:-$(tput cols)}" '' | tr ' ' \#
+    echo
     echo -n $DIR
     case "$TERM" in
         *xterm* )
