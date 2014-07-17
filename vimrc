@@ -53,6 +53,7 @@ syntax on " highlight that syntax, please
 set listchars=tab:▶-,trail:•,extends:»,precedes:«,eol:¬ " same symbols as TextMate
 set list
 nmap <leader>l :set list!<CR> " toggle whitespace
+nmap <leader>n :set number!<CR> " toggle numbers
 
 
 "------------------------------------------------------------
@@ -81,7 +82,7 @@ set expandtab
 "------------------------------------------------------------
 " 80 column rule
 "------------------------------------------------------------
-set colorcolumn=81
+"set colorcolumn=81
 highlight ColorColumn ctermbg=Black
 
 " highlight css in html(?)

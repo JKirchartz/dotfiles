@@ -16,6 +16,7 @@ case $OSTYPE in
         source ~/.bashrc
 
         export TERM=xterm-256color
+        export SVN_EDITOR=vim
 
         cowmotd
 
@@ -58,13 +59,13 @@ case $OSTYPE in
         [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
         # Google tools
-        PATH=$PATH:/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine:~/Documents/android-sdk/platform-tools/
+        #PATH=$PATH:/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine:~/Documents/android-sdk/platform-tools
         # Added by the Heroku Toolbelt
         export PATH="/usr/local/heroku/bin:$PATH"
         # Ruby/Gem & Npm
         PATH=$PATH:/usr/local/share/npm/bin:~/gems/bin
         # Python
-        PATH=$PATH:/Library/Frameworks/Python.framework/Versions/2.7/bin:/Library/Frameworks/Python.framework/Versions/Current/bin
+        #PATH=$PATH:/System/Library/Frameworks/Python.framework/Versions/2.7/bin:/System/Library/Frameworks/Python.framework/Versions/Current/bin
         # Bins
         export PATH=$PATH:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
         ;;

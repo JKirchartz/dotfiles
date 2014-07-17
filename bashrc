@@ -7,13 +7,11 @@ function __prompt {
     history -n
     # Get directory (and git-prompt) & generate term-wide hr
     DIR=`pwd|sed -e "s!$HOME!~!";__git_ps1 "(%s)"`
-    #this depends on the calc function
-    cols=`calc $(tput cols) - ${#DIR}`
+    #draw horizontal rule
+    echo
+    printf '\e[0;31m%*s\n\e[m' "${COLUMNS:-$(tput cols)}" '' | tr ' ' \#
     echo
     echo -n $DIR
-    for ((x = 0; x < cols; x++)); do
-        printf %s -
-    done
     case "$TERM" in
         *xterm* )
             # clear terminal title if set by application etc.
@@ -22,9 +20,10 @@ function __prompt {
     esac
 }
 PROMPT_COMMAND="__prompt"
-export __cr='\e[0;31m' #red
-export __cc='\e[0;36m' #cyan
-export __nc='\e[0m'    #no color
+source ~/dotfiles/bash_colors
+export __cr=$COLOR_RED #red
+export __cc=$COLOR_CYAN #cyan
+export __nc=$COLOR_NC #no color
 
 export PS1="\[$__cr\]┌─[\[$__cc\]\D{%x %X}\[$__cr\]]-[\[$__cc\]\j\[$__cr\]]\n\[$__cr\]└─[\[$__cc\]\!\[$__cr\]]-[\[$__cc\]\$>\[$__nc\]"
 export PS2="\[$__cr\]└─\[$__cc\]>\[$__nc\]"

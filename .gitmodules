@@ -25,9 +25,6 @@
 [submodule "vim/bundle/vim-pathogen"]
     path = vim/bundle/vim-pathogen
     url = https://github.com/tpope/vim-pathogen.git
-[submodule "vim/bundle/vim-colors-solarized"]
-   path = vim/bundle/vim-colors-solarized
-   url = https://github.com/altercation/vim-colors-solarized.git
 [submodule "vim/bundle/colorschemes"]
    path = vim/bundle/colorschemes
    url = git@github.com:flazz/vim-colorschemes.git
