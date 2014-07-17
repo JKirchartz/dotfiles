@@ -1,3 +1,14 @@
+function cowmotd {
+        # login message
+        if which fortune > /dev/null; then
+            if which cowsay > /dev/null; then
+                fortune -as | cowsay
+            else
+                fortune -as
+            fi
+        fi
+}
+
 case $OSTYPE in
     darwin*)
         # this is a mac
@@ -5,6 +16,17 @@ case $OSTYPE in
         source ~/.bashrc
 
         export TERM=xterm-256color
+
+        cowmotd
+
+        # login message
+        if which fortune > /dev/null; then
+            if which cowsay > /dev/null; then
+                fortune -as | cowsay
+            else
+                fortune -as
+            fi
+        fi
 
         # TMUX
         if which tmux 2>&1 >/dev/null; then
@@ -50,11 +72,12 @@ case $OSTYPE in
         # this is linux
         # import bashrc
         source ~/.bashrc
-        case $(hostname) in
+        case $HOSTNAME in
             triton)
-                [[ -n '$STY' ]] && scr
+                if [ "$(ps -p $PPID -o comm=)" != screen ]; then scr; fi
                 ;;
             lucid32)
+                cowmotd
                 ### Added by the Heroku Toolbelt
                 export PATH="/usr/local/heroku/bin:$PATH"
                 ;;
@@ -62,11 +85,13 @@ case $OSTYPE in
         ;;
     *BSD*)
         # this is a flavor of BSD
+        cowmotd
         ;;
 
     cygwin)
         # this is a PC with cygwin
         echo "cygwin!? May God have mercy on your soul."
+        cowmotd
         ;;
 
     *)

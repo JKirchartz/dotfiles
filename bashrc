@@ -1,14 +1,5 @@
 set -o vi
 
-# login message
-if which fortune > /dev/null; then
-     if which cowsay > /dev/null; then
-        fortune -as | cowsay
-     else
-        fortune -as
-    fi
-fi
-
 
 function __prompt {
     # sync history across terms
