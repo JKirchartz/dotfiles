@@ -1,0 +1,6 @@
+# be vimlike
+set editing-mode vi
+set keymap vi-command
+
+# Allow case-insensitive auto-completion
+set completion-ignore-case on
