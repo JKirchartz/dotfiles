@@ -33,3 +33,5 @@ done
 # setup & get all submodules
 git submodule init
 git submodule update
+
+echo "if vim plugins etc fail to load, try running \"git submodule update\" to download the missing files"
