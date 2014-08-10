@@ -42,18 +42,26 @@ autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
 " Setup Colors
 "------------------------------------------------------------
 colorscheme molokai
-set background=dark
+"set background=dark
 syntax on " highlight that syntax, please
 " force 256 colors
 "set t_Co=256
 
 "------------------------------------------------------------
-" Show Whitespace
+" Whitespace & Ln numbers
 "------------------------------------------------------------
 set listchars=tab:▶-,trail:•,extends:»,precedes:«,eol:¬ " same symbols as TextMate
 set list
 nmap <leader>l :set list!<CR> " toggle whitespace
-nmap <leader>n :set number!<CR> " toggle numbers
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set norelativenumber
+    set number
+  else
+    set relativenumber
+  endif
+endfunc
+nmap <leader>n :call NumberToggle()<CR> " toggle relative numbers
 
 
 "------------------------------------------------------------
@@ -79,10 +87,7 @@ set softtabstop=4
 set expandtab
 
 
-"------------------------------------------------------------
-" 80 column rule
-"------------------------------------------------------------
-"set colorcolumn=81
+set colorcolumn=81
 highlight ColorColumn ctermbg=Black
 
 " highlight css in html(?)
@@ -118,9 +123,6 @@ nmap <F1> <Esc>
 " paste mode toggle (F2)
 set pastetoggle=<F2>
 
-" autocomplete (F3)
-imap <F3> <C-P>
-
 " A command to delete all trailing whitespace from a file.
 command! DeleteTrailingWhitespace %s:\(\S*\)\s\+$:\1:
 nnoremap <silent><F4> :DeleteTrailingWhitespace<CR>
@@ -128,6 +130,7 @@ nnoremap <silent><F4> :DeleteTrailingWhitespace<CR>
 " spell check toggle (F7)
 inoremap <silent> <F7> <c -O>:call SpellToggle()<cr>
 map <silent> <F7> :call SpellToggle()<cr>
+map <leader>s :call SpellToggle()<cr>
 function SpellToggle()
     if &spell == 1
         set nospell
@@ -200,3 +203,7 @@ let g:NERDChristmasTree=1    " more colorful NERDTree
 " close VIM "normally" if NERDTree is running
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
+"------------------------------------------------------------
+" SuperTab
+"------------------------------------------------------------
+let g:SuperTabDefaultCompletionType = "context"
