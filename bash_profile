@@ -20,15 +20,6 @@ case $OSTYPE in
 
         cowmotd
 
-        # login message
-        if which fortune > /dev/null; then
-            if which cowsay > /dev/null; then
-                fortune -as | cowsay
-            else
-                fortune -as
-            fi
-        fi
-
         # TMUX
         if which tmux 2>&1 >/dev/null; then
             # if no session is started, start a new session
@@ -92,10 +83,14 @@ case $OSTYPE in
     cygwin)
         # this is a PC with cygwin
         echo "cygwin!? May God have mercy on your soul."
-        cowmotd
+        source ~/.bashrc
+        fortune -as
+        export PATH="/cygdrive/c/Program Files/Oracle/VirtualBox:$PATH"
         ;;
 
     *)
         echo "$OSTYPE unknown in .bash_profile"
         ;;
 esac
+
+export PATH="$PATH:."
