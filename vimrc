@@ -53,7 +53,16 @@ syntax on " highlight that syntax, please
 set listchars=tab:▶-,trail:•,extends:»,precedes:«,eol:¬ " same symbols as TextMate
 set list
 nmap <leader>l :set list!<CR> " toggle whitespace
-nmap <leader>n :set number!<CR> " toggle numbers
+function! ToggleNumber()
+    if &relativenumber==1
+        set norelativenumber
+        set number
+    else
+        set nonumber
+        set relativenumber
+    endif
+endfunction
+nmap <leader>n :call ToggleNumber()<CR> " toggle numbers
 
 
 "------------------------------------------------------------
