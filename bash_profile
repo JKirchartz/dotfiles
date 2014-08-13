@@ -12,8 +12,6 @@ function cowmotd {
 case $OSTYPE in
     darwin*)
         # this is a mac
-        # import bashrc
-        source ~/.bashrc
 
         export TERM=xterm-256color
         export SVN_EDITOR=vim
@@ -62,8 +60,6 @@ case $OSTYPE in
         ;;
     linux*)
         # this is linux
-        # import bashrc
-        source ~/.bashrc
         case $HOSTNAME in
             triton)
                 if [ "$(ps -p $PPID -o comm=)" != screen ]; then scr; fi
@@ -82,15 +78,18 @@ case $OSTYPE in
 
     cygwin)
         # this is a PC with cygwin
-        echo "cygwin!? May God have mercy on your soul."
-        source ~/.bashrc
         fortune -as
         export PATH="/cygdrive/c/Program Files/Oracle/VirtualBox:$PATH"
         ;;
-
+    msys)
+        fortune -as
+        export PATH="/c/Program Files/Oracle/VirtualBox:$PATH"
+        ;;
     *)
         echo "$OSTYPE unknown in .bash_profile"
         ;;
 esac
 
 export PATH="$PATH:."
+# import bashrc
+source ~/.bashrc
