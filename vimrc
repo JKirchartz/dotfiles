@@ -54,7 +54,7 @@ set listchars=tab:▶-,trail:•,extends:»,precedes:«,eol:¬ " same symbols as
 set list
 nmap <leader>l :set list!<CR> " toggle whitespace
 function! NumberToggle()
-  if(&relativenumber == 1)
+  if &relativenumber == 1
     set norelativenumber
     set number
   else

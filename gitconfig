@@ -1,12 +1,14 @@
 [user]
-	name = Joel Kirchartz
-	email = JKirchartz@gmail.com
+    name = Joel Kirchartz
+    email = jkirchartz@gmail.com
 
 [color]
     diff = auto
     status = auto
     branch = auto
 
+[push]
+   default = current
 
 [core]
     editor = vi
