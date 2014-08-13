@@ -17,7 +17,7 @@ case "$OSTYPE" in
         echo "Preparing files for OSX"
         files="inputrc bashrc bash_profile vimrc vim tmux.conf slate ssh gitconfig screenrc"
         ;;
-    [msys|cygwin]*)
+    msys|cygwin)
         # Files for cygwin & msys
         echo "Preparing files for *doze"
         files="inputrc bashrc bash_profile vimrc vim tmux.conf ssh gitconfig screenrc"
@@ -51,7 +51,7 @@ cd $dir
 echo "...done"
 
 case $OSTYPE in
-    [msys|cygwin]*)
+    msys|cygwin)
         # move any existing dotfiles in homedir to dotfiles_old directory, then copy dotfiles 
         for file in $files; do
             echo "Moving existing $file from ~ to $olddir"
