@@ -9,6 +9,7 @@ function cowmotd {
         fi
 }
 
+
 case $OSTYPE in
     darwin*)
         # this is a mac
@@ -55,8 +56,6 @@ case $OSTYPE in
         PATH=$PATH:/usr/local/share/npm/bin:~/gems/bin
         # Python
         #PATH=$PATH:/System/Library/Frameworks/Python.framework/Versions/2.7/bin:/System/Library/Frameworks/Python.framework/Versions/Current/bin
-        # Bins
-        export PATH=$PATH:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
         ;;
     linux*)
         # this is linux
@@ -83,7 +82,7 @@ case $OSTYPE in
         ;;
     msys)
         fortune -as
-        export PATH="/c/Program Files/Oracle/VirtualBox:$PATH"
+        export PATH="/mingw/bin:/c/Program Files/Oracle/VirtualBox:$PATH"
         ;;
     *)
         echo "$OSTYPE unknown in .bash_profile"

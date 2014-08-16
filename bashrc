@@ -86,6 +86,6 @@ source ~/dotfiles/scripts/npm-completion.bash
 source ~/dotfiles/bash_aliases
 
 
-export PATH=$PATH:~/dotfiles/scripts
-
+# Bins
+export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/bin:.:~/dotfiles/scripts:$PATH
 
