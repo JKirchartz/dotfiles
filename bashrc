@@ -11,7 +11,7 @@ function __prompt {
     echo
     printf '\e[0;31m%*s\n\e[m' "${COLUMNS:-$(tput cols)}" '' | tr ' ' \#
     echo
-    echo -n $DIR
+    echo $DIR
     case "$TERM" in
         *xterm* )
             # clear terminal title if set by application etc.
