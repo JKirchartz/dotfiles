@@ -97,12 +97,6 @@ if has("autocmd")
       " Jump to last position when reopening files
       au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
           \| exe "normal g'\"" | endif
-
-      " liquid highlighting
-      au BufNewFile,BufRead *.liquid   setf liquid
-
-      "enable omnicomplete
-      autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 endif
 
 " forgot to sudo vi? w!!
@@ -207,3 +201,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 " SuperTab
 "------------------------------------------------------------
 let g:SuperTabDefaultCompletionType = "context"
+
+"------------------------------------------------------------
+" Syntastic
+"------------------------------------------------------------
