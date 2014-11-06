@@ -29,12 +29,6 @@ case "$OSTYPE" in
         ;;
 esac
 
-##########
-# setup & get all git submodules
-###
-echo "Getting all git submodules"
-git submodule init
-git submodule update
 
 ##########
 # create dotfiles_old in homedir
@@ -71,5 +65,14 @@ case $OSTYPE in
         ;;
     esac
 
+##########
+# setup & get all git submodules
+###
+echo "Getting all git submodules"
+git submodule init
+git submodule foreach git checkout master
+git submodule foreach git pull
+git submodule update
+
 echo
-echo "if vim plugins etc fail to load, try running \"git submodule update\" to download the missing files, or run make.sh again."
+echo "if vim plugins etc fail to load, try running \"/scripts/update_submodules.sh\" to download the missing files, or run make.sh again."
