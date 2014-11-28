@@ -145,9 +145,8 @@ command Bn bn
 " Improved Hex Editing
 " http://vim.wikia.com/wiki/Improved_hex_editing
 "------------------------------------------------------------
-nnoremap <C-H> :Hexmode<CR>
-inoremap <C-H> <Esc>:Hexmode<CR>
-vnoremap <C-H> :<C-U>Hexmode<CR>
+
+nmap <leader>h :Hexmode<CR> " toggle Hexmode
 
 command -bar Hexmode call ToggleHex()
 
