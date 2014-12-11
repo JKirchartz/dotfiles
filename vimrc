@@ -196,11 +196,3 @@ let g:NERDChristmasTree=1    " more colorful NERDTree
 " close VIM "normally" if NERDTree is running
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-"------------------------------------------------------------
-" SuperTab
-"------------------------------------------------------------
-let g:SuperTabDefaultCompletionType = "context"
-
-"------------------------------------------------------------
-" Syntastic
-"------------------------------------------------------------

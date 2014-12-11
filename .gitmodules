@@ -38,3 +38,6 @@
 [submodule "vim/bundle/vim-polyglot"]
     path = vim/bundle/vim-polyglot
     url = https://github.com/sheerun/vim-polyglot.git
+[submodule "https:/github.com/davidhalter/jedi-vim.git"]
+	path = https:/github.com/davidhalter/jedi-vim.git
+	url = vim/bundle/jedi-vim
