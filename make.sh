@@ -69,10 +69,10 @@ case $OSTYPE in
 # setup & get all git submodules
 ###
 echo "Getting all git submodules"
-git submodule init
+git submodule update --init --recursive
 git submodule foreach git checkout master
 git submodule foreach git pull
-git submodule update
+git submodule update --init --recursive
 
 echo
 echo "if vim plugins etc fail to load, try running \"/scripts/update_submodules.sh\" to download the missing files, or run make.sh again."
