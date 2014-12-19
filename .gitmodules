@@ -24,7 +24,7 @@
     url = git://github.com/tpope/vim-markdown.git
 [submodule "vim/bundle/colorschemes"]
 	path = vim/bundle/colorschemes
-	url = git@github.com:flazz/vim-colorschemes.git
+	url = https://github.com/flazz/vim-colorschemes.git
 [submodule "vim/bundle/MatchTagAlways"]
     path = vim/bundle/MatchTagAlways
     url = https://github.com/Valloric/MatchTagAlways.git

@@ -193,6 +193,6 @@ endfunction
 "------------------------------------------------------------
 nmap <leader>t :NERDTreeToggle<CR>
 let g:NERDChristmasTree=1    " more colorful NERDTree
-" close VIM "normally" if NERDTree is running
+" close VIM 'normally' if NERDTree is running
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
