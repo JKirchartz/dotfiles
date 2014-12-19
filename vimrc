@@ -61,7 +61,12 @@ function! NumberToggle()
     set relativenumber
   endif
 endfunc
+function! NumberOff()
+    set norelativenumber
+    set nonumber
+endfunc
 nmap <leader>n :call NumberToggle()<CR> " toggle relative numbers
+nmap <leader>nn :call NumberOff()<CR> " toggle relative numbers
 
 
 "------------------------------------------------------------
