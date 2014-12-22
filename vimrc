@@ -202,3 +202,8 @@ let g:NERDChristmasTree=1    " more colorful NERDTree
 " close VIM 'normally' if NERDTree is running
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
+"------------------------------------------------------------
+" Syntastic
+"------------------------------------------------------------
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
