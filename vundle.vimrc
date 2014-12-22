@@ -40,7 +40,7 @@ let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
 " make YCM ignore c/c++
-g:ycm_filetype_specific_completion_to_disable = {'cpp': 1, 'c': 1}
+let g:ycm_filetype_specific_completion_to_disable = {'cpp': 1, 'c': 1}
 
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
