@@ -24,6 +24,9 @@ nmap <leader>w :w!<cr>
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
+" fix windows ^M characters when encodings mess up ala http://amix.dk/vim/vimrc.html
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
 "------------------------------------------------------------
 " pathogen
 "------------------------------------------------------------
@@ -112,8 +115,6 @@ nnoremap <leader>p p`[v`]=
 
 "------------------------------------------------------------
 " Function Keys
-
-
 "------------------------------------------------------------
 
 " No Help, please (F1)
