@@ -55,7 +55,7 @@ case $OSTYPE in
         # move any existing dotfiles in homedir to dotfiles_old directory, then copy dotfiles 
         for file in $files; do
             echo "Moving existing $file from ~ to $olddir"
-            mv ~/.$file ~/dotfiles_old/
+            [ -f ~/.$file ] && mv ~/.$file ~/dotfiles_old/
             echo "Creating copying to $file in home directory."
             cp -r $dir/$file ~/.$file
         done
@@ -64,7 +64,7 @@ case $OSTYPE in
         # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks 
         for file in $files; do
             echo "Moving existing $file from ~ to $olddir"
-            mv ~/.$file ~/dotfiles_old/
+            [ -f ~/.$file ] && mv ~/.$file ~/dotfiles_old/
             echo "Creating symlink to $file in home directory."
             ln -s $dir/$file ~/.$file
         done
