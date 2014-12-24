@@ -68,13 +68,17 @@ case $OSTYPE in
                 ### Added by the Heroku Toolbelt
                 export PATH="/usr/local/heroku/bin:$PATH"
                 ;;
+            crunchbang)
+                # The next line updates PATH for the Google Cloud SDK.
+                source '/home/vagrant/google-cloud-sdk/path.bash.inc'
+                # The next line enables bash completion for gcloud.
+                source '/home/vagrant/google-cloud-sdk/completion.bash.inc'
+                ;;
         esac
         ;;
     *BSD*)
         # this is a flavor of BSD
-        cowmotd
         ;;
-
     cygwin)
         # this is a PC with cygwin
         fortune -as
@@ -92,3 +96,4 @@ esac
 export PATH="$PATH:."
 # import bashrc
 source ~/.bashrc
+

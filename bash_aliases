@@ -1,6 +1,6 @@
 #basic aliases
 alias ll='ls -aoFh'
-alias lm='ls -aoFh | more'
+alias lm='ls -aoFh | less'
 alias cd..='cd ..'
 alias more='less'                         # less is more, more or less.
 alias py='python '
@@ -27,7 +27,7 @@ alias gcp="~/dotfiles/scripts/gcp.sh"
 alias pipes="~/dotfiles/scripts/pipes.sh"
 
 # grep helpers
-alias notes='cat $HISTFILE | grep ^\#'
+alias notes='hgrep \#'
 alias csgrep=' grep -Ir --exclude-dir="\.svn" --exclude="*\.css" '
 alias sgrep=' grep -Ir --exclude-dir="\.svn" '
 alias psgrep='ps aux | grep $(echo $1 | sed "s/^\(.\)/[\1]/g")'

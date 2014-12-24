@@ -24,6 +24,9 @@ nmap <leader>w :w!<cr>
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
+" fix windows ^M characters when encodings mess up ala http://amix.dk/vim/vimrc.html
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
 "------------------------------------------------------------
 " pathogen
 "------------------------------------------------------------
@@ -61,7 +64,12 @@ function! NumberToggle()
     set relativenumber
   endif
 endfunc
+function! NumberOff()
+    set norelativenumber
+    set nonumber
+endfunc
 nmap <leader>n :call NumberToggle()<CR> " toggle relative numbers
+nmap <leader>nn :call NumberOff()<CR> " toggle relative numbers
 
 
 "------------------------------------------------------------
@@ -97,12 +105,6 @@ if has("autocmd")
       " Jump to last position when reopening files
       au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
           \| exe "normal g'\"" | endif
-
-      " liquid highlighting
-      au BufNewFile,BufRead *.liquid   setf liquid
-
-      "enable omnicomplete
-      autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 endif
 
 " forgot to sudo vi? w!!
@@ -113,8 +115,6 @@ nnoremap <leader>p p`[v`]=
 
 "------------------------------------------------------------
 " Function Keys
-
-
 "------------------------------------------------------------
 
 " No Help, please (F1)
@@ -151,9 +151,8 @@ command Bn bn
 " Improved Hex Editing
 " http://vim.wikia.com/wiki/Improved_hex_editing
 "------------------------------------------------------------
-nnoremap <C-H> :Hexmode<CR>
-inoremap <C-H> <Esc>:Hexmode<CR>
-vnoremap <C-H> :<C-U>Hexmode<CR>
+
+nmap <leader>h :Hexmode<CR> " toggle Hexmode
 
 command -bar Hexmode call ToggleHex()
 
@@ -200,10 +199,6 @@ endfunction
 "------------------------------------------------------------
 nmap <leader>t :NERDTreeToggle<CR>
 let g:NERDChristmasTree=1    " more colorful NERDTree
-" close VIM "normally" if NERDTree is running
+" close VIM 'normally' if NERDTree is running
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-"------------------------------------------------------------
-" SuperTab
-"------------------------------------------------------------
-let g:SuperTabDefaultCompletionType = "context"

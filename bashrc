@@ -11,7 +11,7 @@ function __prompt {
     echo
     printf '\e[0;31m%*s\n\e[m' "${COLUMNS:-$(tput cols)}" '' | tr ' ' \#
     echo
-    echo -n $DIR
+    echo $DIR
     case "$TERM" in
         *xterm* )
             # clear terminal title if set by application etc.
@@ -46,8 +46,17 @@ shopt -s nocaseglob                       # ignore case for autoexpansion
 # search-path for CD command
 export CDPATH=".:~:~/projects:~/Dropbox/projects"
 
-# Grep Colors
-export GREP_OPTIONS='--color=auto' GREP_COLOR='00;38;5;157'
+# enable color support of ls and also add handy aliases (ala ubuntu)
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
 
 #simple calculator
 function calc () { echo "$*" | bc -l; }
@@ -85,6 +94,9 @@ source ~/dotfiles/scripts/npm-completion.bash
 # get aliases
 source ~/dotfiles/bash_aliases
 
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+      . /etc/bash_completion
+fi
 
 # Bins
 export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/bin:.:~/dotfiles/scripts:$PATH

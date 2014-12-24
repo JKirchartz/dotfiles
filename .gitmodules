@@ -17,20 +17,27 @@
     path = vim/bundle/vim-javascript
     url = git://github.com/pangloss/vim-javascript.git
 [submodule "vim/bundle/python.vim"]
-    path = vim/bundle/python.vim
-    url = git://github.com/vim-scripts/python.vim--Vasiliev.git
+	path = vim/bundle/python.vim
+	url = git://github.com/vim-scripts/python.vim--Vasiliev.git
 [submodule "vim/bundle/vim-markdown"]
     path = vim/bundle/vim-markdown
     url = git://github.com/tpope/vim-markdown.git
 [submodule "vim/bundle/colorschemes"]
-   path = vim/bundle/colorschemes
-   url = git@github.com:flazz/vim-colorschemes.git
+	path = vim/bundle/colorschemes
+	url = https://github.com/flazz/vim-colorschemes.git
 [submodule "vim/bundle/MatchTagAlways"]
-	path = vim/bundle/MatchTagAlways
-	url = https://github.com/Valloric/MatchTagAlways.git
+    path = vim/bundle/MatchTagAlways
+    url = https://github.com/Valloric/MatchTagAlways.git
+    ignore = dirty
 [submodule "vim/bundle/supertab"]
-	path = vim/bundle/supertab
-	url = https://github.com/ervandew/supertab.git
+    path = vim/bundle/supertab
+    url = https://github.com/ervandew/supertab.git
 [submodule "vim/bundle/ctrlp"]
-	path = vim/bundle/ctrlp	
+	path = vim/bundle/ctrlp
 	url = https://github.com/kien/ctrlp.vim.git
+[submodule "vim/bundle/vim-polyglot"]
+    path = vim/bundle/vim-polyglot
+    url = https://github.com/sheerun/vim-polyglot.git
+[submodule "vim/bundle/jedi-vim"]
+	path = vim/bundle/jedi-vim
+	url = https://github.com/davidhalter/jedi-vim.git
