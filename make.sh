@@ -66,13 +66,15 @@ case $OSTYPE in
     esac
 
 ##########
-# setup & get all git submodules
+# setup vundle
 ###
-echo "Getting all git submodules"
-git submodule update --init --recursive
-git submodule foreach git checkout master
-git submodule foreach git pull
-git submodule update --init --recursive
+echo "Setting up Vundle for vim"
+git clone https://github.com/gmarik/Vundle.vim.git ./vim/bundle/Vundle.vim
+echo "Setting up YouCompleteMe"
+git clone https://github.com/Valloric/YouCompleteMe ./vim/bundle/YouCompleteMe
+$(cd ./vim/bundle/YouCompleteMe; git submodule update --init)
+echo "Attempting to run YouCompleteMe install script (no clang support, also assumes you have buildtools, cmake, and python-dev installed)"
+./vim/bundle/install.sh # install YouCompleteMe without clang support
+echo "Installing vim plugins with Vundle"
+vim +PluginInstall +qall
 
-echo
-echo "if vim plugins etc fail to load, try running \"/scripts/update_submodules.sh\" to download the missing files, or run make.sh again."
