@@ -1,45 +1,18 @@
 "------------------------------------------------------------
-" Plugin setup (with Vundle)
+" Setup Plugins
 "------------------------------------------------------------
-set nocompatible              " be iMproved
-filetype off                  " required for vundle init
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+if filereadable(expand("~/at_google.vimrc"))
+    source ~/at_google.vimrc
+else
+    source ~/dotfiles/vundle.vimrc
+endif
 
-" let Vundle manage Vundle
-Plugin 'gmarik/Vundle.vim'
-
-" Colorscheme
-Plugin 'flazz/vim-colorschemes'
-
-" Plugins
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'kien/ctrlp.vim'
-Plugin 'ervandew/supertab'
-Plugin 'Valloric/MatchTagAlways'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-fugitive'
-
-" syntax completion, checking, & highlighting
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'scrooloose/syntastic'
-Plugin 'sheerun/vim-polyglot'
-
-" snippets engine & library
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
 
 "------------------------------------------------------------
 " Standard Tweaks
 "------------------------------------------------------------
-set nocompatible " work like VIM dammit! MUST be first!
+set nocompatible " work like VIM dammit! Must be first!
 set magic " NEVER TURN THIS OFF! WIZARDS WILL GET YOU!
 set ffs=unix,dos,mac " Use *nix as the default file type
 set encoding=utf-8 " ensure encoding
@@ -202,7 +175,6 @@ function SpellToggle()
         set spell
     endif
 endfunction
-
 
 
 "------------------------------------------------------------
