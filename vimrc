@@ -1,4 +1,42 @@
 "------------------------------------------------------------
+" Plugin setup (with Vundle)
+"------------------------------------------------------------
+set nocompatible              " be iMproved
+filetype off                  " required for vundle init
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle
+Plugin 'gmarik/Vundle.vim'
+
+" Colorscheme
+Plugin 'flazz/vim-colorschemes'
+
+" Plugins
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'kien/ctrlp.vim'
+Plugin 'ervandew/supertab'
+Plugin 'Valloric/MatchTagAlways'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-fugitive'
+
+" syntax completion, checking, & highlighting
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'scrooloose/syntastic'
+Plugin 'sheerun/vim-polyglot'
+
+" snippets engine & library
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+"------------------------------------------------------------
 " Standard Tweaks
 "------------------------------------------------------------
 set nocompatible " work like VIM dammit! MUST be first!
@@ -14,7 +52,7 @@ set showmode
 set showcmd
 set autoread " Set to auto read when a file is changed from the outside
 
-"map leader to space for faster & easier shortcuts
+"map leader to space for world domination
 nnoremap <Space> <Nop>
 let mapleader = " "
 
@@ -26,13 +64,6 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " fix windows ^M characters when encodings mess up ala http://amix.dk/vim/vimrc.html
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
-"------------------------------------------------------------
-" pathogen
-"------------------------------------------------------------
-source ~/dotfiles/vim/bundle/vim-pathogen/autoload/pathogen.vim
-call pathogen#infect()
-call pathogen#helptags()
 
 "------------------------------------------------------------
 " Tell Text's Title to Terminal/Tmux
@@ -113,6 +144,39 @@ cmap w!! %!sudo tee > /dev/null %
 " paste while keeping the current indent
 nnoremap <leader>p p`[v`]=
 
+nnoremap <leader><leader> :DeleteTrailingWhitespace<CR>
+
+" overwrite common misfires
+command W w
+command Q q
+command Wq wq
+command WQ wq
+command Bn bn
+
+"------------------------------------------------------------
+" Plugin Options
+"------------------------------------------------------------
+nmap <leader>t :NERDTreeToggle<CR>
+let g:NERDChristmasTree=1    " more colorful NERDTree
+" close VIM 'normally' if NERDTree is running
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" make YCM ignore c/c++, coz that's not my bag
+let g:ycm_filetype_specific_completion_to_disable = {'cpp': 1, 'c': 1}
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
 "------------------------------------------------------------
 " Function Keys
 "------------------------------------------------------------
@@ -139,12 +203,6 @@ function SpellToggle()
     endif
 endfunction
 
-" overwrite common misfires
-command W w
-command Q q
-command Wq wq
-command WQ wq
-command Bn bn
 
 
 "------------------------------------------------------------
@@ -194,16 +252,3 @@ function ToggleHex()
   let &modifiable=l:oldmodifiable
 endfunction
 
-"------------------------------------------------------------
-" NerdTree
-"------------------------------------------------------------
-nmap <leader>t :NERDTreeToggle<CR>
-let g:NERDChristmasTree=1    " more colorful NERDTree
-" close VIM 'normally' if NERDTree is running
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
-"------------------------------------------------------------
-" Syntastic
-"------------------------------------------------------------
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_warning_symbol = '⚠'
