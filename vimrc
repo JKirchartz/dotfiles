@@ -160,7 +160,7 @@ nmap <F1> <Esc>
 " paste mode toggle (F2)
 set pastetoggle=<F2>
 
-" A command to delete all trailing whitespace from a file.
+" delete all trailing whitespace (F4)
 command! DeleteTrailingWhitespace %s:\(\S*\)\s\+$:\1:
 nnoremap <silent><F4> :DeleteTrailingWhitespace<CR>
 
