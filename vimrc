@@ -8,6 +8,7 @@ else
     source ~/dotfiles/vundle.vimrc
 endif
 
+source $VIMRUNTIME/macros/matchit.vim
 
 "------------------------------------------------------------
 " Standard Tweaks
@@ -134,6 +135,9 @@ let g:NERDChristmasTree=1    " more colorful NERDTree
 " close VIM 'normally' if NERDTree is running
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
+" add space to beginning of comments
+let g:NERDSpaceDelims = 1
+
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '⚠'
 
@@ -149,6 +153,13 @@ let g:ycm_filetype_specific_completion_to_disable = {'cpp': 1, 'c': 1}
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+" make ctrlp faster
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\.git$\|\.hg$\|\.svn\|\.git5_specs$\|review$',
+  \ 'file': '\.exe$\|\.so$\|\.dll$',
+  \ 'link': 'READONLY$',
+  \ }
 
 "------------------------------------------------------------
 " Function Keys
