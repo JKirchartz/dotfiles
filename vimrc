@@ -74,7 +74,7 @@ cnoremap \<Enter> <Enter>
 "------------------------------------------------------------
 " Setup Colors
 "------------------------------------------------------------
-colorscheme molokai
+colorscheme Molokai
 "set background=dark
 syntax on " highlight that syntax, please
 " force 256 colors
