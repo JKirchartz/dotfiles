@@ -1,6 +1,6 @@
 "------------------------------------------------------------
 " Setup Plugins
-"------------------------------------------------------------
+"---------------------------------------------------------{{{
 
 if filereadable(expand("~/at_google.vimrc"))
     source ~/at_google.vimrc
@@ -10,9 +10,9 @@ endif
 
 source $VIMRUNTIME/macros/matchit.vim
 
-"------------------------------------------------------------
+"}}}---------------------------------------------------------
 " Standard Tweaks
-"------------------------------------------------------------
+"---------------------------------------------------------{{{
 set nocompatible " work like VIM dammit! Must be first!
 set magic " NEVER TURN THIS OFF! WIZARDS WILL GET YOU!
 set ffs=unix,dos,mac " Use *nix as the default file type
@@ -22,8 +22,7 @@ set history=200 nobackup noswapfile " live dangerously
 set nowrap backspace=indent,eol,start " fix backspace
 set number ruler " show line number & cursor positition
 set wildmenu  " better autocomplete
-set showmode
-set showcmd
+set showmode showcmd " show modes & commands down below
 set autoread " Set to auto read when a file is changed from the outside
 set shortmess=atI " abbreviate or avoid certain messages
 
@@ -54,11 +53,14 @@ highlight ColorColumn ctermbg=Black
 " highlight css in html(?)
 let html_use_css=1
 
-if has("autocmd")
-      " Jump to last position when reopening files
-      au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-          \| exe "normal g'\"" | endif
-endif
+" Setup Colors
+colorscheme monokain
+syntax on " highlight that syntax, please
+
+
+"}}}---------------------------------------------------------
+" Custom Functions/Commands
+"---------------------------------------------------------{{{
 
 " forgot to sudo vi? w!!
 cmap w!! %!sudo tee > /dev/null %
@@ -70,19 +72,6 @@ command Wq wq
 command WQ wq
 command Bn bn
 cnoremap \<Enter> <Enter>
-
-"------------------------------------------------------------
-" Setup Colors
-"------------------------------------------------------------
-colorscheme Molokai
-"set background=dark
-syntax on " highlight that syntax, please
-" force 256 colors
-"set t_Co=256
-
-"------------------------------------------------------------
-" Custom Functions/Commands
-"------------------------------------------------------------
 
 function! NumberToggle()
   if &relativenumber == 1
@@ -140,9 +129,9 @@ endfunction
 command! DeleteTrailingWhitespace %s:\(\S*\)\s\+$:\1:
 command -bar Hexmode call ToggleHex()
 
-"------------------------------------------------------------
+"}}}---------------------------------------------------------
 " Leader
-"------------------------------------------------------------
+"---------------------------------------------------------{{{
 "map leader to space for world domination
 nnoremap <Space> <Nop>
 let mapleader = " "
@@ -179,9 +168,9 @@ nnoremap <leader><leader> :DeleteTrailingWhitespace<CR>
 
 map <leader>s :spell!<cr>
 
-"------------------------------------------------------------
+"}}}---------------------------------------------------------
 " Function Keys
-"------------------------------------------------------------
+"---------------------------------------------------------{{{
 
 " No Help, please (F1)
 nmap <F1> <Esc>
@@ -196,9 +185,9 @@ nnoremap <silent><F4> :DeleteTrailingWhitespace<CR>
 inoremap <silent> <F7> :spell!<cr>
 map <silent> <F7> :spell!<cr>
 
-"------------------------------------------------------------
+"}}}---------------------------------------------------------
 " Plugin Options
-"------------------------------------------------------------
+"---------------------------------------------------------{{{
 nmap <leader>t :NERDTreeToggle<CR>
 let g:NERDChristmasTree=1    " more colorful NERDTree
 " close VIM 'normally' if NERDTree is running
@@ -231,3 +220,13 @@ let g:ctrlp_custom_ignore = {
   \ 'link': 'READONLY$',
   \ }
 
+"}}}-------------------------------------------------------
+" autocmds
+"-------------------------------------------------------{{{
+if has("autocmd")
+      " fold up vimrc
+      autocmd FileType vim setlocal foldmethod=marker
+      " Jump to last position when reopening files
+      au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+          \| exe "normal g'\"" | endif
+endif
