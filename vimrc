@@ -39,7 +39,6 @@ filetype plugin indent on    " required
 "------------------------------------------------------------
 " Standard Tweaks
 "------------------------------------------------------------
-set nocompatible " work like VIM dammit! MUST be first!
 set magic " NEVER TURN THIS OFF! WIZARDS WILL GET YOU!
 set ffs=unix,dos,mac " Use *nix as the default file type
 set encoding=utf-8 " ensure encoding
@@ -228,7 +227,7 @@ function ToggleHex()
 endfunction
 
 "------------------------------------------------------------
-" NerdTree
+" Plugin settings
 "------------------------------------------------------------
 nmap <leader>t :NERDTreeToggle<CR>
 let g:NERDChristmasTree=1    " more colorful NERDTree
@@ -247,4 +246,8 @@ let g:ycm_filetype_specific_completion_to_disable = {'cpp': 1, 'c': 1}
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+nmap <leader>c :SyntasticCheck<CR>
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_javascript_checkers = ['gjslint','jshint']
 
