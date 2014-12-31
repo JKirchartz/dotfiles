@@ -1,44 +1,19 @@
 "------------------------------------------------------------
-" Plugin setup (with Vundle)
+" Setup Plugins
 "------------------------------------------------------------
-set nocompatible              " be iMproved
-filetype off                  " required for vundle init
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+if filereadable(expand("~/at_google.vimrc"))
+    source ~/at_google.vimrc
+else
+    source ~/dotfiles/vundle.vimrc
+endif
 
-" let Vundle manage Vundle
-Plugin 'gmarik/Vundle.vim'
-
-" Colorscheme
-Plugin 'flazz/vim-colorschemes'
-
-" Plugins
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'kien/ctrlp.vim'
-Plugin 'ervandew/supertab'
-Plugin 'Valloric/MatchTagAlways'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-fugitive'
-
-" syntax completion, checking, & highlighting
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'scrooloose/syntastic'
-Plugin 'sheerun/vim-polyglot'
-
-" snippets engine & library
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+source $VIMRUNTIME/macros/matchit.vim
 
 "------------------------------------------------------------
 " Standard Tweaks
 "------------------------------------------------------------
+set nocompatible " be iMproved 
 set magic " NEVER TURN THIS OFF! WIZARDS WILL GET YOU!
 set ffs=unix,dos,mac " Use *nix as the default file type
 set encoding=utf-8 " ensure encoding
@@ -145,6 +120,47 @@ nnoremap <leader>p p`[v`]=
 
 nnoremap <leader><leader> :DeleteTrailingWhitespace<CR>
 
+" overwrite common misfires
+command W w
+command Q q
+command Wq wq
+command WQ wq
+command Bn bn
+
+"------------------------------------------------------------
+" Plugin Options
+"------------------------------------------------------------
+nmap <leader>t :NERDTreeToggle<CR>
+let g:NERDChristmasTree=1    " more colorful NERDTree
+" close VIM 'normally' if NERDTree is running
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" add space to beginning of comments
+let g:NERDSpaceDelims = 1
+
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" make YCM ignore c/c++, coz that's not my bag
+let g:ycm_filetype_specific_completion_to_disable = {'cpp': 1, 'c': 1}
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+" make ctrlp faster
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\.git$\|\.hg$\|\.svn\|\.git5_specs$\|review$',
+  \ 'file': '\.exe$\|\.so$\|\.dll$',
+  \ 'link': 'READONLY$',
+  \ }
+
 "------------------------------------------------------------
 " Function Keys
 "------------------------------------------------------------
@@ -155,7 +171,7 @@ nmap <F1> <Esc>
 " paste mode toggle (F2)
 set pastetoggle=<F2>
 
-" A command to delete all trailing whitespace from a file.
+" delete all trailing whitespace (F4)
 command! DeleteTrailingWhitespace %s:\(\S*\)\s\+$:\1:
 nnoremap <silent><F4> :DeleteTrailingWhitespace<CR>
 
@@ -170,13 +186,6 @@ function SpellToggle()
         set spell
     endif
 endfunction
-
-" overwrite common misfires
-command W w
-command Q q
-command Wq wq
-command WQ wq
-command Bn bn
 
 
 "------------------------------------------------------------
