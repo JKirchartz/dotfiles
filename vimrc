@@ -54,7 +54,7 @@ highlight ColorColumn ctermbg=Black
 let html_use_css=1
 
 " Setup Colors
-colorscheme monokain
+colorscheme candy
 syntax on " highlight that syntax, please
 
 
