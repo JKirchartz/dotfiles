@@ -1,6 +1,5 @@
 set -o vi
 
-
 function __prompt {
     # sync history across terms
     history -a
@@ -21,11 +20,19 @@ function __prompt {
 }
 PROMPT_COMMAND="__prompt"
 source ~/dotfiles/bash_colors
-export __cr=$COLOR_RED #red
-export __cc=$COLOR_CYAN #cyan
+export __cr=$COLOR_RED
+export __cc=$COLOR_CYAN
+export __cw=$COLOR_WHITE
 export __nc=$COLOR_NC #no color
 
-export PS1="\[$__cr\]┌─[\[$__cc\]\D{%x %X}\[$__cr\]]-[\[$__cc\]\j\[$__cr\]]\n\[$__cr\]└─[\[$__cc\]\!\[$__cr\]]-[\[$__cc\]\$>\[$__nc\]"
+# if shell's running INSIDE vim, mark it in the prompt (as a white V)
+if [ -z ${VIMRUNTIME} ]; then
+  export __vim="[";
+else
+  export __vim="(\[$__cw\]V\[$__cr\])-[";
+fi
+
+export PS1="\[$__cr\]┌─[\[$__cc\]\D{%x %X}\[$__cr\]]-[\[$__cc\]\j\[$__cr\]]\n\[$__cr\]└─[\[$__cc\]\!\[$__cr\]]-$__vim\[$__cc\]\$>\[$__nc\]"
 export PS2="\[$__cr\]└─\[$__cc\]>\[$__nc\]"
 
 # git-prompt settings
@@ -61,6 +68,9 @@ fi
 #simple calculator
 function calc () { echo "$*" | bc -l; }
 
+#tmux title changer
+function tmut () {  printf "\033k$1\033\\"; }
+
 # easy unzip
 function extract () {
     if [ -f $1 ] ; then
@@ -92,12 +102,34 @@ source ~/dotfiles/scripts/git-completion.bash
 source ~/dotfiles/scripts/npm-completion.bash
 
 # get aliases
+shopt -s expand_aliases
 source ~/dotfiles/bash_aliases
 
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
       . /etc/bash_completion
 fi
 
-# Bins
-export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/bin:.:~/dotfiles/scripts:$PATH
+# Function to update a shell inside tmux with new environment variables (really
+# useful for switching between ssh and local) function update-environment
+# stolen from https://github.com/xanderman/dotfiles/blob/master/.bashrc#L105
 
+function update-environment {
+  local v
+  while read v; do
+    if [[ $v == -* ]]; then
+      unset ${v/#-/}
+    else
+      # Surround value with quotes
+      v=${v/=/=\"}
+      v=${v/%/\"}
+      eval export $v
+    fi
+  done < <(tmux show-environment)
+}
+
+# Bins
+export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/bin:/usr/games:~/dotfiles/scripts:$PATH
+
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"

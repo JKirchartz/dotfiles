@@ -1,6 +1,41 @@
 # be vimlike
 set editing-mode vi
-set keymap vi-command
+$if mode=vi
+#
+# COMMAND-MODE
+#
+  set keymap vi-command
+
+  # tab to list all completions & select first, or cycle through available
+  TAB: menu-complete
+
+  # Shift-tab for backwards
+  "\e[Z": menu-complete-backwards
+
+  # make ctrl+l clear the screen (like in vim)
+  Control-l: clear-screen
+
+  # re-init without logout
+  "\C-R\C-R": re-read-init-file
+
+#
+# INPUT MODE
+#
+  set keymap vi-insert
+
+  # tab to list all completions & select first, or cycle through available
+  TAB: menu-complete
+
+  # Shift-tab for backwards
+  "\e[Z": menu-complete-backwards
+
+  # make ctrl+l clear the screen (like in vim)
+  Control-l: clear-screen
+
+  # re-init without logout
+  "\C-R\C-R": re-read-init-file
+
+$endif
 
 # Allow case-insensitive auto-completion
 set completion-ignore-case on

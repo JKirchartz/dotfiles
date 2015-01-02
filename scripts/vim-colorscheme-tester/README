@@ -1,0 +1,14 @@
+a script to generate screenshots of vim colorschemes,
+by using examples from rosettacode.org's 99 bottles of beer,
+so that you can see which colorscheme is messed up and which is usable.
+
+Can I improve upon vimcolorschemetest?
+
+
+
+links:
+    https://code.google.com/p/vimcolorschemetest/
+    http://vim.wikia.com/wiki/Switch_color_schemes
+    https://github.com/vim-scripts/CycleColor
+    http://rosettacode.org/wiki/99_Bottles_of_Beer
+

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+SESSION=$USER
+tmux ls $> /dev/null
+# No TMUX sessions - create
+if [ $? != 0 ]
+then
+  tmux new-session -s $SESSION
+fi
+# One TMUX - resume
+tmux attach -t $SESSION
