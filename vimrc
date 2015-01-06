@@ -224,7 +224,7 @@ let g:ctrlp_custom_ignore = {
 " autocmds
 "-------------------------------------------------------{{{
 if has("autocmd")
-      " fold up vimrc
+      " fold up vim files
       autocmd FileType vim setlocal foldmethod=marker
       " Jump to last position when reopening files
       au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
