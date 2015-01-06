@@ -40,10 +40,11 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 "------------------------------------------------------------
-" Tell Text's Title to Terminal/Tmux
+" stop flying
 "------------------------------------------------------------
 set title
-autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
+"autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
+let &titleold=getcwd()
 
 
 "------------------------------------------------------------
