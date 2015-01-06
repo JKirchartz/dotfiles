@@ -75,17 +75,14 @@ command Bn bn
 cnoremap \<Enter> <Enter>
 
 function! NumberToggle()
-  if &relativenumber == 1
-    set norelativenumber
-    set number
-  else
-    set relativenumber
-  endif
-endfunc
-
-function! NumberOff()
+  if &relativenumber == 1 && &number == 1
     set norelativenumber
     set nonumber
+  elseif &relativenumber == 0 && &number == 1
+    set relativenumber
+  else
+    set number
+  endif
 endfunc
 
 " Improve hex editing (ala http://vim.wikia.com/wiki/Improved_hex_editing)
@@ -156,8 +153,7 @@ nmap <leader>h :Hexmode<CR>
 "toggle number relativity
 nmap <leader>n :call NumberToggle()<CR>
 
-" hide numbers
-nmap <leader>nn :call NumberOff()<CR>
+nmap <leader>pr :set list! nonumber norelativenumber<CR>
 
 " clear search highlight
 nmap <leader><cr> :nohlsearch<CR>
@@ -198,10 +194,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 " add space to beginning of comments
 let g:NERDSpaceDelims = 1
 
-" use pretty syntastic symbols
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_warning_symbol = '⚠'
-
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
@@ -218,6 +210,9 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 nmap <leader>sc :SyntasticCheck<CR>
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_javascript_checkers = ['gjslint','jshint']
+" use pretty syntastic symbols
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
 
 " make ctrlp faster
 let g:ctrlp_custom_ignore = {
