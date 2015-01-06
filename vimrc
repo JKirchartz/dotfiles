@@ -12,6 +12,7 @@ source $VIMRUNTIME/macros/matchit.vim
 
 "}}}---------------------------------------------------------
 " Standard Tweaks
+"---------------------------------------------------------{{{
 set nocompatible " be iMproved
 set magic " NEVER TURN THIS OFF! WIZARDS WILL GET YOU!
 set ffs=unix,dos,mac " Use *nix as the default file type
@@ -23,11 +24,10 @@ set number ruler " show line number & cursor positition
 set wildmenu  " better autocomplete
 set showmode showcmd " show modes & commands down below
 set autoread " Set to auto read when a file is changed from the outside
-set shortmess=atI " abbreviate or avoid certain messages
 
 set title
 let &titleold=getcwd() " stop flying the friendly skies
-
+set shortmess=atI " abbreviate or avoid certain messages
 set noerrorbells " hear no evil
 set novisualbell " see no evil
 
