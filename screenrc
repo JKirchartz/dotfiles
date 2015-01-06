@@ -17,6 +17,9 @@ vbell_msg " !! PING !!"
 # Don't turn this off
 autodetach on
 
+# alternative screen support
+altscreen on
+
 # for crappy connections
 defnonblock on
 

@@ -12,8 +12,7 @@ source $VIMRUNTIME/macros/matchit.vim
 
 "}}}---------------------------------------------------------
 " Standard Tweaks
-"---------------------------------------------------------{{{
-set nocompatible " work like VIM dammit! Must be first!
+set nocompatible " be iMproved
 set magic " NEVER TURN THIS OFF! WIZARDS WILL GET YOU!
 set ffs=unix,dos,mac " Use *nix as the default file type
 set encoding=utf-8 " ensure encoding
@@ -25,6 +24,9 @@ set wildmenu  " better autocomplete
 set showmode showcmd " show modes & commands down below
 set autoread " Set to auto read when a file is changed from the outside
 set shortmess=atI " abbreviate or avoid certain messages
+
+set title
+let &titleold=getcwd() " stop flying the friendly skies
 
 set noerrorbells " hear no evil
 set novisualbell " see no evil
@@ -46,7 +48,7 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab " All tabs are replaced by 4 spaces (Yes I'm *that* guy)
 
-" show column 80 
+" show column 80
 set colorcolumn=81
 highlight ColorColumn ctermbg=Black
 
@@ -56,7 +58,6 @@ let html_use_css=1
 " Setup Colors
 colorscheme candy
 syntax on " highlight that syntax, please
-
 
 "}}}---------------------------------------------------------
 " Custom Functions/Commands
@@ -142,15 +143,15 @@ nmap <leader>w :w!<cr>
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-" fix windows ^M characters when encodings mess up 
+" fix windows ^M characters when encodings mess up
 " ( ala http://amix.dk/vim/vimrc.html )
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " toggle whitespace
-nmap <leader>l :set list!<CR> 
+nmap <leader>l :set list!<CR>
 
 " toggle Hexmode
-nmap <leader>h :Hexmode<CR> 
+nmap <leader>h :Hexmode<CR>
 
 "toggle number relativity
 nmap <leader>n :call NumberToggle()<CR>
@@ -159,12 +160,13 @@ nmap <leader>n :call NumberToggle()<CR>
 nmap <leader>nn :call NumberOff()<CR>
 
 " clear search highlight
-nmap <leader><cr> :nohlsearch<CR> 
+nmap <leader><cr> :nohlsearch<CR>
 
 " paste while keeping the current indent
 nnoremap <leader>p p`[v`]=
 
-nnoremap <leader><leader> :DeleteTrailingWhitespace<CR>
+" cleanup & write quickly
+nnoremap <leader><leader> :DeleteTrailingWhitespace<CR>:w!<CR>
 
 map <leader>s :spell!<cr>
 
@@ -213,6 +215,10 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
+nmap <leader>sc :SyntasticCheck<CR>
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_javascript_checkers = ['gjslint','jshint']
+
 " make ctrlp faster
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\.git$\|\.hg$\|\.svn\|\.git5_specs$\|review$',
@@ -229,4 +235,6 @@ if has("autocmd")
       " Jump to last position when reopening files
       au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
           \| exe "normal g'\"" | endif
+      " Set title to filename (or something IDK, it's been off for a while)
+      "au BufEnter * let &titlestring = ' ' . expand("%:t")
 endif
