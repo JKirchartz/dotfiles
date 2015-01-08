@@ -24,6 +24,7 @@ set number ruler " show line number & cursor positition
 set wildmenu  " better autocomplete
 set showmode showcmd " show modes & commands down below
 set autoread " Set to auto read when a file is changed from the outside
+set shell=/bin/bash\ -i " use interactive bash as the shell
 
 set title
 let &titleold=getcwd() " stop flying the friendly skies
