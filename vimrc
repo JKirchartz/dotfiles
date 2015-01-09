@@ -173,16 +173,18 @@ map <leader>s :spell!<cr>
 
 " No Help, please (F1)
 nmap <F1> <Esc>
+imap <F1> <Esc>
 
 " paste mode toggle (F2)
 set pastetoggle=<F2>
 
 " delete all trailing whitespace (F4)
-nnoremap <silent><F4> :DeleteTrailingWhitespace<CR>
+nmap <silent><F4> :DeleteTrailingWhitespace<CR>
+imap <silent><F4> :DeleteTrailingWhitespace<CR>
 
 " spell check toggle (F7)
-inoremap <silent> <F7> :spell!<cr>
-map <silent> <F7> :spell!<cr>
+imap <silent> <F7> :spell!<cr>
+nmap <silent> <F7> :spell!<cr>
 
 "}}}---------------------------------------------------------
 " Plugin Options
