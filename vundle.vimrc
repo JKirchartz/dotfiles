@@ -31,6 +31,7 @@ Plugin 'sheerun/vim-polyglot'
 " snippets engine & library
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
+Plugin 'aperezdc/vim-template'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required

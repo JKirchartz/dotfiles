@@ -25,7 +25,9 @@ export __cr=$COLOR_RED #red
 export __cc=$COLOR_CYAN #cyan
 export __nc=$COLOR_NC #no color
 
-export PS1="\[$__cr\]┌─[\[$__cc\]\D{%x %X}\[$__cr\]]-[\[$__cc\]\j\[$__cr\]]\n\[$__cr\]└─[\[$__cc\]\!\[$__cr\]]-[\[$__cc\]\$>\[$__nc\]"
+if [ -z ${VIMRUNTIME+x} ]; then export __vim="["; else __vim="(vim)["; fi
+
+export PS1="\[$__cr\]┌─[\[$__cc\]\D{%x %X}\[$__cr\]]-[\[$__cc\]\j\[$__cr\]]\n\[$__cr\]└─[\[$__cc\]\!\[$__cr\]]-$__vim\[$__cc\]\$>\[$__nc\]"
 export PS2="\[$__cr\]└─\[$__cc\]>\[$__nc\]"
 
 # git-prompt settings

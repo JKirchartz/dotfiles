@@ -12,6 +12,7 @@ source $VIMRUNTIME/macros/matchit.vim
 
 "}}}---------------------------------------------------------
 " Standard Tweaks
+"---------------------------------------------------------{{{
 set nocompatible " be iMproved
 set magic " NEVER TURN THIS OFF! WIZARDS WILL GET YOU!
 set ffs=unix,dos,mac " Use *nix as the default file type
@@ -25,10 +26,11 @@ set showmode showcmd " show modes & commands down below
 set autoread " Set to auto read when a file is changed from the outside
 set shortmess=atI " abbreviate or avoid certain messages
 set laststatus=2 " see the last status
+set shell=/bin/bash\ -i " use interactive bash as the shell
 
 set title
 let &titleold=getcwd() " stop flying the friendly skies
-
+set shortmess=atI " abbreviate or avoid certain messages
 set noerrorbells " hear no evil
 set novisualbell " see no evil
 
@@ -76,17 +78,14 @@ command Bn bn
 cnoremap \<Enter> <Enter>
 
 function! NumberToggle()
-  if &relativenumber == 1
-    set norelativenumber
-    set number
-  else
-    set relativenumber
-  endif
-endfunc
-
-function! NumberOff()
+  if &relativenumber == 1 && &number == 1
     set norelativenumber
     set nonumber
+  elseif &relativenumber == 0 && &number == 1
+    set relativenumber
+  else
+    set number
+  endif
 endfunc
 
 " Improve hex editing (ala http://vim.wikia.com/wiki/Improved_hex_editing)
@@ -157,8 +156,7 @@ nmap <leader>h :Hexmode<CR>
 "toggle number relativity
 nmap <leader>n :call NumberToggle()<CR>
 
-" hide numbers
-nmap <leader>nn :call NumberOff()<CR>
+nmap <leader>pr :set list! nonumber norelativenumber<CR>
 
 " clear search highlight
 nmap <leader><cr> :nohlsearch<CR>
@@ -177,16 +175,18 @@ map <leader>s :spell!<cr>
 
 " No Help, please (F1)
 nmap <F1> <Esc>
+imap <F1> <Esc>
 
 " paste mode toggle (F2)
 set pastetoggle=<F2>
 
 " delete all trailing whitespace (F4)
-nnoremap <silent><F4> :DeleteTrailingWhitespace<CR>
+nmap <silent><F4> :DeleteTrailingWhitespace<CR>
+imap <silent><F4> :DeleteTrailingWhitespace<CR>
 
 " spell check toggle (F7)
-inoremap <silent> <F7> :spell!<cr>
-map <silent> <F7> :spell!<cr>
+imap <silent> <F7> :spell!<cr>
+nmap <silent> <F7> :spell!<cr>
 
 "}}}---------------------------------------------------------
 " Plugin Options
@@ -198,10 +198,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 
 " add space to beginning of comments
 let g:NERDSpaceDelims = 1
-
-" use pretty syntastic symbols
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_warning_symbol = '⚠'
 
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
@@ -219,6 +215,9 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 nmap <leader>sc :SyntasticCheck<CR>
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_javascript_checkers = ['gjslint','jshint']
+" use pretty syntastic symbols
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
 
 " make ctrlp faster
 let g:ctrlp_custom_ignore = {
@@ -231,7 +230,7 @@ let g:ctrlp_custom_ignore = {
 " autocmds
 "-------------------------------------------------------{{{
 if has("autocmd")
-      " fold up vimrc
+      " fold up vim files
       autocmd FileType vim setlocal foldmethod=marker
       " Jump to last position when reopening files
       au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
