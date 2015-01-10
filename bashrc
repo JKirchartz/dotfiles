@@ -1,6 +1,5 @@
 set -o vi
 
-
 function __prompt {
     # sync history across terms
     history -a
@@ -21,11 +20,13 @@ function __prompt {
 }
 PROMPT_COMMAND="__prompt"
 source ~/dotfiles/bash_colors
-export __cr=$COLOR_RED #red
-export __cc=$COLOR_CYAN #cyan
+export __cr=$COLOR_RED
+export __cc=$COLOR_CYAN
+export __cw=$COLOR_WHITE
 export __nc=$COLOR_NC #no color
 
-if [ -z ${VIMRUNTIME+x} ]; then export __vim="["; else __vim="(vim)["; fi
+# if shell's running INSIDE vim, mark it in the prompt (as a white V)
+if [ -z ${VIMRUNTIME+x} ]; then export __vim="["; else __vim="(\[$__cw\]V\[$__cr\])-["; fi
 
 export PS1="\[$__cr\]┌─[\[$__cc\]\D{%x %X}\[$__cr\]]-[\[$__cc\]\j\[$__cr\]]\n\[$__cr\]└─[\[$__cc\]\!\[$__cr\]]-$__vim\[$__cc\]\$>\[$__nc\]"
 export PS2="\[$__cr\]└─\[$__cc\]>\[$__nc\]"
