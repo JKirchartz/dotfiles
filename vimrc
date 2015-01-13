@@ -40,6 +40,8 @@ set incsearch " incremental search
 set hlsearch  " highlight search
 set ignorecase " make /foo match FOO & FOo but /FOO only match FOO
 
+set mouse=a " enable mouse. how quaint.
+
 " Tabs & Indents
 filetype plugin indent on
 set autoindent
