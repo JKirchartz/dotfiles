@@ -24,6 +24,8 @@ set number ruler " show line number & cursor positition
 set wildmenu  " better autocomplete
 set showmode showcmd " show modes & commands down below
 set autoread " Set to auto read when a file is changed from the outside
+set shortmess=atI " abbreviate or avoid certain messages
+set laststatus=2 " see the last status
 set shell=/bin/bash\ -i " use interactive bash as the shell
 
 set title
@@ -46,10 +48,10 @@ set mouse=a " enable mouse. how quaint.
 filetype plugin indent on
 set autoindent
 set shiftround
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set expandtab " All tabs are replaced by 4 spaces (Yes I'm *that* guy)
+" tabs are 4 spaces.
+" set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
+" tabs are 2 spaces.
+set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 
 " show column 80
 set colorcolumn=81
