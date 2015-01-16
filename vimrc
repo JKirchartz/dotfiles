@@ -21,7 +21,7 @@ set clipboard=unnamed
 set history=200 nobackup noswapfile " live dangerously
 set nowrap backspace=indent,eol,start " fix backspace
 set number ruler " show line number & cursor positition
-set wildmenu  " better autocomplete
+set wildmenu  " better menu like for autocomplete
 set showmode showcmd " show modes & commands down below
 set autoread " Set to auto read when a file is changed from the outside
 set shortmess=atI " abbreviate or avoid certain messages

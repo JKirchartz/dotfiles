@@ -74,6 +74,10 @@ case $OSTYPE in
                 # The next line enables bash completion for gcloud.
                 source '/home/vagrant/google-cloud-sdk/completion.bash.inc'
                 ;;
+            *google*)
+                if [ -f ~/.at_google.sh ] && ! shopt -oq posix; then
+                    source ~/.at_google.sh
+                fi
         esac
         ;;
     *BSD*)
