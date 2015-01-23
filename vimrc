@@ -19,7 +19,7 @@ set ffs=unix,dos,mac " Use *nix as the default file type
 set encoding=utf-8 " ensure encoding
 set clipboard=unnamed
 set history=200 nobackup noswapfile " live dangerously
-set nowrap backspace=indent,eol,start " fix backspace
+set backspace=indent,eol,start " fix backspace
 set number ruler " show line number & cursor positition
 set wildmenu  " better menu like for autocomplete
 set showmode showcmd " show modes & commands down below
@@ -53,9 +53,14 @@ set shiftround
 " tabs are 2 spaces.
 set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 
-" show column 80
-set colorcolumn=81
+" 80 columns
+set nowrap " don't soft-wrap
+set formatoptions+=w " do hard-wrap
+set textwidth=80 " be 80 wide
+set wrapmargin=2 " wrap at 78
+set colorcolumn=81 " show me what's TOO far
 highlight ColorColumn ctermbg=Black
+
 
 " highlight css in html(?)
 let html_use_css=1
@@ -129,7 +134,7 @@ function ToggleHex()
   let &modifiable=l:oldmodifiable
 endfunction
 
-command! DeleteTrailingWhitespace %s:\(\S*\)\s\+$:\1:
+command! DeleteTrailingWhitespace :silent! %s:\(\S*\)\s\+$:\1:
 command -bar Hexmode call ToggleHex()
 
 "}}}---------------------------------------------------------
@@ -196,7 +201,8 @@ nmap <silent> <F7> :spell!<cr>
 nmap <leader>t :NERDTreeToggle<CR>
 let g:NERDChristmasTree=1    " more colorful NERDTree
 " close VIM 'normally' if NERDTree is running
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && 
+b:NERDTreeType == "primary") | q | endif
 
 " add space to beginning of comments
 let g:NERDSpaceDelims = 1
@@ -227,6 +233,9 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\.exe$\|\.so$\|\.dll$',
   \ 'link': 'READONLY$',
   \ }
+
+" use _my_ software liscence as the default for vim-templates
+let g:license = "NPL (Necessary Public Liscence)"
 
 "}}}-------------------------------------------------------
 " autocmds
