@@ -73,6 +73,10 @@ case $OSTYPE in
                 # add appengine, npm, and gems bins to path
                 PATH=$PATH:/usr/local/share/npm/bin:~/gems/bin:~/google_appengine
                 ;;
+            *google*)
+                if [ -f ~/.at_google.sh ] && ! shopt -oq posix; then
+                    source ~/.at_google.sh
+                fi
         esac
         ;;
     *BSD*)
