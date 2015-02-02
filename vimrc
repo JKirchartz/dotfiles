@@ -176,6 +176,8 @@ nnoremap <leader><leader> :DeleteTrailingWhitespace<CR>:w!<CR>
 
 map <leader>s :spell!<cr>
 
+map <leader>r :e %<cr>
+
 "}}}---------------------------------------------------------
 " Function Keys
 "---------------------------------------------------------{{{
@@ -202,7 +204,7 @@ nmap <leader>t :NERDTreeToggle<CR>
 let g:NERDChristmasTree=1    " more colorful NERDTree
 " close VIM 'normally' if NERDTree is running
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && 
-b:NERDTreeType == "primary") | q | endif
+      \b:NERDTreeType == "primary") | q | endif
 
 " add space to beginning of comments
 let g:NERDSpaceDelims = 1

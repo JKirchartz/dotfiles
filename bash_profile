@@ -75,8 +75,8 @@ case $OSTYPE in
                 source '/home/vagrant/google-cloud-sdk/completion.bash.inc'
                 ;;
             *google*)
-                if [ -f ~/.at_google.sh ] && ! shopt -oq posix; then
-                    source ~/.at_google.sh
+                if [ -f ~/at_google.sh ] && ! shopt -oq posix; then
+                    source ~/at_google.sh
                 fi
         esac
         ;;
