@@ -133,8 +133,11 @@ function ToggleHex()
   let &readonly=l:oldreadonly
   let &modifiable=l:oldmodifiable
 endfunction
-
-command! DeleteTrailingWhitespace :silent! %s:\(\S*\)\s\+$:\1:
+command! -bar DeleteTrailingWhitespace :silent! %s:\(\S*\)\s\+$:\1:
+function DeleteWhiteThenWrite()
+  :DeleteTrailingWhitespace
+  :write
+endfunction
 command -bar Hexmode call ToggleHex()
 
 "}}}---------------------------------------------------------
@@ -172,7 +175,7 @@ nmap <leader><cr> :nohlsearch<CR>
 nnoremap <leader>p p`[v`]=
 
 " cleanup & write quickly
-nnoremap <leader><leader> :DeleteTrailingWhitespace<CR>:w!<CR>
+nnoremap <leader><leader> :call DeleteWhiteThenWrite()<CR>
 
 map <leader>s :spell!<cr>
 
@@ -203,7 +206,7 @@ nmap <silent> <F7> :spell!<cr>
 nmap <leader>t :NERDTreeToggle<CR>
 let g:NERDChristmasTree=1    " more colorful NERDTree
 " close VIM 'normally' if NERDTree is running
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && 
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&
       \b:NERDTreeType == "primary") | q | endif
 
 " add space to beginning of comments
@@ -224,6 +227,7 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 nmap <leader>sc :SyntasticCheck<CR>
 let g:syntastic_aggregate_errors = 1
+let g:syntastic_check_on_open = 1
 let g:syntastic_javascript_checkers = ['gjslint','jshint']
 " use pretty syntastic symbols
 let g:syntastic_error_symbol = '✗'
