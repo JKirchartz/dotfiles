@@ -240,8 +240,8 @@ let g:ctrlp_custom_ignore = {
   \ 'link': 'READONLY$',
   \ }
 
-" use _my_ software liscence as the default for vim-templates
-let g:license = "NPL (Necessary Public Liscence)"
+" use _my_ software license as the default for vim-templates
+let g:license = "NPL (Necessary Public License)"
 
 "}}}-------------------------------------------------------
 " autocmds
