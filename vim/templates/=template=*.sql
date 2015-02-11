@@ -1,6 +1,7 @@
 /*
  * %FFILE%
- * Copyleft (Ͻ) %YEAR% %USER% <%MAIL%>
+ *
+ * Copyleft (ↄ) %YEAR% %USER% <%MAIL%>
  *
  * Distributed under terms of the %LICENSE% license.
  */

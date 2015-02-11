@@ -5,7 +5,7 @@
  * @package %FILE%
  * @author %USER% <%MAIL%>
  * @version 0.1
- * @copyleft (Ͻ) %YEAR% %USER% <%MAIL%>
+ * @copyleft (ↄ) %YEAR% %USER% <%MAIL%>
  * @license %LICENSE%
  */
 
