@@ -133,9 +133,9 @@ function ToggleHex()
   let &readonly=l:oldreadonly
   let &modifiable=l:oldmodifiable
 endfunction
-command! -bar DeleteTrailingWhitespace :silent! %s:\(\S*\)\s\+$:\1:
-function DeleteWhiteThenWrite()
-  :DeleteTrailingWhitespace
+command! -bar DeleteTrailingSpaces :silent! %s:\(\S*\) \+$:\1:
+function DeleteTrailingSpacesThenWrite()
+  :DeleteTrailingSpaces
   :write
 endfunction
 command -bar Hexmode call ToggleHex()
@@ -175,7 +175,7 @@ nmap <leader><cr> :nohlsearch<CR>
 nnoremap <leader>p p`[v`]=
 
 " cleanup & write quickly
-nnoremap <leader><leader> :call DeleteWhiteThenWrite()<CR>
+nnoremap <leader><leader> :call DeleteTrailingSpacesThenWrite()<CR>
 
 map <leader>s :spell!<cr>
 
