@@ -74,8 +74,9 @@ case $OSTYPE in
                 PATH=$PATH:/usr/local/share/npm/bin:~/gems/bin:~/google_appengine
                 ;;
             *google*)
-                if [ -f ~/.at_google.sh ] && ! shopt -oq posix; then
-                    source ~/.at_google.sh
+                cowmotd
+                if [ -f ~/at_google.sh ] && ! shopt -oq posix; then
+                    source ~/at_google.sh
                 fi
         esac
         ;;

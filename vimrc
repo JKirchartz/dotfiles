@@ -133,8 +133,11 @@ function ToggleHex()
   let &readonly=l:oldreadonly
   let &modifiable=l:oldmodifiable
 endfunction
-
-command! DeleteTrailingWhitespace :silent! %s:\(\S*\)\s\+$:\1:
+command! -bar DeleteTrailingSpaces :silent! %s:\(\S*\) \+$:\1:
+function DeleteTrailingSpacesThenWrite()
+  :DeleteTrailingSpaces
+  :write " this should trigger syntastic
+endfunction
 command -bar Hexmode call ToggleHex()
 
 "}}}---------------------------------------------------------
@@ -173,9 +176,11 @@ nnoremap <leader>p p`[v`]=
 
 
 " cleanup & write quickly
-nnoremap <leader><leader><leader> :DeleteTrailingWhitespace<CR>:w<CR>
+nnoremap <leader><leader> :call DeleteTrailingSpacesThenWrite()<CR>
 
 map <leader>s :spell!<cr>
+
+map <leader>r :e %<cr>
 
 "}}}---------------------------------------------------------
 " Function Keys
@@ -221,8 +226,8 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-nnoremap <leader><leader> :SyntasticCheck<CR>
 let g:syntastic_aggregate_errors = 1
+let g:syntastic_check_on_open = 1
 let g:syntastic_javascript_checkers = ['gjslint','jshint']
 " use pretty syntastic symbols
 let g:syntastic_error_symbol = '✗'
@@ -235,8 +240,8 @@ let g:ctrlp_custom_ignore = {
   \ 'link': 'READONLY$',
   \ }
 
-" use _my_ software liscence as the default for vim-templates
-let g:license = "NPL (Necessary Public Liscence)"
+" use _my_ software license as the default for vim-templates
+let g:license = "NPL (Necessary Public License)"
 
 "}}}-------------------------------------------------------
 " autocmds

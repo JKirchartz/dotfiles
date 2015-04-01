@@ -102,5 +102,5 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 # Bins
-export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/bin:.:~/dotfiles/scripts:$PATH
+export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/bin:/usr/games:.:~/dotfiles/scripts:$PATH
 
