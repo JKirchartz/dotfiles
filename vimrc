@@ -55,10 +55,10 @@ set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 
 " 80 columns
 set nowrap " don't soft-wrap
-set formatoptions+=w " do hard-wrap
+set formatoptions+=tw " do hard-wrap
 set textwidth=80 " be 80 wide
-set wrapmargin=2 " wrap at 78
-set colorcolumn=81 " show me what's TOO far
+set wrapmargin=4 " wrap at 78
+set colorcolumn=79 " show me what's TOO far
 highlight ColorColumn ctermbg=Black
 
 
@@ -136,7 +136,7 @@ endfunction
 command! -bar DeleteTrailingSpaces :silent! %s:\(\S*\) \+$:\1:
 function DeleteTrailingSpacesThenWrite()
   :DeleteTrailingSpaces
-  :write
+  :write " this should trigger syntastic
 endfunction
 command -bar Hexmode call ToggleHex()
 
@@ -174,6 +174,7 @@ nmap <leader><cr> :nohlsearch<CR>
 " paste while keeping the current indent
 nnoremap <leader>p p`[v`]=
 
+
 " cleanup & write quickly
 nnoremap <leader><leader> :call DeleteTrailingSpacesThenWrite()<CR>
 
@@ -207,7 +208,7 @@ nmap <leader>t :NERDTreeToggle<CR>
 let g:NERDChristmasTree=1    " more colorful NERDTree
 " close VIM 'normally' if NERDTree is running
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&
-      \b:NERDTreeType == "primary") | q | endif
+                      \b:NERDTreeType == "primary") | q | endif
 
 " add space to beginning of comments
 let g:NERDSpaceDelims = 1
@@ -225,7 +226,6 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-nmap <leader>sc :SyntasticCheck<CR>
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_javascript_checkers = ['gjslint','jshint']

@@ -69,10 +69,9 @@ case $OSTYPE in
                 export PATH="/usr/local/heroku/bin:$PATH"
                 ;;
             crunchbang)
-                # The next line updates PATH for the Google Cloud SDK.
-                source '/home/vagrant/google-cloud-sdk/path.bash.inc'
-                # The next line enables bash completion for gcloud.
-                source '/home/vagrant/google-cloud-sdk/completion.bash.inc'
+                export GEM_HOME="~/gems"
+                # add appengine, npm, and gems bins to path
+                PATH=$PATH:/usr/local/share/npm/bin:~/gems/bin:~/google_appengine
                 ;;
             *google*)
                 cowmotd
