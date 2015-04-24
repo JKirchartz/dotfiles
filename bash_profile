@@ -98,6 +98,7 @@ case $OSTYPE in
         ;;
 esac
 
+export EDITOR=vim
 export PATH="$PATH:."
 # import bashrc
 source ~/.bashrc
