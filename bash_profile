@@ -75,7 +75,7 @@ case $OSTYPE in
                 ;;
             *google*)
                 cowmotd
-                if [ -f ~/at_google.sh ] && ! shopt -oq posix; then
+                if [ -f ~/at_google.sh ]; then
                     source ~/at_google.sh
                 fi
         esac
