@@ -2,10 +2,12 @@ function cowmotd {
         # login message
         if which fortune > /dev/null; then
             if which cowsay > /dev/null; then
-                fortune -as | cowsay
+                ~/dotfiles/scripts/cowsay.sh
             else
                 fortune -as
             fi
+        else
+          ~/dotfiles/scripts/ObliqueStrategies.sh
         fi
 }
 
