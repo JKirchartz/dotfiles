@@ -31,7 +31,7 @@ fi
 numscreen=`echo "$sout" | egrep -o "^(\d+)" | tail -1`
 
 # Multiple TMUX
-if [ "$numscreen" -gt 1 ]
+if [ $numscreen -gt 1 ]
 then
 	echo "Warning, you're running multiple (${numscreen}) screens!"
 	echo "Resume the one(s) you don't need and exit: screen -rd <id>"

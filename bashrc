@@ -64,6 +64,9 @@ fi
 #simple calculator
 function calc () { echo "$*" | bc -l; }
 
+#tmux title changer
+function tmxt () {  printf "\033k$1\033\\"; }
+
 # easy unzip
 function extract () {
     if [ -f $1 ] ; then

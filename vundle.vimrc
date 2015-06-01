@@ -26,6 +26,7 @@ Plugin 'tpope/vim-fugitive'
 " syntax completion, checking, & highlighting
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
+Plugin 'lukaszb/vim-web-indent'
 Plugin 'sheerun/vim-polyglot'
 
 " snippets engine & library

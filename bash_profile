@@ -2,10 +2,12 @@ function cowmotd {
         # login message
         if which fortune > /dev/null; then
             if which cowsay > /dev/null; then
-                fortune -as | cowsay
+                ~/dotfiles/scripts/cowsay.sh
             else
                 fortune -as
             fi
+        else
+          ~/dotfiles/scripts/ObliqueStrategies.sh
         fi
 }
 
@@ -75,7 +77,7 @@ case $OSTYPE in
                 ;;
             *google*)
                 cowmotd
-                if [ -f ~/at_google.sh ] && ! shopt -oq posix; then
+                if [ -f ~/at_google.sh ]; then
                     source ~/at_google.sh
                 fi
         esac
@@ -97,6 +99,7 @@ case $OSTYPE in
         ;;
 esac
 
+export EDITOR=vim
 export PATH="$PATH:."
 # import bashrc
 source ~/.bashrc
