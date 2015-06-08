@@ -21,3 +21,5 @@
     co = checkout
     df = diff
     ls = ls-files
+[http]
+	postBuffer = 4M
