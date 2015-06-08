@@ -14,7 +14,7 @@ source $VIMRUNTIME/macros/matchit.vim
 " Standard Tweaks
 "---------------------------------------------------------{{{
 set nocompatible " be iMproved
-set magic " NEVER TURN THIS OFF! WIZARDS WILL GET YOU!
+set magic " NEVER TURN THIS OFF! REGEX WIZARDS WILL GET YOU!
 set ffs=unix,dos,mac " Use *nix as the default file type
 set encoding=utf-8 " ensure encoding
 set clipboard=unnamed
@@ -23,10 +23,10 @@ set backspace=indent,eol,start " fix backspace
 set number ruler " show line number & cursor positition
 set wildmenu  " better menu like for autocomplete
 set showmode showcmd " show modes & commands down below
-set autoread " Set to auto read when a file is changed from the outside
 set shortmess=atI " abbreviate or avoid certain messages
 set laststatus=2 " see the last status
-set shell=/bin/bash\ -i " use interactive bash as the shell
+set scrolloff=3 " keep 3 lines between cursor and the edge of the screen
+set shell=/bin/bash " use bash as the shell
 
 set title
 let &titleold=getcwd() " stop flying the friendly skies
@@ -48,9 +48,7 @@ set mouse=a " enable mouse. how quaint.
 filetype plugin indent on
 set autoindent
 set shiftround
-" tabs are 4 spaces.
-" set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
-" tabs are 2 spaces.
+" tabs are 2 spaces... or else.
 set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 
 " 80 columns
@@ -58,7 +56,7 @@ set nowrap " don't soft-wrap
 set formatoptions+=tw " do hard-wrap
 set textwidth=80 " be 80 wide
 set wrapmargin=4 " wrap at 78
-set colorcolumn=79 " show me what's TOO far
+set colorcolumn=80 " show me what's TOO far
 highlight ColorColumn ctermbg=Black
 
 
@@ -94,6 +92,14 @@ function! NumberToggle()
     set number
   endif
 endfunc
+
+function ScratchBuffer()
+  :new
+  :setlocal buftype=nofile
+  :setlocal bufhidden=hide
+  :setlocal noswapfile
+endfunc
+command -bar Bs call ScratchBuffer()
 
 " Improve hex editing (ala http://vim.wikia.com/wiki/Improved_hex_editing)
 " helper function to toggle hex mode
@@ -149,6 +155,8 @@ let mapleader = " "
 
 " write quickly
 nmap <leader>w :w!<cr>
+" wq quickly
+nmap <leader>q :wqall<cr>
 
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -194,8 +202,8 @@ imap <F1> <Esc>
 set pastetoggle=<F2>
 
 " delete all trailing whitespace (F4)
-nmap <silent><F4> :DeleteTrailingWhitespace<CR>
-imap <silent><F4> :DeleteTrailingWhitespace<CR>
+nmap <silent><F4> :DeleteTrailingSpaces<CR>
+imap <silent><F4> :DeleteTrailingSpaces<CR>
 
 " spell check toggle (F7)
 imap <silent> <F7> :spell!<cr>
