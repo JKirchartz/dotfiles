@@ -131,6 +131,10 @@ map <leader>s :spell!<cr>
 
 map <leader>r :e %<cr>
 
+" stop cycling when you can fly
+nmap <leader>b :ls<CR>:b<space>
+
+
 "}}}---------------------------------------------------------
 " Function Keys
 "---------------------------------------------------------{{{
