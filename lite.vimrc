@@ -35,7 +35,7 @@ filetype plugin indent on
 set autoindent
 set shiftround
 " tabs are 2 spaces... or else.
-set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+set shiftwidth=2 softtabstop=2 expandtab
 
 " 80 columns
 set nowrap " don't soft-wrap
