@@ -1,5 +1,5 @@
 "------------------------------------------------------------
-" Setup Plugins
+" load external files/scripts/plugins
 "---------------------------------------------------------{{{
 
 if filereadable(expand("~/at_google.vimrc"))
@@ -10,64 +10,8 @@ endif
 
 source $VIMRUNTIME/macros/matchit.vim
 
-"}}}---------------------------------------------------------
-" Standard Tweaks
-"---------------------------------------------------------{{{
-set nocompatible " be iMproved
-set magic " NEVER TURN THIS OFF! WIZARDS WILL GET YOU!
-set ffs=unix,dos,mac " Use *nix as the default file type
-set encoding=utf-8 " ensure encoding
-set clipboard=unnamed
-set history=200 nobackup noswapfile " live dangerously
-set backspace=indent,eol,start " fix backspace
-set number ruler " show line number & cursor positition
-set wildmenu  " better menu like for autocomplete
-set showmode showcmd " show modes & commands down below
-set autoread " Set to auto read when a file is changed from the outside
-set shortmess=atI " abbreviate or avoid certain messages
-set laststatus=2 " see the last status
-set shell=/bin/bash\ -i " use interactive bash as the shell
-
-set title
-let &titleold=getcwd() " stop flying the friendly skies
-set shortmess=atI " abbreviate or avoid certain messages
-set noerrorbells " hear no evil
-set novisualbell " see no evil
-
-set list " show whitespace (using symbols in the next line)
-set listchars=tab:▶-,trail:•,extends:»,precedes:«,eol:¬ " use textmate symbols
-
-set smartcase " smart case matching
-set incsearch " incremental search
-set hlsearch  " highlight search
-set ignorecase " make /foo match FOO & FOo but /FOO only match FOO
-
-set mouse=a " enable mouse. how quaint.
-
-" Tabs & Indents
-filetype plugin indent on
-set autoindent
-set shiftround
-" tabs are 4 spaces.
-" set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
-" tabs are 2 spaces.
-set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
-
-" 80 columns
-set nowrap " don't soft-wrap
-set formatoptions+=tw " do hard-wrap
-set textwidth=80 " be 80 wide
-set wrapmargin=4 " wrap at 78
-set colorcolumn=79 " show me what's TOO far
-highlight ColorColumn ctermbg=Black
-
-
-" highlight css in html(?)
-let html_use_css=1
-
-" Setup Colors
-colorscheme candy
-syntax on " highlight that syntax, please
+" a standard set of tweaks:
+source ~/dotfiles/lite.vimrc
 
 "}}}---------------------------------------------------------
 " Custom Functions/Commands
@@ -76,13 +20,13 @@ syntax on " highlight that syntax, please
 " forgot to sudo vi? w!!
 cmap w!! %!sudo tee > /dev/null %
 
-" overwrite common misfires
-command W w
-command Q q
-command Wq wq
-command WQ wq
-command Bn bn
-cnoremap \<Enter> <Enter>
+command! -bar DeleteTrailingSpaces :silent! %s:\(\S*\) \+$:\1:
+function DeleteTrailingSpacesThenWrite()
+  :DeleteTrailingSpaces
+  " write should trigger syntastic
+  :write
+endfunction
+command -bar DeleteTrailingSpacesThenWrite call DeleteTrailingSpacesThenWrite()
 
 function! NumberToggle()
   if &relativenumber == 1 && &number == 1
@@ -94,6 +38,14 @@ function! NumberToggle()
     set number
   endif
 endfunc
+
+function ScratchBuffer()
+  exe ':new'
+  exe ':setlocal buftype=nofile'
+  exe ':setlocal bufhidden=hide'
+  exe ':setlocal noswapfile'
+endfunc
+command -bar Bs call ScratchBuffer()
 
 " Improve hex editing (ala http://vim.wikia.com/wiki/Improved_hex_editing)
 " helper function to toggle hex mode
@@ -133,11 +85,6 @@ function ToggleHex()
   let &readonly=l:oldreadonly
   let &modifiable=l:oldmodifiable
 endfunction
-command! -bar DeleteTrailingSpaces :silent! %s:\(\S*\) \+$:\1:
-function DeleteTrailingSpacesThenWrite()
-  :DeleteTrailingSpaces
-  :write " this should trigger syntastic
-endfunction
 command -bar Hexmode call ToggleHex()
 
 "}}}---------------------------------------------------------
@@ -149,6 +96,8 @@ let mapleader = " "
 
 " write quickly
 nmap <leader>w :w!<cr>
+" wq quickly
+nmap <leader>q :wqall<cr>
 
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -176,11 +125,15 @@ nnoremap <leader>p p`[v`]=
 
 
 " cleanup & write quickly
-nnoremap <leader><leader> :call DeleteTrailingSpacesThenWrite()<CR>
+nnoremap <leader><leader> :DeleteTrailingSpacesThenWrite<CR>
 
 map <leader>s :spell!<cr>
 
 map <leader>r :e %<cr>
+
+" stop cycling when you can fly
+nmap <leader>b :ls<CR>:b<space>
+
 
 "}}}---------------------------------------------------------
 " Function Keys
@@ -194,8 +147,8 @@ imap <F1> <Esc>
 set pastetoggle=<F2>
 
 " delete all trailing whitespace (F4)
-nmap <silent><F4> :DeleteTrailingWhitespace<CR>
-imap <silent><F4> :DeleteTrailingWhitespace<CR>
+nmap <silent><F4> :DeleteTrailingSpaces<CR>
+imap <silent><F4> :DeleteTrailingSpaces<CR>
 
 " spell check toggle (F7)
 imap <silent> <F7> :spell!<cr>

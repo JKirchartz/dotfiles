@@ -1,11 +1,11 @@
 #basic aliases
-alias ll='ls -aoFh'
-alias lm='ls -aoFh | less'
+alias ll='ls -oFhA'
+alias lm='ls -oFhA | less'
 alias cd..='cd ..'
 alias more='less'                         # less is more, more or less.
 alias py='python '
-alias ping='ping -c 10 '                   # set a default, coz I always forget
-alias rm='rm -i '                          # confirm, just in case...
+alias ping='ping -c 10 '                  # set a default, coz I always forget
+alias rm='rm -i '                         # confirm, just in case...
 alias sudo='sudo '                        # check for aliases AFTER sudo
 alias please='sudo !! '
 alias f='fortune -as'
