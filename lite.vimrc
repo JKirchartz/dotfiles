@@ -51,10 +51,10 @@ set laststatus=2 " see the last statusline(stl)
 set showmode showcmd " show modes & commands in stl
 " show cursor position (like :set ruler) & git status in statusline
 set statusline=\ b%n\ %<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
-colorscheme holokai
-highlight StatusLine ctermbg=green ctermfg=blue
-highlight ColorColumn ctermbg=black
+colorscheme candy
 syntax on " highlight that syntax, please
+highlight StatusLine ctermbg=green ctermfg=black
+highlight ColorColumn ctermbg=black
 
 " overwrite common misfires
 command E e
