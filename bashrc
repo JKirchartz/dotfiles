@@ -102,6 +102,7 @@ source ~/dotfiles/scripts/git-completion.bash
 source ~/dotfiles/scripts/npm-completion.bash
 
 # get aliases
+shopt -s expand_aliases
 source ~/dotfiles/bash_aliases
 
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then

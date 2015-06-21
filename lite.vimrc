@@ -2,16 +2,14 @@ set nocompatible " be iMproved
 set magic " NEVER TURN THIS OFF! REGEX WIZARDS WILL GET YOU!
 set ffs=unix,dos,mac " Use *nix as the default file type
 set encoding=utf-8 " ensure encoding
-set clipboard=unnamed
+set clipboard^=unnamed,unnamedplus
 set history=200 nobackup noswapfile " live dangerously
 set backspace=indent,eol,start " fix backspace
-set number ruler " show line number & cursor positition
+set number " show line number
 set wildmenu  " better menu like for autocomplete
-set showmode showcmd " show modes & commands down below
 set shortmess=atI " abbreviate or avoid certain messages
-set laststatus=2 " see the last status
 set scrolloff=3 " keep 3 lines between cursor and the edge of the screen
-set shell=/bin/bash " use bash as the shell
+let &shell='/bin/bash -l' " use bash as the shell
 
 set title
 let &titleold=getcwd() " stop flying the friendly skies
@@ -43,15 +41,20 @@ set formatoptions+=tw " do hard-wrap
 set textwidth=80 " be 80 wide
 set wrapmargin=4 " wrap at 78
 set colorcolumn=80 " show me what's TOO far
-highlight ColorColumn ctermbg=Black
 
 
 " highlight css in html(?)
 let html_use_css=1
 
-" Setup Colors
+" Setup colors/theme
+set laststatus=2 " see the last statusline(stl)
+set showmode showcmd " show modes & commands in stl
+" show cursor position (like :set ruler) & git status in statusline
+set statusline=\ b%n\ %<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 colorscheme candy
 syntax on " highlight that syntax, please
+highlight StatusLine ctermbg=green ctermfg=black
+highlight ColorColumn ctermbg=black
 
 " overwrite common misfires
 command E e

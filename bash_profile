@@ -1,14 +1,23 @@
 function cowmotd {
-        # login message
-        if which fortune > /dev/null; then
-            if which cowsay > /dev/null; then
-                ~/dotfiles/scripts/cowsay.sh
-            else
-                fortune -as
-            fi
+  if [ -z ${VIMRUNTIME} ]; then
+    # login message
+    if which fortune > /dev/null; then
+        if which cowsay > /dev/null; then
+            ~/dotfiles/scripts/cowsay.sh
         else
-          ~/dotfiles/scripts/ObliqueStrategies.sh
+            fortune -as
         fi
+    else
+      ~/dotfiles/scripts/ObliqueStrategies.sh
+    fi
+  else
+    # login message
+    if which fortune > /dev/null; then
+      fortune -as
+    else
+      ~/dotfiles/scripts/ObliqueStrategies.sh
+    fi
+  fi
 }
 
 
