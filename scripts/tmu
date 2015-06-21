@@ -1,0 +1,27 @@
+#!/bin/bash
+sout=`tmux ls |& cat`
+
+# No TMUX sessions - create
+if echo "$sout" | grep refused &> /dev/null
+then
+  SESSION=$USER
+  exec tmux new-session -s $SESSION
+fi
+
+numsessions=`echo "$sout" | wc -l`
+
+# Multiple TMUX - prompt
+if [[ "$numsessions" -gt 1 ]]
+then
+  echo "You have multiple (${numsessions}) sessions,"
+  tmux ls
+  read -e -p "which would you like to use? " SESSION
+  tmux attach -t $SESSION
+fi
+
+# One TMUX - resume
+if [[ "$numsessions" -eq 1 ]]
+then
+  echo "Found session, trying to resume..."
+  exec tmux attach
+fi
