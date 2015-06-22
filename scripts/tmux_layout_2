@@ -1,2 +1,0 @@
-splitw -h -t 0 -p 60                        # Split pane 0 vertically by 50%
-selectp -t 0                                # Select pane 0
