@@ -50,7 +50,8 @@ let html_use_css=1
 set laststatus=2 " see the last statusline(stl)
 set showmode showcmd " show modes & commands in stl
 " show cursor position (like :set ruler) & git status in statusline
-set statusline=\ b%n\ %<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+let gitprompt = system("__git_ps1") " this depends on &shell = bash -l (or -i)
+set statusline=\ b%n\ %<%f\ %h%m%r%{gitprompt}%=%-14.(%l,%c%V%)\ %P
 colorscheme candy
 syntax on " highlight that syntax, please
 highlight StatusLine ctermbg=green ctermfg=black

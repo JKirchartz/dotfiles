@@ -23,3 +23,5 @@
     ls = ls-files
 [http]
 	postBuffer = 4M
+[github]
+	user = jkirchartz
