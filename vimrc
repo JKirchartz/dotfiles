@@ -186,6 +186,10 @@ let g:syntastic_javascript_checkers = ['gjslint','jshint']
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '⚠'
 
+" don't fist anonymously, just privately
+let g:fist_anonymously = 0
+let g:fist_in_private = 1
+
 " make ctrlp faster
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\.git$\|\.hg$\|\.svn\|\.git5_specs$\|review$',

@@ -68,6 +68,7 @@ case $OSTYPE in
 ##########
 # setup vundle
 ###
+source ~/.bash_profile
 echo "Setting up Vundle for vim"
 git clone https://github.com/gmarik/Vundle.vim.git ./vim/bundle/Vundle.vim
 echo "Setting up YouCompleteMe"
@@ -75,6 +76,8 @@ git clone https://github.com/Valloric/YouCompleteMe ./vim/bundle/YouCompleteMe
 $(cd ./vim/bundle/YouCompleteMe; git submodule update --init)
 echo "Attempting to run YouCompleteMe install script (no clang support, also assumes you have buildtools, cmake, and python-dev installed)"
 ./vim/bundle/install.sh # install YouCompleteMe without clang support
+echo "Attempting to setup gist/vim-fist"
+gem install gist && gist --login
 echo "Installing vim plugins with Vundle"
 vim +PluginInstall +qall
 

@@ -22,6 +22,7 @@ Plugin 'ervandew/supertab'
 Plugin 'Valloric/MatchTagAlways'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
+Plugin 'ajh17/vim-fist'
 
 " syntax completion, checking, & highlighting
 Plugin 'Valloric/YouCompleteMe'

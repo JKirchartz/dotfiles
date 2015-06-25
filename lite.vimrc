@@ -54,8 +54,8 @@ let gitprompt = system("__git_ps1") " this depends on &shell = bash -l (or -i)
 set statusline=\ b%n\ %<%f\ %h%m%r%{gitprompt}%=%-14.(%l,%c%V%)\ %P
 colorscheme candy
 syntax on " highlight that syntax, please
-highlight StatusLine ctermbg=green ctermfg=black
-highlight ColorColumn ctermbg=black
+highlight StatusLine cterm=NONE ctermbg=0 ctermfg=10
+highlight ColorColumn cterm=NONE ctermbg=0
 
 " overwrite common misfires
 command E e

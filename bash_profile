@@ -89,6 +89,8 @@ case $OSTYPE in
                 if [ -f ~/at_google.sh ]; then
                     source ~/at_google.sh
                 fi
+                export GEM_HOME=~/gems
+                PATH=$PATH:~/gems/bin
         esac
         ;;
     *BSD*)

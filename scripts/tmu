@@ -5,7 +5,7 @@ sout=`tmux ls |& cat`
 if echo "$sout" | grep refused &> /dev/null
 then
   SESSION=$USER
-  exec tmux new-session -s $SESSION
+  tmux new-session -s $SESSION
 fi
 
 numsessions=`echo "$sout" | wc -l`
@@ -23,5 +23,5 @@ fi
 if [[ "$numsessions" -eq 1 ]]
 then
   echo "Found session, trying to resume..."
-  exec tmux attach
+  tmux attach
 fi
