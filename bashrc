@@ -109,7 +109,7 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
       . /etc/bash_completion
 fi
 
-if command -v xmodmap >/dev/null 2>&1; then
+if command -v setxkbmap >/dev/null 2>&1; then
   setxkbmap -option "caps:swapescape"
 fi
 
