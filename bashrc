@@ -69,7 +69,7 @@ fi
 function calc () { echo "$*" | bc -l; }
 
 #tmux title changer
-function tmxt () {  printf "\033k$1\033\\"; }
+function tmut () {  printf "\033k$1\033\\"; }
 
 # easy unzip
 function extract () {

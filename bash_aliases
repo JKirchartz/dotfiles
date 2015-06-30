@@ -13,16 +13,9 @@ alias R='. ~/.bash_profile'
 alias RR='[ $[ $RANDOM % 6 ] == 0 ] && echo *BANG* || echo *Click*'
 #alternative to cd -
 alias back='cd $OLDPWD'
-alias home='cd ~ '
+alias home='cd ~'
+alias up='cd ..'
 alias dotfiles='cd ~/dotfiles'
-#script shortcuts
-alias new_post="~/dotfiles/scripts/new_post.sh"
-alias publish="~/dotfiles/scripts/publish.sh"
-alias sizetmux="~/dotfiles/scripts/sizetmux.sh"
-alias futz="~/dotfiles/scripts/futz.sh"
-alias gcpp="~/dotfiles/scripts/gcpp.sh"
-alias gcp="~/dotfiles/scripts/gcp.sh"
-alias pipes="~/dotfiles/scripts/pipes.sh"
 
 # grep helpers
 alias notes='hgrep \#'
@@ -31,7 +24,7 @@ alias sgrep=' grep -Ir --exclude-dir="\.svn" '
 alias psgrep='ps aux | grep $(echo $1 | sed "s/^\(.\)/[\1]/g")'
 function pgrep(){ ps -ax | grep $1 | grep -v "grep"; } # ps + grep (via egghead on freenode#web)
 function hgrep(){ history | grep $1 | grep -v "grep"; } # why not history
-alias ports="sudo lsof -i -P | grep -i \"listen\"" # OSX list listening ports:
+alias ports="sudo lsof -i -P | grep -i \"listen\"" # list listening ports:
 alias iip="ifconfig | grep broadcast | awk '{print $ 2}'" # get internal ip
 alias eip="dig +short myip.opendns.com @resolver1.opendns.com" #get external ip
 
@@ -54,6 +47,10 @@ alias serve="python -m SimpleHTTPServer"
 alias imginfo="identify -format '-- %f -- \nType: %m\nSize: %b bytes\nResolution: %wpx x %hpx\nColors: %k'"
 alias imgres="identify -format '%f: %wpx x %hpx\n'"
 
+case $OSTYPE in
+    darwin*)
 # osx-only
-# alias ss2='screencapture -xP '
-# alias ss='screencapture -xwP '
+    alias ss2='screencapture -xP '
+    alias ss='screencapture -xwP '
+    ;;
+esac
