@@ -69,7 +69,7 @@ fi
 function calc () { echo "$*" | bc -l; }
 
 #tmux title changer
-function tmxt () {  printf "\033k$1\033\\"; }
+function tmut () {  printf "\033k$1\033\\"; }
 
 # easy unzip
 function extract () {
@@ -109,8 +109,10 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
       . /etc/bash_completion
 fi
 
-if command -v xmodmap >/dev/null 2>&1; then
-  setxkbmap -option "caps:swapescape"
+if command -v setxkbmap >/dev/null 2>&1; then
+  if setxkbmap >/dev/null 2>&1; then
+    setxkbmap -option "caps:swapescape"
+  fi
 fi
 
 # Bins

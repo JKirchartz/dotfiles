@@ -2,16 +2,19 @@
 " load external files/scripts/plugins
 "---------------------------------------------------------{{{
 
-if filereadable(expand("~/at_google.vimrc"))
-    source ~/at_google.vimrc
-else
-    source ~/dotfiles/vundle.vimrc
-endif
-
-source $VIMRUNTIME/macros/matchit.vim
+" Vundle plugins
+source ~/dotfiles/vundle.vimrc
 
 " a standard set of tweaks:
 source ~/dotfiles/lite.vimrc
+
+" work-specific config
+if filereadable(expand("~/at_google.vimrc"))
+    source ~/at_google.vimrc
+endif
+
+" matchit
+source $VIMRUNTIME/macros/matchit.vim
 
 "}}}---------------------------------------------------------
 " Custom Functions/Commands

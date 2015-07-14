@@ -21,6 +21,8 @@ function cowmotd {
 }
 
 
+cowmotd
+
 case $OSTYPE in
     darwin*)
         # this is a mac
@@ -28,7 +30,6 @@ case $OSTYPE in
         export TERM=xterm-256color
         export SVN_EDITOR=vim
 
-        cowmotd
 
         # TMUX
         if which tmux 2>&1 >/dev/null; then
@@ -75,7 +76,6 @@ case $OSTYPE in
                 if [ "$(ps -p $PPID -o comm=)" != screen ]; then scr; fi
                 ;;
             lucid32)
-                cowmotd
                 ### Added by the Heroku Toolbelt
                 export PATH="/usr/local/heroku/bin:$PATH"
                 ;;
@@ -85,7 +85,6 @@ case $OSTYPE in
                 PATH=$PATH:/usr/local/share/npm/bin:~/gems/bin:~/google_appengine
                 ;;
             *google*)
-                cowmotd
                 if [ -f ~/at_google.sh ]; then
                     source ~/at_google.sh
                 fi
