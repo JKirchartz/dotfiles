@@ -214,4 +214,7 @@ if has("autocmd")
           \| exe "normal g'\"" | endif
       " Set title to filename (or something IDK, it's been off for a while)
       "au BufEnter * let &titlestring = ' ' . expand("%:t")
+      " ensure background is transparent
+      autocmd ColorScheme * highlight Normal ctermbg=None
+      autocmd ColorScheme * highlight NonText ctermbg=None
 endif
