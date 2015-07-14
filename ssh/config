@@ -1,8 +1,8 @@
-ForwardX11 yes
 
 Host blinken
   HostName ssh.blinkenshell.org
   Port 2222
 
 Host g
+  ForwardX11 yes
   Hostname jkirchartz0.pit.corp.google.com
