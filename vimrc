@@ -24,12 +24,7 @@ source $VIMRUNTIME/macros/matchit.vim
 cmap w!! %!sudo tee > /dev/null %
 
 command! -bar DeleteTrailingSpaces :silent! %s:\(\S*\) \+$:\1:
-function DeleteTrailingSpacesThenWrite()
-  :DeleteTrailingSpaces
-  " write should trigger syntastic
-  :write
-endfunction
-command -bar DeleteTrailingSpacesThenWrite call DeleteTrailingSpacesThenWrite()
+command! -bar DeleteTrailingSpacesThenWrite :DeleteTrailingSpaces | :write
 
 function! NumberToggle()
   if &relativenumber == 1 && &number == 1
@@ -128,7 +123,8 @@ nnoremap <leader>p p`[v`]=
 
 
 " cleanup & write quickly
-nnoremap <leader><leader> :DeleteTrailingSpacesThenWrite<CR>
+imap <leader><leader> <esc>:DeleteTrailingSpacesThenWrite<CR>
+lmap <leader><leader> <esc>:DeleteTrailingSpacesThenWrite<CR>
 
 map <leader>s :spell!<cr>
 
@@ -218,3 +214,4 @@ if has("autocmd")
       autocmd ColorScheme * highlight Normal ctermbg=None
       autocmd ColorScheme * highlight NonText ctermbg=None
 endif
+
