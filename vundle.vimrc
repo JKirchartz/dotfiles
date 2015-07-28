@@ -12,7 +12,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " Colorscheme
-Plugin 'flazz/vim-colorschemes'
+Plugin 'jkirchartz/vim-colorschemes' " forked flazz's, not sure enough about licenses to send a PR
 
 " Plugins
 Plugin 'scrooloose/nerdcommenter'
@@ -21,14 +21,15 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'ervandew/supertab'
 Plugin 'Valloric/MatchTagAlways'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-fugitive'
 Plugin 'ajh17/vim-fist'
 
 " syntax completion, checking, & highlighting
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
-Plugin 'lukaszb/vim-web-indent'
 Plugin 'sheerun/vim-polyglot'
+Plugin 'lukaszb/vim-web-indent'
 
 " snippets engine & library
 Plugin 'SirVer/ultisnips'
