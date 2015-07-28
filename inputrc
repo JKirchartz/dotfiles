@@ -5,11 +5,12 @@ set keymap vi-command
 # Hit tab to list all completions & select first, or cycle through available 
 # completions
 TAB: menu-complete
+
 # Shift-tab for backwards
 "\e[Z": menu-complete-backwards
 
 # make ctrl+l clear the screen (like in vim)
-"\C-l": clear-screen
+Control-l: clear-screen
 
 # re-init without logout
 "\C-R": re-read-init-file

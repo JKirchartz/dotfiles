@@ -123,8 +123,8 @@ nnoremap <leader>p p`[v`]=
 
 
 " cleanup & write quickly
+nmap <leader><leader> :DeleteTrailingSpacesThenWrite<CR>
 imap <leader><leader> <esc>:DeleteTrailingSpacesThenWrite<CR>
-lmap <leader><leader> <esc>:DeleteTrailingSpacesThenWrite<CR>
 
 map <leader>s :spell!<cr>
 
