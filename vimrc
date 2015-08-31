@@ -20,6 +20,10 @@ source $VIMRUNTIME/macros/matchit.vim
 " Custom Functions/Commands
 "---------------------------------------------------------{{{
 
+" insert a space or <cr>
+nmap <leader>i i <esc>
+nmap <cr>i i<cr><esc>
+
 " forgot to sudo vi? w!!
 cmap w!! %!sudo tee > /dev/null %
 

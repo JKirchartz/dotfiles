@@ -1,6 +1,7 @@
 #!/bin/bash
 sout=`tmux ls |& cat`
 
+echo "echo $sout"
 # No TMUX sessions - create
 if echo "$sout" | grep refused &> /dev/null
 then

@@ -9,7 +9,7 @@ set number " show line number
 set wildmenu  " better menu like for autocomplete
 set shortmess=atI " abbreviate or avoid certain messages
 set scrolloff=3 " keep 3 lines between cursor and the edge of the screen
-let &shell='/bin/bash -l' " use bash as the shell
+let &shell='/bin/bash -l' " use bash login shell
 
 set title
 let &titleold=getcwd() " stop flying the friendly skies

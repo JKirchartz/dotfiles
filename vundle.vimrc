@@ -26,7 +26,9 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'ajh17/vim-fist'
 
 " syntax completion, checking, & highlighting
-Plugin 'Valloric/YouCompleteMe'
+if hostname() != "triton" " don't bother on triton
+  Plugin 'Valloric/YouCompleteMe'
+endif
 Plugin 'scrooloose/syntastic'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'lukaszb/vim-web-indent'

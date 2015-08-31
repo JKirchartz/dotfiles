@@ -115,6 +115,24 @@ if command -v setxkbmap >/dev/null 2>&1; then
   fi
 fi
 
+# Function to update a shell inside tmux with new environment variables (really
+# useful for switching between ssh and local) function update-environment
+# stolen from https://github.com/xanderman/dotfiles/blob/master/.bashrc#L105
+
+function update-environment {
+  local v
+  while read v; do
+    if [[ $v == -* ]]; then
+      unset ${v/#-/}
+    else
+      # Surround value with quotes
+      v=${v/=/=\"}
+      v=${v/%/\"}
+      eval export $v
+    fi
+  done < <(tmux show-environment)
+}
+
 # Bins
 export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/bin:/usr/games:.:~/dotfiles/scripts:$PATH
 
