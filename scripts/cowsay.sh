@@ -10,6 +10,6 @@ else
   cowfiles=( $(cowsay -l | sed "1 d") );
   cowfile=${cowfiles[$(($RANDOM % ${#cowfiles[*]}))]}
 fi
-fortune -as | cowsay -f "$cowfile"
+cowsay -f "$cowfile"
 
 
