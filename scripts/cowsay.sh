@@ -12,4 +12,4 @@ else
 fi
 fortune -as | cowsay -f "$cowfile"
 
-
+# fortune -as | cowsay -f "$(cowsay -l | sed "1 d" | tr ' ' '\n' | shuf -n 1)"
