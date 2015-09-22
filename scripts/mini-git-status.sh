@@ -1,7 +1,7 @@
 #! /bin/sh
 #
 # mini-git-status.sh
-# Copyleft 2015 jkirchartz <jkirchartz@jkirchartz0.pit.corp.google.com>
+# Copyleft 2015 jkirchartz <me@jkirchartz.com>
 #
 # Distributed under terms of the NPL (Necessary Public License) license.
 #
