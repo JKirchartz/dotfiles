@@ -138,7 +138,9 @@ map <leader>r :e %<cr>
 nmap <leader>b :ls<CR>:b<space>
 
 " fix this later: it should convert a line whose sole content is a URL to a link
-" nmap <leader>li :%s@\v^((ht|f)tps?://)(\S+)@<a href="\1\2">\2</a>@g<cr>
+nmap <leader>ll %s@^\%(ht\|f\)tps\?://\(\S\+\)@<a href="&">\1</a>@g
+" :%s@\v^((ht<bar>f)tps?://)(\S+)@\<a href=\"\1\2\"\>\2\</a\>@g<cr>
+
 
 
 "}}}---------------------------------------------------------
