@@ -7,36 +7,40 @@
 #
 
 
-stats=`git status --porcelain`
+gitstats=`git status --porcelain`
+gitstatus=''
 
-if echo $stats | grep -q ^M; then
-  echo 'modified'
+if echo $gitstats | grep -q ^M; then
+  gitstatus="*$gitstatus"
 fi
 
-if echo $stats | grep -q ^A; then
-  echo 'added'
+if echo $gitstats | grep -q ^A; then
+  gitstatus="+$gitstatus"
 fi
 
-if echo $stats | grep -q ^D; then
-  echo 'deleted'
+if echo $gitstats | grep -q ^D; then
+  gitstatus="-$gitstatus"
 fi
 
-if echo $stats | grep -q ^R; then
-  echo 'renamed'
+if echo $gitstats | grep -q ^R; then
+  gitstatus="@$gitstatus"
 fi
 
-if echo $stats | grep -q ^C; then
-  echo 'copied'
+if echo $gitstats | grep -q ^C; then
+  gitstatus="&$gitstatus"
 fi
 
-if echo $stats | grep -q ^U; then
-  echo 'updated'
+if echo $gitstats | grep -q ^U; then
+  gitstatus="^$gitstatus"
 fi
 
-if echo $stats | grep -q ^?; then
-  echo 'untracked'
+if echo $gitstats | grep -q ^?; then
+  gitstatus="?$gitstatus"
 fi
 
-if echo $stats | grep -q ^!; then
-  echo 'ignored'
+if echo $gitstats | grep -q ^!; then
+  gitstatus="x$gitstatus"
 fi
+
+
+echo $gitstatus
