@@ -13,6 +13,13 @@ function cowmotd {
           ~/dotfiles/scripts/ObliqueStrategies
         fi
     fi
+    echo -n "Today's secret word is: "
+    if type shuf > /dev/null; then
+      cat /usr/share/dict/words | grep -v "'" | shuf -n1
+    else
+      cat /usr/share/dict/words | grep -v "'" | sort -R | head -n 1
+    fi
+    echo "You all know what to do when somebody says the secret word, right?"
   else
     if which fortune > /dev/null; then
       fortune -as
