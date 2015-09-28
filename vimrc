@@ -222,5 +222,6 @@ if has("autocmd")
       " ensure background is transparent
       autocmd ColorScheme * highlight Normal ctermbg=None
       autocmd ColorScheme * highlight NonText ctermbg=None
+      autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 endif
 

@@ -11,8 +11,9 @@ call vundle#begin()
 " let Vundle manage Vundle
 Plugin 'gmarik/Vundle.vim'
 
-" Colorscheme
+" personal forks
 Plugin 'jkirchartz/vim-colorschemes' " forked flazz's, not sure enough about licenses to send a PR
+Plugin 'jkirchartz/writegood.vim' " 3 scripts to improve writing - wanna modify for other words/phrases to avoid
 
 " Plugins
 Plugin 'scrooloose/nerdcommenter'
