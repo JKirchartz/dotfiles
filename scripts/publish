@@ -10,9 +10,10 @@ else
 fi
 if [ -f "$FILENAME" ] 
 then
-    NEWFILE=$(echo $(date +%Y-%m-%d)$(echo $FILENAME | cut -c12-1000))
+    NEWFILE=$(echo $(date +%Y-%m-%d)-$(echo $FILENAME))
     sed -e 4d $FILENAME > $NEWFILE
     rm -f $FILENAME
+    mv $NEWFILE ../_posts
 else
     echo "not a filename"
 fi
