@@ -21,7 +21,12 @@ else
   cowfile=${cowfiles[$(($RANDOM % ${#cowfiles[*]}))]}
 fi
 cowwidth=`echo "" | cowsay -f "$cowfile" | wc -L`
-cowspaces=`printf "%*s" $((($termwidth-$cowwidth)/2))`
+cowspan=$((($termwidth-$cowwidth)/2))
+
+cowspaces=`printf "%*s" $cowspan`
 
 # pad cowsay
 cowsay -f "$cowfile" -W $cowwidth | sed -e "s/^/$cowspaces/"
+# printf "%${cowspan}s\n" $(cowsay -f "$cowfile" -W $cowwidth)
+
+
