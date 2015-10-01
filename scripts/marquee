@@ -1,0 +1,21 @@
+#! /bin/bash
+#
+# marquee
+# Copyright (C) 2015 jkirchartz <jkirchartz@jkirchartz-glaptop>
+#
+# Distributed under terms of the NPL (Necessary Public License) license.
+#
+# special thanks to http://mywiki.wooledge.org/Toys
+
+tput civis
+w=${#1}
+i=${COLUMNS:=$(tput cols)}
+while [ true ]; do
+  i=$(($i - 1))
+  printf '\r%*s ' "$i" "$1"
+  if (($i == $w)); then
+    i=${COLUMNS:=$(tput cols)}
+  fi
+  sleep 0.02
+done
+tput cnorm
