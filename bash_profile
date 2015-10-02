@@ -1,4 +1,12 @@
-function cowmotd {
+function wotd {
+    local DICTIONARY=/usr/share/dict/words
+    # hat-tip to flukiluke@blinkenshell for this hash:
+    local n=$(echo $(date +%D|md5sum) $(wc -l ${DICTIONARY}) |  awk '{print \
+        strtonum("0x"$1)%$3}')
+    sed "$n q;d" ${DICTIONARY}
+}
+
+function motd {
   if [ -z ${VIMRUNTIME} ]; then
     if which fortune > /dev/null; then
         if which cowsay > /dev/null; then
@@ -8,17 +16,13 @@ function cowmotd {
         fi
     else
         if which cowsay > /dev/null; then
-          ~/dotfiles/scripts/ObliqueStrategies | ~/dotfiles/scripts/cowsay.sh 
+          ~/dotfiles/scripts/ObliqueStrategies | ~/dotfiles/scripts/cowsay.sh
         else
           ~/dotfiles/scripts/ObliqueStrategies
         fi
     fi
     echo -n "Today's secret word is: "
-    if type shuf > /dev/null; then
-      cat /usr/share/dict/words | grep -v "'" | shuf -n1
-    else
-      cat /usr/share/dict/words | grep -v "'" | sort -R | head -n 1
-    fi
+    wotd
     echo "You all know what to do when somebody says the secret word, right?"
   else
     if which fortune > /dev/null; then
@@ -28,9 +32,7 @@ function cowmotd {
     fi
   fi
 }
-
-
-cowmotd
+motd
 
 case $OSTYPE in
     darwin*)
