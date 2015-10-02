@@ -4,6 +4,7 @@ while IFS= read -r -n1 char
 do
   # display one character at a time
   echo -n  "$char"
+  # randomize the delay time between letters (0.XX)
   delay=$(bc <<< "scale=2;$RANDOM/32767")
   sleep $delay
 done <<< "$1"
