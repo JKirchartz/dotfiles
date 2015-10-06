@@ -3,16 +3,19 @@ function wotd {
     # hat-tip to flukiluke@blinkenshell for this hash:
     local n=$(echo $(date +%D|md5sum) $(wc -l ${DICTIONARY}) |  awk '{print \
         strtonum("0x"$1)%$3}')
-    sed "$n q;d" ${DICTIONARY}
+    if [ -f $DICTIONARY ]; then
+      echo -n "Today's secret word is \"$(sed "$n q;d" ${DICTIONARY})"
+      echo "\" You know what to do when somebody says the secret word, right?"
+    fi
 }
 
 function motd {
   if [ -z ${VIMRUNTIME} ]; then
     if which fortune > /dev/null; then
         if which cowsay > /dev/null; then
-            fortune -as | ~/dotfiles/scripts/cowsay.sh
+            ~/dotfiles/scripts/fortune.sh | ~/dotfiles/scripts/cowsay.sh
         else
-            fortune -as
+            ~/dotfiles/scripts/fortune.sh
         fi
     else
         if which cowsay > /dev/null; then
@@ -21,14 +24,12 @@ function motd {
           ~/dotfiles/scripts/ObliqueStrategies
         fi
     fi
-    echo -n "Today's secret word is: "
     wotd
-    echo "You all know what to do when somebody says the secret word, right?"
   else
     if which fortune > /dev/null; then
-      fortune -as
+        ~/dotfiles/scripts/fortune.sh -s
     else
-      ~/dotfiles/scripts/ObliqueStrategies
+        ~/dotfiles/scripts/ObliqueStrategies
     fi
   fi
 }
@@ -102,9 +103,6 @@ case $OSTYPE in
                 export GEM_HOME=~/gems
                 PATH=$PATH:~/gems/bin
         esac
-        ;;
-    *BSD*)
-        # this is a flavor of BSD
         ;;
     cygwin)
         # this is a PC with cygwin
