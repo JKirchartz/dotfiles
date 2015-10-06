@@ -8,7 +8,7 @@ alias ping='ping -c 10 '                  # set a default, coz I always forget
 alias rm='rm -i '                         # confirm, just in case...
 alias sudo='sudo '                        # check for aliases AFTER sudo(?)
 alias please='sudo !! '
-alias f='fortune -as'
+alias f='fortune -ae'
 alias R='. ~/.bash_profile'
 alias RR='[ $[ $RANDOM % 6 ] == 0 ] && echo *BANG* || echo *Click*'
 #alternative to cd -

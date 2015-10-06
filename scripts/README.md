@@ -54,6 +54,8 @@ with me wherever I go (for whatever reason)
   actually update git submodules to their current versions
 * [xkcd-password](xkcd-password)
   generate "xkcd"-style passwords of any length (good for botyodeling, too!)
+* [fortune](fortune)
+  personal fortune file(s)
 
 
 [1]: http://whatthecommit.com
