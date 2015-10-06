@@ -16,7 +16,7 @@ function rword() {
 
 while [[ true ]]; do
   clear
-  fortune -as | center_cowsay.sh
+  fortune -ae | center_cowsay.sh
   echo "Word of the moment is: $(rword)"
-  sleep 30
+  sleep 30s
 done
