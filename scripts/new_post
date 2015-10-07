@@ -17,3 +17,15 @@ if [ -n "$2" ]
 then
     echo "$2" >> $FILENAME
 fi
+
+# try to open a file with the locally preferred $EDITOR
+# if [ -n "$EDITOR" ]
+# then
+#  $EDITOR $FILENAME
+# fi
+
+
+# Meh, screw that ^^^
+# I'm a vimmer.
+
+vim '+norm Go' $FILENAME

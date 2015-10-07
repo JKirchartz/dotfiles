@@ -207,6 +207,7 @@ let g:ctrlp_custom_ignore = {
 
 " use _my_ software license as the default for vim-templates
 let g:license = "NPL (Necessary Public License)"
+let g:templates_directory = ["~/.vim/templates"]
 
 "}}}-----------------------------------------------------
 " autocmds
