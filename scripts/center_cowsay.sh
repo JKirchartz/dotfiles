@@ -26,7 +26,7 @@ cowspan=$((($termwidth-$cowwidth)/2))
 cowspaces=`printf "%*s" $cowspan`
 
 # pad cowsay
-cowsay -f "$cowfile" -W $cowwidth | sed -e "s/^/$cowspaces/"
+cowsay -f "$cowfile" | sed -e "s/^/$cowspaces/"
 # printf "%${cowspan}s\n" $(cowsay -f "$cowfile" -W $cowwidth)
 
 

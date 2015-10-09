@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# cowmotd_screensaver.sh
+# motd_screensaver.sh
 # Copyright (C) 2015 jkirchartz <jkirchartz@jkirchartz0.pit.corp.google.com>
 #
 # Distributed under terms of the NPL (Necessary Public License) license.
@@ -16,7 +16,7 @@ function rword() {
 
 while [[ true ]]; do
   clear
-  fortune -ae | center_cowsay.sh
+  fortune.sh | center_cowsay.sh
   echo "Word of the moment is: $(rword)"
   sleep 30s
 done
