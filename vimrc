@@ -20,10 +20,6 @@ source $VIMRUNTIME/macros/matchit.vim
 " Custom Functions/Commands
 "---------------------------------------------------------{{{
 
-" insert a space or <cr>
-nmap <leader>i i <esc>
-nmap <cr>i i<cr><esc>
-
 " forgot to sudo vi? w!!
 cmap w!! %!sudo tee > /dev/null %
 
@@ -141,6 +137,10 @@ nmap <leader>b :ls<CR>:b<space>
 nmap <leader>ll %s@^\%(ht\|f\)tps\?://\(\S\+\)@<a href="&">\1</a>@g
 " :%s@\v^((ht<bar>f)tps?://)(\S+)@\<a href=\"\1\2\"\>\2\</a\>@g<cr>
 
+
+" insert a space or <cr>
+nmap <leader>i i<space><esc>
+nmap <cr>i i<cr><esc>
 
 
 "}}}---------------------------------------------------------
