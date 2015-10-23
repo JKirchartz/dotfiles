@@ -13,7 +13,7 @@ Plugin 'gmarik/Vundle.vim'
 
 " personal forks
 Plugin 'jkirchartz/vim-colorschemes' " forked flazz's, not sure enough about licenses to send a PR
-Plugin 'jkirchartz/writegood.vim' " 3 scripts to improve writing - wanna modify for other words/phrases to avoid
+Plugin 'jkirchartz/writegooder.vim' " 3 scripts to improve writing - wanna modify for other words/phrases to avoid
 
 " Plugins
 Plugin 'scrooloose/nerdcommenter'
