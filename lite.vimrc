@@ -52,10 +52,11 @@ set showmode showcmd " show modes & commands in stl
 " show cursor position (like :set ruler) & git status in statusline
 let gitprompt = system("__git_ps1") " this depends on &shell = bash -l (or -i)
 set statusline=\ b%n\ %<%f\ %h%m%r%{gitprompt}%=%-14.(%l,%c%V%)\ %P
-colorscheme candy
+colorscheme smyck
 syntax on " highlight that syntax, please
-highlight StatusLine cterm=NONE ctermbg=0 ctermfg=10
-highlight ColorColumn cterm=NONE ctermbg=0
+" highlight StatusLine cterm=NONE ctermbg=0 ctermfg=10
+" highlight ColorColumn cterm=NONE ctermbg=0
+
 
 " overwrite common misfires
 command E e
@@ -65,3 +66,7 @@ command Wq wq
 command WQ wq
 command Bn bn
 cnoremap \<Enter> <Enter>
+
+" avoid esc key (and retrain brain I'm no longer remapping capslock)
+imap jk <esc>
+imap kj <esc>

@@ -109,11 +109,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
       . /etc/bash_completion
 fi
 
-if command -v setxkbmap >/dev/null 2>&1; then
-  if setxkbmap >/dev/null 2>&1; then
-    setxkbmap -option "caps:swapescape"
-  fi
-fi
 
 # Function to update a shell inside tmux with new environment variables (really
 # useful for switching between ssh and local) function update-environment
@@ -134,5 +129,8 @@ function update-environment {
 }
 
 # Bins
-export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/bin:/usr/games:.:~/dotfiles/scripts:$PATH
+export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/bin:/usr/games:~/dotfiles/scripts:$PATH
 
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
