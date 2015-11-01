@@ -5,7 +5,8 @@ function wotd {
         strtonum("0x"$1)%$3}')
     if [ -f $DICTIONARY ]; then
       echo -n "Today's secret word is \"$(sed "$n q;d" ${DICTIONARY})"
-      echo "\" You know what to do when somebody says the secret word, right?"
+      echo -n "\", now you all remember what to do when you hear the secret"
+      echo " word, RIGHT!?"
     fi
 }
 
