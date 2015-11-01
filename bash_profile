@@ -91,10 +91,11 @@ case $OSTYPE in
                 ### Added by the Heroku Toolbelt
                 export PATH="/usr/local/heroku/bin:$PATH"
                 ;;
-            crunchbang)
+            crunchbang|arp)
                 export GEM_HOME="~/gems"
                 # add appengine, npm, and gems bins to path
-                PATH=$PATH:/usr/local/share/npm/bin:~/gems/bin:~/google_appengine
+                PATH=$PATH:/usr/local/bin:/usr/local/share/npm/bin
+                PATH=$PATH:~/gems/bin:~/google_appengine
                 ;;
             *google*)
                 if [ -f ~/at_google.sh ]; then
