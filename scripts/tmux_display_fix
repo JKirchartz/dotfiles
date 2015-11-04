@@ -1,0 +1,14 @@
+#! /bin/sh
+# Yubin totally wrote this one herself
+# Run this script outside of tmux!
+# (hacked by JKirchartz to ensure it's not used inside of tmux)
+
+if [ -n "$TMUX" ]; then
+  echo "You cannot execute this function in tmux, please use another terminal"
+else
+  for name in `tmux ls -F '#{session_name}'`; do
+    tmux setenv -g -t $name DISPLAY $DISPLAY # set display for all sessions
+  done
+  echo "\$DISPLAY reset"
+fi
+
