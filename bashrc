@@ -109,12 +109,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
       . /etc/bash_completion
 fi
 
-if command -v setxkbmap >/dev/null 2>&1; then
-  if setxkbmap >/dev/null 2>&1; then
-    setxkbmap -option "caps:swapescape"
-  fi
-fi
-
 # Function to update a shell inside tmux with new environment variables (really
 # useful for switching between ssh and local) function update-environment
 # stolen from https://github.com/xanderman/dotfiles/blob/master/.bashrc#L105
