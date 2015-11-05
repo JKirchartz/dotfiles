@@ -68,5 +68,10 @@ command Bn bn
 cnoremap \<Enter> <Enter>
 
 " avoid esc key (and retrain brain I'm no longer remapping capslock)
+" Avoid the esc key
+inoremap <silent> <Up> <ESC><Up>
+inoremap <silent> <Down> <ESC><Down>
+inoremap <silent> <Left> <ESC><Left>
+inoremap <silent> <Right> <ESC><Right>
 imap hj <esc>
 imap jh <esc>
