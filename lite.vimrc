@@ -68,5 +68,5 @@ command Bn bn
 cnoremap \<Enter> <Enter>
 
 " avoid esc key (and retrain brain I'm no longer remapping capslock)
-imap jk <esc>
-imap kj <esc>
+imap hj <esc>
+imap jh <esc>
