@@ -46,7 +46,7 @@ echo "...done"
 
 case $OSTYPE in
     msys|cygwin)
-        # move any existing dotfiles in homedir to dotfiles_old directory, then copy dotfiles 
+        # move any existing dotfiles in homedir to dotfiles_old directory, then copy dotfiles
         for file in $files; do
             echo "Moving existing $file from ~ to $olddir"
             [ -f ~/.$file ] && mv ~/.$file ~/dotfiles_old/
@@ -55,7 +55,7 @@ case $OSTYPE in
         done
         ;;
     *)
-        # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks 
+        # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks
         for file in $files; do
             echo "Moving existing $file from ~ to $olddir"
             [ -f ~/.$file ] && mv ~/.$file ~/dotfiles_old/
