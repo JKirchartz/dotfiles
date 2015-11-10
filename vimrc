@@ -25,6 +25,7 @@ cmap w!! %!sudo tee > /dev/null %
 
 command! -bar DeleteTrailingSpaces :silent! %s:\(\S*\) \+$:\1:
 command! -bar DeleteTrailingSpacesThenWrite :DeleteTrailingSpaces | :write
+command! -bar Hitest :so $VIMRUNTIME/syntax/hitest.vim
 
 function! NumberToggle()
   if &relativenumber == 1 && &number == 1
