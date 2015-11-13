@@ -19,7 +19,7 @@ function update-environment {
  # ps + grep (via egghead on freenode#web)
 function pgrep(){ ps -ax | grep $1 | grep -v "grep"; }
 # why not history
-function hgrep(){ history | grep $1 }
+function hgrep(){ history | grep $1; }
 
 
 # get the word of the day
@@ -87,3 +87,5 @@ function extract () {
         echo "'$1' is not a valid file"
      fi
 }
+
+
