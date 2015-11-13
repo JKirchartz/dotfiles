@@ -22,8 +22,6 @@ alias notes='hgrep \#'
 alias csgrep=' grep -Ir --exclude-dir="\.svn" --exclude="*\.css" '
 alias sgrep=' grep -Ir --exclude-dir="\.svn" '
 alias psgrep='ps aux | grep $(echo $1 | sed "s/^\(.\)/[\1]/g")'
-function pgrep(){ ps -ax | grep $1 | grep -v "grep"; } # ps + grep (via egghead on freenode#web)
-function hgrep(){ history | grep $1 | grep -v "grep"; } # why not history
 alias ports="sudo lsof -i -P | grep -i \"listen\"" # list listening ports:
 alias iip="ifconfig | grep broadcast | awk '{print $ 2}'" # get internal ip
 alias eip="dig +short myip.opendns.com @resolver1.opendns.com" #get external ip

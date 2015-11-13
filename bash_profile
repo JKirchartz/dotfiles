@@ -1,45 +1,8 @@
-function wotd {
-    local DICTIONARY=/usr/share/dict/words
-    # hat-tip to flukiluke@blinkenshell for this hash:
-    local n=$(echo $(date +%D|md5sum) $(wc -l ${DICTIONARY}) |  awk '{print \
-        strtonum("0x"$1)%$3}')
-    if [ -f $DICTIONARY ]; then
-      echo -n "Today's secret word is \"$(sed "$n q;d" ${DICTIONARY})"
-      echo -n "\", now you all remember what to do when you hear the secret"
-      echo " word, RIGHT!?"
-    fi
-}
-
-function motd {
-  if [ -z ${VIMRUNTIME} ]; then
-    if which fortune > /dev/null; then
-        if which cowsay > /dev/null; then
-            ~/dotfiles/scripts/fortune.sh | ~/dotfiles/scripts/cowsay.sh
-        else
-            ~/dotfiles/scripts/fortune.sh
-        fi
-    else
-        if which cowsay > /dev/null; then
-          ~/dotfiles/scripts/ObliqueStrategies | ~/dotfiles/scripts/cowsay.sh
-        else
-          ~/dotfiles/scripts/ObliqueStrategies
-        fi
-    fi
-    wotd
-  else
-    if which fortune > /dev/null; then
-        ~/dotfiles/scripts/fortune.sh -s
-    else
-        ~/dotfiles/scripts/ObliqueStrategies
-    fi
-  fi
-}
 motd
 
 case $OSTYPE in
     darwin*)
         # this is a mac
-
         export TERM=xterm-256color
 
         # TMUX
@@ -86,6 +49,7 @@ case $OSTYPE in
         export PATH="/cygdrive/c/Program Files/Oracle/VirtualBox:$PATH"
         ;;
     msys)
+        # this is a PC with msys
         fortune -as
         export PATH="/mingw/bin:/c/Program Files/Oracle/VirtualBox:$PATH"
         ;;
