@@ -6,11 +6,11 @@ case $OSTYPE in
         export TERM=xterm-256color
 
         # TMUX
-        if which tmux 2>&1 >/dev/null; then
+        if which tmux > /dev/null 2>&1; then
             # if no session is started, start a new session
-            test -z ${TMUX} && tmux
+            test -z "${TMUX}" && tmux
             # when quitting tmux, try to attach
-            while test -z ${TMUX}; do
+            while test -z "${TMUX}"; do
                 tmux attach || break
             done
         fi
@@ -35,12 +35,6 @@ case $OSTYPE in
                 PATH=$PATH:/usr/local/bin:/usr/local/share/npm/bin
                 PATH=$PATH:~/gems/bin:~/google_appengine
                 ;;
-            *google*)
-                if [ -f ~/at_google.sh ]; then
-                    source ~/at_google.sh
-                fi
-                export GEM_HOME=~/gems
-                PATH=$PATH:~/gems/bin
         esac
         ;;
     cygwin)
