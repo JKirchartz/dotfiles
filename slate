@@ -1,5 +1,4 @@
-# Configs
-config defaultToCurrentScreen true
+defaultToCurrentScreen true
 # show icons & letters on all windows w/ Window Hints
 config windowHintsShowIcons true
 config windowHintsIgnoreHiddenWindows false

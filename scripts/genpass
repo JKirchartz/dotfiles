@@ -1,0 +1,12 @@
+#! /bin/bash
+#
+# genpass.sh
+#
+# Copyleft (ↄ) 2016 jkirchartz <jkirchartz@arp>
+#
+# Distributed under terms of the NPL (Necessary Public License) license.
+#
+
+
+tr -dc "[:graph:]" </dev/urandom | head -c 20;
+

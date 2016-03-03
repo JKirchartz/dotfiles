@@ -15,17 +15,17 @@ case "$OSTYPE" in
     darwin*)
         # Files for OSX
         echo "Preparing files for OSX"
-        files="jshintrc inputrc bashrc bash_profile vimrc vim tmux.conf slate ssh gitconfig screenrc"
+        files="jshintrc ackrc inputrc bashrc bash_profile vimrc vim tmux.conf slate ssh gitconfig screenrc"
         ;;
     msys|cygwin)
-        # Files for cygwin & msys
+        # Files for cygwin & msys << obsoleted by windows 10 anniversary release
         echo "Preparing files for *doze"
         files="inputrc bashrc bash_profile vimrc vim tmux.conf ssh gitconfig screenrc"
         ;;
     *)
         # Files for *nix
         echo "Preparing files for *nix"
-        files="jshintrc inputrc bashrc bash_profile vimrc vim tmux.conf ssh gitconfig screenrc profile"
+        files="jshintrc ackrc inputrc bashrc bash_profile vimrc vim tmux.conf gitconfig screenrc profile"
         ;;
 esac
 
@@ -41,7 +41,7 @@ echo "...done"
 # change to the dotfiles directory
 ###
 echo "Changing to the $dir directory"
-cd $dir
+cd $dir || exit
 echo "...done"
 
 case $OSTYPE in
@@ -49,35 +49,59 @@ case $OSTYPE in
         # move any existing dotfiles in homedir to dotfiles_old directory, then copy dotfiles
         for file in $files; do
             echo "Moving existing $file from ~ to $olddir"
-            [ -f ~/.$file ] && mv ~/.$file ~/dotfiles_old/
+            [ -f "$HOME/.$file" ] && mv "$HOME/.$file" "$HOME/dotfiles_old/"
             echo "Creating copying to $file in home directory."
-            cp -r $dir/$file ~/.$file
+            cp -r "$dir/$file" "$HOME/.$file"
         done
         ;;
     *)
         # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks
         for file in $files; do
             echo "Moving existing $file from ~ to $olddir"
-            [ -f ~/.$file ] && mv ~/.$file ~/dotfiles_old/
+            [ -f "$HOME/.$file" ] && mv "$HOME/.$file" "$HOME/dotfiles_old/"
             echo "Creating symlink to $file in home directory."
-            ln -s $dir/$file ~/.$file
+            ln -s "$dir/$file" "$HOME/.$file"
         done
         ;;
     esac
 
+if [[ $files == *"ssh"* ]]; then
+        cp "$HOME/dotfiles_old/.ssh/*" "$HOME/.ssh/"
+fi
+
 ##########
-# setup vundle
+# checkout submodules
 ###
-source ~/.bash_profile
-echo "Setting up Vundle for vim"
-git clone https://github.com/gmarik/Vundle.vim.git ./vim/bundle/Vundle.vim
-echo "Setting up YouCompleteMe"
-git clone https://github.com/Valloric/YouCompleteMe ./vim/bundle/YouCompleteMe
-$(cd ./vim/bundle/YouCompleteMe; git submodule update --init)
-echo "Attempting to run YouCompleteMe install script (no clang support, also assumes you have buildtools, cmake, and python-dev installed)"
-./vim/bundle/install.sh # install YouCompleteMe without clang support
+git submodule init
+git submodule update
+
+##########
+# make fortunes
+###
+fortunes=$(cd "$dir/scripts/fortune" && make)
+echo "$fortunes"
+
+##########
+# setup vim/vim-plug
+###
+echo "Attempting to install vim-plug"
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 echo "Attempting to setup gist/vim-fist"
 gem install gist && gist --login
 echo "Installing vim plugins with Vundle"
-vim +PluginInstall +qall
+vim +PlugInstall +qall
+
+##########
+# setup neovim/vim-plug
+###
+
+if type nvim >/dev/null 2>&1; then
+  mkdir -p "${XDG_CONFIG_HOME:=$HOME/.config}"
+  ln -s "$dir/nvim" "$XDG_CONFIG_HOME/nvim"
+
+  curl -fLo "$XDG_CONFIG_HOME/nvim/autoload/plug.vim" --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+  nvim +PlugInstall +qall
+fi
 

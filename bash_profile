@@ -1,101 +1,88 @@
-function wotd {
-    local DICTIONARY=/usr/share/dict/words
-    # hat-tip to flukiluke@blinkenshell for this hash:
-    local n=$(echo $(date +%D|md5sum) $(wc -l ${DICTIONARY}) |  awk '{print \
-        strtonum("0x"$1)%$3}')
-    if [ -f $DICTIONARY ]; then
-      echo -n "Today's secret word is \"$(sed "$n q;d" ${DICTIONARY})"
-      echo -n "\", now you all remember what to do when you hear the secret"
-      echo " word, RIGHT!?"
-    fi
-}
+# motd
+~/dotfiles/scripts/motd.sh
 
-function motd {
-  if [ -z ${VIMRUNTIME} ]; then
-    if which fortune > /dev/null; then
-        if which cowsay > /dev/null; then
-            ~/dotfiles/scripts/fortune.sh | ~/dotfiles/scripts/cowsay.sh
-        else
-            ~/dotfiles/scripts/fortune.sh
-        fi
-    else
-        if which cowsay > /dev/null; then
-          ~/dotfiles/scripts/ObliqueStrategies | ~/dotfiles/scripts/cowsay.sh
-        else
-          ~/dotfiles/scripts/ObliqueStrategies
-        fi
-    fi
-    wotd
-  else
-    if which fortune > /dev/null; then
-        ~/dotfiles/scripts/fortune.sh -s
-    else
-        ~/dotfiles/scripts/ObliqueStrategies
-    fi
-  fi
-}
-motd
+# Bins
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 
+# system-specific configs
 case $OSTYPE in
     darwin*)
         # this is a mac
-
         export TERM=xterm-256color
+        export GEM_HOME=$HOME/gems
+        PATH=$PATH:$HOME/gems/bin
+        export NVM_DIR="$HOME/.nvm"
+        . "$(brew --prefix nvm)/nvm.sh"
 
-        # TMUX
-        if which tmux 2>&1 >/dev/null; then
-            # if no session is started, start a new session
-            test -z ${TMUX} && tmux
-            # when quitting tmux, try to attach
-            while test -z ${TMUX}; do
-                tmux attach || break
-            done
-        fi
-
-        # homebrew completion
-        source `brew --repository`/Library/Contributions/brew_bash_completion.sh
-
-        ;;
+        # take a screenshot
+        alias ss2='screencapture -xP '
+        alias ss='screencapture -xwP '
+        export EDITOR="/usr/local/bin/mvim -v"
+        export VISUAL="$EDITOR"
+        alias vi='mvim -v'
+        alias vim='mvim -v'
+        alias vlc='/Applications/VLC.app/Contents/MacOS/VLC -I rc -q'
+        function fix-ssh {
+            eval $(ssh-agent);
+            ssh-add -K;
+        }
+    ;;
     linux*)
         # this is linux
+        export EDITOR=vim
+
         case $HOSTNAME in
             triton)
-                [[ -n '$STY' ]] && scr
+                # autostart screen
+                if [ "$(ps -p $PPID -o comm=)" != screen ]; then scr; fi
                 ;;
             lucid32)
                 ### Added by the Heroku Toolbelt
-                export PATH="/usr/local/heroku/bin:$PATH"
+                PATH="$PATH:/usr/local/heroku/bin"
+                export GEM_HOME=~/gems:$GEM_HOME
                 ;;
-            crunchbang|arp)
-                export GEM_HOME=~/gems
+            arp)
                 # add appengine, npm, and gems bins to path
-                PATH=$PATH:/usr/local/bin:/usr/local/share/npm/bin
-                PATH=$PATH:~/gems/bin:~/google_appengine
-                ;;
-            *google*)
-                if [ -f ~/at_google.sh ]; then
-                    source ~/at_google.sh
-                fi
                 export GEM_HOME=~/gems
-                PATH=$PATH:~/gems/bin
+                PATH=$PATH:/usr/local/share/npm/bin
+                PATH=$PATH:~/google_appengine
+                # nvm paths
+                export NVM_DIR="/home/kirch/.nvm"
+                [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+                if [[ -d "$NVM_DIR" ]]; then
+                  NODE_DEFAULT_VERSION="$(<"$NVM_DIR/alias/default")"
+                else
+                  NODE_DEFAULT_VERSION=""
+                fi
+                if [[ "$NODE_DEFAULT_VERSION" != "" ]]; then
+                  PATH="$PATH:$NVM_DIR/versions/node/$NODE_DEFAULT_VERSION/bin"
+                fi
+                # Ubuntu make installation of Ubuntu Make binary symlink
+                PATH=/home/kirch/.local/share/umake/bin:$PATH
+                # Android
+                # export ANDROID_HOME="/home/kirch/.local/share/umake/android/android-studio/"
+                # export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+                ### Added by the Heroku Toolbelt
+                PATH="$PATH:/usr/local/heroku/bin"
+                PATH="$PATH:$HOME/.rbenv/bin"
+                eval "$(rbenv init -)"
+                ;;
         esac
         ;;
     cygwin)
         # this is a PC with cygwin
-        fortune -as
-        export PATH="/cygdrive/c/Program Files/Oracle/VirtualBox:$PATH"
+        PATH="$PATH:/cygdrive/c/Program Files/Oracle/VirtualBox"
         ;;
     msys)
-        fortune -as
-        export PATH="/mingw/bin:/c/Program Files/Oracle/VirtualBox:$PATH"
+        # this is a PC with msys
+        PATH="$PATH:/mingw/bin:/c/Program Files/Oracle/VirtualBox"
         ;;
     *)
-        echo "$OSTYPE unknown in .bash_profile"
+        echo "$OSTYPE not registered in .bash_profile"
         ;;
 esac
 
-export EDITOR=vim
-export PATH="$PATH:."
+export PAGER="less -F"
+
 # import bashrc
 source ~/.bashrc
-

@@ -1,20 +1,12 @@
 "------------------------------------------------------------
-" load external files/scripts/plugins
+" Load external files/scripts/plugins
 "---------------------------------------------------------{{{
-
-" Vundle plugins
-source ~/dotfiles/vundle.vimrc
 
 " a standard set of tweaks:
 source ~/dotfiles/lite.vimrc
 
-" work-specific config
-if filereadable(expand("~/at_google.vimrc"))
-    source ~/at_google.vimrc
-endif
-
-" matchit
-source $VIMRUNTIME/macros/matchit.vim
+" vim-plug plugins
+source ~/dotfiles/plug.vimrc
 
 "}}}---------------------------------------------------------
 " Custom Functions/Commands
@@ -23,8 +15,6 @@ source $VIMRUNTIME/macros/matchit.vim
 " forgot to sudo vi? w!!
 cmap w!! %!sudo tee > /dev/null %
 
-command! -bar DeleteTrailingSpaces :silent! %s:\(\S*\) \+$:\1:
-command! -bar DeleteTrailingSpacesThenWrite :DeleteTrailingSpaces | :write
 command! -bar Hitest :so $VIMRUNTIME/syntax/hitest.vim
 
 function! NumberToggle()
@@ -46,55 +36,10 @@ function ScratchBuffer()
 endfunc
 command -bar Bs call ScratchBuffer()
 
-" Improve hex editing (ala http://vim.wikia.com/wiki/Improved_hex_editing)
-" helper function to toggle hex mode
-function ToggleHex()
-  " hex mode should be considered a read-only operation
-  " save values for modified and read-only for restoration later,
-  " and clear the read-only flag for now
-  let l:modified=&mod
-  let l:oldreadonly=&readonly
-  let &readonly=0
-  let l:oldmodifiable=&modifiable
-  let &modifiable=1
-  if !exists("b:editHex") || !b:editHex
-    " save old options
-    let b:oldft=&ft
-    let b:oldbin=&bin
-    " set new options
-    setlocal binary " make sure it overrides any textwidth, etc.
-    let &ft="xxd"
-    " set status
-    let b:editHex=1
-    " switch to hex editor
-    %!xxd
-  else
-    " restore old options
-    let &ft=b:oldft
-    if !b:oldbin
-      setlocal nobinary
-    endif
-    " set status
-    let b:editHex=0
-    " return to normal editing
-    %!xxd -r
-  endif
-  " restore values for modified and read only state
-  let &mod=l:modified
-  let &readonly=l:oldreadonly
-  let &modifiable=l:oldmodifiable
-endfunction
-command -bar Hexmode call ToggleHex()
-
 "}}}---------------------------------------------------------
 " Leader
 "---------------------------------------------------------{{{
-"map leader to space for world domination
-nnoremap <Space> <Nop>
-let mapleader = " "
 
-" write quickly
-nmap <leader>w :w!<cr>
 " wq quickly
 nmap <leader>q :wqall<cr>
 
@@ -123,13 +68,16 @@ nmap <leader><cr> :nohlsearch<CR>
 nnoremap <leader>p p`[v`]=
 
 
-" cleanup & write quickly
-nmap <leader><leader> :DeleteTrailingSpacesThenWrite<CR>
-imap <leader><leader> <esc>:DeleteTrailingSpacesThenWrite<CR>
+" write quickly (autocmd deletes trailing spaces (not tabs))
+nmap <leader><leader> :w<CR>
+imap <leader><leader> <esc>:w<CR>
 
 map <leader>s :spell!<cr>
 
 map <leader>r :e %<cr>
+
+" use argwrap
+nnoremap <silent> <leader>a :ArgWrap<CR>
 
 " stop cycling when you can fly
 nmap <leader>b :ls<CR>:b<space>
@@ -137,11 +85,6 @@ nmap <leader>b :ls<CR>:b<space>
 " fix this later: it should convert a line whose sole content is a URL to a link
 nmap <leader>ll %s@^\%(ht\|f\)tps\?://\(\S\+\)@<a href="&">\1</a>@g
 " :%s@\v^((ht<bar>f)tps?://)(\S+)@\<a href=\"\1\2\"\>\2\</a\>@g<cr>
-
-
-" insert a space or <cr>
-nmap <leader>i i<space><esc>
-nmap <cr>i i<cr><esc>
 
 
 "}}}---------------------------------------------------------
@@ -155,43 +98,29 @@ imap <F1> <Esc>
 " paste mode toggle (F2)
 set pastetoggle=<F2>
 
-" delete all trailing whitespace (F4)
-nmap <silent><F4> :DeleteTrailingSpaces<CR>
-imap <silent><F4> :DeleteTrailingSpaces<CR>
-
 " spell check toggle (F7)
-imap <silent> <F7> :spell!<cr>
-nmap <silent> <F7> :spell!<cr>
+imap <silent> <F7> :set spell!<cr>
+nmap <silent> <F7> :set spell!<cr>
 
 "}}}---------------------------------------------------------
 " Plugin Options
 "---------------------------------------------------------{{{
-nmap <leader>t :NERDTreeToggle<CR>
-let g:NERDChristmasTree=1    " more colorful NERDTree
-" close VIM 'normally' if NERDTree is running
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&
-      \b:NERDTreeType == "primary") | q | endif
 
-" add space to beginning of comments
-let g:NERDSpaceDelims = 1
+nmap <leader>ut :UndotreeToggle<CR>
 
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-
-" make YCM ignore c/c++, coz that's not my bag
-let g:ycm_filetype_specific_completion_to_disable = {'cpp': 1, 'c': 1}
-
-" better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 nnoremap <leader><leader> :SyntasticCheck<CR>
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_check_on_open = 1
-let g:syntastic_javascript_checkers = ['gjslint','jshint']
+if has("autocmd")
+    autocmd FileType javascript.js let g:syntastic_javascript_checkers = ['gjslint','jshint']
+    autocmd FileType javascript.jsx let g:syntastic_javascript_checkers = ['eslint']
+else
+    let g:syntastic_javascript_checkers = ['gjslint','jshint']
+endif
+let g:syntastic_ruby = ['rubocop','mri']
 " use pretty syntastic symbols
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '⚠'
@@ -200,23 +129,26 @@ let g:syntastic_warning_symbol = '⚠'
 let g:fist_anonymously = 0
 let g:fist_in_private = 1
 
+" search files & buffers
+let g:ctrlp_cmd = 'CtrlPMixed'
 " make ctrlp faster
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\.git$\|\.hg$\|\.svn\|\.git5_specs$\|review$',
   \ 'file': '\.exe$\|\.so$\|\.dll$',
   \ 'link': 'READONLY$',
   \ }
+" Ignore files in .gitignore
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 " use _my_ software license as the default for vim-templates
 let g:license = "NPL (Necessary Public License)"
-let g:templates_directory = ["~/.vim/templates"]
+let g:templates_directory = ["$HOME/.vim/templates"]
+
 
 "}}}-----------------------------------------------------
-" autocmds
+" Autocmds
 "-------------------------------------------------------{{{
 if has("autocmd")
-      " fold up vim files
-      autocmd FileType vim setlocal foldmethod=marker
       " Jump to last position when reopening files
       au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
           \| exe "normal g'\"" | endif
@@ -226,5 +158,9 @@ if has("autocmd")
       autocmd ColorScheme * highlight Normal ctermbg=None
       autocmd ColorScheme * highlight NonText ctermbg=None
       autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+      " trim trailing spaces (not tabs) before write
+      autocmd BufWritePre * silent! %s:\(\S*\) \+$:\1:
 endif
 
+" fold up this file
+" vim:foldmethod=marker
