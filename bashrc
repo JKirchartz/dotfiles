@@ -48,7 +48,7 @@ export HISTIGNORE="&:ls:ll:pwd:exit:clear:[ \t]*"
 shopt -s histappend                       # append to history, not overwrite it
 shopt -s cdspell                          # spellcheck for cd
 shopt -s nocaseglob                       # ignore case for autoexpansion
-#shopt -s dirspell                         # spellcheck for directories
+#shopt -s dirspell                        # spellcheck for directories
 
 # search-path for CD command
 export CDPATH=".:~:~/projects:~/Dropbox/projects"
@@ -57,9 +57,6 @@ export CDPATH=".:~:~/projects:~/Dropbox/projects"
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
@@ -109,6 +106,8 @@ fi
 # get aliases
 shopt -s expand_aliases
 source ~/dotfiles/bash_aliases
+# get functions
+source ~/dotfiles/bash_functions
 
 
 # Function to update a shell inside tmux with new environment variables (really
@@ -151,3 +150,6 @@ fi
 if [[ "$NODE_DEFAULT_VERSION" != "" ]]; then
   export PATH="$NVM_DIR/versions/node/$NODE_DEFAULT_VERSION/bin":$PATH
 fi
+
+# put this last, so current dir always gets preference
+export PATH=".:$PATH"

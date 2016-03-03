@@ -1,9 +1,9 @@
 function wotd {
     local DICTIONARY=/usr/share/dict/words
     # hat-tip to flukiluke@blinkenshell for this hash:
-    local n=$(echo $(date +%D|md5sum) $(wc -l ${DICTIONARY}) |  awk '{print \
-        strtonum("0x"$1)%$3}')
     if [ -f $DICTIONARY ]; then
+      local n=$(echo $(date +%D|md5sum) $(wc -l ${DICTIONARY}) |  awk '{print \
+          strtonum("0x"$1)%$3}')
       echo -n "Today's secret word is \"$(sed "$n q;d" ${DICTIONARY})"
       echo -n "\", now you all remember what to do when you hear the secret"
       echo " word, RIGHT!?"
@@ -59,12 +59,6 @@ case $OSTYPE in
                 PATH=$PATH:/usr/local/bin:/usr/local/share/npm/bin
                 PATH=$PATH:~/gems/bin:~/google_appengine
                 ;;
-            *google*)
-                if [ -f ~/at_google.sh ]; then
-                    source ~/at_google.sh
-                fi
-                export GEM_HOME=~/gems
-                PATH=$PATH:~/gems/bin
         esac
         ;;
     cygwin)
@@ -72,6 +66,7 @@ case $OSTYPE in
         export PATH="/cygdrive/c/Program Files/Oracle/VirtualBox:$PATH"
         ;;
     msys)
+        # this is a PC with msys
         export PATH="/mingw/bin:/c/Program Files/Oracle/VirtualBox:$PATH"
         ;;
     *)
@@ -80,7 +75,6 @@ case $OSTYPE in
 esac
 
 export EDITOR=vim
-export PATH="$PATH:."
 # import bashrc
 source ~/.bashrc
 
