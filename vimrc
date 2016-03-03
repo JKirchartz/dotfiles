@@ -139,11 +139,6 @@ nmap <leader>ll %s@^\%(ht\|f\)tps\?://\(\S\+\)@<a href="&">\1</a>@g
 " :%s@\v^((ht<bar>f)tps?://)(\S+)@\<a href=\"\1\2\"\>\2\</a\>@g<cr>
 
 
-" insert a space or <cr>
-nmap <leader>i i<space><esc>
-nmap <cr>i i<cr><esc>
-
-
 "}}}---------------------------------------------------------
 " Function Keys
 "---------------------------------------------------------{{{
@@ -184,7 +179,17 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
 let g:ycm_filetype_specific_completion_to_disable = {'cpp': 1, 'c': 1}
 
 " better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsExpandTrigger = "<nop>"
+let g:ulti_expand_or_jump_res = 0
+function ExpandSnippetOrCarriageReturn()
+    let snippet = UltiSnips#ExpandSnippetOrJump()
+    if g:ulti_expand_or_jump_res > 0
+        return snippet
+    else
+        return "\<CR>"
+    endif
+endfunction
+inoremap <expr> <CR> pumvisible() ? "<C-R>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 

@@ -1,5 +1,5 @@
 set nocompatible " be iMproved
-set magic " NEVER TURN THIS OFF! REGEX WIZARDS WILL GET YOU!
+set magic " IF YOU TURN THIS ON, REGEX WIZARDS CAN SEE YOU!
 set ffs=unix,dos,mac " Use *nix as the default file type
 set encoding=utf-8 " ensure encoding
 set clipboard^=unnamed,unnamedplus

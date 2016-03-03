@@ -25,3 +25,5 @@
 	postBuffer = 4M
 [github]
 	user = jkirchartz
+[credential]
+	helper = cache --timeout=3600
