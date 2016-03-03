@@ -33,6 +33,7 @@ endif
 Plugin 'scrooloose/syntastic'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'lukaszb/vim-web-indent'
+Plugin 'heavenshell/vim-jsdoc'
 
 " snippets engine & library
 Plugin 'SirVer/ultisnips'

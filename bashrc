@@ -5,12 +5,12 @@ function __prompt {
     history -a
     history -n
     # Get directory (and git-prompt) & generate term-wide hr
-    DIR=`pwd|sed -e "s!$HOME!~!";__git_ps1 "(%s)"`
+    DIR=$(pwd|sed -e "s!$HOME!~!";__git_ps1 "(%s)")
     #draw horizontal rule
     echo
     printf '\e[0;31m%*s\n\e[m' "${COLUMNS:-$(tput cols)}" '' | tr ' ' \#
     echo
-    echo $DIR
+    echo "$DIR"
     case "$TERM" in
         *xterm* )
             # clear terminal title if set by application etc.
@@ -26,7 +26,7 @@ export __cw=$COLOR_WHITE
 export __nc=$COLOR_NC #no color
 
 # if shell's running INSIDE vim, mark it in the prompt (as a white V)
-if [ -z ${VIMRUNTIME} ]; then
+if [ -z "${VIMRUNTIME}" ]; then
   export __vim="[";
 else
   export __vim="(\[$__cw\]V\[$__cr\])-[";
@@ -36,13 +36,13 @@ export PS1="\[$__cr\]┌─[\[$__cc\]\D{%x %X}\[$__cr\]]-[\[$__cc\]\j\[$__cr\]]\
 export PS2="\[$__cr\]└─\[$__cc\]>\[$__nc\]"
 
 # git-prompt settings
-GIT_PS1_SHOWDIRTYSTATE=1
-GIT_PS1_SHOWUPSTREAM="auto"
-GIT_PS1_SHOWCOLORHINTS=1
+export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWUPSTREAM="auto"
+export GIT_PS1_SHOWCOLORHINTS=1
 
 #fix history
 export HISTCONTROL=ignoredups             # no duplicate entries
-export HISTSIZE=100000                     # big history
+export HISTSIZE=100000                    # big history
 export HISTFILESIZE=20000                 # big history
 export HISTIGNORE="&:ls:ll:pwd:exit:clear:[ \t]*"
 shopt -s histappend                       # append to history, not overwrite it
@@ -69,22 +69,22 @@ fi
 function calc () { echo "$*" | bc -l; }
 
 #tmux title changer
-function tmut () {  printf "\033k$1\033\\"; }
+function tmut () {  printf "\033k%s\033\\" "$1"; }
 
 # easy unzip
 function extract () {
-    if [ -f $1 ] ; then
-        case $1 in
-            *.tar.bz2)  tar xjf $1      ;;
-            *.tar.gz)   tar xzf $1      ;;
-            *.bz2)      bunzip2 $1      ;;
-            *.rar)      rar x $1        ;;
-            *.gz)       gunzip $1       ;;
-            *.tar)      tar xf $1       ;;
-            *.tbz2)     tar xjf $1      ;;
-            *.tgz)      tar xzf $1      ;;
-            *.zip)      unzip $1        ;;
-            *.Z)        uncompress $1   ;;
+    if [ -f "$1" ] ; then
+        case "$1" in
+            *.tar.bz2)  tar xjf "$1"      ;;
+            *.tar.gz)   tar xzf "$1"      ;;
+            *.bz2)      bunzip2 "$1"      ;;
+            *.rar)      rar x "$1"        ;;
+            *.gz)       gunzip "$1"       ;;
+            *.tar)      tar xf "$1"       ;;
+            *.tbz2)     tar xjf "$1"      ;;
+            *.tgz)      tar xzf "$1"      ;;
+            *.zip)      unzip "$1"        ;;
+            *.Z)        uncompress "$1"   ;;
             *)          echo "'$1' cannot be extracted via extract()" ;;
         esac
      else
@@ -101,13 +101,15 @@ source ~/dotfiles/scripts/git-completion.bash
 # node completion
 source ~/dotfiles/scripts/npm-completion.bash
 
+# bash completion
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+      . /etc/bash_completion
+fi
+
 # get aliases
 shopt -s expand_aliases
 source ~/dotfiles/bash_aliases
 
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-      . /etc/bash_completion
-fi
 
 # Function to update a shell inside tmux with new environment variables (really
 # useful for switching between ssh and local) function update-environment
@@ -117,12 +119,12 @@ function update-environment {
   local v
   while read v; do
     if [[ $v == -* ]]; then
-      unset ${v/#-/}
+      unset "${v/#-/}"
     else
       # Surround value with quotes
       v=${v/=/=\"}
       v=${v/%/\"}
-      eval export $v
+      eval export "$v"
     fi
   done < <(tmux show-environment)
 }
@@ -133,3 +135,19 @@ export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/b
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+export NVM_DIR="/home/kirch/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+if [[ -d "$NVM_DIR" ]]; then
+  NODE_DEFAULT_VERSION="$(<"$NVM_DIR/alias/default")"
+else
+  NODE_DEFAULT_VERSION=""
+fi
+
+if [[ "$NODE_DEFAULT_VERSION" != "" ]]; then
+  export PATH="$NVM_DIR/versions/node/$NODE_DEFAULT_VERSION/bin":$PATH
+fi

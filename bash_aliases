@@ -9,6 +9,7 @@ alias rm='rm -i '                         # confirm, just in case...
 alias sudo='sudo '                        # check for aliases AFTER sudo(?)
 alias please='sudo !! '
 alias f='fortune -ae'
+alias dopewars='dopewars -tn'
 alias R='. ~/.bash_profile'
 alias RR='[ $[ $RANDOM % 6 ] == 0 ] && echo *BANG* || echo *Click*'
 #alternative to cd -
@@ -30,6 +31,9 @@ alias eip="dig +short myip.opendns.com @resolver1.opendns.com" #get external ip
 
 # what date is this month's buildguild?
 alias buildguild="ncal | grep We | awk '{print $ 3}'"
+
+# get weather from wttr.in
+alias weather="curl wttr.in"
 
 # pretty-print git logs
 # via https://coderwall.com/p/euwpig

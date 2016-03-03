@@ -11,7 +11,7 @@ function wotd {
 }
 
 function motd {
-  if [ -z ${VIMRUNTIME} ]; then
+  if [ -z "${VIMRUNTIME}" ]; then
     if which fortune > /dev/null; then
         if which cowsay > /dev/null; then
             ~/dotfiles/scripts/fortune.sh | ~/dotfiles/scripts/cowsay.sh
@@ -25,7 +25,6 @@ function motd {
           ~/dotfiles/scripts/ObliqueStrategies
         fi
     fi
-    wotd
   else
     if which fortune > /dev/null; then
         ~/dotfiles/scripts/fortune.sh -s
@@ -39,22 +38,10 @@ motd
 case $OSTYPE in
     darwin*)
         # this is a mac
-
         export TERM=xterm-256color
-
-        # TMUX
-        if which tmux 2>&1 >/dev/null; then
-            # if no session is started, start a new session
-            test -z ${TMUX} && tmux
-            # when quitting tmux, try to attach
-            while test -z ${TMUX}; do
-                tmux attach || break
-            done
-        fi
 
         # homebrew completion
         source `brew --repository`/Library/Contributions/brew_bash_completion.sh
-
         ;;
     linux*)
         # this is linux
@@ -82,11 +69,9 @@ case $OSTYPE in
         ;;
     cygwin)
         # this is a PC with cygwin
-        fortune -as
         export PATH="/cygdrive/c/Program Files/Oracle/VirtualBox:$PATH"
         ;;
     msys)
-        fortune -as
         export PATH="/mingw/bin:/c/Program Files/Oracle/VirtualBox:$PATH"
         ;;
     *)
@@ -99,3 +84,5 @@ export PATH="$PATH:."
 # import bashrc
 source ~/.bashrc
 
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
