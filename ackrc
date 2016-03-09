@@ -1,0 +1,56 @@
+#ack is a tool like grep, designed for programmers with large trees of heterogeneous source code
+
+#to install ack, see http://betterthangrep.com/
+#to use ack, launch terminal (mac osx) and type 'ack <some_keywords>'
+#ack will search all files in the current directory & sub-directories
+
+# Always sort the files
+#--sort−files
+
+# Always color, even if piping to a another program
+# --color
+
+# Use "less −r" as my pager
+# --pager
+# less -r
+
+--ignore-directory=is:node_modules/
+--ignore-directory=is:bower_components/
+--ignore-directory=is:gems/
+--ignore-directory=is:log/
+--ignore-directory=is:tmp/
+--ignore-directory=is:vendor/
+--ignore-directory=is:frontend/dist/
+--ignore-directory=is:frontend/tmp/
+--ignore-directory=is:.idea/
+--ignore-directory=is:.bundler/
+--ignore-directory=is:.bundle/
+--ignore-directory=is:.cache/
+--ignore-directory=is:.gem/
+--ignore-directory=is:.gnupg/
+--ignore-directory=is:.ssh/
+--ignore-directory=is:.vagrant/
+--ignore-directory=is:_builds/
+--ignore-directory=is:_projects/
+--ignore-directory=is:_steps/
+--ignore-directory=is:_site/
+--ignore-directory=is:coverage/
+
+#make sure ack knows how to search common filetypes used in rails projects
+--type-set=mustache:ext:mustache,handlebars,hbs
+--type-add=css:ext:scss
+--type-add=ruby:ext:haml,rselm,feature,ru,lock
+--type-set=dockerfile:is:Dockerfile
+--type-set=rakefile:is:Rakefile
+--type-set=cakefile:is:Cakefile
+
+--type=mustache
+--type=dockerfile
+--yaml
+
+#make sure ack knows how to search common filetypes used in node.js projects
+--type-set=coffee:ext:coffee
+--type-set=jade:ext:jade
+--type-set=feature:ext:feature
+--type-set=json:ext:json
+--type-set=javascript:ext:js
