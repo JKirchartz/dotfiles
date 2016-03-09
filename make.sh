@@ -15,7 +15,7 @@ case "$OSTYPE" in
     darwin*)
         # Files for OSX
         echo "Preparing files for OSX"
-        files="jshintrc inputrc bashrc bash_profile vimrc vim tmux.conf slate ssh gitconfig screenrc"
+        files="jshintrc ackrc inputrc bashrc bash_profile vimrc vim tmux.conf slate ssh gitconfig screenrc"
         ;;
     msys|cygwin)
         # Files for cygwin & msys
@@ -25,7 +25,7 @@ case "$OSTYPE" in
     *)
         # Files for *nix
         echo "Preparing files for *nix"
-        files="jshintrc inputrc bashrc bash_profile vimrc vim tmux.conf ssh gitconfig screenrc profile"
+        files="jshintrc ackrc inputrc bashrc bash_profile vimrc vim tmux.conf ssh gitconfig screenrc profile"
         ;;
 esac
 
