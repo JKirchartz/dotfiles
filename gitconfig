@@ -19,11 +19,15 @@
     ci = commit
     br = branch
     co = checkout
+    cob = checkout -b
+    unstage = reset HEAD --
+    last = log -1 HEAD
     df = diff
+    ds = diff --staged
     ls = ls-files
 [http]
 	postBuffer = 4M
 [github]
 	user = jkirchartz
 [credential]
-	helper = cache --timeout=3600
+	helper = cache --timeout=28800
