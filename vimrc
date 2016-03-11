@@ -204,16 +204,21 @@ let g:syntastic_warning_symbol = '⚠'
 let g:fist_anonymously = 0
 let g:fist_in_private = 1
 
+" search files & buffers
+let g:ctrlp_cmd = 'CtrlPMixed'
 " make ctrlp faster
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\.git$\|\.hg$\|\.svn\|\.git5_specs$\|review$',
   \ 'file': '\.exe$\|\.so$\|\.dll$',
   \ 'link': 'READONLY$',
   \ }
+" Ignore files in .gitignore
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 " use _my_ software license as the default for vim-templates
-let g:license = "NPL (Necessary Public License)"
+" let g:license = "NPL (Necessary Public License)"
 let g:templates_directory = ["~/.vim/templates"]
+
 
 "}}}-----------------------------------------------------
 " autocmds
