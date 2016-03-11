@@ -50,6 +50,9 @@ shopt -s cdspell                          # spellcheck for cd
 shopt -s nocaseglob                       # ignore case for autoexpansion
 #shopt -s dirspell                        # spellcheck for directories
 
+# x11
+export DISPLAY=localhost:0.0
+
 # search-path for CD command
 export CDPATH=".:~:~/projects:~/Dropbox/projects"
 

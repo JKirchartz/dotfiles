@@ -43,6 +43,7 @@
 --type-set=dockerfile:is:Dockerfile
 --type-set=rakefile:is:Rakefile
 --type-set=cakefile:is:Cakefile
+--type-set=markdown:is:md
 
 --type=mustache
 --type=dockerfile
