@@ -153,3 +153,5 @@ fi
 
 # put this last, so current dir always gets preference
 export PATH=".:$PATH"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
