@@ -42,6 +42,11 @@ set textwidth=80 " be 80 wide
 set wrapmargin=4 " wrap at 78
 set colorcolumn=80 " show me what's TOO far
 
+if has('persistent_undo')
+  " save undos, so you can actually close vim without erasing the undo tree!
+  set undodir=/tmp/vim_undo
+  set undofile
+endif
 
 " highlight css in html(?)
 let html_use_css=1
