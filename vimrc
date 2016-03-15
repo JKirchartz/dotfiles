@@ -161,6 +161,8 @@ nmap <silent> <F7> :spell!<cr>
 "}}}---------------------------------------------------------
 " Plugin Options
 "---------------------------------------------------------{{{
+nmap <leader>u :UndotreeToggle<CR>
+
 nmap <leader>t :NERDTreeToggle<CR>
 let g:NERDChristmasTree=1    " more colorful NERDTree
 " close VIM 'normally' if NERDTree is running

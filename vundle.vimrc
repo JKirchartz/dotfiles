@@ -18,6 +18,7 @@ Plugin 'jkirchartz/writegooder.vim' " 3 scripts to improve writing - wanna modif
 " Plugins
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
+Plugin 'mbbill/undotree'
 Plugin 'kien/ctrlp.vim'
 Plugin 'ervandew/supertab'
 Plugin 'Valloric/MatchTagAlways'

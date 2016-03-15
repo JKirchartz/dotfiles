@@ -1,5 +1,5 @@
 "------------------------------------------------------------
-" Plug setup (with Vundle)
+" Plug setup (with junegunn/vim-plug)
 "------------------------------------------------------------
 set nocompatible              " be iMproved
 filetype off                  " required for vundle init
@@ -13,13 +13,14 @@ Plug 'jkirchartz/writegooder.vim' " 3 scripts to improve writing - wanna modify 
 " Plugs
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree' { 'on' : 'NerdTreeToggle' }
+Plug 'mbbill/undotree' { 'on' : 'UndotreeToggle' }
 Plug 'ervandew/supertab'
 Plug 'Valloric/MatchTagAlways'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive'
 Plug 'ajh17/vim-fist'
-
+`
 
 if isdirectory('~/.fzf')
   Plug 'junefunn/fzf', {'dir' : '~/.fzf', 'do ': './install --all' }
