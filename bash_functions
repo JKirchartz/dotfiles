@@ -15,51 +15,10 @@ function update-environment {
   done < <(tmux show-environment)
 }
 
-
 # ps + grep, incase there's no pgrep(?)
 function psgrep(){ ps -ax | grep "$1" | grep -v "grep"; }
 # why not history
 function hgrep(){ history | grep "$1"; }
-
-
-# get the word of the day
-function wotd () {
-    local DICTIONARY=/usr/share/dict/words
-    if [ -f $DICTIONARY ]; then
-      # hat-tip to flukiluke@blinkenshell for this hash:
-      local n=$(echo "$(date +%D|md5sum)" "$(wc -l ${DICTIONARY})" |  awk "{print \
-        strtonum('0x'$1)%$3}")
-      echo -n "Today's secret word is \"$(sed "$n q;d" ${DICTIONARY})"
-      echo -n "\", now you all remember what to do when you hear the secret"
-      echo " word, RIGHT!?"
-    fi
-}
-
-# get the message of the day (includes WOTD)
-function motd () {
-  if [ -z "${VIMRUNTIME}" ]; then
-    if which fortune > /dev/null; then
-        if which cowsay > /dev/null; then
-            ~/dotfiles/scripts/fortune.sh | ~/dotfiles/scripts/cowsay.sh
-        else
-            ~/dotfiles/scripts/fortune.sh
-        fi
-    else
-        if which cowsay > /dev/null; then
-          ~/dotfiles/scripts/ObliqueStrategies | ~/dotfiles/scripts/cowsay.sh
-        else
-          ~/dotfiles/scripts/ObliqueStrategies
-        fi
-    fi
-    wotd
-  else
-    if which fortune > /dev/null; then
-        ~/dotfiles/scripts/fortune.sh -s
-    else
-        ~/dotfiles/scripts/ObliqueStrategies
-    fi
-  fi
-}
 
 #simple calculator
 function calc () { echo "$*" | bc -l; }
@@ -87,5 +46,4 @@ function extract () {
         echo "'$1' is not a valid file"
      fi
 }
-
 

@@ -1,40 +1,9 @@
-function wotd {
-    local DICTIONARY=/usr/share/dict/words
-    # hat-tip to flukiluke@blinkenshell for this hash:
-    if [ -f $DICTIONARY ]; then
-      local n=$(echo $(date +%D|md5sum) $(wc -l ${DICTIONARY}) |  awk '{print \
-          strtonum("0x"$1)%$3}')
-      echo -n "Today's secret word is \"$(sed "$n q;d" ${DICTIONARY})"
-      echo -n "\", now you all remember what to do when you hear the secret"
-      echo " word, RIGHT!?"
-    fi
-}
+# motd
+~/dotfiles/scripts/motd.sh
 
-function motd {
-  if [ -z "${VIMRUNTIME}" ]; then
-    if which fortune > /dev/null; then
-        if which cowsay > /dev/null; then
-            ~/dotfiles/scripts/fortune.sh | ~/dotfiles/scripts/cowsay.sh
-        else
-            ~/dotfiles/scripts/fortune.sh
-        fi
-    else
-        if which cowsay > /dev/null; then
-          ~/dotfiles/scripts/ObliqueStrategies | ~/dotfiles/scripts/cowsay.sh
-        else
-          ~/dotfiles/scripts/ObliqueStrategies
-        fi
-    fi
-  else
-    if which fortune > /dev/null; then
-        ~/dotfiles/scripts/fortune.sh -s
-    else
-        ~/dotfiles/scripts/ObliqueStrategies
-    fi
-  fi
-}
-motd
+PATH=$PATH:$HOME/dotfiles/scripts
 
+# system-specific configs
 case $OSTYPE in
     darwin*)
         # this is a mac
@@ -42,41 +11,63 @@ case $OSTYPE in
 
         # homebrew completion
         source `brew --repository`/Library/Contributions/brew_bash_completion.sh
+
+        # take a screenshot
+        alias ss2='screencapture -xP '
+        alias ss='screencapture -xwP '
         ;;
     linux*)
         # this is linux
         case $HOSTNAME in
             triton)
+                # autostart screen
                 if [ "$(ps -p $PPID -o comm=)" != screen ]; then scr; fi
                 ;;
             lucid32)
                 ### Added by the Heroku Toolbelt
-                export PATH="/usr/local/heroku/bin:$PATH"
+                PATH="$PATH:/usr/local/heroku/bin"
                 ;;
-            crunchbang|arp)
+            arp)
                 export GEM_HOME=~/gems
                 # add appengine, npm, and gems bins to path
-                PATH=$PATH:/usr/local/bin:/usr/local/share/npm/bin
-                PATH=$PATH:~/gems/bin:~/google_appengine
+                PATH=$PATH:/usr/local/share/npm/bin
+                PATH=$PATH:~/gems/bin
+                PATH=$PATH:~/google_appengine
+                # nvm paths
+                export NVM_DIR="/home/kirch/.nvm"
+                [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+                if [[ -d "$NVM_DIR" ]]; then
+                  NODE_DEFAULT_VERSION="$(<"$NVM_DIR/alias/default")"
+                else
+                  NODE_DEFAULT_VERSION=""
+                fi
+                if [[ "$NODE_DEFAULT_VERSION" != "" ]]; then
+                  PATH="$PATH:$NVM_DIR/versions/node/$NODE_DEFAULT_VERSION/bin"
+                fi
+                ### Added by the Heroku Toolbelt
+                PATH="$PATH:/usr/local/heroku/bin"
+                PATH="$PATH:$HOME/.rbenv/bin"
+                PATH=$PATH:$HOME/.rbenv/bin
+                eval "$(rbenv init -)"
                 ;;
         esac
         ;;
     cygwin)
         # this is a PC with cygwin
-        export PATH="/cygdrive/c/Program Files/Oracle/VirtualBox:$PATH"
+        PATH="$PATH:/cygdrive/c/Program Files/Oracle/VirtualBox"
         ;;
     msys)
         # this is a PC with msys
-        export PATH="/mingw/bin:/c/Program Files/Oracle/VirtualBox:$PATH"
+        PATH="$PATH:/mingw/bin:/c/Program Files/Oracle/VirtualBox"
         ;;
     *)
-        echo "$OSTYPE unknown in .bash_profile"
+        echo "$OSTYPE not registered in .bash_profile"
         ;;
 esac
 
 export EDITOR=vim
+export PATH=$PATH
+
 # import bashrc
 source ~/.bashrc
 
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
