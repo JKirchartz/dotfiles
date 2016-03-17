@@ -1,33 +1,43 @@
 [user]
-    name = Joel Kirchartz
-    email = jkirchartz@gmail.com
+  name = Joel Kirchartz
+  email = jkirchartz@gmail.com
 
 [color]
-    diff = auto
-    status = auto
-    branch = auto
+  diff = auto
+  status = auto
+  branch = auto
 
 [push]
-   default = current
+  default = current
 
 [core]
-    editor = vi
-    pager = less -R
+  editor = vi
+  pager = less -R
+
+[diff]
+  tool = vimdiff
+
+[difftool]
+  prompt = false
 
 [alias]
-    st = status
-    ci = commit
-    br = branch
-    co = checkout
-    cob = checkout -b
-    unstage = reset HEAD --
-    last = log -1 HEAD
-    df = diff
-    ds = diff --staged
-    ls = ls-files
+  st = status
+  ci = commit
+  br = branch
+  co = checkout
+  cob = checkout -b
+  unstage = reset HEAD --
+  last = log -1 HEAD
+  df = diff
+  ds = diff --staged
+  ls = ls-files
+
 [http]
-	postBuffer = 4M
+  postBuffer = 4M
+
 [github]
-	user = jkirchartz
+  user = jkirchartz
+
 [credential]
-	helper = cache --timeout=28800
+  helper = cache --timeout=28800
+

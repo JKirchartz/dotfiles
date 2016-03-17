@@ -1,7 +1,7 @@
 # motd
 ~/dotfiles/scripts/motd.sh
 
-PATH=$PATH:$HOME/dotfiles/scripts
+PATH=$HOME/dotfiles/scripts:$PATH
 
 # system-specific configs
 case $OSTYPE in
@@ -28,10 +28,10 @@ case $OSTYPE in
                 PATH="$PATH:/usr/local/heroku/bin"
                 ;;
             arp)
-                export GEM_HOME=~/gems
+                export GEM_HOME=~/gems:$GEM_HOME
+                export GEM_PATH=~/gems:$GEM_PATH
                 # add appengine, npm, and gems bins to path
                 PATH=$PATH:/usr/local/share/npm/bin
-                PATH=$PATH:~/gems/bin
                 PATH=$PATH:~/google_appengine
                 # nvm paths
                 export NVM_DIR="/home/kirch/.nvm"
@@ -46,7 +46,6 @@ case $OSTYPE in
                 fi
                 ### Added by the Heroku Toolbelt
                 PATH="$PATH:/usr/local/heroku/bin"
-                PATH="$PATH:$HOME/.rbenv/bin"
                 PATH=$PATH:$HOME/.rbenv/bin
                 eval "$(rbenv init -)"
                 ;;
