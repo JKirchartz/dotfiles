@@ -6,7 +6,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
-shopt -s expand_aliases
 
 #basic aliases
 alias ll='ls -oFhA'
@@ -40,21 +39,22 @@ alias ports="sudo lsof -i -P | grep -i \"listen\"" # list listening ports:
 alias iip="ifconfig | grep broadcast | awk '{print $ 2}'" # get internal ip
 alias eip="dig +short myip.opendns.com @resolver1.opendns.com" #get external ip
 
-# what date is this month's buildguild?
-alias buildguild="ncal | grep We | awk '{print $ 3}'"
-
 # get weather from wttr.in
 alias weather="curl wttr.in"
+alias moon="curl wttr.in/Moon"
 
 # pretty-print git logs
 # via https://coderwall.com/p/euwpig
 alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit  "
 # open altered files
-alias gitvim="vim $(git status --porcelain | cut -b4-) "
+alias gitvim='vim $(git status --porcelain | cut -b4-) '
 alias gitvi=gitvim
 
 # serve dir as static site
 alias serve="python -m SimpleHTTPServer"
+
+# prettyprint json
+alias ppjson='python -m json.tool'
 
 # from dancingpenguinsoflight
 # depends on imagick

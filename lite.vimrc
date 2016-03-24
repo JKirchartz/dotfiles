@@ -9,7 +9,6 @@ set number " show line number
 set wildmenu  " better menu like for autocomplete
 set shortmess=atI " abbreviate or avoid certain messages
 set scrolloff=3 " keep 3 lines between cursor and the edge of the screen
-let &shell='/bin/bash -l' " use bash login shell
 
 set title
 let &titleold=getcwd() " stop flying the friendly skies
@@ -55,7 +54,7 @@ let html_use_css=1
 set laststatus=2 " see the last statusline(stl)
 set showmode showcmd " show modes & commands in stl
 " show cursor position (like :set ruler) & git status in statusline
-let gitprompt = system("__git_ps1") " this depends on &shell = bash -l (or -i)
+let gitprompt = expand("$GITPROMPT") " export GITPROMPT w/ PROMPT_COMMAND in bashrc
 set statusline=\ b%n\ %<%f\ %h%m%r%{gitprompt}%=%-14.(%l,%c%V%)\ %P
 colorscheme smyck
 syntax on " highlight that syntax, please
@@ -80,3 +79,13 @@ inoremap <silent> <Left> <ESC><Left>
 inoremap <silent> <Right> <ESC><Right>
 imap hj <esc>
 imap jh <esc>
+
+
+" vim included plugins
+source $VIMRUNTIME/macros/matchit.vim
+source $VIMRUNTIME/ftplugin/man.vim
+
+" keep man in vim, replicate built-in functionality
+nnoremap K :Man <C-R>=expand("<cword>")<cr><cr>
+
+
