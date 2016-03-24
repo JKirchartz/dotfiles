@@ -1,7 +1,8 @@
 # motd
 ~/dotfiles/scripts/motd.sh
 
-PATH=$HOME/dotfiles/scripts:$PATH
+# Bins
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 
 # system-specific configs
 case $OSTYPE in
@@ -26,11 +27,11 @@ case $OSTYPE in
             lucid32)
                 ### Added by the Heroku Toolbelt
                 PATH="$PATH:/usr/local/heroku/bin"
+                export GEM_HOME=~/gems:$GEM_HOME
                 ;;
             arp)
-                export GEM_HOME=~/gems:$GEM_HOME
-                export GEM_PATH=~/gems:$GEM_PATH
                 # add appengine, npm, and gems bins to path
+                export GEM_HOME=~/gems
                 PATH=$PATH:/usr/local/share/npm/bin
                 PATH=$PATH:~/google_appengine
                 # nvm paths
@@ -46,7 +47,7 @@ case $OSTYPE in
                 fi
                 ### Added by the Heroku Toolbelt
                 PATH="$PATH:/usr/local/heroku/bin"
-                PATH=$PATH:$HOME/.rbenv/bin
+                PATH="$PATH:$HOME/.rbenv/bin"
                 eval "$(rbenv init -)"
                 ;;
         esac
@@ -65,8 +66,6 @@ case $OSTYPE in
 esac
 
 export EDITOR=vim
-export PATH=$PATH
 
 # import bashrc
 source ~/.bashrc
-

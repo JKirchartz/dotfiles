@@ -6,7 +6,6 @@ set -o vi
 # fzf, git, npm, bashisms
 #
 
-source ~/dotfiles/bash_colors
 source ~/dotfiles/bash_aliases
 source ~/dotfiles/bash_functions
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
@@ -27,25 +26,19 @@ function __prompt {
     # sync history across terms
     history -a
     history -n
-    # Get directory (and git-prompt) & generate term-wide hr
-    DIR=$(pwd|sed -e "s!$HOME!~!";__git_ps1 "(%s)")
+    # Get directory (and git-prompt)
+    DIR=$(pwd | sed -e "s!$HOME!~!")
+    export GITPROMPT=$(__git_ps1 "(%s)")
+    echo
     #draw horizontal rule
-    echo
     printf '\e[0;31m%*s\n\e[m' "${COLUMNS:-$(tput cols)}" '' | tr ' ' '#'
-    echo
-    echo "$DIR"
-    case "$TERM" in
-        *xterm* )
-            # clear terminal title if set by application etc.
-            echo -e "\033]0;\007"
-        ;;
-    esac
+    echo -e "\n${DIR} ${GITPROMPT}"
 }
 PROMPT_COMMAND="__prompt"
-export __cr=$COLOR_RED
-export __cc=$COLOR_CYAN
-export __cw=$COLOR_WHITE
-export __nc=$COLOR_NC #no color
+export __cr='\e[0;31m'
+export __cc='\e[0;36m'
+export __cw='\e[1;37m'
+export __nc='\e[0m' #no color
 # if shell's running INSIDE vim, mark it in the prompt (as a white V)
 if [ -z "${VIMRUNTIME}" ]; then
   export __vim="[";
@@ -69,26 +62,13 @@ shopt -s histappend                       # append to history, not overwrite it
 shopt -s cdspell                          # spellcheck for cd
 shopt -s nocaseglob                       # ignore case for autoexpansion
 #shopt -s dirspell                        # spellcheck for directories(?)
+shopt -s expand_aliases
 
 # search-path for CD command
 export CDPATH=".:~:~/projects:~/Dropbox/projects"
 
-
-#
-# setup PATH
-#
-
-# Bins
-PATH=$PATH:/opt/local/bin
-PATH=$PATH:/opt/local/sbin
-PATH=$PATH:/usr/local/bin
-PATH=$PATH:/usr/local/sbin
-PATH=$PATH:/usr/bin
-PATH=$PATH:/usr/sbin
-PATH=$PATH:/sbin
-PATH=$PATH:/bin
-PATH=$PATH:/usr/games
-
-# put this last, so current dir always gets preference
-export PATH=".:$PATH"
+# put this last, so current dir & my scripts always get preference
+# this is insecure because various bins are overwritten by the current/script
+# directory versions, for security move $PATH to the beginning of the assignment
+export PATH=".:$HOME/dotfiles/scripts:$PATH"
 

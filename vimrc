@@ -8,14 +8,6 @@ source ~/dotfiles/vundle.vimrc
 " a standard set of tweaks:
 source ~/dotfiles/lite.vimrc
 
-" work-specific config
-if filereadable(expand("~/at_google.vimrc"))
-    source ~/at_google.vimrc
-endif
-
-" matchit
-source $VIMRUNTIME/macros/matchit.vim
-
 "}}}---------------------------------------------------------
 " Custom Functions/Commands
 "---------------------------------------------------------{{{
@@ -161,6 +153,7 @@ nmap <silent> <F7> :spell!<cr>
 "}}}---------------------------------------------------------
 " Plugin Options
 "---------------------------------------------------------{{{
+
 nmap <leader>u :UndotreeToggle<CR>
 
 nmap <leader>t :NERDTreeToggle<CR>
@@ -218,7 +211,7 @@ let g:ctrlp_custom_ignore = {
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 " use _my_ software license as the default for vim-templates
-" let g:license = "NPL (Necessary Public License)"
+let g:license = "NPL (Necessary Public License)"
 let g:templates_directory = ["~/.vim/templates"]
 
 
