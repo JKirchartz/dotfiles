@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 #
 # gitstatus.sh
 #
@@ -10,12 +10,25 @@
 
 OLDIFS=$IFS
 IFS=$'\n'
-gitstatus=`git status -sb --porcelain`
-branch=$(echo "$gitstatus" | head -1 | cut -c4- | cut -d'.' -f1 )
-uptodate=""
-if echo "$gitstatus" | grep '\.\.\.' &> /dev/null; then
-  uptodate="="
-fi
+gitstatus="$(git status -sb --porcelain)"
+branch="$(echo "$gitstatus" | head -1 | cut -c4-)"
+
+# check if branch is ahead or behind
+remotestatus=""
+case "$branch" in
+  *...* )
+    remotestatus="="
+    ;;
+  *ahead* )
+    remotestatus="="
+    ;;
+  *behind* )
+    remotestatus="="
+    ;;
+esac
+
+# check status of working directory
+staged=false
 if echo "$gitstatus" | grep '^M' &> /dev/null; then
   staged=true
 fi
@@ -27,20 +40,27 @@ untracked=false
 if echo "$gitstatus" | grep '^??' &> /dev/null; then
   untracked=true
 fi
+added=false
+if echo "$gitstatus" | grep '^AA' &> /dev/null; then
+  added=true
+fi
+
 modified=""
-if $staged || $unstaged || $untracked; then
+if $unstaged || $untracked;then
   modified="*"
-  if $staged; then
-    modified="*+"
-  fi
+fi
+if $staged || $added; then
+  modified="+"
 fi
 
-deleted=""
-if echo "$gitstatus" | grep '^ A' &> /dev/null; then
-  deleted="-"
-fi
+# deleted=""
+# if echo "$gitstatus" | grep '^ A' &> /dev/null; then
+  # deleted="-"
+# fi
 
 
-echo "(${branch} ${modified}${uptodate})"
+branch="$(echo "$branch" | cut -d'.' -f1)"
+# put it all together
+echo "(${branch} ${modified}${remotestatus})"
 IFS=$OLDIFS
 
