@@ -23,16 +23,15 @@ source ~/dotfiles/scripts/npm-completion.bash
 #
 
 function __prompt {
+    echo
     # sync history across terms
     history -a
     history -n
-    # Get directory (and git-prompt)
-    DIR=$(pwd | sed -e "s!$HOME!~!")
-    export GITPROMPT=$(__git_ps1 "(%s)")
-    echo
     #draw horizontal rule
     printf '\e[0;31m%*s\n\e[m' "${COLUMNS:-$(tput cols)}" '' | tr ' ' '#'
-    echo -e "\n${DIR} ${GITPROMPT}"
+    # Get directory (and git-prompt)
+    DIR=$(pwd | sed -e "s!$HOME!~!")
+    echo -e "\n${DIR} $(__git_ps1 ' (%s)')"
 }
 PROMPT_COMMAND="__prompt"
 export __cr='\e[0;31m'
@@ -55,8 +54,8 @@ export PS2="\[$__cr\]└─\[$__cc\]>\[$__nc\]"
 
 #fix history
 export HISTCONTROL=ignoredups             # no duplicate entries
-export HISTSIZE=100000                    # big history
-export HISTFILESIZE=20000                 # big history
+export HISTSIZE=50000                     # big history
+export HISTFILESIZE=50000                 # big history
 export HISTIGNORE="&:ls:ll:pwd:exit:clear:[ \t]*"
 shopt -s histappend                       # append to history, not overwrite it
 shopt -s cdspell                          # spellcheck for cd
@@ -65,7 +64,7 @@ shopt -s nocaseglob                       # ignore case for autoexpansion
 shopt -s expand_aliases
 
 # search-path for CD command
-export CDPATH=".:~:~/projects:~/Dropbox/projects"
+export CDPATH=".:..:../..:~:~/projects:~/Dropbox/projects"
 
 # put this last, so current dir & my scripts always get preference
 # this is insecure because various bins are overwritten by the current/script

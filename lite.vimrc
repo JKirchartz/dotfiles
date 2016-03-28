@@ -54,8 +54,7 @@ let html_use_css=1
 set laststatus=2 " see the last statusline(stl)
 set showmode showcmd " show modes & commands in stl
 " show cursor position (like :set ruler) & git status in statusline
-let gitprompt = expand("$GITPROMPT") " export GITPROMPT w/ PROMPT_COMMAND in bashrc
-set statusline=\ b%n\ %<%f\ %h%m%r%{gitprompt}%=%-14.(%l,%c%V%)\ %P
+set statusline=\ b%n\ %<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 colorscheme smyck
 syntax on " highlight that syntax, please
 " highlight StatusLine cterm=NONE ctermbg=0 ctermfg=10
