@@ -55,12 +55,16 @@ fi
 
 # deleted=""
 # if echo "$gitstatus" | grep '^ A' &> /dev/null; then
-  # deleted="-"
+# deleted="-"
 # fi
 
 
 branch="$(echo "$branch" | cut -d'.' -f1)"
 # put it all together
-echo "(${branch} ${modified}${remotestatus})"
+if [[ $remotestatus || $modified -eq "" ]]; then
+  echo "(${branch} ${modified}${remotestatus})"
+else
+  echo "(${branch})"
+fi
 IFS=$OLDIFS
 
