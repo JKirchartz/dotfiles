@@ -14,16 +14,13 @@ gitstatus="$(git status -sb --porcelain)"
 branch="$(echo "$gitstatus" | head -1 | cut -c4-)"
 
 # check if branch is ahead or behind
-remotestatus=""
+remotestatus="="
 case "$branch" in
-  *...* )
-    remotestatus="="
-    ;;
   *ahead* )
-    remotestatus="="
+    remotestatus=">"
     ;;
   *behind* )
-    remotestatus="="
+    remotestatus="<"
     ;;
 esac
 
