@@ -66,7 +66,7 @@ fi
 
 # put it all together
 if [[ $remotestatus || $modified != "" ]]; then #
-  echo "(${branch} ${modified}${remotestatus})"
+  echo "(${branch}${modified}${remotestatus})"
 else
   branch="$(echo "$branch" | cut -d'.' -f1)"
   echo "(${branch})"
