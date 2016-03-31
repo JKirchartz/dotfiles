@@ -1,6 +1,8 @@
 #! /bin/bash
 #
 # gitstatus.sh
+# a simplified git prompt script, parses status --porcelain into something
+# resembling the official git-prompt.sh
 #
 # Copyleft (ↄ) 2016 jkirchartz <me@jkirchartz.com>
 #
@@ -58,18 +60,7 @@ if $staged || $added; then
   modified=" +"
 fi
 
-# deleted=""
-# if echo "$gitstatus" | grep '^ A' &> /dev/null; then
-# deleted="-"
-# fi
-
-
 # put it all together
-if [[ $remotestatus || $modified != "" ]]; then #
-  echo "(${branch}${modified}${remotestatus})"
-else
-  branch="$(echo "$branch" | cut -d'.' -f1)"
-  echo "(${branch})"
-fi
+echo "(${branch}${modified}${remotestatus})"
 IFS=$OLDIFS
 
