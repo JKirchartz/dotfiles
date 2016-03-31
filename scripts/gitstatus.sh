@@ -13,7 +13,11 @@
 function gitstatus() {
   OLDIFS=$IFS
   IFS=$'\n'
-  gitstatus="$(git status -sb --porcelain)"
+  gitstatus="$(git status -sb --porcelain 2>&1)"
+  if [[ $gitstatus = "fatal"* ]]; then
+    # abort if not a git repo
+    exit
+  fi
   branch="$(echo "$gitstatus" | head -1 | cut -c4-)"
 
   # check if branch is ahead or behind
