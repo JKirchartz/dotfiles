@@ -52,10 +52,10 @@ esac
 
 modified=""
 if $unstaged || $untracked;then
-  modified="*"
+  modified=" *"
 fi
 if $staged || $added; then
-  modified="+"
+  modified=" +"
 fi
 
 # deleted=""
