@@ -14,7 +14,7 @@ fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-source ~/dotfiles/scripts/git-prompt.sh
+source ~/dotfiles/scripts/gitstatus.sh
 source ~/dotfiles/scripts/git-completion.bash
 source ~/dotfiles/scripts/npm-completion.bash
 
@@ -31,7 +31,7 @@ function __prompt {
     printf '\e[0;31m%*s\n\e[m' "${COLUMNS:-$(tput cols)}" '' | tr ' ' '#'
     # Get directory (and git-prompt)
     DIR=$(pwd | sed -e "s!$HOME!~!")
-    echo -e "\n${DIR} $(__git_ps1 ' (%s)')"
+    echo -e "\n${DIR} $(gitstatus)"
 }
 PROMPT_COMMAND="__prompt"
 export __cr='\e[0;31m'

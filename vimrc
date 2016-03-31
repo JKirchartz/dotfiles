@@ -191,6 +191,7 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_javascript_checkers = ['gjslint','jshint']
+let g:syntastic_ruby = ['rubocop','mri']
 " use pretty syntastic symbols
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '⚠'
