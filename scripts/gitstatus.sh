@@ -18,7 +18,6 @@ branch="$(echo "$gitstatus" | head -1 | cut -c4-)"
 # check if branch is ahead or behind
 remotestatus=""
 if [[ "$branch" = *"..."* ]]; then
-remotestatus="="
 case "$branch" in
   *ahead* ) remotestatus=">" ;;
   *behind* ) remotestatus="<" ;;
