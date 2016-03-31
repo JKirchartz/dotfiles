@@ -14,15 +14,18 @@ gitstatus="$(git status -sb --porcelain)"
 branch="$(echo "$gitstatus" | head -1 | cut -c4-)"
 
 # check if branch is ahead or behind
+remotestatus=""
+if [[ "$branch" = *"..."* ]]; then
 remotestatus="="
 case "$branch" in
-  *ahead* )
-    remotestatus=">"
-    ;;
-  *behind* )
-    remotestatus="<"
-    ;;
+  *ahead* ) remotestatus=">" ;;
+  *behind* ) remotestatus="<" ;;
+  * ) remotestatus="=" ;;
 esac
+fi
+
+# make branch display-ready
+branch="$(echo "$branch" | cut -d'.' -f1)"
 
 # check status of working directory
 staged=false
@@ -38,9 +41,14 @@ if echo "$gitstatus" | grep '^??' &> /dev/null; then
   untracked=true
 fi
 added=false
-if echo "$gitstatus" | grep '^AA' &> /dev/null; then
-  added=true
-fi
+case "$gitstatus" in
+  '^A' )
+    added=true
+    ;;
+  '^ A' )
+    added=true
+    ;;
+esac
 
 modified=""
 if $unstaged || $untracked;then
@@ -56,11 +64,11 @@ fi
 # fi
 
 
-branch="$(echo "$branch" | cut -d'.' -f1)"
 # put it all together
-if [[ $remotestatus || $modified -eq "" ]]; then
+if [[ $remotestatus || $modified != "" ]]; then #
   echo "(${branch} ${modified}${remotestatus})"
 else
+  branch="$(echo "$branch" | cut -d'.' -f1)"
   echo "(${branch})"
 fi
 IFS=$OLDIFS
