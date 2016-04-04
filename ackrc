@@ -1,9 +1,13 @@
---smart-case # vim-like pattern matching
---ignore-ack-defaults
---pager=less -rFiXSw
-# This is the default ackrc for ack version 2.14.
 
-# There are four different ways to match
+### nice settings
+# --ignore-ack-defaults
+--pager=less -rFiXSw
+# vim-like pattern matching
+--smart-case
+
+
+
+### There are four different ways to match
 #
 # is:  Match the filename exactly
 #
@@ -34,6 +38,7 @@
 --ignore-directory=is:tmp/
 --ignore-directory=is:vendor/
 --ignore-directory=is:.idea/
+--ignore-directory=is:.meteor/
 --ignore-directory=is:.bundler/
 --ignore-directory=is:.bundle/
 --ignore-directory=is:.cache/
@@ -138,3 +143,7 @@
 --type-set=rakefile:is:Rakefile
 --type-set=cakefile:is:Cakefile
 
+
+# become aware of svg files, but don't search them by default
+--type-add=svg:ext:svg
+--nosvg
