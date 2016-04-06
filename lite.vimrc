@@ -88,3 +88,4 @@ source $VIMRUNTIME/ftplugin/man.vim
 nnoremap K :Man <C-R>=expand("<cword>")<cr><cr>
 
 
+

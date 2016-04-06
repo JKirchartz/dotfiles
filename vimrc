@@ -15,8 +15,6 @@ source ~/dotfiles/lite.vimrc
 " forgot to sudo vi? w!!
 cmap w!! %!sudo tee > /dev/null %
 
-command! -bar DeleteTrailingSpaces :silent! %s:\(\S*\) \+$:\1:
-command! -bar DeleteTrailingSpacesThenWrite :DeleteTrailingSpaces | :write
 command! -bar Hitest :so $VIMRUNTIME/syntax/hitest.vim
 
 function! NumberToggle()
@@ -85,8 +83,6 @@ command -bar Hexmode call ToggleHex()
 nnoremap <Space> <Nop>
 let mapleader = " "
 
-" write quickly
-nmap <leader>w :w!<cr>
 " wq quickly
 nmap <leader>q :wqall<cr>
 
@@ -115,9 +111,9 @@ nmap <leader><cr> :nohlsearch<CR>
 nnoremap <leader>p p`[v`]=
 
 
-" cleanup & write quickly
-nmap <leader><leader> :DeleteTrailingSpacesThenWrite<CR>
-imap <leader><leader> <esc>:DeleteTrailingSpacesThenWrite<CR>
+" write quickly (autocmd deletes trailing spaces (not tabs))
+nmap <leader><leader> :w<CR>
+imap <leader><leader> <esc>:w<CR>
 
 map <leader>s :spell!<cr>
 
@@ -141,10 +137,6 @@ imap <F1> <Esc>
 
 " paste mode toggle (F2)
 set pastetoggle=<F2>
-
-" delete all trailing whitespace (F4)
-nmap <silent><F4> :DeleteTrailingSpaces<CR>
-imap <silent><F4> :DeleteTrailingSpaces<CR>
 
 " spell check toggle (F7)
 imap <silent> <F7> :spell!<cr>
@@ -231,5 +223,7 @@ if has("autocmd")
       autocmd ColorScheme * highlight Normal ctermbg=None
       autocmd ColorScheme * highlight NonText ctermbg=None
       autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+      " trim trailing spaces (not tabs) before write
+      autocmd BufWritePre * silent! %s:\(\S*\) \+$:\1:
 endif
 
