@@ -26,6 +26,9 @@ function calc () { echo "$*" | bc -l; }
 #tmux title changer
 function tmut () {  printf "\033k%s\033\\" "$1"; }
 
+# open altered files
+function gitvim () { vim $(git diff --name-only $@ ); }
+
 # easy unzip
 function extract () {
     if [ -f "$1" ] ; then
