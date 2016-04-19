@@ -182,7 +182,12 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_check_on_open = 1
-let g:syntastic_javascript_checkers = ['eslint', 'gjslint']
+if has("autocmd")
+    autocmd FileType javascript.js let g:syntastic_javascript_checkers = ['gjslint','jshint']
+    autocmd FileType javascript.jsx let g:syntastic_javascript_checkers = ['eslint']
+else
+    let g:syntastic_javascript_checkers = ['gjslint','jshint']
+endif
 let g:syntastic_ruby = ['rubocop','mri']
 " use pretty syntastic symbols
 let g:syntastic_error_symbol = '✗'

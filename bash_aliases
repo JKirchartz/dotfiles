@@ -46,9 +46,6 @@ alias moon="curl wttr.in/Moon"
 # pretty-print git logs
 # via https://coderwall.com/p/euwpig
 alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit  "
-# open altered files
-alias gitvim='vim $(git status --porcelain | cut -b4-) '
-alias gitvi=gitvim
 
 # serve dir as static site
 alias serve="python -m SimpleHTTPServer"
