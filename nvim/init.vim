@@ -1,12 +1,125 @@
-"------------------------------------------------------------
-" load external files/scripts/plugins
+" Plug setup (with junegunn/vim-plug)
 "---------------------------------------------------------{{{
+call plug#begin()
 
-" Vundle plugins
-source ~/dotfiles/vundle.vimrc
+" personal forks
+Plug 'jkirchartz/vim-colorschemes' " forked flazz's, not sure enough about licenses to send a PR
+Plug 'jkirchartz/writegooder.vim' " 3 scripts to improve writing - wanna modify for other words/phrases to avoid
 
-" a standard set of tweaks:
-source ~/dotfiles/lite.vimrc
+" Plugs
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree', { 'on' : 'NerdTreeToggle' }
+Plug 'mbbill/undotree', { 'on' : 'UndotreeToggle' }
+Plug 'ervandew/supertab'
+Plug 'Valloric/MatchTagAlways'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-fugitive'
+Plug 'ajh17/vim-fist'
+
+if isdirectory('~/.fzf')
+  Plug 'junefunn/fzf', {'dir' : '~/.fzf', 'do ': './install --all' }
+else
+  Plug 'ctrlpvim/ctrlp'
+endif
+
+" syntax completion, checking, & highlighting
+function! DoRemote(arg)
+  UpdateRemotePlugins
+endfunction
+Plug 'Shougo/deoplete.vim', { 'do': function('DoRemote') }
+Plug 'scrooloose/syntastic'
+Plug 'sheerun/vim-polyglot'
+Plug 'lukaszb/vim-web-indent'
+Plug 'heavenshell/vim-jsdoc'
+
+" snippets engine & library
+Plug 'Shougo/neosnippet' | Plug 'honza/vim-snippets'
+Plug 'Shougo/context_filetype.vim'
+Plug 'aperezdc/vim-template'
+
+" All of your Plugs must be added before the following line
+call plug#end()            " required
+
+
+"}}}---------------------------------------------------------
+" standard vim tweaks
+"---------------------------------------------------------{{{
+set magic " IF YOU TURN THIS ON, REGEX WIZARDS CAN SEE YOU!
+set ffs=unix,dos,mac " Use *nix as the default file type
+set nobackup noswapfile " live dangerously
+set shortmess=atI " abbreviate or avoid certain messages
+set scrolloff=3 " keep 3 lines between cursor and the edge of the screen
+
+set title
+let &titleold=getcwd() " stop flying the friendly skies
+set shortmess=atI " abbreviate or avoid certain messages
+set noerrorbells " hear no evil
+set novisualbell " see no evil
+
+set list " show whitespace (using symbols in the next line)
+
+set smartcase " smart case matching
+set ignorecase " make /foo match FOO & FOo but /FOO only match FOO
+
+
+" Tabs & Indents
+filetype plugin indent on
+set shiftround
+" tabs are 2 spaces... or else.
+set shiftwidth=2 softtabstop=2 expandtab
+
+" 80 columns
+set nowrap " don't soft-wrap
+" set formatoptions+=tw " do hard-wrap
+set textwidth=80 " be 80 wide
+set wrapmargin=4 " wrap at 78
+set colorcolumn=80 " show me what's TOO far
+
+if has('persistent_undo')
+  " save undos, so you can actually close vim without erasing the undo tree!
+  set undodir=/tmp/nvim_undo
+  set undofile
+endif
+
+" highlight css in html(?)
+let html_use_css=1
+
+" Setup colors/theme
+set showmode showcmd " show modes & commands in stl
+" show cursor position (like :set ruler) & git status in statusline
+set statusline=\ b%n\ %<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+colorscheme smyck
+syntax on " highlight that syntax, please
+" highlight StatusLine cterm=NONE ctermbg=0 ctermfg=10
+" highlight ColorColumn cterm=NONE ctermbg=0
+
+
+" overwrite common misfires
+command E e
+command W w
+command Q q
+command Wq wq
+command WQ wq
+command Bn bn
+cnoremap \<Enter> <Enter>
+
+" avoid esc key (and retrain brain I'm no longer remapping capslock)
+" Avoid the esc key
+inoremap <silent> <Up> <ESC><Up>
+inoremap <silent> <Down> <ESC><Down>
+inoremap <silent> <Left> <ESC><Left>
+inoremap <silent> <Right> <ESC><Right>
+imap hj <esc>
+imap jh <esc>
+
+
+" vim included plugins
+source $VIMRUNTIME/macros/matchit.vim
+source $VIMRUNTIME/ftplugin/man.vim
+
+" keep man in vim, replicate built-in functionality
+nnoremap K :Man <C-R>=expand("<cword>")<cr><cr>
 
 "}}}---------------------------------------------------------
 " Custom Functions/Commands
@@ -157,29 +270,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&
 " add space to beginning of comments
 let g:NERDSpaceDelims = 1
 
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-
-" make YCM ignore c/c++, coz that's not my bag
-let g:ycm_filetype_specific_completion_to_disable = {'cpp': 1, 'c': 1}
-
-" better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<nop>"
-let g:ulti_expand_or_jump_res = 0
-function ExpandSnippetOrCarriageReturn()
-    let snippet = UltiSnips#ExpandSnippetOrJump()
-    if g:ulti_expand_or_jump_res > 0
-        return snippet
-    else
-        return "\<CR>"
-    endif
-endfunction
-inoremap <expr> <CR> pumvisible() ? "\<C-R>=ExpandSnippetOrCarriageReturn()\<CR>" : "\<CR>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_check_on_open = 1
 if has("autocmd")
@@ -211,6 +301,12 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 " use _my_ software license as the default for vim-templates
 let g:license = "NPL (Necessary Public License)"
 let g:templates_directory = ["~/.vim/templates"]
+
+" Shougo plugins
+let g:neosnippet#disable_runtime_snippets = { '_': 1 }
+let g:neosnippet#snippets_directory = '$XDG_CONFIG_HOME/nvim/plugged/vim-snippets/snippets'
+let g:deoplete#enable_at_startup = 1
+
 
 
 "}}}-----------------------------------------------------
