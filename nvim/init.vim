@@ -16,18 +16,14 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive'
 Plug 'ajh17/vim-fist'
-
-if isdirectory('~/.fzf')
-  Plug 'junefunn/fzf', {'dir' : '~/.fzf', 'do ': './install --all' }
-else
-  Plug 'ctrlpvim/ctrlp'
-endif
+Plug 'junegunn/fzf', {'dir' : '~/.fzf', 'do ': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " syntax completion, checking, & highlighting
 function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
-Plug 'Shougo/deoplete.vim', { 'do': function('DoRemote') }
+Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'scrooloose/syntastic'
 Plug 'sheerun/vim-polyglot'
 Plug 'lukaszb/vim-web-indent'
@@ -287,16 +283,7 @@ let g:syntastic_warning_symbol = '⚠'
 let g:fist_anonymously = 0
 let g:fist_in_private = 1
 
-" search files & buffers
-let g:ctrlp_cmd = 'CtrlPMixed'
-" make ctrlp faster
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$\|\.hg$\|\.svn\|\.git5_specs$\|review$',
-  \ 'file': '\.exe$\|\.so$\|\.dll$',
-  \ 'link': 'READONLY$',
-  \ }
-" Ignore files in .gitignore
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+nmap <C-P> :FZF<CR>
 
 " use _my_ software license as the default for vim-templates
 let g:license = "NPL (Necessary Public License)"
