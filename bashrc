@@ -64,10 +64,12 @@ shopt -s nocaseglob                       # ignore case for autoexpansion
 shopt -s expand_aliases
 
 # search-path for CD command
-export CDPATH=".:..:../..:~:~/projects:~/Dropbox/projects"
+export CDPATH=".:..:~:~/projects:~/Dropbox/projects"
 
 # put this last, so current dir & my scripts always get preference
 # this is insecure because various bins are overwritten by the current/script
 # directory versions, for security move $PATH to the beginning of the assignment
 export PATH=".:$HOME/dotfiles/scripts:$PATH"
+
+export NETHACKOPTIONS=color,hilite_pet,boulder:8
 
