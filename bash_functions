@@ -50,3 +50,22 @@ function extract () {
      fi
 }
 
+
+clbin () {
+    if [ "$*" ]; then
+        local prompt="$(PS1="$PS1" bash -i <<<$'\nexit' 2>&1 | head -n1)"
+        ( echo "$(sed 's/\o033\[[0-9]*;[0-9]*m//g'  <<<"$prompt")$@"; exec $@; )
+    else
+        cat
+    fi | curl -F 'clbin=<-' http://clbin.com
+}
+
+sprunge () {
+    if [ "$*" ]; then
+        local prompt="$(PS1="$PS1" bash -i <<<$'\nexit' 2>&1 | head -n1)"
+        ( echo "$(sed 's/\o033\[[0-9]*;[0-9]*m//g'  <<<"$prompt")$@"; exec $@; )
+    else
+        cat
+    fi | curl -F 'sprunge=<-' http://sprunge.us
+}
+
