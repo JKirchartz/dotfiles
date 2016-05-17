@@ -28,6 +28,7 @@ Plug 'scrooloose/syntastic'
 Plug 'sheerun/vim-polyglot'
 Plug 'lukaszb/vim-web-indent'
 Plug 'heavenshell/vim-jsdoc'
+Plug 'FooSoft/vim-argwrap'
 
 " snippets engine & library
 Plug 'Shougo/neosnippet' | Plug 'honza/vim-snippets'
@@ -227,6 +228,9 @@ imap <leader><leader> <esc>:w<CR>
 map <leader>s :spell!<cr>
 
 map <leader>r :e %<cr>
+
+" use argwrap
+nnoremap <silent> <leader>a :ArgWrap<CR>
 
 " stop cycling when you can fly
 nmap <leader>b :ls<CR>:b<space>
