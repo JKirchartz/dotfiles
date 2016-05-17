@@ -36,6 +36,7 @@ Plug 'scrooloose/syntastic'
 Plug 'sheerun/vim-polyglot'
 Plug 'lukaszb/vim-web-indent'
 Plug 'heavenshell/vim-jsdoc'
+Plug 'FooSoft/vim-argwrap'
 
 " snippets engine & library
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'

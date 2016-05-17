@@ -35,6 +35,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'lukaszb/vim-web-indent'
 Plugin 'heavenshell/vim-jsdoc'
+Plugin 'FooSoft/vim-argwrap'
 
 " snippets engine & library
 Plugin 'SirVer/ultisnips'
