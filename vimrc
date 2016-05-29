@@ -142,8 +142,8 @@ imap <F1> <Esc>
 set pastetoggle=<F2>
 
 " spell check toggle (F7)
-imap <silent> <F7> :spell!<cr>
-nmap <silent> <F7> :spell!<cr>
+imap <silent> <F7> :set spell!<cr>
+nmap <silent> <F7> :set spell!<cr>
 
 "}}}---------------------------------------------------------
 " Plugin Options
