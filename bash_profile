@@ -45,6 +45,11 @@ case $OSTYPE in
                 if [[ "$NODE_DEFAULT_VERSION" != "" ]]; then
                   PATH="$PATH:$NVM_DIR/versions/node/$NODE_DEFAULT_VERSION/bin"
                 fi
+                # Ubuntu make installation of Ubuntu Make binary symlink
+                PATH=/home/kirch/.local/share/umake/bin:$PATH
+                # Android
+                # export ANDROID_HOME="/home/kirch/.local/share/umake/android/android-studio/"
+                # export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
                 ### Added by the Heroku Toolbelt
                 PATH="$PATH:/usr/local/heroku/bin"
                 PATH="$PATH:$HOME/.rbenv/bin"
@@ -66,6 +71,7 @@ case $OSTYPE in
 esac
 
 export EDITOR=vim
+export PAGER="less -F"
 
 # import bashrc
 source ~/.bashrc
