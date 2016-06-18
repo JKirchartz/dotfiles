@@ -25,7 +25,7 @@ case "$OSTYPE" in
     *)
         # Files for *nix
         echo "Preparing files for *nix"
-        files="jshintrc ackrc inputrc bashrc bash_profile vimrc vim tmux.conf ssh gitconfig screenrc profile"
+        files="jshintrc ackrc inputrc bashrc bash_profile vimrc vim tmux.conf gitconfig screenrc profile"
         ;;
 esac
 
