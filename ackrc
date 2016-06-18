@@ -22,6 +22,10 @@
 
 ### Directories to ignore
 
+# Mercurial
+# http://mercurial-scm.com/
+--ignore-directory=is:.hg
+
 # Git
 # http://git-scm.com/
 --ignore-directory=is:.git
@@ -50,6 +54,7 @@
 --ignore-directory=is:_projects/
 --ignore-directory=is:_steps/
 --ignore-directory=is:_site/
+--ignore-directory=is:dist/
 --ignore-directory=is:coverage/
 
 
