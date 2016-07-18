@@ -2,8 +2,8 @@
 " load external files/scripts/plugins
 "---------------------------------------------------------{{{
 
-" Vundle plugins
-source ~/dotfiles/vundle.vimrc
+" vim-plug plugins
+source ~/dotfiles/plug.vimrc
 
 " a standard set of tweaks:
 source ~/dotfiles/lite.vimrc
