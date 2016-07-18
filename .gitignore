@@ -2,6 +2,7 @@
 /vim/.VimballRecord
 /vim/bundle
 /vim/view
+/vim/plugged/
 /nvim/plugged/
 /nvim/autoload/
 /ssh/id_rsa

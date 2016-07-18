@@ -43,6 +43,7 @@ set colorcolumn=80 " show me what's TOO far
 
 if has('persistent_undo')
   " save undos, so you can actually close vim without erasing the undo tree!
+  silent call system('mkdir -p /tmp/vim_undo')
   set undodir=/tmp/vim_undo
   set undofile
 endif

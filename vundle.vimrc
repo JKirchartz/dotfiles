@@ -28,14 +28,16 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'ajh17/vim-fist'
 
 " syntax completion, checking, & highlighting
-if hostname() != "triton" " don't bother on triton
-  Plugin 'Valloric/YouCompleteMe'
-endif
+Plugin 'Shougo/neocomplete.vim'
 Plugin 'scrooloose/syntastic'
-Plugin 'sheerun/vim-polyglot'
 Plugin 'lukaszb/vim-web-indent'
 Plugin 'heavenshell/vim-jsdoc'
 Plugin 'FooSoft/vim-argwrap'
+
+
+" wordpress.vim
+Plugin 'shawncplus/phpcomplete.vim'
+Plugin 'dsawardekar/wordpress.vim'
 
 " snippets engine & library
 Plugin 'SirVer/ultisnips'
