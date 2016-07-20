@@ -149,7 +149,7 @@ nmap <silent> <F7> :set spell!<cr>
 " Plugin Options
 "---------------------------------------------------------{{{
 
-nmap <leader>u :UndotreeToggle<CR>
+nmap <leader>ut :UndotreeToggle<CR>
 
 nmap <leader>t :NERDTreeToggle<CR>
 let g:NERDChristmasTree=1    " more colorful NERDTree
@@ -157,16 +157,17 @@ let g:NERDChristmasTree=1    " more colorful NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&
                       \b:NERDTreeType == "primary") | q | endif
 
+" use nerdtree for handling directories
+if isdirectory(argv(0))
+    bd
+    autocmd vimenter * exe "cd" argv(0)
+    autocmd VimEnter * NERDTree
+endif
+
 " add space to beginning of comments
 let g:NERDSpaceDelims = 1
 
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
-
-" make YCM ignore c/c++, coz that's not my bag
-let g:ycm_filetype_specific_completion_to_disable = {'cpp': 1, 'c': 1}
 
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<nop>"

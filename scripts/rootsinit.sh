@@ -16,8 +16,8 @@ fi
 
 echo "Creating project directory:"
 mkdir $1
-(
 cd $1
+(
 echo "Clone Trellis:"
 git clone --depth=1 git@github.com:roots/trellis.git
 rm -rf trellis/.git
@@ -35,4 +35,19 @@ cd $1/trellis
 ansible-galaxy install -r requirements.yml
 )
 
+echo "Creating shortcut to theme"
+ln -s site/web/app/themes/sage theme
+
+git init
+git add .
+git commit -am "Initial commit for $1"
+
+for file in `git grep "example.com" | cut -d':' -f'1'`
+do
+  sed -e "s#example.com|example.dev#$1#g" $file > $file.tmp
+  mv $file.tmp $file;
+done
+
+git add .
+git commit -am "Configure domain info for $1"
 

@@ -43,6 +43,9 @@ alias eip="dig +short myip.opendns.com @resolver1.opendns.com" #get external ip
 alias weather="curl wttr.in"
 alias moon="curl wttr.in/Moon"
 
+# speed up gulp dev
+alias ggw="gulp && gulp watch"
+
 # pretty-print git logs
 # via https://coderwall.com/p/euwpig
 alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit  "
@@ -65,3 +68,11 @@ case $OSTYPE in
     alias ss='screencapture -xwP '
     ;;
 esac
+
+# pastebin-like services, pipe to these
+alias tb="nc termbin.com 9999"
+alias sp="curl -F 'sprunge=<-' http://sprunge.us"
+alias cl="clbin=<-' https://clbin.com"
+alias vp="curl -F 'text=<-' http://vpaste.net"
+alias ix="curl -F 'f:1=<-' ix.io"
+

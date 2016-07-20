@@ -12,4 +12,12 @@
 
 fortunedir=$(fortune -f 2>&1 | head -n1 | cut -d' ' -f2)
 
-fortune -ae ~/dotfiles/scripts/fortune $fortunedir
+
+case $OSTYPE in
+  darwin*)
+    fortune -ae
+    ;;
+  *)
+    fortune -ae $HOME/dotfiles/scripts/fortune $fortunedir
+    ;;
+esac;
