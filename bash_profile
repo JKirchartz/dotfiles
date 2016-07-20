@@ -10,15 +10,18 @@ case $OSTYPE in
         # this is a mac
         export TERM=xterm-256color
 
-        # homebrew completion
-        source `brew --repository`/Library/Contributions/brew_bash_completion.sh
-
         # take a screenshot
         alias ss2='screencapture -xP '
         alias ss='screencapture -xwP '
+        export EDITOR="/usr/local/bin/mvim -v"
+        export VISUAL="$EDITOR"
+        alias vi='mvim -v'
+        alias vim='mvim -v'
         ;;
     linux*)
         # this is linux
+        export EDITOR=vim
+
         case $HOSTNAME in
             triton)
                 # autostart screen
@@ -70,7 +73,6 @@ case $OSTYPE in
         ;;
 esac
 
-export EDITOR=vim
 export PAGER="less -F"
 
 # import bashrc

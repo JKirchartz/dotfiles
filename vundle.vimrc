@@ -48,3 +48,8 @@ Plugin 'aperezdc/vim-template'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+" make YCM ignore c/c++, coz that's not my bag
+let g:ycm_filetype_specific_completion_to_disable = {'cpp': 1, 'c': 1}

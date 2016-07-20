@@ -1,14 +1,11 @@
 set nocompatible " be iMproved
 set magic " IF YOU TURN THIS ON, REGEX WIZARDS CAN SEE YOU!
 set ffs=unix,dos,mac " Use *nix as the default file type
-set encoding=utf-8 " ensure encoding
 set clipboard^=unnamed,unnamedplus
-set history=200 nobackup noswapfile " live dangerously
-set backspace=indent,eol,start " fix backspace
+set nobackup noswapfile " live dangerously
 set number " show line number
 set wildmenu  " better menu like for autocomplete
 set shortmess=atI " abbreviate or avoid certain messages
-set scrolloff=3 " keep 3 lines between cursor and the edge of the screen
 
 set title
 let &titleold=getcwd() " stop flying the friendly skies
@@ -28,8 +25,6 @@ set ignorecase " make /foo match FOO & FOo but /FOO only match FOO
 set mouse=a " enable mouse. how quaint.
 
 " Tabs & Indents
-filetype plugin indent on
-set autoindent
 set shiftround
 " tabs are 2 spaces... or else.
 set shiftwidth=2 softtabstop=2 expandtab
@@ -56,8 +51,7 @@ set laststatus=2 " see the last statusline(stl)
 set showmode showcmd " show modes & commands in stl
 " show cursor position (like :set ruler) & git status in statusline
 set statusline=\ b%n\ %<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
-colorscheme smyck
-syntax on " highlight that syntax, please
+silent! colorscheme smyck
 " highlight StatusLine cterm=NONE ctermbg=0 ctermfg=10
 " highlight ColorColumn cterm=NONE ctermbg=0
 
@@ -71,7 +65,6 @@ command WQ wq
 command Bn bn
 cnoremap \<Enter> <Enter>
 
-" avoid esc key (and retrain brain I'm no longer remapping capslock)
 " Avoid the esc key
 inoremap <silent> <Up> <ESC><Up>
 inoremap <silent> <Down> <ESC><Down>
