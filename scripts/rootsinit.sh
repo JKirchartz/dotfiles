@@ -29,7 +29,13 @@ git clone https://github.com/roots/sage.git site/web/app/themes/sage
 rm -rf site/web/app/themes/sage/.git
 rm -rf site/web/app/themes/sage/.github
 )
-echo "Installng the Ansible Galaxy roles:"
+echo "Installing JS packages"
+(
+cd $1/site/web/app/themes/sage
+npm install
+bower install
+)
+echo "Installing the Ansible Galaxy roles:"
 (
 cd $1/trellis
 ansible-galaxy install -r requirements.yml
@@ -38,16 +44,19 @@ ansible-galaxy install -r requirements.yml
 echo "Creating shortcut to theme"
 ln -s site/web/app/themes/sage theme
 
+files[1]="$1/site/web/app/themes/sage/assets/manifest.json"
+files[2]="$1/trellis/group_vars/development/mail.yml"
+files[3]="$1/trellis/group_vars/development/wordpress_sites.yml"
+
+# `git grep "example.com" | cut -d':' -f'1'`
+for file in "${files[@]}"
+do
+  echo $1
+  echo $file
+  sed -i '' -e "s/example.dev/$1/g" $file
+done
+
 git init
 git add .
 git commit -am "Initial commit for $1"
-
-for file in `git grep "example.com" | cut -d':' -f'1'`
-do
-  sed -e "s#example.com|example.dev#$1#g" $file > $file.tmp
-  mv $file.tmp $file;
-done
-
-git add .
-git commit -am "Configure domain info for $1"
 

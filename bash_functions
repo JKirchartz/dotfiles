@@ -34,6 +34,9 @@ function tmut () {
   fi
 }
 
+# cd & ls
+function cl() { cd "$@" && ls -oFhA; }
+
 # open altered files
 function gitvim () { vim $(git diff --name-only $@ ); }
 
