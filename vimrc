@@ -1,6 +1,10 @@
 "------------------------------------------------------------
-" load external files/scripts/plugins
+" set leader, load external files/scripts/plugins
 "---------------------------------------------------------{{{
+
+"map leader to space for world domination
+nnoremap <Space> <Nop>
+let mapleader = " "
 
 " vim-plug plugins
 source ~/dotfiles/plug.vimrc
@@ -78,10 +82,8 @@ command -bar Hexmode call ToggleHex()
 
 "}}}---------------------------------------------------------
 " Leader
+"
 "---------------------------------------------------------{{{
-"map leader to space for world domination
-nnoremap <Space> <Nop>
-let mapleader = " "
 
 " wq quickly
 nmap <leader>q :wqall<cr>
@@ -151,21 +153,6 @@ nmap <silent> <F7> :set spell!<cr>
 
 nmap <leader>ut :UndotreeToggle<CR>
 
-nmap <leader>t :NERDTreeToggle<CR>
-let g:NERDChristmasTree=1    " more colorful NERDTree
-" close VIM 'normally' if NERDTree is running
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&
-                      \b:NERDTreeType == "primary") | q | endif
-
-" use nerdtree for handling directories
-if isdirectory(argv(0))
-    bd
-    autocmd vimenter * exe "cd" argv(0)
-    autocmd VimEnter * NERDTree
-endif
-
-" add space to beginning of comments
-let g:NERDSpaceDelims = 1
 
 let g:SuperTabDefaultCompletionType = '<C-n>'
 

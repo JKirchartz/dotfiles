@@ -20,11 +20,12 @@ Plug 'jkirchartz/writegooder.vim' " 3 scripts to improve writing - wanna modify 
 Plug 'editorconfig/editorconfig-vim' " honor .editorconfig files
 
 " Plugs
-Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' }
+" Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' }
 Plug 'mbbill/undotree', { 'on' : 'UndotreeToggle' }
 Plug 'ervandew/supertab'
 Plug 'Valloric/MatchTagAlways'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive'
@@ -72,6 +73,8 @@ filetype plugin indent on    " required
 " make EditorConfig play nice with vim-fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
+" replace NerdTree w/ netrw+vinegar
+nmap <leader>t :Lex<CR>
 
 " setup Neocomplete
 " Disable AutoComplPop.
