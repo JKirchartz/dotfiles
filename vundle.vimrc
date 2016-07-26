@@ -48,6 +48,18 @@ Plugin 'aperezdc/vim-template'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
+nmap <leader>t :NERDTreeToggle<CR>
+let g:NERDChristmasTree=1    " more colorful NERDTree
+" close VIM 'normally' if NERDTree is running
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&
+                      \b:NERDTreeType == "primary") | q | endif
+
+" use nerdtree for handling directories
+if isdirectory(argv(0))
+    bd
+    autocmd vimenter * exe "cd" argv(0)
+    autocmd VimEnter * NERDTree
+endif
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
