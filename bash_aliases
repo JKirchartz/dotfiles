@@ -40,11 +40,14 @@ alias iip="ifconfig | grep broadcast | awk '{print $ 2}'" # get internal ip
 alias eip="dig +short myip.opendns.com @resolver1.opendns.com" #get external ip
 
 # get weather from wttr.in
-alias weather="curl wttr.in"
+alias weather="curl wttr.in/PIT"
 alias moon="curl wttr.in/Moon"
 
 # speed up gulp dev
 alias ggw="gulp && gulp watch"
+
+# start trellis server
+alias trellis="cd trellis/ && vagrant up && cd ../"
 
 # pretty-print git logs
 # via https://coderwall.com/p/euwpig

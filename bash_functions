@@ -24,7 +24,15 @@ function hgrep(){ history | grep "$1"; }
 function calc () { echo "$*" | bc -l; }
 
 #tmux title changer
-function tmut () {  printf "\033k%s\033\\" "$1"; }
+function tmut () {
+  if [[ $# -eq 0 ]]; then
+    # rename tmux window after current directory
+    tmux rename-window "${PWD##*/}"
+  else
+    # rename tmux window after input
+    tmux rename-window "$@"
+  fi
+}
 
 # open altered files
 function gitvim () { vim $(git diff --name-only $@ ); }
