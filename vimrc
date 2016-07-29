@@ -1,16 +1,12 @@
 "------------------------------------------------------------
-" set leader, load external files/scripts/plugins
+" Load external files/scripts/plugins
 "---------------------------------------------------------{{{
-
-"map leader to space for world domination
-nnoremap <Space> <Nop>
-let mapleader = " "
-
-" vim-plug plugins
-source ~/dotfiles/plug.vimrc
 
 " a standard set of tweaks:
 source ~/dotfiles/lite.vimrc
+
+" vim-plug plugins
+source ~/dotfiles/plug.vimrc
 
 "}}}---------------------------------------------------------
 " Custom Functions/Commands
@@ -82,7 +78,6 @@ command -bar Hexmode call ToggleHex()
 
 "}}}---------------------------------------------------------
 " Leader
-"
 "---------------------------------------------------------{{{
 
 " wq quickly
@@ -153,21 +148,6 @@ nmap <silent> <F7> :set spell!<cr>
 
 nmap <leader>ut :UndotreeToggle<CR>
 
-
-let g:SuperTabDefaultCompletionType = '<C-n>'
-
-" better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<nop>"
-let g:ulti_expand_or_jump_res = 0
-function ExpandSnippetOrCarriageReturn()
-    let snippet = UltiSnips#ExpandSnippetOrJump()
-    if g:ulti_expand_or_jump_res > 0
-        return snippet
-    else
-        return "\<CR>"
-    endif
-endfunction
-inoremap <expr> <CR> pumvisible() ? "\<C-R>=ExpandSnippetOrCarriageReturn()\<CR>" : "\<CR>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
@@ -205,7 +185,7 @@ let g:templates_directory = ["~/.vim/templates"]
 
 
 "}}}-----------------------------------------------------
-" autocmds
+" Autocmds
 "-------------------------------------------------------{{{
 if has("autocmd")
       " fold up vim files

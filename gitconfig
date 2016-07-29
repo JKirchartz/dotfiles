@@ -26,7 +26,7 @@
   co = checkout
   cob = checkout -b
   unstage = reset HEAD --
-  last = log -1 HEAD
+  last = log --name-status HEAD^..HEAD
   df = diff
   ds = diff --staged
   ls = ls-files
