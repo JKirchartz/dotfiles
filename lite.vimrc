@@ -4,8 +4,15 @@ set ffs=unix,dos,mac " Use *nix as the default file type
 set clipboard^=unnamed,unnamedplus
 set nobackup noswapfile " live dangerously
 set number " show line number
-set wildmenu  " better menu like for autocomplete
 set shortmess=atI " abbreviate or avoid certain messages
+
+"map leader to space for world domination
+nnoremap <Space> <Nop>
+let mapleader = " "
+
+" better menu like for autocomplete
+set wildmenu
+set completeopt=menu,longest
 
 set title
 let &titleold=getcwd() " stop flying the friendly skies

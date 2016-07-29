@@ -46,8 +46,10 @@ alias moon="curl wttr.in/Moon"
 # speed up gulp dev
 alias ggw="gulp && gulp watch"
 
-# start trellis server
+# https://roots.io/trellis/ dev servers
 alias trellis="cd trellis/ && vagrant up && cd ../"
+alias untrellis="cd trellis/ && vagrant halt && cd ../"
+alias trellis-ssh="cd trellis/ && vagrant ssh"
 
 # pretty-print git logs
 # via https://coderwall.com/p/euwpig
@@ -67,6 +69,7 @@ alias imgres="identify -format '%f: %wpx x %hpx\n'"
 case $OSTYPE in
     darwin*)
 # osx-only
+    alias hosts='sudo mvim -v /etc/hosts /private/etc/hosts'
     alias ss2='screencapture -xP '
     alias ss='screencapture -xwP '
     ;;
