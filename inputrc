@@ -1,3 +1,11 @@
+# Better completions
+set completion-ignore-case on
+set show-all-if-unmodified on
+set page-completions on
+# TAB: menu-complete
+#search with arrow keys
+"\e[A": history-search-backward
+"\e[B": history-search-forward
 # be vimlike
 set editing-mode vi
 $if mode=vi
@@ -7,7 +15,7 @@ $if mode=vi
   set keymap vi-command
 
   # tab to list all completions & select first, or cycle through available
-  TAB: menu-complete
+  # TAB: menu-complete
 
   # Shift-tab for backwards
   "\e[Z": menu-complete-backwards
@@ -24,7 +32,7 @@ $if mode=vi
   set keymap vi-insert
 
   # tab to list all completions & select first, or cycle through available
-  TAB: menu-complete
+  # TAB: menu-complete
 
   # Shift-tab for backwards
   "\e[Z": menu-complete-backwards
@@ -37,5 +45,3 @@ $if mode=vi
 
 $endif
 
-# Allow case-insensitive auto-completion
-set completion-ignore-case on
