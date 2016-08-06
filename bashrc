@@ -73,3 +73,6 @@ export PATH=".:$HOME/dotfiles/scripts:$PATH"
 
 export NETHACKOPTIONS=color,hilite_pet,boulder:8
 
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
