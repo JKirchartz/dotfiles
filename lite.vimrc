@@ -3,6 +3,7 @@ set magic " IF YOU TURN THIS ON, REGEX WIZARDS CAN SEE YOU!
 set ffs=unix,dos,mac " Use *nix as the default file type
 set clipboard^=unnamed,unnamedplus
 set nobackup noswapfile " live dangerously
+set hidden " allow unwritten buffers (unsaved files) to hide in the background
 set number " show line number
 set shortmess=atI " abbreviate or avoid certain messages
 
@@ -15,7 +16,7 @@ set wildmenu
 set completeopt=menu,longest
 
 set title
-let &titleold=getcwd() " stop flying the friendly skies
+let &titleold=getcwd() " stop telling me I'm flying the friendly skies
 set shortmess=atI " abbreviate or avoid certain messages
 set noerrorbells " hear no evil
 set novisualbell " see no evil
@@ -58,7 +59,10 @@ set laststatus=2 " see the last statusline(stl)
 set showmode showcmd " show modes & commands in stl
 " show cursor position (like :set ruler) & git status in statusline
 set statusline=\ b%n\ %<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+" try a couple, see which sticks
+silent! colorscheme elflord " perhaps the best pre-installed colorscheme
 silent! colorscheme smyck
+silent! colorscheme apprentice
 " highlight StatusLine cterm=NONE ctermbg=0 ctermfg=10
 " highlight ColorColumn cterm=NONE ctermbg=0
 
