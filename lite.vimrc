@@ -60,7 +60,7 @@ set showmode showcmd " show modes & commands in stl
 " show cursor position (like :set ruler) & git status in statusline
 set statusline=\ b%n\ %<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 " try a couple, see which sticks
-silent! colorscheme elflord " perhaps the best pre-installed colorscheme
+silent! colorscheme elflord
 silent! colorscheme smyck
 silent! colorscheme apprentice
 " highlight StatusLine cterm=NONE ctermbg=0 ctermfg=10
@@ -77,10 +77,10 @@ command Bn bn
 cnoremap \<Enter> <Enter>
 
 " Avoid the esc key
-inoremap <silent> <Up> <ESC><Up>
-inoremap <silent> <Down> <ESC><Down>
-inoremap <silent> <Left> <ESC><Left>
-inoremap <silent> <Right> <ESC><Right>
+inoremap <silent> <Up> <ESC>k
+inoremap <silent> <Down> <ESC>j
+inoremap <silent> <Left> <ESC>h
+inoremap <silent> <Right> <ESC>l
 imap hj <esc>
 imap jh <esc>
 
