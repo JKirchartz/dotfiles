@@ -36,46 +36,6 @@ function ScratchBuffer()
 endfunc
 command -bar Bs call ScratchBuffer()
 
-" Improve hex editing (ala http://vim.wikia.com/wiki/Improved_hex_editing)
-" helper function to toggle hex mode
-function ToggleHex()
-  " hex mode should be considered a read-only operation
-  " save values for modified and read-only for restoration later,
-  " and clear the read-only flag for now
-  let l:modified=&mod
-  let l:oldreadonly=&readonly
-  let &readonly=0
-  let l:oldmodifiable=&modifiable
-  let &modifiable=1
-  if !exists("b:editHex") || !b:editHex
-    " save old options
-    let b:oldft=&ft
-    let b:oldbin=&bin
-    " set new options
-    setlocal binary " make sure it overrides any textwidth, etc.
-    let &ft="xxd"
-    " set status
-    let b:editHex=1
-    " switch to hex editor
-    %!xxd
-  else
-    " restore old options
-    let &ft=b:oldft
-    if !b:oldbin
-      setlocal nobinary
-    endif
-    " set status
-    let b:editHex=0
-    " return to normal editing
-    %!xxd -r
-  endif
-  " restore values for modified and read only state
-  let &mod=l:modified
-  let &readonly=l:oldreadonly
-  let &modifiable=l:oldmodifiable
-endfunction
-command -bar Hexmode call ToggleHex()
-
 "}}}---------------------------------------------------------
 " Leader
 "---------------------------------------------------------{{{
@@ -181,15 +141,13 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 
 " use _my_ software license as the default for vim-templates
 let g:license = "NPL (Necessary Public License)"
-let g:templates_directory = ["~/.vim/templates"]
+let g:templates_directory = ["$HOME/.vim/templates"]
 
 
 "}}}-----------------------------------------------------
 " Autocmds
 "-------------------------------------------------------{{{
 if has("autocmd")
-      " fold up vim files
-      autocmd FileType vim setlocal foldmethod=marker
       " Jump to last position when reopening files
       au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
           \| exe "normal g'\"" | endif
@@ -203,4 +161,5 @@ if has("autocmd")
       autocmd BufWritePre * silent! %s:\(\S*\) \+$:\1:
 endif
 
-
+" fold up this file
+" vim:foldmethod=marker

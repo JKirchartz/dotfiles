@@ -6,32 +6,32 @@ set -o vi
 # fzf, git, npm, bashisms
 #
 
-source ~/dotfiles/bash_aliases
-source ~/dotfiles/bash_functions
+source $HOME/dotfiles/bash_aliases
+source $HOME/dotfiles/bash_functions
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-      . /etc/bash_completion
+  . /etc/bash_completion
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-source ~/dotfiles/scripts/gitstatus.sh
-source ~/dotfiles/scripts/git-completion.bash
-source ~/dotfiles/scripts/npm-completion.bash
+source $HOME/dotfiles/scripts/gitstatus.sh
+source $HOME/dotfiles/scripts/git-completion.bash
+source $HOME/dotfiles/scripts/npm-completion.bash
 
 #
 # setup prompt
 #
 
 function __prompt {
-    echo
-    # sync history across terms
-    history -a
-    history -n
-    #draw horizontal rule
-    printf '\e[0;31m%*s\n\e[m' "${COLUMNS:-$(tput cols)}" '' | tr ' ' '#'
-    # Get directory (and git-prompt)
-    DIR=$(pwd | sed -e "s!$HOME!~!")
-    echo -e "\n${DIR} $(gitstatus)"
+  echo
+  # sync history across terms
+  history -a
+  history -n
+  #draw horizontal rule
+  printf '\e[0;31m%*s\n\e[m' "${COLUMNS:-$(tput cols)}" '' | tr ' ' '#'
+  # Get directory (and git-prompt)
+  DIR=$(pwd | sed -e "s!$HOME!~!")
+  echo -e "\n${DIR} $(gitstatus)"
 }
 PROMPT_COMMAND="__prompt"
 export __cr='\e[0;31m'
@@ -75,3 +75,7 @@ export PATH=".:$HOME/dotfiles/scripts:$PATH"
 export NETHACKOPTIONS=color,hilite_pet,boulder:8
 
 
+if [ $OSTYPE == "linux-gnu" ] && [ -d "/mnt/c/windows" ]; then
+  # ubuntu on windows, load bash_profile
+  source $HOME/.bash_profile
+fi
