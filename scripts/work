@@ -1,0 +1,22 @@
+#!/bin/bash
+
+SESSION=$USER
+# tmux ls $> /dev/null
+tmux has-session -t "$SESSION"
+# No TMUX sessions - create
+if [ $? != 0 ]
+then
+  tmux new-session -d -s "$SESSION" -n main
+  tmux new-window -t "$SESSION"
+  tmux send-keys -t "$SESSION:main" "vim +':h|on'" 'C-m'
+  tmux split-window -t "$SESSION:main" -v -p 50
+  tmux send-keys -t "$SESSION:main.1" " ssh -F $HOME/dotfiles/ssh/config derkirche@blinken" 'C-m'
+  tmux split-window -t "$SESSION:main.1" -h -p 40
+  tmux clock-mode
+  tmux select-pane -t "$SESSION:main.1"
+  tmux new-window -t "$SESSION" -a 'main'
+  tmux send-keys -t "$SESSION:2:0" "cd ~/tprojects/" 'C-m'
+  tmux split-window -t "$SESSION:2:0" -h -p 30
+fi
+# attach or re-attach session
+tmux attach -t "$SESSION"

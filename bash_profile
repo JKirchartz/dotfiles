@@ -1,125 +1,79 @@
-function cowmotd {
-  if [ -z ${VIMRUNTIME} ]; then
-    if which fortune > /dev/null; then
-        if which cowsay > /dev/null; then
-            fortune -as | ~/dotfiles/scripts/cowsay.sh
-        else
-            fortune -as
-        fi
-    else
-        if which cowsay > /dev/null; then
-          ~/dotfiles/scripts/ObliqueStrategies | ~/dotfiles/scripts/cowsay.sh 
-        else
-          ~/dotfiles/scripts/ObliqueStrategies
-        fi
-    fi
-    echo -n "Today's secret word is: "
-    if type shuf > /dev/null; then
-      cat /usr/share/dict/words | grep -v "'" | shuf -n1
-    else
-      cat /usr/share/dict/words | grep -v "'" | sort -R | head -n 1
-    fi
-    echo "You all know what to do when somebody says the secret word, right?"
-  else
-    if which fortune > /dev/null; then
-      fortune -as
-    else
-      ~/dotfiles/scripts/ObliqueStrategies
-    fi
-  fi
-}
+# motd
+~/dotfiles/scripts/motd.sh
 
+# Bins
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 
-cowmotd
-
+# system-specific configs
 case $OSTYPE in
     darwin*)
         # this is a mac
-
         export TERM=xterm-256color
-        export SVN_EDITOR=vim
 
-
-        # TMUX
-        if which tmux 2>&1 >/dev/null; then
-            # if no session is started, start a new session
-            test -z ${TMUX} && tmux
-
-            # when quitting tmux, try to attach
-            while test -z ${TMUX}; do
-                tmux attach || break
-            done
-        fi
-
-        # kill apache/tomcat
-        function kill_apache {
-            ps -ae | awk '/([a]pache|[t]omcat)/ {print $1}' | xargs kill -9
-        }
-
-        alias hostsconf='sudo vi /etc/hosts'
-        alias db='~/Dropbox '
-        alias jksky='cd ~/Dropbox/JKsky '
-        alias chrome='open -a Google\ Chrome '
-
-        # homebrew completion
-        source `brew --repository`/Library/Contributions/brew_bash_completion.sh
-
-        # PATHs
-        export NODE_PATH="/usr/local/lib/node"
-        export GEM_HOME=~/gems
-        [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
-        # Google tools
-        #PATH=$PATH:/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine:~/Documents/android-sdk/platform-tools
-        # Added by the Heroku Toolbelt
-        export PATH="/usr/local/heroku/bin:$PATH"
-        # Ruby/Gem & Npm
-        PATH=$PATH:/usr/local/share/npm/bin:~/gems/bin
-        # Python
-        #PATH=$PATH:/System/Library/Frameworks/Python.framework/Versions/2.7/bin:/System/Library/Frameworks/Python.framework/Versions/Current/bin
+        # take a screenshot
+        alias ss2='screencapture -xP '
+        alias ss='screencapture -xwP '
+        export EDITOR="/usr/local/bin/mvim -v"
+        export VISUAL="$EDITOR"
+        alias vi='mvim -v'
+        alias vim='mvim -v'
         ;;
     linux*)
         # this is linux
+        export EDITOR=vim
+
         case $HOSTNAME in
             triton)
+                # autostart screen
                 if [ "$(ps -p $PPID -o comm=)" != screen ]; then scr; fi
                 ;;
             lucid32)
                 ### Added by the Heroku Toolbelt
-                export PATH="/usr/local/heroku/bin:$PATH"
+                PATH="$PATH:/usr/local/heroku/bin"
+                export GEM_HOME=~/gems:$GEM_HOME
                 ;;
-            crunchbang)
-                export GEM_HOME="~/gems"
+            arp)
                 # add appengine, npm, and gems bins to path
-                PATH=$PATH:/usr/local/share/npm/bin:~/gems/bin:~/google_appengine
-                ;;
-            *google*)
-                if [ -f ~/at_google.sh ]; then
-                    source ~/at_google.sh
-                fi
                 export GEM_HOME=~/gems
-                PATH=$PATH:~/gems/bin
+                PATH=$PATH:/usr/local/share/npm/bin
+                PATH=$PATH:~/google_appengine
+                # nvm paths
+                export NVM_DIR="/home/kirch/.nvm"
+                [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+                if [[ -d "$NVM_DIR" ]]; then
+                  NODE_DEFAULT_VERSION="$(<"$NVM_DIR/alias/default")"
+                else
+                  NODE_DEFAULT_VERSION=""
+                fi
+                if [[ "$NODE_DEFAULT_VERSION" != "" ]]; then
+                  PATH="$PATH:$NVM_DIR/versions/node/$NODE_DEFAULT_VERSION/bin"
+                fi
+                # Ubuntu make installation of Ubuntu Make binary symlink
+                PATH=/home/kirch/.local/share/umake/bin:$PATH
+                # Android
+                # export ANDROID_HOME="/home/kirch/.local/share/umake/android/android-studio/"
+                # export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+                ### Added by the Heroku Toolbelt
+                PATH="$PATH:/usr/local/heroku/bin"
+                PATH="$PATH:$HOME/.rbenv/bin"
+                eval "$(rbenv init -)"
+                ;;
         esac
-        ;;
-    *BSD*)
-        # this is a flavor of BSD
         ;;
     cygwin)
         # this is a PC with cygwin
-        fortune -as
-        export PATH="/cygdrive/c/Program Files/Oracle/VirtualBox:$PATH"
+        PATH="$PATH:/cygdrive/c/Program Files/Oracle/VirtualBox"
         ;;
     msys)
-        fortune -as
-        export PATH="/mingw/bin:/c/Program Files/Oracle/VirtualBox:$PATH"
+        # this is a PC with msys
+        PATH="$PATH:/mingw/bin:/c/Program Files/Oracle/VirtualBox"
         ;;
     *)
-        echo "$OSTYPE unknown in .bash_profile"
+        echo "$OSTYPE not registered in .bash_profile"
         ;;
 esac
 
-export EDITOR=vim
-export PATH="$PATH:."
+export PAGER="less -F"
+
 # import bashrc
 source ~/.bashrc
-

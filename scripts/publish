@@ -8,11 +8,13 @@ then
 else
     FILENAME="$1"
 fi
-if [ -f "$FILENAME" ] 
+if [ -f "$FILENAME" ]
 then
-    NEWFILE=$(echo $(date +%Y-%m-%d)$(echo $FILENAME | cut -c12-1000))
-    sed -e 4d $FILENAME > $NEWFILE
-    rm -f $FILENAME
+    DATE=$(date +%Y-%m-%d)
+    NEWFILE=$(echo "$DATE-$FILENAME")
+    sed -e 4d "$FILENAME" > "$NEWFILE"
+    rm -f "$FILENAME"
+    mv "$NEWFILE" ../_posts
 else
     echo "not a filename"
 fi

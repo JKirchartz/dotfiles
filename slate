@@ -1,5 +1,50 @@
-# Configs
-config defaultToCurrentScreen true
+m-plug plugins
+
+function ScratchBuffer()
+
+"}}}--------------------------------------------------------
+" Custom Function/Commandetlocal buftype=nofile'
+
+"---------------------------------------------------------{{
+
+etlocal bufhidden=hide'
+ forgo tetlocal noswapfile'
+endfunc
+command -bar Bs call ScratchBuffer()
+
+" Improve hex editing (ala http://vim.wikia.com/wiki/Improved_hex_editing)
+" helper function to toggle hex mode
+function ToggleHex()
+ sud vi? w!!
+de should be considered a read-only operation
+ave values for modified and read-only for restoration later,
+nd clear the read-only flag for now
+
+cmap w!! %!sudedonly=0
+ tee > /dev/nulable=1
+f !exists("b:editHex") || !b:editHex
+ave old options
+ %
+
+et new options
+etlocal binary " make sure it overrides any textwidth, etc.
+mmand! -bar Hist :so $VIMRUNTIME/syntax/hitest.vim
+et status
+
+witch to hex editor
+ete
+tore old options
+f !b:oldbin
+etlocal nobinary
+relativenumber
+et nonumbeet status
+
+Configeif &relativenumber == 0 && &number == 1
+et relativenumber
+
+confige
+et number
+efaultToCurrentScreen true
 # show icons & letters on all windows w/ Window Hints
 config windowHintsShowIcons true
 config windowHintsIgnoreHiddenWindows false

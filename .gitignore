@@ -2,6 +2,9 @@
 /vim/.VimballRecord
 /vim/bundle
 /vim/view
+/vim/plugged/
+/nvim/plugged/
+/nvim/autoload/
 /ssh/id_rsa
 /ssh/id_rsa.pub
 /ssh/known_hosts
@@ -9,5 +12,5 @@
 .DS_Store
 *~
 *.swp
-id_rsa*
+*id_rsa*
 known_host*
