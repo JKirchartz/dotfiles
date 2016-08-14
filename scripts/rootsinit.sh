@@ -11,12 +11,14 @@ if [ $# -eq 0 ]; then
   exit;
 fi
 
+set -eou pipefail
+
 DOMAIN="$1"
 THEME="${DOMAIN%.*}"
 DIR="$PWD/$DOMAIN"
 
 echo "Creating project directory:"
-mkdir $DOMAIN
+mkdir -p "$DOMAIN"
 
 echo "Clone Trellis:"
 git clone --depth=1 git@github.com:roots/trellis.git "$DIR/trellis"
