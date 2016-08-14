@@ -3,8 +3,21 @@ set magic " IF YOU TURN THIS ON, REGEX WIZARDS CAN SEE YOU!
 set ffs=unix,dos,mac " Use *nix as the default file type
 set clipboard^=unnamed,unnamedplus
 set nobackup noswapfile " live dangerously
+set hidden " allow unwritten buffers (unsaved files) to hide in the background
 set number " show line number
 set shortmess=atI " abbreviate or avoid certain messages
+set title
+let &titleold=getcwd() " stop telling me I'm flying the friendly skies
+set shortmess=atI " abbreviate or avoid certain messages
+set noerrorbells " hear no evil
+set novisualbell " see no evil
+set list " show whitespace (using textmate-like symbols in the next line)
+set listchars=tab:▶-,nbsp:܁,trail:•,extends:»,precedes:«,eol:¬
+set smartcase " smart case matching
+set incsearch " incremental search
+set hlsearch  " highlight search
+set ignorecase " make /foo match FOO & FOo but /FOO only match FOO
+set mouse=a " enable mouse. how quaint.
 
 "map leader to space for world domination
 nnoremap <Space> <Nop>
@@ -13,23 +26,6 @@ let mapleader = " "
 " better menu like for autocomplete
 set wildmenu
 set completeopt=menu,longest
-
-set title
-let &titleold=getcwd() " stop flying the friendly skies
-set shortmess=atI " abbreviate or avoid certain messages
-set noerrorbells " hear no evil
-set novisualbell " see no evil
-
-set list " show whitespace (using symbols in the next line)
-" use textmate-like symbols
-set listchars=tab:▶-,nbsp:܁,trail:•,extends:»,precedes:«,eol:¬
-
-set smartcase " smart case matching
-set incsearch " incremental search
-set hlsearch  " highlight search
-set ignorecase " make /foo match FOO & FOo but /FOO only match FOO
-
-set mouse=a " enable mouse. how quaint.
 
 " Tabs & Indents
 set shiftround
@@ -58,7 +54,10 @@ set laststatus=2 " see the last statusline(stl)
 set showmode showcmd " show modes & commands in stl
 " show cursor position (like :set ruler) & git status in statusline
 set statusline=\ b%n\ %<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+" try a couple, see which sticks
+silent! colorscheme elflord
 silent! colorscheme smyck
+silent! colorscheme apprentice
 " highlight StatusLine cterm=NONE ctermbg=0 ctermfg=10
 " highlight ColorColumn cterm=NONE ctermbg=0
 
@@ -73,10 +72,10 @@ command Bn bn
 cnoremap \<Enter> <Enter>
 
 " Avoid the esc key
-inoremap <silent> <Up> <ESC><Up>
-inoremap <silent> <Down> <ESC><Down>
-inoremap <silent> <Left> <ESC><Left>
-inoremap <silent> <Right> <ESC><Right>
+inoremap <silent> <Up> <ESC>k
+inoremap <silent> <Down> <ESC>j
+inoremap <silent> <Left> <ESC>h
+inoremap <silent> <Right> <ESC>l
 imap hj <esc>
 imap jh <esc>
 
@@ -88,5 +87,9 @@ source $VIMRUNTIME/ftplugin/man.vim
 " keep man in vim, replicate built-in functionality
 nnoremap K :Man <C-R>=expand("<cword>")<cr><cr>
 
-
-
+" tree-view
+let g:netrw_liststyle = 3
+" sort is affecting only: directories on the top, files below
+let g:netrw_sort_sequence = '[\/]$,*'" use the previous window to open file
+" open file in previous window
+let g:netrw_browse_split = 4
