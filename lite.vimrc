@@ -57,7 +57,6 @@ set statusline=\ b%n\ %<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 " try a couple, see which sticks
 silent! colorscheme elflord
 silent! colorscheme smyck
-silent! colorscheme apprentice
 " highlight StatusLine cterm=NONE ctermbg=0 ctermfg=10
 " highlight ColorColumn cterm=NONE ctermbg=0
 
