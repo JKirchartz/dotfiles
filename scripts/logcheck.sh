@@ -20,9 +20,12 @@ if hash ack 2>/dev/null; then
 fi
 
 if [ ! -z "$VCS" ]; then
-	eval "$VCS diff | $SEARCHER var_dump"
-	eval "$VCS diff | $SEARCHER die"
-	eval "$VCS diff | $SEARCHER console."
+	if eval "$VCS diff | $SEARCHER var_dump\|die\|console."; then
+		echo "CLEAN!"
+	else
+		echo "DIRTY!"
+		eval "$SEARCHER var_dump\|die\|console."
+	fi
 else
 	echo "not a repository"
 fi

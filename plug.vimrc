@@ -47,6 +47,7 @@ Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 Plug 'dsawardekar/wordpress.vim', { 'for': 'php'}
 
 " general web dev
+Plug 'othree/html5.vim'
 Plug 'tpope/vim-markdown'
 Plug 'tyru/open-browser.vim'
 Plug 'lukaszb/vim-web-indent'

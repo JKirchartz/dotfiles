@@ -54,9 +54,6 @@ set laststatus=2 " see the last statusline(stl)
 set showmode showcmd " show modes & commands in stl
 " show cursor position (like :set ruler) & git status in statusline
 set statusline=\ b%n\ %<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
-" try a couple, see which sticks
-silent! colorscheme elflord
-silent! colorscheme smyck
 " highlight StatusLine cterm=NONE ctermbg=0 ctermfg=10
 " highlight ColorColumn cterm=NONE ctermbg=0
 
@@ -92,3 +89,6 @@ let g:netrw_liststyle = 3
 let g:netrw_sort_sequence = '[\/]$,*'" use the previous window to open file
 " open file in previous window
 let g:netrw_browse_split = 4
+
+syntax on
+silent! colorscheme smyck
