@@ -17,6 +17,7 @@ case $OSTYPE in
         export VISUAL="$EDITOR"
         alias vi='mvim -v'
         alias vim='mvim -v'
+        alias vlc='/Applications/VLC.app/Contents/MacOS/VLC -I rc'
         ;;
     linux*)
         # this is linux

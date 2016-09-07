@@ -46,12 +46,12 @@ bower install
 cd "$DIR"
 
 echo "Creating shortcut to theme..."
-ln -s "$DIR/site/web/app/themes/$THEME" theme
+ln -s "./site/web/app/themes/$THEME" theme
 
 echo "Editing Configs..."
-files[1]="$DIR/site/web/app/themes/$THEME/assets/manifest.json"
-files[2]="$DIR/trellis/group_vars/development/mail.yml"
-files[3]="$DIR/trellis/group_vars/development/wordpress_sites.yml"
+files[1]="./site/web/app/themes/$THEME/assets/manifest.json"
+files[2]="./trellis/group_vars/development/mail.yml"
+files[3]="./trellis/group_vars/development/wordpress_sites.yml"
 
 # `git grep "example.com" | cut -d':' -f'1'`
 for file in "${files[@]}"
@@ -60,11 +60,11 @@ do
 done
 
 # remove comments & rename theme in deploy-hooks
-sed -i'' -e "/^# ---/,1000 s/#\s?//g" "$DIR/trellis/deploy-hooks/build-before.yml"
-sed -i'' -e "s/sage/$THEME/g" "$DIR/trellis/deploy-hooks/build-before.yml"
+sed -i'' -e "/^# ---/,1000 s/#\s?//g" "./trellis/deploy-hooks/build-before.yml"
+sed -i'' -e "s/sage/$THEME/g" "./trellis/deploy-hooks/build-before.yml"
 
 
-tee "$DIR/site/web/app/themes/$THEME/style.css" << EOF
+tee "./site/web/app/themes/$THEME/style.css" << EOF
 /*
 Theme Name:    $THEME
 Author:        $USER

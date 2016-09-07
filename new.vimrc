@@ -19,14 +19,15 @@ Plug 'jkirchartz/writegooder.vim' " 3 scripts to improve writing - wanna modify 
 " Plugs
 Plug 'editorconfig/editorconfig-vim' " honor .editorconfig files
 Plug 'mbbill/undotree', { 'on' : 'UndotreeToggle' }
-Plug 'ervandew/supertab'
+Plug 'ajh17/VimCompletesMe'
+Plug 'ajh17/vim-fist'
 Plug 'Valloric/MatchTagAlways'
+" hail to the chief:
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive'
-Plug 'ajh17/vim-fist'
 
 
 " Javascript
@@ -55,11 +56,10 @@ Plug 'FooSoft/vim-argwrap'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' | Plug 'chrisgillis/vim-bootstrap3-snippets'
 Plug 'aperezdc/vim-template'
 
-" fuxxy file/buffer/mru/tag finder
+" fuzzy file/buffer/mru/tag finder
 Plug 'ctrlpvim/ctrlp.vim'
 
 " syntax completion, checking, & highlighting
-Plug 'Shougo/neocomplete.vim'
 Plug 'scrooloose/syntastic'
 
 
@@ -75,42 +75,18 @@ filetype plugin indent on    " required
 " make EditorConfig play nice with vim-fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
-" replace NerdTree w/ netrw+vinegar
-map <leader>t :Lex<CR>
+" replace NerdTree w/ netrw+vinegar (replaced with ToggleVExplorer, below)
+" map <leader>t :Lex<CR>
 
 " user vim-commentary like nerdcommenter
 map <leader>cc gcc
 
-" setup Neocomplete
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-	return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-	" For no inserting <CR> key.
-	"return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
 " Enable omni completion.
-autocmd FileType php setlocal omnifunc=phpcomplete#CompleteTags
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css,sass,less,scss setlocal omnifunc=csscomplete#CompleteCSS
+" autocmd FileType php setlocal omnifunc=phpcomplete#CompleteTags
+" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+" autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+" autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+" autocmd FileType css,sass,less,scss setlocal omnifunc=csscomplete#CompleteCSS
 
 
 "}}}---------------------------------------------------------
@@ -121,14 +97,11 @@ autocmd FileType css,sass,less,scss setlocal omnifunc=csscomplete#CompleteCSS
 nnoremap <Space> <Nop>
 let mapleader = " "
 
-set magic " IF YOU TURN THIS ON, REGEX WIZARDS CAN SEE YOU!
-set ffs=unix,dos,mac " Use *nix as the default file type
+set ffs=unix,mac,dos " Set default filetypes in descending wrongness
 set clipboard^=unnamed
 set nobackup noswapfile " live dangerously
 set hidden " allow unwritten buffers (unsaved files) to hide in the background
 set number " show line number
-" set title
-" let &titleold=getcwd() " stop telling me I'm flying the friendly skies
 set shortmess=atI " abbreviate or avoid certain messages
 set noerrorbells " hear no evil
 set novisualbell " see no evil
@@ -163,6 +136,9 @@ if has('persistent_undo')
 	set undodir=/tmp/vim_undo
 	set undofile
 endif
+
+" use ack for grepping
+set grepprg=ack\ -H\ --nocolor\ --nogroup
 
 " Setup colors/theme
 set laststatus=2 " see the last statusline(stl)
@@ -239,6 +215,38 @@ function ScratchBuffer()
 	exe ':setlocal noswapfile'
 endfunc
 command -bar Bs call ScratchBuffer()
+
+" Make NetRW work more like NerdTree
+function! ToggleVExplorer()
+  if exists("t:expl_buf_num")
+      let expl_win_num = bufwinnr(t:expl_buf_num)
+      if expl_win_num != -1
+          let cur_win_nr = winnr()
+          exec expl_win_num . 'wincmd w'
+          close
+          exec cur_win_nr . 'wincmd w'
+          unlet t:expl_buf_num
+      else
+          unlet t:expl_buf_num
+      endif
+  else
+      exec '1wincmd w'
+      Vexplore
+      let t:expl_buf_num = bufnr("%")
+  endif
+endfunction
+map <leader>t :call ToggleVExplorer()<CR>
+
+" Hit enter in the file browser to open the selected
+" file with :vsplit to the right of the browser.
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+
+" Default to tree mode
+let g:netrw_liststyle=3
+
+" Change directory to the current buffer when opening files.
+set autochdir
 
 "}}}---------------------------------------------------------
 " Leader

@@ -74,6 +74,9 @@ export PATH=".:$HOME/dotfiles/scripts:$PATH"
 
 export NETHACKOPTIONS=color,hilite_pet,boulder:8
 
+if [ -f $HOME/env.keys ]; then
+  . $HOME/env.keys
+fi
 
 if [ $OSTYPE == "linux-gnu" ] && [ -d "/mnt/c/windows" ]; then
   # ubuntu on windows, load bash_profile
