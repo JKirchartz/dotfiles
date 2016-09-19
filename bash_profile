@@ -9,6 +9,8 @@ case $OSTYPE in
     darwin*)
         # this is a mac
         export TERM=xterm-256color
+        export GEM_HOME=$HOME/gems
+        PATH=$PATH:$HOME/gems
 
         # take a screenshot
         alias ss2='screencapture -xP '
@@ -17,7 +19,7 @@ case $OSTYPE in
         export VISUAL="$EDITOR"
         alias vi='mvim -v'
         alias vim='mvim -v'
-        alias vlc='/Applications/VLC.app/Contents/MacOS/VLC -I rc'
+        alias vlc='/Applications/VLC.app/Contents/MacOS/VLC -I rc -q'
         ;;
     linux*)
         # this is linux
