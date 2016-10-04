@@ -20,7 +20,11 @@ case $OSTYPE in
         alias vi='mvim -v'
         alias vim='mvim -v'
         alias vlc='/Applications/VLC.app/Contents/MacOS/VLC -I rc -q'
-        ;;
+        function fix-ssh {
+            eval $(ssh-agent);
+            ssh-add -K;
+        }
+    ;;
     linux*)
         # this is linux
         export EDITOR=vim
