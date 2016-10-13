@@ -31,11 +31,11 @@ Plug 'tpope/vim-fugitive'
 
 
 " Javascript
-Plug 'othree/yajs.vim'
+Plug 'othree/yajs.vim', { 'for': 'js' }
 
 " python
-Plug 'davidhalter/jedi'
-Plug 'mitsuhiko/vim-python-combined'
+Plug 'davidhalter/jedi', { 'for': 'py' }
+Plug 'mitsuhiko/vim-python-combined', { 'for': 'py' }
 
 " php
 Plug 'StanAngeloff/php.vim', { 'for': 'php' }
@@ -46,10 +46,10 @@ Plug 'dsawardekar/wordpress.vim', { 'for': 'php'}
 
 " general web dev
 Plug 'othree/html5.vim'
-Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-markdown', { 'for': 'md' }
 Plug 'tyru/open-browser.vim'
 Plug 'lukaszb/vim-web-indent'
-Plug 'heavenshell/vim-jsdoc'
+Plug 'heavenshell/vim-jsdoc', { 'for': 'js' }
 Plug 'FooSoft/vim-argwrap'
 
 " snippets engine & library
@@ -147,6 +147,7 @@ set showmode
 set showcmd
 " show cursor position (like :set ruler) & git status in statusline
 set statusline=\ b%n\ %<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+colorscheme candycode
 
 
 " overwrite common misfires
@@ -186,7 +187,6 @@ if exists("syntax_on") || exists("syntax_manual")
 else
 	syntax on
 endif
-silent! colorscheme smyck
 
 "}}}---------------------------------------------------------
 " Custom Functions/Commands
@@ -327,12 +327,11 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_check_on_open = 1
 if has("autocmd")
-	autocmd FileType javascript.js let g:syntastic_javascript_checkers = ['gjslint','jshint']
+	autocmd FileType javascript.js let g:syntastic_javascript_checkers = ['gjslint', 'jshint']
 	autocmd FileType javascript.jsx let g:syntastic_javascript_checkers = ['eslint']
-else
-	let g:syntastic_javascript_checkers = ['gjslint','jshint']
 endif
-let g:syntastic_ruby = ['rubocop','mri']
+let g:syntastic_ruby = ['rubocop', 'mri']
+let g:syntastic_php_phpcs_args='--standard=WordPress'
 " use pretty syntastic symbols
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '⚠'
@@ -353,6 +352,8 @@ let g:ctrlp_custom_ignore = {
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 " use _my_ software license as the default for vim-templates
+let g:username = "jkirchartz"
+let g:mail = "me@jkirchartz.com"
 let g:license = "NPL (Necessary Public License)"
 let g:templates_directory = ["$HOME/.vim/templates"]
 

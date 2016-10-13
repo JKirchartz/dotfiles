@@ -26,6 +26,7 @@
   co = checkout
   cob = checkout -b
   unstage = reset HEAD --
+  undo = reset HEAD~1
   last = log --name-status HEAD^..HEAD
   df = diff
   ds = diff --staged
