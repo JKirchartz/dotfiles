@@ -10,7 +10,9 @@ case $OSTYPE in
         # this is a mac
         export TERM=xterm-256color
         export GEM_HOME=$HOME/gems
-        PATH=$PATH:$HOME/gems
+        PATH=$PATH:$HOME/gems/bin
+        export NVM_DIR="$HOME/.nvm"
+        . "$(brew --prefix nvm)/nvm.sh"
 
         # take a screenshot
         alias ss2='screencapture -xP '

@@ -30,7 +30,7 @@ rm -rf "$DIR/site/.git"
 rm -rf "$DIR/site/.github"
 
 echo "Clone Sage:"
-git clone https://github.com/roots/sage.git "$DIR/site/web/app/themes/$THEME"
+git clone --depth=1  https://github.com/roots/sage.git "$DIR/site/web/app/themes/$THEME"
 rm -rf "$DIR/site/web/app/themes/$THEME/.git"
 rm -rf "$DIR/site/web/app/themes/$THEME/.github"
 

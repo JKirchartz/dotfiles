@@ -362,6 +362,8 @@ let g:templates_directory = ["$HOME/.vim/templates"]
 " Autocmds
 "-------------------------------------------------------{{{
 if has("autocmd")
+	" Use correct indenting for python
+	autocmd FileType python setlocal shiftwidth=2 softtabstop=2 expandtab
 	" Jump to last position when reopening files
 	au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
 				\| exe "normal g'\"" | endif
