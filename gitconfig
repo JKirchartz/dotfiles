@@ -31,6 +31,7 @@
   df = diff
   ds = diff --staged
   ls = ls-files
+  caa = commit -a --amend --no-edit
 
 [http]
   postBuffer = 4M
