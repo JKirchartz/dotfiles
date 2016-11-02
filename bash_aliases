@@ -18,6 +18,12 @@ alias rm='rm -i '                         # confirm, just in case...
 alias please='sudo $(fc -ln -1)'          # redo last command as root
 alias R='. ~/.bash_profile'
 
+
+#vim-like aliases
+alias :e='vim'
+alias :q='exit'
+alias :wq='exit'
+
 # lil' bit of fun
 alias f='fortune -ae'
 alias dopewars='dopewars -tn'
