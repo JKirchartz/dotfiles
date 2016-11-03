@@ -19,7 +19,6 @@ Plug 'jkirchartz/writegooder.vim' " 3 scripts to improve writing - wanna modify 
 " Plugs
 Plug 'editorconfig/editorconfig-vim' " honor .editorconfig files
 Plug 'mbbill/undotree', { 'on' : 'UndotreeToggle' }
-Plug 'ajh17/VimCompletesMe'
 Plug 'ajh17/vim-fist'
 Plug 'Valloric/MatchTagAlways'
 " hail to the chief:
@@ -60,6 +59,7 @@ Plug 'aperezdc/vim-template'
 Plug 'ctrlpvim/ctrlp.vim'
 
 " syntax completion, checking, & highlighting
+Plug 'ajh17/VimCompletesMe'
 Plug 'scrooloose/syntastic'
 
 
@@ -81,7 +81,11 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 " user vim-commentary like nerdcommenter
 map <leader>cc gcc
 
-" Enable omni completion.
+" Enable omnicompletion.
+let b:vcm_tab_complete='omni'
+" allow <CR> to select entry
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" let g:vcm_direction = 'p' " cycle backwards
 " autocmd FileType php setlocal omnifunc=phpcomplete#CompleteTags
 " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 " autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -215,6 +219,12 @@ function ScratchBuffer()
 	exe ':setlocal noswapfile'
 endfunc
 command -bar Bs call ScratchBuffer()
+command -bar Scratch call ScratchBuffer()
+
+" Send the selected text to pastebin.
+" TODO - automate putting the resulting uri on the clipboard, or
+" at least opening it in a browser.
+vnoremap <leader>pb <esc>:'<,'>:w !curl -F 'clbin=<-' https://clbin.com<CR>
 
 " Make NetRW work more like NerdTree
 function! ToggleVExplorer()
