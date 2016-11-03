@@ -55,14 +55,14 @@ Plug 'FooSoft/vim-argwrap'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' | Plug 'chrisgillis/vim-bootstrap3-snippets'
 Plug 'aperezdc/vim-template'
 
-" fuzzy file/buffer/mru/tag finder
-Plug 'ctrlpvim/ctrlp.vim'
-
 " syntax completion, checking, & highlighting
 Plug 'ajh17/VimCompletesMe'
 Plug 'scrooloose/syntastic'
 
 
+" vim included plugins
+source $VIMRUNTIME/macros/matchit.vim
+source $VIMRUNTIME/ftplugin/man.vim
 
 " All of your Plugs must be added before the following line
 call plug#end()            " required
@@ -71,7 +71,14 @@ filetype plugin indent on    " required
 "}}}---------------------------------------------------------
 " Plugin Settings
 "------------------------------------------------------------ {{{
-"
+
+" tree-view
+let g:netrw_liststyle = 3
+" sort is affecting only: directories on the top, files below
+let g:netrw_sort_sequence = '[\/]$,*'" use the previous window to open file
+" open file in previous window
+let g:netrw_browse_split = 4
+
 " make EditorConfig play nice with vim-fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
@@ -83,15 +90,9 @@ map <leader>cc gcc
 
 " Enable omnicompletion.
 let b:vcm_tab_complete='omni'
+let g:vcm_s_tab_behavior = 1
 " allow <CR> to select entry
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" let g:vcm_direction = 'p' " cycle backwards
-" autocmd FileType php setlocal omnifunc=phpcomplete#CompleteTags
-" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-" autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-" autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-" autocmd FileType css,sass,less,scss setlocal omnifunc=csscomplete#CompleteCSS
-
 
 "}}}---------------------------------------------------------
 " Vim Settings
@@ -172,19 +173,10 @@ imap hj <esc>
 imap jh <esc>
 
 
-" vim included plugins
-source $VIMRUNTIME/macros/matchit.vim
-source $VIMRUNTIME/ftplugin/man.vim
 
 " keep man in vim, replicate built-in functionality
 nnoremap K :Man <C-R>=expand("<cword>")<cr><cr>
 
-" tree-view
-let g:netrw_liststyle = 3
-" sort is affecting only: directories on the top, files below
-let g:netrw_sort_sequence = '[\/]$,*'" use the previous window to open file
-" open file in previous window
-let g:netrw_browse_split = 4
 
 
 if exists("syntax_on") || exists("syntax_manual")
@@ -331,8 +323,8 @@ nmap <silent> <F7> :set spell!<cr>
 
 nmap <leader>ut :UndotreeToggle<CR>
 
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+" let g:UltiSnipsJumpForwardTrigger = "<tab>"
+" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_check_on_open = 1
