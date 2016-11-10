@@ -58,6 +58,11 @@ alias trellis="cd trellis/ && vagrant up && cd ../"
 alias untrellis="cd trellis/ && vagrant halt && cd ../"
 alias trellis-ssh="cd trellis/ && vagrant ssh"
 
+# capistrano
+alias cap2="cap _2.15.0_"
+alias cap3="cap _3.0.0_"
+alias cap32="cap _3.2.1_"
+
 # pretty-print git logs
 # via https://coderwall.com/p/euwpig
 alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit  "
