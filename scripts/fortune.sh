@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /usr/bin/env bash
 #
 # fortune.sh
 # use my custom fortune file combined with whatever fortunes are on the system
@@ -11,13 +11,11 @@
 #
 
 fortunedir=$(fortune -f 2>&1 | head -n1 | cut -d' ' -f2)
+FLIP=$((RANDOM % 2))
 
-
-case $OSTYPE in
-  darwin*)
-    fortune -ae
-    ;;
-  *)
-    fortune -ae $HOME/dotfiles/scripts/fortune $fortunedir
-    ;;
-esac;
+if [ $FLIP -eq 1 ]
+then
+fortune -ae "$HOME/dotfiles/scripts/fortune" | tr '\t' ' ' | tr -s '\s\n'
+else
+fortune -ae "$fortunedir"  | tr '\t' ' ' |  tr -s '\s\n'
+fi
