@@ -21,16 +21,16 @@ echo "Creating project directory:"
 mkdir -p "$DOMAIN"
 
 echo "Clone Trellis:"
-git clone --depth=1 git@github.com:roots/trellis.git "$DIR/trellis"
+git clone --single-branch --branch 0.9.8 --depth=1 git@github.com:roots/trellis.git "$DIR/trellis"
 rm -rf "$DIR/trellis/.git"
 
 echo "Cloning Bedrock:"
-git clone --depth=1 git@github.com:roots/bedrock.git "$DIR/site"
+git clone --single-branch --branch 1.7.2 --depth=1 git@github.com:roots/bedrock.git "$DIR/site"
 rm -rf "$DIR/site/.git"
 rm -rf "$DIR/site/.github"
 
 echo "Clone Sage:"
-git clone --depth=1  https://github.com/roots/sage.git "$DIR/site/web/app/themes/$THEME"
+git clone --single-branch --branch 8.4.2 --depth=1 https://github.com/roots/sage.git "$DIR/site/web/app/themes/$THEME"
 rm -rf "$DIR/site/web/app/themes/$THEME/.git"
 rm -rf "$DIR/site/web/app/themes/$THEME/.github"
 

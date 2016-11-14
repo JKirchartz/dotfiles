@@ -11,11 +11,5 @@
 #
 
 fortunedir=$(fortune -f 2>&1 | head -n1 | cut -d' ' -f2)
-FLIP=$((RANDOM % 2))
 
-if [ $FLIP -eq 1 ]
-then
-fortune -ae "$HOME/dotfiles/scripts/fortune" | tr '\t' ' ' | tr -s '\s\n'
-else
-fortune -ae "$fortunedir"  | tr '\t' ' ' |  tr -s '\s\n'
-fi
+fortune -ae "$fortunedir" "$HOME/dotfiles/scripts/fortune/" | tr '(\t|\r\n)' ' ' |  tr -s '[:blank:]'
