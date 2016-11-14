@@ -15,7 +15,7 @@ FLIP=$((RANDOM % 2))
 
 if [ $FLIP -eq 1 ]
 then
-fortune -ae "$HOME/dotfiles/scripts/fortune" | tr '\t' ' ' | tr -s '\s\n'
-else
-fortune -ae "$fortunedir"  | tr '\t' ' ' |  tr -s '\s\n'
+  fortunedir="$HOME/dotfiles/scripts/fortune/"
 fi
+
+fortune -ae "$fortunedir"  | tr '\t' ' ' |  tr -s '\s\n'
