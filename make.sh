@@ -66,6 +66,13 @@ case $OSTYPE in
     esac
 
 ##########
+# make fortunes
+###
+cd $dir/scripts/fortune
+make
+cd $dir
+
+##########
 # setup vim/vundle
 ###
 source ~/.bash_profile
