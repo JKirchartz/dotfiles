@@ -37,8 +37,9 @@ function tmut () {
 # cd & ls
 function cl() { cd "$@" && ls -oFhA; }
 
-# open altered files
+# open files specified by other utilities
 function gitvim () { vim $(git diff --name-only $@ ); }
+function ackvim () { vim $(ack -l $@ ); }
 
 # easy unzip
 function extract () {

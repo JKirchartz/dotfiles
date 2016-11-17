@@ -19,7 +19,6 @@ Plug 'jkirchartz/writegooder.vim' " 3 scripts to improve writing - wanna modify 
 " Plugs
 Plug 'editorconfig/editorconfig-vim' " honor .editorconfig files
 Plug 'mbbill/undotree', { 'on' : 'UndotreeToggle' }
-Plug 'ajh17/VimCompletesMe'
 Plug 'ajh17/vim-fist'
 Plug 'Valloric/MatchTagAlways'
 " hail to the chief:
@@ -56,13 +55,14 @@ Plug 'FooSoft/vim-argwrap'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' | Plug 'chrisgillis/vim-bootstrap3-snippets'
 Plug 'aperezdc/vim-template'
 
-" fuzzy file/buffer/mru/tag finder
-Plug 'ctrlpvim/ctrlp.vim'
-
 " syntax completion, checking, & highlighting
+Plug 'ajh17/VimCompletesMe'
 Plug 'scrooloose/syntastic'
 
 
+" vim included plugins
+source $VIMRUNTIME/macros/matchit.vim
+source $VIMRUNTIME/ftplugin/man.vim
 
 " All of your Plugs must be added before the following line
 call plug#end()            " required
@@ -71,7 +71,14 @@ filetype plugin indent on    " required
 "}}}---------------------------------------------------------
 " Plugin Settings
 "------------------------------------------------------------ {{{
-"
+
+" tree-view
+let g:netrw_liststyle = 3
+" sort is affecting only: directories on the top, files below
+let g:netrw_sort_sequence = '[\/]$,*'" use the previous window to open file
+" open file in previous window
+let g:netrw_browse_split = 4
+
 " make EditorConfig play nice with vim-fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
@@ -81,13 +88,11 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 " user vim-commentary like nerdcommenter
 map <leader>cc gcc
 
-" Enable omni completion.
-" autocmd FileType php setlocal omnifunc=phpcomplete#CompleteTags
-" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-" autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-" autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-" autocmd FileType css,sass,less,scss setlocal omnifunc=csscomplete#CompleteCSS
-
+" Enable omnicompletion.
+let b:vcm_tab_complete='omni'
+let g:vcm_s_tab_behavior = 1
+" allow <CR> to select entry
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 "}}}---------------------------------------------------------
 " Vim Settings
@@ -168,19 +173,10 @@ imap hj <esc>
 imap jh <esc>
 
 
-" vim included plugins
-source $VIMRUNTIME/macros/matchit.vim
-source $VIMRUNTIME/ftplugin/man.vim
 
 " keep man in vim, replicate built-in functionality
 nnoremap K :Man <C-R>=expand("<cword>")<cr><cr>
 
-" tree-view
-let g:netrw_liststyle = 3
-" sort is affecting only: directories on the top, files below
-let g:netrw_sort_sequence = '[\/]$,*'" use the previous window to open file
-" open file in previous window
-let g:netrw_browse_split = 4
 
 
 if exists("syntax_on") || exists("syntax_manual")
@@ -215,6 +211,12 @@ function ScratchBuffer()
 	exe ':setlocal noswapfile'
 endfunc
 command -bar Bs call ScratchBuffer()
+command -bar Scratch call ScratchBuffer()
+
+" Send the selected text to pastebin.
+" TODO - automate putting the resulting uri on the clipboard, or
+" at least opening it in a browser.
+vnoremap <leader>pb <esc>:'<,'>:w !curl -F 'clbin=<-' https://clbin.com<CR>
 
 " Make NetRW work more like NerdTree
 function! ToggleVExplorer()
@@ -321,8 +323,8 @@ nmap <silent> <F7> :set spell!<cr>
 
 nmap <leader>ut :UndotreeToggle<CR>
 
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+" let g:UltiSnipsJumpForwardTrigger = "<tab>"
+" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_check_on_open = 1
@@ -362,6 +364,8 @@ let g:templates_directory = ["$HOME/.vim/templates"]
 " Autocmds
 "-------------------------------------------------------{{{
 if has("autocmd")
+	" Use correct indenting for python
+	autocmd FileType python setlocal shiftwidth=2 softtabstop=2 expandtab
 	" Jump to last position when reopening files
 	au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
 				\| exe "normal g'\"" | endif
