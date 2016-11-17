@@ -10,7 +10,8 @@
 /ssh/known_hosts
 /ssh/authorized_keys
 .DS_Store
-*~
 *.swp
+*.dat
 *id_rsa*
 known_host*
+*~
