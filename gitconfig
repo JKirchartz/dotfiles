@@ -32,6 +32,7 @@
   ds = diff --staged
   ls = ls-files
   caa = commit -a --amend --no-edit
+	up = pull --rebase --autostash
 
 [http]
   postBuffer = 4M

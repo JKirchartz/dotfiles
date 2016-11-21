@@ -4,13 +4,13 @@
 #
 
 
-WIDTH=($(tput cols) - 20)
+# WIDTH=($(tput cols) - 50) # I never quite got this to look good (-W flag on cowsay)
 if type shuf >/dev/null 2>&1; then
   cowfile="$(cowsay -l | sed "1 d" | tr ' ' '\n' | shuf -n 1)"
 else
   cowfiles=( $(cowsay -l | sed "1 d") );
   cowfile=${cowfiles[$(($RANDOM % ${#cowfiles[*]}))]}
 fi
-cowsay -f "$cowfile" -W $WIDTH "$@"
+cowsay -f "$cowfile" "$@"
 
 # fortune -as | cowsay -f "$(cowsay -l | sed "1 d" | tr ' ' '\n' | shuf -n 1)"

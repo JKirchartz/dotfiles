@@ -47,9 +47,8 @@ Plug 'dsawardekar/wordpress.vim', { 'for': 'php'}
 Plug 'othree/html5.vim'
 Plug 'tpope/vim-markdown', { 'for': 'md' }
 Plug 'tyru/open-browser.vim'
-Plug 'lukaszb/vim-web-indent'
 Plug 'heavenshell/vim-jsdoc', { 'for': 'js' }
-Plug 'FooSoft/vim-argwrap'
+" Plug 'FooSoft/vim-argwrap'
 
 " snippets engine & library
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' | Plug 'chrisgillis/vim-bootstrap3-snippets'
