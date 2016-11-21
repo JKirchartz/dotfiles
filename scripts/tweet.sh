@@ -12,4 +12,4 @@
 
 fortunedir=$(fortune -f 2>&1 | head -n1 | cut -d' ' -f2)
 
-fortune -ae "$fortunedir" "$HOME/dotfiles/scripts/fortune/" | tr '(\t|\r\n)' ' ' |  tr -s '[:blank:]'
+fortune -ae -n 139 "$fortunedir" "$HOME/dotfiles/scripts/fortune/" | tr '(\t|\r\n)' ' ' |  tr -s '[:blank:]'
