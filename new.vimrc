@@ -27,6 +27,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-markdown', { 'for': 'md' }
 
 
 " Javascript
@@ -45,9 +46,9 @@ Plug 'dsawardekar/wordpress.vim', { 'for': 'php'}
 
 " general web dev
 Plug 'othree/html5.vim'
-Plug 'tpope/vim-markdown', { 'for': 'md' }
+Plug 'tpope/vim-markdown'
 Plug 'tyru/open-browser.vim'
-Plug 'heavenshell/vim-jsdoc', { 'for': 'js' }
+" Plug 'heavenshell/vim-jsdoc', { 'for': 'js' }
 " Plug 'FooSoft/vim-argwrap'
 
 " snippets engine & library
@@ -87,13 +88,23 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 " user vim-commentary like nerdcommenter
 map <leader>cc gcc
 
-" Enable omnicompletion.
-let b:vcm_tab_complete='omni'
-let g:vcm_s_tab_behavior = 1
-" allow <CR> to select entry
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" fix ultisnips/vimcompletesme & allow <CR> to select entry
+let g:UltiSnipsEditSplit="context"
+let g:UltiSnipsExpandTrigger = "<nop>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardsTrigger = "<s-tab>"
+let g:ulti_expand_or_jump_res = 0
+function ExpandSnippetOrCarriageReturn()
+    let snippet = UltiSnips#ExpandSnippetOrJump()
+    if g:ulti_expand_or_jump_res > 0
+        return snippet
+    else
+        return pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+    endif
+endfunction
+inoremap <expr> <CR> pumvisible() ? "<C-R>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
 
-"}}}---------------------------------------------------------
+"}}}---------------------------------------------------------zo
 " Vim Settings
 "---------------------------------------------------------{{{
 "
@@ -118,12 +129,14 @@ set mouse=a " enable mouse. how quaint.
 
 " better menu like for autocomplete
 set wildmenu
-set completeopt=menu,longest
+set complete+=kspell
+set completeopt+=menu,longest
+set dictionary+=/usr/share/dict/words
 
 " Tabs & Indents
 set shiftround
-" tabs appear to be 2 spaces
-set tabstop=2
+" tabs are be 2 spaces
+set tabstop=2 expandtab
 " tabs are 2 spaces... or else.
 " set shiftwidth=2 softtabstop=2 expandtab
 
@@ -232,22 +245,21 @@ function! ToggleVExplorer()
       endif
   else
       exec '1wincmd w'
-      Vexplore
+      if exists(':Lexplore')
+        Lexplore
+      else
+        Vexplore
+      endif
       let t:expl_buf_num = bufnr("%")
   endif
 endfunction
 map <leader>t :call ToggleVExplorer()<CR>
-
-" Hit enter in the file browser to open the selected
-" file with :vsplit to the right of the browser.
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
-
-" Default to tree mode
+let g:netrw_winsize=25
 let g:netrw_liststyle=3
-
 " Change directory to the current buffer when opening files.
-set autochdir
+" set autochdir
 
 "}}}---------------------------------------------------------
 " Leader
@@ -291,7 +303,7 @@ map <leader>s :setlocal spell spelllang=en_us<cr>
 map <leader>r :e %<cr>
 
 " use argwrap
-nnoremap <silent> <leader>a :ArgWrap<CR>
+" nnoremap <silent> <leader>a :ArgWrap<CR>
 
 " stop cycling when you can fly
 nmap <leader>b :ls<CR>:b<space>
@@ -321,9 +333,6 @@ nmap <silent> <F7> :set spell!<cr>
 "---------------------------------------------------------{{{
 
 nmap <leader>ut :UndotreeToggle<CR>
-
-" let g:UltiSnipsJumpForwardTrigger = "<tab>"
-" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_check_on_open = 1

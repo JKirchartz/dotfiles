@@ -64,6 +64,12 @@ sed -i'' -e "/^# ---/,1000 s/#\s?//g" "./trellis/deploy-hooks/build-before.yml"
 sed -i'' -e "s/sage/$THEME/g" "./trellis/deploy-hooks/build-before.yml"
 
 
+# generate passwords
+function genpass { tr -dc "[:graph:]" </dev/urandom | head -c 20; }
+function gensimplepass { tr -dc "a-zA-Z0-9" </dev/urandom | head -c 20; }
+sed -i'' -e "s/generateme/$(genpass)/g" "$file"
+genpass > ./trellis/.vault_pass
+
 tee "./site/web/app/themes/$THEME/style.css" << EOF
 /*
 Theme Name:    $THEME
