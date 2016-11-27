@@ -94,15 +94,7 @@ let g:UltiSnipsExpandTrigger = "<nop>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardsTrigger = "<s-tab>"
 let g:ulti_expand_or_jump_res = 0
-function ExpandSnippetOrCarriageReturn()
-    let snippet = UltiSnips#ExpandSnippetOrJump()
-    if g:ulti_expand_or_jump_res > 0
-        return snippet
-    else
-        return pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-    endif
-endfunction
-inoremap <expr> <CR> pumvisible() ? "<C-R>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
+inoremap <expr> <CR> pumvisible() ? "<C-R>=fun#ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
 
 "}}}---------------------------------------------------------zo
 " Vim Settings
@@ -197,7 +189,7 @@ else
 endif
 
 "}}}---------------------------------------------------------
-" Custom Functions/Commands
+" Custom Commands
 "---------------------------------------------------------{{{
 
 " forgot to sudo vi? w!!
@@ -205,25 +197,9 @@ cmap w!! %!sudo tee > /dev/null %
 
 command! -bar Hitest :so $VIMRUNTIME/syntax/hitest.vim
 
-function! NumberToggle()
-	if &relativenumber == 1 && &number == 1
-		set norelativenumber
-		set nonumber
-	elseif &relativenumber == 0 && &number == 1
-		set relativenumber
-	else
-		set number
-	endif
-endfunc
-
-function ScratchBuffer()
-	exe ':new'
-	exe ':setlocal buftype=nofile'
-	exe ':setlocal bufhidden=hide'
-	exe ':setlocal noswapfile'
-endfunc
-command -bar Bs call ScratchBuffer()
-command -bar Scratch call ScratchBuffer()
+" Calls to fun#... have functions in ~/.vim/autoload/fun.vim
+command -bar Bs call fun#ScratchBuffer()
+command -bar Scratch call fun#ScratchBuffer()
 
 " Send the selected text to pastebin.
 " TODO - automate putting the resulting uri on the clipboard, or
@@ -231,29 +207,7 @@ command -bar Scratch call ScratchBuffer()
 vnoremap <leader>pb <esc>:'<,'>:w !curl -F 'clbin=<-' https://clbin.com<CR>
 
 " Make NetRW work more like NerdTree
-function! ToggleVExplorer()
-  if exists("t:expl_buf_num")
-      let expl_win_num = bufwinnr(t:expl_buf_num)
-      if expl_win_num != -1
-          let cur_win_nr = winnr()
-          exec expl_win_num . 'wincmd w'
-          close
-          exec cur_win_nr . 'wincmd w'
-          unlet t:expl_buf_num
-      else
-          unlet t:expl_buf_num
-      endif
-  else
-      exec '1wincmd w'
-      if exists(':Lexplore')
-        Lexplore
-      else
-        Vexplore
-      endif
-      let t:expl_buf_num = bufnr("%")
-  endif
-endfunction
-map <leader>t :call ToggleVExplorer()<CR>
+map <leader>t :call fun#ToggleVExplorer()<CR>
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize=25
@@ -282,7 +236,7 @@ nmap <leader>l :set list!<CR>
 nmap <leader>h :Hexmode<CR>
 
 "toggle number relativity
-nmap <leader>n :call NumberToggle()<CR>
+nmap <leader>n :call fun#NumberToggle()<CR>
 
 nmap <leader>pr :set list! nonumber norelativenumber<CR>
 
@@ -350,22 +304,12 @@ let g:syntastic_warning_symbol = '⚠'
 let g:fist_anonymously = 0
 let g:fist_in_private = 1
 
-" search files & buffers
-let g:ctrlp_cmd = 'CtrlPMixed'
-" make ctrlp faster
-let g:ctrlp_custom_ignore = {
-			\ 'dir':  '\.git$\|\.hg$\|\.svn\|\.git5_specs$\|review$',
-			\ 'file': '\.exe$\|\.so$\|\.dll$',
-			\ 'link': 'READONLY$',
-			\ }
-" Ignore files in .gitignore
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 " use _my_ software license as the default for vim-templates
 let g:username = "jkirchartz"
-let g:mail = "me@jkirchartz.com"
+let g:email = "me@jkirchartz.com"
 let g:license = "NPL (Necessary Public License)"
-let g:templates_directory = ["$HOME/.vim/templates"]
+" let g:templates_directory = ["$HOME/.vim/templates"]
 
 
 "}}}-----------------------------------------------------
