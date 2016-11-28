@@ -158,7 +158,6 @@ set showcmd
 set statusline=\ b%n\ %<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 colorscheme candycode
 
-
 " overwrite common misfires
 command E e
 command W w
@@ -173,15 +172,9 @@ inoremap <silent> <Up> <ESC>k
 inoremap <silent> <Down> <ESC>j
 inoremap <silent> <Left> <ESC>h
 inoremap <silent> <Right> <ESC>l
-imap hj <esc>
-imap jh <esc>
-
-
 
 " keep man in vim, replicate built-in functionality
 nnoremap K :Man <C-R>=expand("<cword>")<cr><cr>
-
-
 
 if exists("syntax_on") || exists("syntax_manual")
 else
@@ -246,25 +239,16 @@ nmap <leader><cr> :nohlsearch<CR>
 " paste while keeping the current indent
 nnoremap <leader>p p`[v`]=
 
-
 " write quickly (autocmd deletes trailing spaces (not tabs))
 nmap <leader><leader> :w<CR>
-" imap <leader><leader> <esc>:w<CR>
 
 " spell checking
 map <leader>s :setlocal spell spelllang=en_us<cr>
 
 map <leader>r :e %<cr>
 
-" use argwrap
-" nnoremap <silent> <leader>a :ArgWrap<CR>
-
 " stop cycling when you can fly
 nmap <leader>b :ls<CR>:b<space>
-
-" fix this later: it should convert a line whose sole content is a URL to a link
-nmap <leader>ll %s@^\%(ht\|f\)tps\?://\(\S\+\)@<a href="&">\1</a>@g
-" :%s@\v^((ht<bar>f)tps?://)(\S+)@\<a href=\"\1\2\"\>\2\</a\>@g<cr>
 
 
 "}}}---------------------------------------------------------
@@ -304,8 +288,7 @@ let g:syntastic_warning_symbol = '⚠'
 let g:fist_anonymously = 0
 let g:fist_in_private = 1
 
-
-" use _my_ software license as the default for vim-templates
+" use _my_ info the default for vim-templates
 let g:username = "jkirchartz"
 let g:email = "me@jkirchartz.com"
 let g:license = "NPL (Necessary Public License)"
