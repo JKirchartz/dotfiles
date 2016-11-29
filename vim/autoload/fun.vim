@@ -3,7 +3,7 @@
 "
 " Toggle between number settings
 "-------------------------------------------------------{{{
-function! NumberToggle()
+function! fun#NumberToggle()
 	if &relativenumber == 1 && &number == 1
 		set norelativenumber
 		set nonumber
@@ -17,7 +17,7 @@ endfunc
 "}}}-----------------------------------------------------
 " Create an empty buffer for temporary data, etc
 "-------------------------------------------------------{{{
-function! ScratchBuffer()
+function! fun#ScratchBuffer()
 	exe ':new'
 	exe ':setlocal buftype=nofile'
 	exe ':setlocal bufhidden=hide'
@@ -27,7 +27,7 @@ endfunc
 "}}}-----------------------------------------------------
 " Toggle NetRW window
 "-------------------------------------------------------{{{
-function! ToggleVExplorer()
+function! fun#ToggleVExplorer()
   if exists("t:expl_buf_num")
       let expl_win_num = bufwinnr(t:expl_buf_num)
       if expl_win_num != -1
@@ -54,7 +54,7 @@ endfunction
 "}}}-----------------------------------------------------
 " Make UltiSnips & VimCompletesMe play nice
 "-------------------------------------------------------{{{
-function! ExpandSnippetOrCarriageReturn()
+function! fun#ExpandSnippetOrCarriageReturn()
     let snippet = UltiSnips#ExpandSnippetOrJump()
     if g:ulti_expand_or_jump_res > 0
         return snippet

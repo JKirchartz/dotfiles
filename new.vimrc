@@ -61,8 +61,8 @@ Plug 'scrooloose/syntastic'
 
 
 " vim included plugins
-source $VIMRUNTIME/macros/matchit.vim
-source $VIMRUNTIME/ftplugin/man.vim
+runtime macros/matchit.vim
+runtime ftplugin/man.vim
 
 " All of your Plugs must be added before the following line
 call plug#end()            " required
@@ -81,9 +81,6 @@ let g:netrw_browse_split = 4
 
 " make EditorConfig play nice with vim-fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
-
-" replace NerdTree w/ netrw+vinegar (replaced with ToggleVExplorer, below)
-" map <leader>t :Lex<CR>
 
 " user vim-commentary like nerdcommenter
 map <leader>cc gcc
