@@ -75,15 +75,12 @@ filetype plugin indent on    " required
 " tree-view
 let g:netrw_liststyle = 3
 " sort is affecting only: directories on the top, files below
-let g:netrw_sort_sequence = '[\/]$,*'" use the previous window to open file
+let g:netrw_sort_sequence = '[\/]$,*' " use the previous window to open file
 " open file in previous window
 let g:netrw_browse_split = 4
 
 " make EditorConfig play nice with vim-fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
-
-" user vim-commentary like nerdcommenter
-map <leader>cc gcc
 
 " fix ultisnips/vimcompletesme & allow <CR> to select entry
 let g:UltiSnipsEditSplit="context"
