@@ -41,7 +41,7 @@ echo "...done"
 # change to the dotfiles directory
 ###
 echo "Changing to the $dir directory"
-cd $dir
+cd $dir || exit
 echo "...done"
 
 case $OSTYPE in
@@ -66,23 +66,20 @@ case $OSTYPE in
     esac
 
 ##########
-# make fortunes
+# checkout submodules
 ###
-cd $dir/scripts/fortune
-make
-cd $dir
+git submodule init
+git submodule update
 
 ##########
-# setup vim/vundle
+# make fortunes
 ###
-source ~/.bash_profile
-# echo "Setting up Vundle for vim"
-# git clone https://github.com/gmarik/Vundle.vim.git ./vim/bundle/Vundle.vim
-# echo "Setting up YouCompleteMe"
-# git clone https://github.com/Valloric/YouCompleteMe ./vim/bundle/YouCompleteMe
-# (cd ./vim/bundle/YouCompleteMe; git submodule update --init)
-# echo "Attempting to run YouCompleteMe install script (no clang support, also assumes you have buildtools, cmake, and python-dev installed)"
-# ./vim/bundle/install.sh # install YouCompleteMe without clang support
+fortunes=$(cd "$dir/scripts/fortune" && make)
+echo "$fortunes"
+
+##########
+# setup vim/vim-plug
+###
 echo "Attempting to install vim-plug"
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 echo "Attempting to setup gist/vim-fist"
@@ -94,7 +91,7 @@ vim +PlugInstall +qall
 # setup neovim/vim-plug
 ###
 
-if [type nvim >/dev/null 2>&1]; then
+if type nvim >/dev/null 2>&1; then
   mkdir -p "${XDG_CONFIG_HOME:=$HOME/.config}"
   ln -s "$dir/nvim" "$XDG_CONFIG_HOME/nvim"
 
