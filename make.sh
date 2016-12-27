@@ -65,6 +65,10 @@ case $OSTYPE in
         ;;
     esac
 
+if [[ $files == *"ssh"* ]]; then
+        cp "$HOME/dotfiles_old/.ssh/*" "$HOME/.ssh/"
+fi
+
 ##########
 # checkout submodules
 ###
