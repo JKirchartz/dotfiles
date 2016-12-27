@@ -34,6 +34,7 @@
   up = pull --rebase --autostash
   last = log --name-status HEAD^..HEAD
   lo = log --graph --format=oneline --abbrev-commit
+  lob = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(refname:short) - %(objectname:short) - %(contents:subject) - %(authorname) (%(committerdate:relative))'
 
 [http]
   postBuffer = 4M
