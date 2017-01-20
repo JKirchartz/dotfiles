@@ -16,10 +16,10 @@ but when I'm using OSX I also like to use
 * [iTerm2](http://iterm2.com/)
 
 
-Here's how my terminal look<s>s</s>ed on OSX (vim/tmux/bash) (circa 2013):
+Here's how my terminal looks after running 'work'
 
-![cli screenshot](https://raw.github.com/JKirchartz/dotfiles/master/screenshot.jpg)
+![cli screenshot](https://raw.github.com/JKirchartz/dotfiles/master/screenshot.png)
 
-DISCLAIMER: My vimrc is setup the way I like it, for now, and will likely change whenever I feel like it. Use it at the risk of **Pandajail** where pandas are sent when you use someone else's `vimrc`. Don't be the vimmer responsible for this:
+DISCLAIMER: My [vimrc](vimrc) (and everything else) is setup the way I like it, for now, and will likely change whenever I feel like it. Use it at the risk of **Pandajail** where pandas are sent when you use someone else's `vimrc`. Don't be the vimmer responsible for this:
 
 ![pandajail](https://i.chzbgr.com/maxW500/7518742016/h59D3B471/)

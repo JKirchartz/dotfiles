@@ -11,8 +11,10 @@ case $OSTYPE in
         export TERM=xterm-256color
         export GEM_HOME=$HOME/gems
         PATH=$PATH:$HOME/gems/bin
-        export NVM_DIR="$HOME/.nvm"
-        . "$(brew --prefix nvm)/nvm.sh"
+        if hash nvm 2>/dev/null; then
+                export NVM_DIR="$HOME/.nvm"
+                . "/usr/local/opt/nvm/nvm.sh"
+        fi
 
         # take a screenshot
         alias ss2='screencapture -xP '
@@ -21,7 +23,7 @@ case $OSTYPE in
         export VISUAL="$EDITOR"
         alias vi='mvim -v'
         alias vim='mvim -v'
-        alias vlc='/Applications/VLC.app/Contents/MacOS/VLC -I rc -q'
+        # alias vlc='/Applications/VLC.app/Contents/MacOS/VLC -I rc -q'
         function fix-ssh {
             eval $(ssh-agent);
             ssh-add -K;
@@ -40,6 +42,11 @@ case $OSTYPE in
                 ### Added by the Heroku Toolbelt
                 PATH="$PATH:/usr/local/heroku/bin"
                 export GEM_HOME=~/gems:$GEM_HOME
+                ;;
+            archbox)
+                alias vi=vim
+                export NVM_DIR="$HOME/.nvm"
+                [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
                 ;;
             arp)
                 # add appengine, npm, and gems bins to path

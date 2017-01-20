@@ -17,6 +17,7 @@ alias ping='ping -c 10 '                  # set a default, coz I always forget
 alias rm='rm -i '                         # confirm, just in case...
 alias please='sudo $(fc -ln -1)'          # redo last command as root
 alias R='. ~/.bash_profile'
+alias M='motd.sh'
 
 
 #vim-like aliases
@@ -36,10 +37,6 @@ alias up='cd ..'
 alias dotfiles='cd ~/dotfiles'
 alias paths='echo $PATH | tr ":" "\n" | sort -u'
 
-# grep helpers
-alias notes='hgrep \#'
-alias csgrep=' grep -Ir --exclude-dir="\.svn" --exclude="*\.css" '
-alias sgrep=' grep -Ir --exclude-dir="\.svn" '
 
 # ip/port helper
 alias ports="sudo lsof -i -P | grep -i \"listen\"" # list listening ports:
@@ -53,13 +50,17 @@ alias moon="curl wttr.in/Moon"
 # speed up gulp dev
 alias ggw="gulp && gulp watch"
 
+# speed up grunt dev
+alias gs="grunt server"
+alias ggd="grunt && grunt deploy"
+
 # https://roots.io/trellis/ dev servers
 alias trellis="cd trellis/ && vagrant up && cd ../"
 alias untrellis="cd trellis/ && vagrant halt && cd ../"
 alias trellis-ssh="cd trellis/ && vagrant ssh"
 
 # capistrano
-alias cap2="cap _2.15.0_"
+alias cap2="cap _2.15.4_"
 alias cap3="cap _3.0.0_"
 alias cap32="cap _3.2.1_"
 
@@ -87,6 +88,8 @@ case $OSTYPE in
     ;;
 esac
 
+alias notes='history | grep \#'
+
 # pastebin-like services, pipe to these
 alias tb="nc termbin.com 9999"
 alias sp="curl -F 'sprunge=<-' http://sprunge.us"
@@ -94,3 +97,22 @@ alias cl="clbin=<-' https://clbin.com"
 alias vp="curl -F 'text=<-' http://vpaste.net"
 alias ix="curl -F 'f:1=<-' ix.io"
 
+
+# the following is weirdness GuyNoIR AKA Bob_Dobbs
+# Put these in .bash_aliases
+# Speech > Text > Chinese > Russian > English > Speech
+
+# Issues
+# Need to pkill pocketsphinx when done because we unbuffer it and shove it into the background
+
+# Ubuntu 17.10
+# deps in default repos
+# expect pocketsphinx pocketsphinx-en-us
+
+# deps not in default repos
+# https://github.com/andreineculau/google-translate-cli
+
+
+alias SpeakToTheSphinx="touch SphinxPipe; unbuffer pocketsphinx_continuous -inmic yes -logfn /dev/null >> SphinxPipe & tail -f SphinxPipe | grep --line-buffered -vwE 'READY....|Listening...' | stdbuf -oL trans -b {en=zh-CN} | stdbuf -oL trans -b {zh-CN=ru} | stdbuf -oL trans -b -p {ru=en}"
+
+alias KillTheSphinx="sudo pkill -9 pocketsphinx; reset; echo ''; rm SphinxPipe; echo ''; ps aux | grep pocketsphinx; echo ''"

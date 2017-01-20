@@ -1,0 +1,13 @@
+extends js
+
+snippet Jimp "Jimp.prototype.function"
+Jimp.prototype.${1:Function Name} = function $1() {
+        var width = this.bitmap.width,
+                height = this.bitmap.height,
+                data = this.bitmap.data;
+        ${2:Function Body}
+        this.bitmap.data = new Buffer(data);
+        if (isNodePattern(cb)) return cb.call(this, null, this);
+        else return this;
+};
+endsnippet

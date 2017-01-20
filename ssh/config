@@ -1,5 +1,15 @@
-
 Host blinken
   HostName ssh.blinkenshell.org
   Port 2222
+	User derkirche
 
+Host fu
+	HostName fuckup.solutions
+	User derkirche
+
+Host sdf
+	HostName sdf.org
+	User kirch
+
+Host sftp.barkleyhosting.com
+	PubkeyAcceptedKeyTypes +ssh-dss

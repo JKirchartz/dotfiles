@@ -1,5 +1,6 @@
 #!/bin/bash
 # dumb script that makes it look like you're typing whatever you typed into it
+clear
 while IFS= read -r -n1 char
 do
   # display one character at a time

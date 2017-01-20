@@ -1,7 +1,7 @@
 #! /bin/bash
 #
 # rootsinit.sh
-# Grab specific version of Roots stack
+# install the latest and greatest roots stack
 #
 # 2016 Joel Kirchartz <joel@firemancreative.com>
 #
@@ -22,27 +22,29 @@ echo "Creating project directory:"
 mkdir -p "$DOMAIN"
 
 echo "Clone Trellis:"
-git clone --single-branch --branch 0.9.8 --depth=1 https://github.com/roots/trellis.git "$DIR/trellis"
+git clone --single-branch --depth=1 https://github.com/roots/trellis.git "$DIR/trellis"
 rm -rf "$DIR/trellis/.git"
 
 echo "Cloning Bedrock:"
-git clone --single-branch --branch 1.7.2 --depth=1 https://github.com/roots/bedrock.git "$DIR/site"
+git clone --single-branch --depth=1 https://github.com/roots/bedrock.git "$DIR/site"
 rm -rf "$DIR/site/.git"
 rm -rf "$DIR/site/.github"
-
-echo "Clone Sage:"
-git clone --depth=1 https://github.com/roots/sage.git "$DIR/site/web/app/themes/$THEME"
-rm -rf "$DIR/site/web/app/themes/$THEME/.git"
-rm -rf "$DIR/site/web/app/themes/$THEME/.github"
 
 echo "Installing the Ansible Galaxy roles:"
 cd "$DIR/trellis"
 ansible-galaxy install -r requirements.yml
 
+echo "Composer install Sage:"
+cd "$DIR/site/web/app/themes/"
+# install latest stable theme release, provide a version number to peg installation to that specific version
+composer create-project roots/sage "$THEME"
+# git clone --single-branch --depth=1 https://github.com/roots/sage.git "$DIR/site/web/app/themes/$THEME"
+# rm -rf "$DIR/site/web/app/themes/$THEME/.git"
+# rm -rf "$DIR/site/web/app/themes/$THEME/.github"
+
 echo "Installing JS packages:"
 cd "$DIR/site/web/app/themes/$THEME"
-npm install
-bower install
+yarn
 
 cd "$DIR"
 
@@ -53,6 +55,8 @@ echo "Editing Configs..."
 files[1]="./site/web/app/themes/$THEME/assets/manifest.json"
 files[2]="./trellis/group_vars/development/mail.yml"
 files[3]="./trellis/group_vars/development/wordpress_sites.yml"
+files[4]="./trellis/group_vars/staging/wordpress_sites.yml"
+files[5]="./trellis/group_vars/production/wordpress_sites.yml"
 
 # `git grep "example.com" | cut -d':' -f'1'`
 for file in "${files[@]}"
@@ -68,7 +72,13 @@ sed -i'' -e "s/sage/$THEME/g" "./trellis/deploy-hooks/build-before.yml"
 # generate passwords
 function genpass { tr -dc "[:graph:]" </dev/urandom | head -c 20; }
 function gensimplepass { tr -dc "a-zA-Z0-9" </dev/urandom | head -c 20; }
-sed -i'' -e "s/generateme/$(genpass)/g" "$file"
+vaults[1]="./trellis/group_vars/development/vault.yml"
+vaults[2]="./trellis/group_vars/staging/vault.yml"
+vaults[3]="./trellis/group_vars/production/vault.yml"
+for file in "${vaults[@]}"
+do
+  sed -i'' -e "s/generateme/$(genpass)/g" "$file"
+done
 genpass > ./trellis/.vault_pass
 
 tee "./site/web/app/themes/$THEME/style.css" << EOF

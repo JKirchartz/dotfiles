@@ -1,3 +1,7 @@
+# avoid shellcheck errors for sourced files:
+# shellcheck source=/dev/null
+
+
 # set readline to be vi-like
 set -o vi
 
@@ -6,17 +10,18 @@ set -o vi
 # fzf, git, npm, bashisms
 #
 
-source $HOME/dotfiles/bash_aliases
-source $HOME/dotfiles/bash_functions
+source ~/dotfiles/bash_aliases
+source ~/dotfiles/bash_functions
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
   . /etc/bash_completion
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+if command -v grunt >/dev/null 2>&1; then eval "$(grunt --completion=bash)"; fi
 
-source $HOME/dotfiles/scripts/gitstatus.sh
-source $HOME/dotfiles/scripts/git-completion.bash
-source $HOME/dotfiles/scripts/npm-completion.bash
+source ~/dotfiles/scripts/gitstatus.sh
+source ~/dotfiles/scripts/git-completion.bash
+source ~/dotfiles/scripts/npm-completion.bash
 
 #
 # setup prompt
@@ -58,27 +63,31 @@ export HISTSIZE=50000                     # big history
 export HISTFILESIZE=50000                 # big history
 export HISTIGNORE="&:ls:ll:pwd:exit:clear:[ \t]*"
 shopt -s histappend                       # append to history, not overwrite it
-shopt -s autocd                           # cd automatically when entering a path
 shopt -s cdspell                          # spellcheck for cd
 shopt -s nocaseglob                       # ignore case for autoexpansion
-#shopt -s dirspell                        # spellcheck for directories(?)
 shopt -s expand_aliases
+if [ "${BASH_VERSINFO}" -ge 4 ]; then
+        # these are new features in bash 4
+        shopt -s autocd                   # cd automatically when entering a path
+        shopt -s dirspell                 # spellcheck for directories(?)
+fi
 
 # search-path for CD command
-export CDPATH=".:..:~:~/projects:~/Dropbox/projects"
+# export CDPATH=".:..:~:~/projects:~/Dropbox/projects"
 
 # put this last, so current dir & my scripts always get preference
 # this is insecure because various bins are overwritten by the current/script
 # directory versions, for security move $PATH to the beginning of the assignment
-export PATH=".:$HOME/dotfiles/scripts:$PATH"
+export PATH="$HOME/dotfiles/scripts:$PATH"
 
 export NETHACKOPTIONS=color,hilite_pet,boulder:8
 
-if [ -f $HOME/env.keys ]; then
-  . $HOME/env.keys
+if [ -f ~/env.keys ]; then
+  source ~/env.keys
 fi
 
-if [ $OSTYPE == "linux-gnu" ] && [ -d "/mnt/c/windows" ]; then
+if [ "$OSTYPE" == "linux-gnu" ] && [ -d "/mnt/c/windows" ]; then
   # ubuntu on windows, load bash_profile
-  source $HOME/.bash_profile
+  source ~/.bash_profile
 fi
+
