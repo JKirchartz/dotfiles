@@ -12,7 +12,7 @@ case $OSTYPE in
         export GEM_HOME=$HOME/gems
         PATH=$PATH:$HOME/gems/bin
         export NVM_DIR="$HOME/.nvm"
-        . "$(brew --prefix nvm)/nvm.sh"
+        . "/usr/local/opt/nvm/nvm.sh"
 
         # take a screenshot
         alias ss2='screencapture -xP '
