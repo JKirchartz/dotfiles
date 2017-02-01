@@ -59,7 +59,7 @@ alias untrellis="cd trellis/ && vagrant halt && cd ../"
 alias trellis-ssh="cd trellis/ && vagrant ssh"
 
 # capistrano
-alias cap2="cap _2.15.0_"
+alias cap2="cap _2.15.4_"
 alias cap3="cap _3.0.0_"
 alias cap32="cap _3.2.1_"
 
