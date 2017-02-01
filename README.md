@@ -18,7 +18,7 @@ but when I'm using OSX I also like to use
 
 Here's how my terminal look<s>s</s>ed on OSX (vim/tmux/bash) (circa 2013):
 
-![cli screenshot](https://raw.github.com/JKirchartz/dotfiles/master/screenshot.jpg)
+![cli screenshot](https://raw.github.com/JKirchartz/dotfiles/master/screenshot.png)
 
 DISCLAIMER: My vimrc is setup the way I like it, for now, and will likely change whenever I feel like it. Use it at the risk of **Pandajail** where pandas are sent when you use someone else's `vimrc`. Don't be the vimmer responsible for this:
 
