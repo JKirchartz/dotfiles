@@ -16,7 +16,7 @@ but when I'm using OSX I also like to use
 * [iTerm2](http://iterm2.com/)
 
 
-Here's how my terminal look<s>s</s>ed on OSX (vim/tmux/bash) (circa 2013):
+Here's how my terminal looks after running 'work'
 
 ![cli screenshot](https://raw.github.com/JKirchartz/dotfiles/master/screenshot.png)
 
