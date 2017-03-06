@@ -36,10 +36,6 @@ alias up='cd ..'
 alias dotfiles='cd ~/dotfiles'
 alias paths='echo $PATH | tr ":" "\n" | sort -u'
 
-# grep helpers
-alias notes='hgrep \#'
-alias csgrep=' grep -Ir --exclude-dir="\.svn" --exclude="*\.css" '
-alias sgrep=' grep -Ir --exclude-dir="\.svn" '
 
 # ip/port helper
 alias ports="sudo lsof -i -P | grep -i \"listen\"" # list listening ports:
@@ -87,10 +83,13 @@ case $OSTYPE in
     ;;
 esac
 
+alias notes='history | grep \#'
+
 # pastebin-like services, pipe to these
 alias tb="nc termbin.com 9999"
 alias sp="curl -F 'sprunge=<-' http://sprunge.us"
 alias cl="clbin=<-' https://clbin.com"
 alias vp="curl -F 'text=<-' http://vpaste.net"
 alias ix="curl -F 'f:1=<-' ix.io"
+
 

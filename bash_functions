@@ -81,3 +81,18 @@ sprunge () {
     fi | curl -F 'sprunge=<-' http://sprunge.us
 }
 
+
+
+
+# easy start trellis projects
+tbegin () {
+        cd "$1" || exit 1;
+        cd "trellis" || exit 1;
+        vagrant up
+        cd "../theme" || exit 1;
+        if [ -n "$TMUX" ]; then
+                tmux split-window -v -p 90 "gulp && gulp watch" 'C-m'
+        else
+                gulp && gulp watch
+        fi
+}

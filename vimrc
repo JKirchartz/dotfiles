@@ -169,7 +169,10 @@ inoremap <silent> <Left> <ESC>h
 inoremap <silent> <Right> <ESC>l
 
 " keep man in vim, replicate built-in functionality
-nnoremap K :Man <C-R>=expand("<cword>")<cr><cr>
+" these two seem to be functionally identical, but some plugins may rewrite
+" keywordprg, so maybe setl keywordprg=:Man might be in order...?
+" nnoremap K :Man <C-R>=expand("<cword>")<cr><cr>
+set keywordprg=:Man
 
 if exists("syntax_on") || exists("syntax_manual")
 else
