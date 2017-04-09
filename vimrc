@@ -90,6 +90,9 @@ let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardsTrigger = "<s-tab>"
 let g:ulti_expand_or_jump_res = 0
 inoremap <expr> <CR> pumvisible() ? "<C-R>=fun#ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
+" set ultisnips directory
+set runtimepath+=~/.vim/LocalSnippets
+let g:UltiSnipsSnippetsDir=["UltiSnips", "LocalSnippets"]
 
 "}}}---------------------------------------------------------zo
 " Vim Settings

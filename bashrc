@@ -82,3 +82,4 @@ if [ $OSTYPE == "linux-gnu" ] && [ -d "/mnt/c/windows" ]; then
   # ubuntu on windows, load bash_profile
   source $HOME/.bash_profile
 fi
+

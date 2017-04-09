@@ -41,6 +41,11 @@ case $OSTYPE in
                 PATH="$PATH:/usr/local/heroku/bin"
                 export GEM_HOME=~/gems:$GEM_HOME
                 ;;
+            archbox)
+                alias vi=vim
+                export NVM_DIR="$HOME/.nvm"
+                [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+                ;;
             arp)
                 # add appengine, npm, and gems bins to path
                 export GEM_HOME=~/gems
