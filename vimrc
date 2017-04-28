@@ -267,6 +267,13 @@ set pastetoggle=<F2>
 imap <silent> <F7> :set spell!<cr>
 nmap <silent> <F7> :set spell!<cr>
 
+" borrowed from: https://github.com/mgedmin/dotvim/blob/master/vimrc#L1209
+" <F8> = highlight identifier under cursor
+" (some file-type dependent autocommands redefine it)
+map             <F8>            :let @/='\<'.expand('<cword>').'\>'<bar>set hls<CR>
+imap            <F8>            <C-O><F8>
+
+
 "}}}---------------------------------------------------------
 " Plugin Options
 "---------------------------------------------------------{{{

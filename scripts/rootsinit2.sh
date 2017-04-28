@@ -30,6 +30,10 @@ git clone --single-branch --depth=1 https://github.com/roots/bedrock.git "$DIR/s
 rm -rf "$DIR/site/.git"
 rm -rf "$DIR/site/.github"
 
+echo "Installing the Ansible Galaxy roles:"
+cd "$DIR/trellis"
+ansible-galaxy install -r requirements.yml
+
 echo "Composer install Sage:"
 cd "$DIR/site/web/app/themes/"
 # install latest stable theme release, provide a version number to peg installation to that specific version
@@ -37,10 +41,6 @@ composer create-project roots/sage "$THEME"
 # git clone --single-branch --depth=1 https://github.com/roots/sage.git "$DIR/site/web/app/themes/$THEME"
 # rm -rf "$DIR/site/web/app/themes/$THEME/.git"
 # rm -rf "$DIR/site/web/app/themes/$THEME/.github"
-
-echo "Installing the Ansible Galaxy roles:"
-cd "$DIR/trellis"
-ansible-galaxy install -r requirements.yml
 
 echo "Installing JS packages:"
 cd "$DIR/site/web/app/themes/$THEME"
