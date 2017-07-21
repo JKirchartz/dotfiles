@@ -252,6 +252,10 @@ map <leader>r :e %<cr>
 nmap <leader>b :ls<CR>:b<space>
 
 
+" reflow text using `par` command
+map <leader>f {v}!par -jw80
+
+
 "}}}---------------------------------------------------------
 " Function Keys
 "---------------------------------------------------------{{{
@@ -262,6 +266,10 @@ imap <F1> <Esc>
 
 " paste mode toggle (F2)
 set pastetoggle=<F2>
+
+" refresh current document
+imap <F5> :e %<CR>
+nmap <F5> :e %<CR>
 
 " spell check toggle (F7)
 imap <silent> <F7> :set spell!<cr>
@@ -325,3 +333,4 @@ endif
 
 " fold up this file
 " vim:foldmethod=marker
+"

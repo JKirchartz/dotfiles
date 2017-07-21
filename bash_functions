@@ -96,3 +96,22 @@ tbegin () {
                 gulp && gulp watch
         fi
 }
+
+
+# test if the internet is back on
+waitforinternet () {
+    iptoping=8.8.8.8
+    if ["$1" -neq ""]; then
+        iptoping=$1
+    fi
+    while true; do
+        ping -c1 $iptoping 1>/dev/null 2>&1
+        if [ $? -eq 0 ]; then
+                say "Now we're cookin!"
+                ping -c1 $iptoping
+                break
+        else:
+                sleep 10
+        fi
+   done
+}
