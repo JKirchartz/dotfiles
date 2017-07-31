@@ -41,5 +41,9 @@ $if mode=vi
   # re-init without logout
   "\C-R\C-R": re-read-init-file
 
+  # ctrl+e edit & execute command
+  "\C-e": edit-and-execute-command
+
+
 $endif
 
