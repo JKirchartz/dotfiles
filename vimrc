@@ -193,6 +193,7 @@ command! -bar Hitest :so $VIMRUNTIME/syntax/hitest.vim
 
 " Calls to fun#... have functions in ~/.vim/autoload/fun.vim
 command -bar Bs call fun#ScratchBuffer()
+command -bar Sb call fun#ScratchBuffer()
 command -bar Scratch call fun#ScratchBuffer()
 
 " Send the selected text to pastebin.

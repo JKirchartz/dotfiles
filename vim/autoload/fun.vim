@@ -63,5 +63,12 @@ function! fun#ExpandSnippetOrCarriageReturn()
     endif
 endfunction
 
+"}}}-----------------------------------------------------
+" Delete Duplicate Lines
+"-------------------------------------------------------{{{
+function! fun#DeleteDuplicateLines()
+        %!awk 'seen[$0]++ == 0'
+endfunction
+
 " fold up this file
 " vim:foldmethod=marker
