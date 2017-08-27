@@ -1,0 +1,3 @@
+[submodule "scripts/fortune"]
+	path = scripts/fortune
+	url = https://github.com/JKirchartz/fortune.git
