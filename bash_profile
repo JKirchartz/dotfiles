@@ -17,6 +17,8 @@ case $OSTYPE in
         export VISUAL="$EDITOR"
         alias vi='mvim -v'
         alias vim='mvim -v'
+        # import bashrc
+        source ~/.bashrc;
         ;;
     linux*)
         # this is linux
@@ -26,11 +28,17 @@ case $OSTYPE in
             triton)
                 # autostart screen
                 if [ "$(ps -p $PPID -o comm=)" != screen ]; then scr; fi
+                if [[ $STY ]] ; then
+                  # import bashrc
+                  source ~/.bashrc;
+                fi;
                 ;;
             lucid32)
                 ### Added by the Heroku Toolbelt
                 PATH="$PATH:/usr/local/heroku/bin"
                 export GEM_HOME=~/gems:$GEM_HOME
+                # import bashrc
+                source ~/.bashrc;
                 ;;
             arp)
                 # add appengine, npm, and gems bins to path
@@ -57,23 +65,29 @@ case $OSTYPE in
                 PATH="$PATH:/usr/local/heroku/bin"
                 PATH="$PATH:$HOME/.rbenv/bin"
                 eval "$(rbenv init -)"
+                # import bashrc
+                source ~/.bashrc;
                 ;;
         esac
         ;;
     cygwin)
         # this is a PC with cygwin
         PATH="$PATH:/cygdrive/c/Program Files/Oracle/VirtualBox"
+        # import bashrc
+        source ~/.bashrc;
         ;;
     msys)
         # this is a PC with msys
         PATH="$PATH:/mingw/bin:/c/Program Files/Oracle/VirtualBox"
+        # import bashrc
+        source ~/.bashrc;
         ;;
     *)
         echo "$OSTYPE not registered in .bash_profile"
+        # import bashrc
+        source ~/.bashrc;
         ;;
 esac
 
 export PAGER="less -F"
 
-# import bashrc
-source ~/.bashrc

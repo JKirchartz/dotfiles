@@ -3,20 +3,9 @@ set -o vi
 
 #
 # source external files
-# fzf, git, npm, bashisms
 #
 
 source $HOME/dotfiles/bash_aliases
-source $HOME/dotfiles/bash_functions
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-  . /etc/bash_completion
-fi
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-source $HOME/dotfiles/scripts/gitstatus.sh
-source $HOME/dotfiles/scripts/git-completion.bash
-source $HOME/dotfiles/scripts/npm-completion.bash
 
 #
 # setup prompt
@@ -29,9 +18,8 @@ function __prompt {
   history -n
   #draw horizontal rule
   printf '\e[0;31m%*s\n\e[m' "${COLUMNS:-$(tput cols)}" '' | tr ' ' '#'
-  # Get directory (and git-prompt)
   DIR=$(pwd | sed -e "s!$HOME!~!")
-  echo -e "\n${DIR} $(gitstatus)"
+  echo -e "\n${DIR}"
 }
 PROMPT_COMMAND="__prompt"
 export __cr='\e[0;31m'
@@ -64,18 +52,7 @@ shopt -s nocaseglob                       # ignore case for autoexpansion
 #shopt -s dirspell                        # spellcheck for directories(?)
 shopt -s expand_aliases
 
-# search-path for CD command
-export CDPATH=".:..:~:~/projects:~/Dropbox/projects"
-
 # put this last, so current dir & my scripts always get preference
 # this is insecure because various bins are overwritten by the current/script
 # directory versions, for security move $PATH to the beginning of the assignment
 export PATH=".:$HOME/dotfiles/scripts:$PATH"
-
-export NETHACKOPTIONS=color,hilite_pet,boulder:8
-
-
-if [ $OSTYPE == "linux-gnu" ] && [ -d "/mnt/c/windows" ]; then
-  # ubuntu on windows, load bash_profile
-  source $HOME/.bash_profile
-fi
