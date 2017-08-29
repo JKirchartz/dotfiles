@@ -125,8 +125,10 @@ set dictionary+=/usr/share/dict/words
 
 " Tabs & Indents
 set shiftround
-" tabs are be 2 spaces
-set tabstop=2 expandtab
+" tabs are 2 columns wide, but are hard tabs
+set shiftwidth=2 tabstop=2
+" tabs are 2 spaces
+" set tabstop=2 expandtab
 " tabs are 2 spaces... or else.
 " set shiftwidth=2 softtabstop=2 expandtab
 
@@ -154,7 +156,7 @@ set showmode
 set showcmd
 " show cursor position (like :set ruler) & git status in statusline
 set statusline=\ b%n\ %<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
-colorscheme candycode
+colorscheme molokai
 
 " overwrite common misfires
 command E e
