@@ -11,17 +11,17 @@ case $OSTYPE in
         export TERM=xterm-256color
         export GEM_HOME=$HOME/gems
         PATH=$PATH:$HOME/gems/bin
-        export NVM_DIR="$HOME/.nvm"
-        . "/usr/local/opt/nvm/nvm.sh"
+        if hash nvm 2>/dev/null; then
+                export NVM_DIR="$HOME/.nvm"
+                . "/usr/local/opt/nvm/nvm.sh"
+        fi
 
         # take a screenshot
         alias ss2='screencapture -xP '
         alias ss='screencapture -xwP '
         export EDITOR="/usr/local/bin/vim"
         export VISUAL="$EDITOR"
-#        alias vi='mvim -v'
-#        alias vim='mvim -v'
-        alias vlc='/Applications/VLC.app/Contents/MacOS/VLC -I rc -q'
+        # alias vlc='/Applications/VLC.app/Contents/MacOS/VLC -I rc -q'
         function fix-ssh {
             eval $(ssh-agent);
             ssh-add -K;

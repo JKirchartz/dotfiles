@@ -16,6 +16,10 @@ case "$OSTYPE" in
         # Files for OSX
         echo "Preparing files for OSX"
         files="jshintrc ackrc inputrc bashrc bash_profile vimrc vim tmux.conf slate ssh gitconfig screenrc"
+        echo "Installing Homebrew"
+        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        echo "Installing required software via Homebrew"
+        brew install iterm2 tmux ack bash cowsay fortune vim
         ;;
     msys|cygwin)
         # Files for cygwin & msys << obsoleted by windows 10 anniversary release

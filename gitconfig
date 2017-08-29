@@ -1,6 +1,6 @@
 [user]
-  name = Joel Kirchartz
-  email = jkirchartz@gmail.com
+	name = Joel Kirchartz
+	email = jkirchartz@gmail.com
 
 [color]
   diff = auto
@@ -12,6 +12,7 @@
 
 [core]
   pager = less -R
+	excludesfile = ~/dotfiles/gitignore_global
 
 [diff]
   tool = vimdiff

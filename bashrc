@@ -62,11 +62,14 @@ export HISTSIZE=50000                     # big history
 export HISTFILESIZE=50000                 # big history
 export HISTIGNORE="&:ls:ll:pwd:exit:clear:[ \t]*"
 shopt -s histappend                       # append to history, not overwrite it
-shopt -s autocd                           # cd automatically when entering a path
 shopt -s cdspell                          # spellcheck for cd
 shopt -s nocaseglob                       # ignore case for autoexpansion
-shopt -s dirspell                         # spellcheck for directories(?)
 shopt -s expand_aliases
+if [ "${BASH_VERSINFO}" -ge 4 ]; then
+        # these are new features in bash 4
+        shopt -s autocd                   # cd automatically when entering a path
+        shopt -s dirspell                 # spellcheck for directories(?)
+fi
 
 # search-path for CD command
 # export CDPATH=".:..:~:~/projects:~/Dropbox/projects"
