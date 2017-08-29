@@ -1,6 +1,6 @@
 [user]
 	name = Joel Kirchartz
-	email = jkirchartz@barkleyrei.com
+	email = jkirchartz@gmail.com
 
 [color]
   diff = auto
@@ -9,6 +9,9 @@
 
 [push]
   default = current
+
+[pull]
+	rebase = true
 
 [core]
   pager = less -R
@@ -48,4 +51,3 @@
 
 [credential]
   helper = cache --timeout=28800
-
