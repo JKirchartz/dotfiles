@@ -10,7 +10,6 @@
 /ssh/id_rsa.pub
 /ssh/known_hosts
 /ssh/authorized_keys
-/script/fortune/*
 .DS_Store
 *.swp
 *.dat
