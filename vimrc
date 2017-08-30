@@ -46,6 +46,9 @@ Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 " wordpress
 Plug 'dsawardekar/wordpress.vim', { 'for': 'php'}
 
+" handlebars, all sorts
+Plug 'mustache/vim-mustache-handlebars', { 'for': ['hbs', 'handebars', 'hogan', 'hulk', 'hjs', 'mustache'] }
+
 " general web dev
 Plug 'othree/html5.vim'
 " Plug 'tyru/open-browser.vim'
