@@ -32,28 +32,28 @@ Plug 'tpope/vim-markdown', { 'for': 'md' }
 " tmux conf stuff
 Plug 'tmux-plugins/vim-tmux'
 
-" Javascript
-Plug 'othree/yajs.vim', { 'for': 'js' }
+" Syntax Highlighting (etc) for most languages
+Plug 'sheerun/vim-polyglot'
 
-" python
-Plug 'davidhalter/jedi', { 'for': 'py' }
-Plug 'mitsuhiko/vim-python-combined', { 'for': 'py' }
+" The above plugin should replace most of this:
+" " Javascript
+" Plug 'othree/yajs.vim', { 'for': 'js' }
+" " python
+" Plug 'davidhalter/jedi', { 'for': 'py' }
+" Plug 'mitsuhiko/vim-python-combined', { 'for': 'py' }
+" " php
+" Plug 'StanAngeloff/php.vim', { 'for': 'php' }
+" Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
+" " wordpress
+" Plug 'dsawardekar/wordpress.vim', { 'for': 'php'}
+" " handlebars, all sorts
+" Plug 'mustache/vim-mustache-handlebars', { 'for': ['hbs', 'handebars', 'hogan', 'hulk', 'hjs', 'mustache'] }
 
-" php
-Plug 'StanAngeloff/php.vim', { 'for': 'php' }
-Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
-
-" wordpress
-Plug 'dsawardekar/wordpress.vim', { 'for': 'php'}
-
-" handlebars, all sorts
-Plug 'mustache/vim-mustache-handlebars', { 'for': ['hbs', 'handebars', 'hogan', 'hulk', 'hjs', 'mustache'] }
-
-" general web dev
-Plug 'othree/html5.vim'
-" Plug 'tyru/open-browser.vim'
-" Plug 'heavenshell/vim-jsdoc', { 'for': 'js' }
-" Plug 'FooSoft/vim-argwrap'
+" " general web dev
+" Plug 'othree/html5.vim'
+" " Plug 'tyru/open-browser.vim'
+" " Plug 'heavenshell/vim-jsdoc', { 'for': 'js' }
+" " Plug 'FooSoft/vim-argwrap'
 
 " snippets engine & library
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' | Plug 'chrisgillis/vim-bootstrap3-snippets'
@@ -106,7 +106,7 @@ nnoremap <Space> <Nop>
 let mapleader = " "
 
 set ffs=unix,mac,dos " Set default filetypes in descending wrongness
-set clipboard^=unnamed
+" set clipboard^=unnamed,unnamedplus
 set nobackup noswapfile " live dangerously
 set hidden " allow unwritten buffers (unsaved files) to hide in the background
 set number " show line number
