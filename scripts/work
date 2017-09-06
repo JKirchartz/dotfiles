@@ -6,7 +6,8 @@ if [ $? != 0 ]
 then
   tmux new-session -d -s "$USER" -n main
   tmux new-window -t "$USER"
-  tmux send-keys -t "$USER:main" " vim +':h|on'" 'C-m'
+  # tmux send-keys -t "$USER:main" " vim +':h|on'" 'C-m' # open help in vim
+  tmux send-keys -t "$USER:main" " vim +':Sb|on'" 'C-m' # open a scratch buffer in vim
   tmux split-window -t "$USER:main" -v -p 40
   tmux send-keys -t "$USER:main.1" " ssh derkirche@blinken" 'C-m'
   tmux split-window -t "$USER:main.1" -h -p 20
