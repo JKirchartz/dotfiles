@@ -19,7 +19,7 @@ case "$OSTYPE" in
         echo "Installing Homebrew"
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
         echo "Installing required software via Homebrew"
-        brew install iterm2 tmux ack bash cowsay fortune vim
+        brew install iterm2 tmux ack bash cowsay fortune vim reattach-to-user-namespace
         ;;
     msys|cygwin)
         # Files for cygwin & msys << obsoleted by windows 10 anniversary release
