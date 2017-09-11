@@ -106,7 +106,7 @@ nnoremap <Space> <Nop>
 let mapleader = " "
 
 set ffs=unix,mac,dos " Set default filetypes in descending wrongness
-set clipboard^=unnamedplus
+set clipboard^=unnamed,unnamedplus
 set nobackup noswapfile " live dangerously
 set lazyredraw " don't redraw screen while executing macros etc.
 set hidden " allow unwritten buffers (unsaved files) to hide in the background
