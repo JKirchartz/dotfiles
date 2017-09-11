@@ -1,4 +1,4 @@
 [submodule "scripts/fortune"]
 	path = scripts/fortune
-	url = git@github.com:JKirchartz/fortune.git
+	url = https://github.com/JKirchartz/fortune.git
 	ignore = dirty
