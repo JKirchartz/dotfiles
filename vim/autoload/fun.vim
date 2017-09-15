@@ -55,6 +55,8 @@ endfunction
 " Make UltiSnips & VimCompletesMe play nice
 "-------------------------------------------------------{{{
 function! fun#ExpandSnippetOrCarriageReturn()
+    " this works, but doesn't look like expected, it doesn't denote the
+    " snippet but looks like a regular ins-complete (e.g. from another buffer)
     let snippet = UltiSnips#ExpandSnippetOrJump()
     if g:ulti_expand_or_jump_res > 0
         return snippet
