@@ -49,6 +49,10 @@ alias moon="curl wttr.in/Moon"
 # speed up gulp dev
 alias ggw="gulp && gulp watch"
 
+# speed up grunt dev
+alias gs="grunt server"
+alias ggd="grunt && grunt deploy"
+
 # https://roots.io/trellis/ dev servers
 alias trellis="cd trellis/ && vagrant up && cd ../"
 alias untrellis="cd trellis/ && vagrant halt && cd ../"

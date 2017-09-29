@@ -171,6 +171,9 @@ command WQ wq
 command Bn bn
 cnoremap \<Enter> <Enter>
 
+" faster Macro (at the expense of ex mode)
+noremap Q @q
+
 " Avoid the esc key
 inoremap <silent> <Up> <ESC>k
 inoremap <silent> <Down> <ESC>j
@@ -205,7 +208,11 @@ command -bar Scratch call fun#ScratchBuffer()
 " Send the selected text to pastebin.
 " TODO - automate putting the resulting uri on the clipboard, or
 " at least opening it in a browser.
-vnoremap <leader>pb <esc>:'<,'>:w !curl -F 'clbin=<-' https://clbin.com<CR>
+vnoremap cb <esc>:'<,'>:w !curl -F 'clbin=<-' https://clbin.com<CR>
+
+" Send the selected text to vpaste ala ~/dotfiles/scripts/vpaste
+map vp :exec "w !vpaste ft=".&ft<CR>
+vmap vp <ESC>:exec "'<,'>w !vpaste ft=".&ft<CR>
 
 " Make NetRW work more like NerdTree
 map <leader>t :call fun#ToggleVExplorer()<CR>
@@ -298,7 +305,7 @@ nmap <leader>ut :UndotreeToggle<CR>
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_check_on_open = 1
 if has("autocmd")
-	autocmd FileType javascript.js let g:syntastic_javascript_checkers = ['gjslint', 'jshint']
+	autocmd FileType javascript.js let g:syntastic_javascript_checkers = ['jshint', 'gjslint']
 	autocmd FileType javascript.jsx let g:syntastic_javascript_checkers = ['eslint']
 endif
 let g:syntastic_ruby = ['rubocop', 'mri']
@@ -338,6 +345,8 @@ if has("autocmd")
 endif
 
 
+set macligatures
+set guifont=Fira\ Code:h12
+
 " fold up this file
 " vim:foldmethod=marker
-"
