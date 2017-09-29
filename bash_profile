@@ -1,6 +1,3 @@
-# motd
-~/dotfiles/scripts/motd.sh
-
 # Bins
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 
@@ -32,6 +29,7 @@ case $OSTYPE in
                   # import bashrc
                   source ~/.bashrc;
                 fi;
+                exit 0;
                 ;;
             lucid32)
                 ### Added by the Heroku Toolbelt
@@ -91,3 +89,5 @@ esac
 
 export PAGER="less -F"
 
+# motd
+~/dotfiles/scripts/motd.sh
