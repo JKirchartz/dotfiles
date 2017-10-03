@@ -304,6 +304,7 @@ nmap <leader>ut :UndotreeToggle<CR>
 
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_check_on_open = 1
+let g:syntastic_enable_perl_checker = 1
 if has("autocmd")
 	autocmd FileType javascript.js let g:syntastic_javascript_checkers = ['jshint', 'gjslint']
 	autocmd FileType javascript.jsx let g:syntastic_javascript_checkers = ['eslint']
