@@ -345,8 +345,11 @@ if has("autocmd")
 endif
 
 
-set macligatures
-set guifont=Fira\ Code:h12
+if has('gui_macvim')
+	set macligatures
+	set guifont=Fira\ Code:h12
+endif
 
 " fold up this file
 " vim:foldmethod=marker
+"
