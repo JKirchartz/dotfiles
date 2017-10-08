@@ -241,7 +241,7 @@ noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 nmap <leader>l :set list!<CR>
 
 " toggle Hexmode
-nmap <leader>h :Hexmode<CR>
+nmap <leader>h :call fun#ToggleHex()<CR>
 
 "toggle number relativity
 nmap <leader>n :call fun#NumberToggle()<CR>
