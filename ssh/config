@@ -3,3 +3,6 @@ Host blinken
   HostName ssh.blinkenshell.org
   Port 2222
 
+Host fuckup
+	HostName fuckup.solutions
+

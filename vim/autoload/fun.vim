@@ -15,6 +15,23 @@ function! fun#NumberToggle()
 endfunc
 
 "}}}-----------------------------------------------------
+" Step through a list of colorschemes
+"-------------------------------------------------------{{{
+
+let g:colorNumber = 0
+function! fun#ColorSchemeToggle()
+	if exists("g:colorNumber")
+		if !exists("g:colorSchemes")
+			" default to schemes that ship with vim
+			let g:colorSchemes = ["darkblue", "delek", "elflord", "industry", "morning", "pablo", "ron", "slate", "zellner", "blue", "default", "desert", "evening", "koehler", "murphy", "peachpuff", "shine", "torte"]
+		endif
+		execute 'colorscheme ' . g:colorSchemes[g:colorNumber]
+		let g:colorNumber = (g:colorNumber + 1) % len(g:colorSchemes)
+	endif
+endfunction
+
+
+"}}}-----------------------------------------------------
 " Create an empty buffer for temporary data, etc
 "-------------------------------------------------------{{{
 function! fun#ScratchBuffer()
@@ -93,7 +110,7 @@ function fun#ToggleHex()
     let b:oldbin=&bin
     " set new options
     setlocal binary " make sure it overrides any textwidth, etc.
-    silent :e " this will reload the file without trickeries 
+    silent :e " this will reload the file without trickeries
               "(DOS line endings will be shown entirely )
     let &ft="xxd"
     " set status
@@ -115,4 +132,22 @@ function fun#ToggleHex()
   let &mod=l:modified
   let &readonly=l:oldreadonly
   let &modifiable=l:oldmodifiable
+endfunction
+
+
+
+"}}}--------------------------------------------------
+" Cleanup output from 'Query Scraper' bookmarklet: jkirchartz.com/demos/bookmarklets.html
+"-------------------------------------------------------{{{
+"C
+function fun#CleanQueryScraper()
+	let xtemp = @x
+	let @x = 'ji  ~ j0d/%<CR>@x'
+"O%qqji  ~~ j0d/%
+" 100@qkdkdkukdkd:wqa
+	:g/^$/d
+	:1
+	:normal O%^[
+	:normal @x
+	" let @x = xtemp
 endfunction

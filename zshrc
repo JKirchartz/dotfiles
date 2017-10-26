@@ -1,5 +1,7 @@
 setopt promptsubst
 
+~/dotfiles/scripts/motd.sh
+
 source ~/dotfiles/bash_aliases
 
 RPROMPT=$'%F{white}%~'

@@ -26,8 +26,10 @@ Plug 'tpope/vim-commentary'
 " Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive' | Plug 'junegunn/gv.vim' " a commit browser, requires fugitive
 Plug 'tpope/vim-markdown', { 'for': 'md' }
+
+
 
 " tmux conf stuff
 Plug 'tmux-plugins/vim-tmux'
@@ -35,28 +37,14 @@ Plug 'tmux-plugins/vim-tmux'
 " Syntax Highlighting (etc) for most languages
 Plug 'sheerun/vim-polyglot'
 
-" The above plugin should replace most of this:
-" " Javascript
-" Plug 'othree/yajs.vim', { 'for': 'js' }
-" " python
-" Plug 'davidhalter/jedi', { 'for': 'py' }
-" Plug 'mitsuhiko/vim-python-combined', { 'for': 'py' }
-" " php
-" Plug 'StanAngeloff/php.vim', { 'for': 'php' }
 " Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
-" " wordpress
 " Plug 'dsawardekar/wordpress.vim', { 'for': 'php'}
-" " handlebars, all sorts
-" Plug 'mustache/vim-mustache-handlebars', { 'for': ['hbs', 'handebars', 'hogan', 'hulk', 'hjs', 'mustache'] }
+" Plug 'FooSoft/vim-argwrap'
 
-" " general web dev
-" Plug 'othree/html5.vim'
-" " Plug 'tyru/open-browser.vim'
-" " Plug 'heavenshell/vim-jsdoc', { 'for': 'js' }
-" " Plug 'FooSoft/vim-argwrap'
+Plug 'heavenshell/vim-jsdoc', { 'for': 'js' }
 
 " snippets engine & library
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' | Plug 'chrisgillis/vim-bootstrap3-snippets'
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'aperezdc/vim-template'
 
 " syntax completion, checking, & highlighting
@@ -295,6 +283,9 @@ nmap <silent> <F7> :set spell!<cr>
 map             <F8>            :let @/='\<'.expand('<cword>').'\>'<bar>set hls<CR>
 imap            <F8>            <C-O><F8>
 
+" toggle through preset list of colorschemes (F7)
+let g:colorSchemes = ["candycode", "darkblack", "molokai", "molokai_dark", "default"]
+nnoremap <F9> :call fun#ColorSchemeToggle()<cr>
 
 "}}}---------------------------------------------------------
 " Plugin Options
@@ -306,8 +297,8 @@ let g:syntastic_aggregate_errors = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_enable_perl_checker = 1
 if has("autocmd")
-	autocmd FileType javascript.js let g:syntastic_javascript_checkers = ['jshint', 'gjslint']
 	autocmd FileType javascript.jsx let g:syntastic_javascript_checkers = ['eslint']
+	autocmd FileType javascript let g:syntastic_javascript_checkers = ['jshint', 'gjslint']
 endif
 let g:syntastic_ruby = ['rubocop', 'mri']
 let g:syntastic_php_phpcs_args='--standard=WordPress'
@@ -351,6 +342,7 @@ if has('gui_macvim')
 	set guifont=Fira\ Code:h12
 endif
 
+
+
 " fold up this file
 " vim:foldmethod=marker
-"
