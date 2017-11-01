@@ -29,7 +29,8 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive' | Plug 'junegunn/gv.vim' " a commit browser, requires fugitive
 Plug 'tpope/vim-markdown', { 'for': 'md' }
 
-
+" Vim Wiki
+Plug 'vimwiki/vimwiki'
 
 " tmux conf stuff
 Plug 'tmux-plugins/vim-tmux'
@@ -63,6 +64,15 @@ filetype plugin indent on    " required
 "}}}---------------------------------------------------------
 " Plugin Settings
 "------------------------------------------------------------ {{{
+
+let wiki = {}
+let wiki.path = "~/vimwiki/markdown/"
+let wiki.path_html = "~/vimwiki/html/"
+let wiki.auto_export = 1
+let wiki.auto_toc = 1
+let wiki.auto_tags = 1
+
+let g:vimwiki_list = [wiki]
 
 " tree-view
 let g:netrw_liststyle = 3
@@ -297,7 +307,7 @@ let g:syntastic_aggregate_errors = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_enable_perl_checker = 1
 if has("autocmd")
-	autocmd FileType javascript.jsx let g:syntastic_javascript_checkers = ['eslint']
+	autocmd FileType javascript.jsx let g:syntastic_javascript_checkers = ['jshint', 'eslint']
 	autocmd FileType javascript let g:syntastic_javascript_checkers = ['jshint', 'gjslint']
 endif
 let g:syntastic_ruby = ['rubocop', 'mri']
