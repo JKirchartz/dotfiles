@@ -43,6 +43,7 @@
   undo = reset HEAD~1
   unstage = reset HEAD --
   up = pull --all --rebase --autostash
+	dad = !curl https://icanhazdadjoke.com/
 
 [http]
   postBuffer = 4M
