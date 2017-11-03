@@ -32,16 +32,7 @@ Plug 'tpope/vim-markdown', { 'for': 'md' }
 " Vim Wiki
 Plug 'vimwiki/vimwiki'
 
-" tmux conf stuff
-Plug 'tmux-plugins/vim-tmux'
-
-" Syntax Highlighting (etc) for most languages
-Plug 'sheerun/vim-polyglot'
-
-" Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
-" Plug 'dsawardekar/wordpress.vim', { 'for': 'php'}
 " Plug 'FooSoft/vim-argwrap'
-
 Plug 'heavenshell/vim-jsdoc', { 'for': 'js' }
 
 " snippets engine & library
@@ -49,9 +40,13 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'aperezdc/vim-template'
 
 " syntax completion, checking, & highlighting
+Plug 'othree/html5.vim'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'tmux-plugins/vim-tmux'
+" Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
+" Plug 'dsawardekar/wordpress.vim', { 'for': 'php'}
 Plug 'ajh17/VimCompletesMe'
-Plug 'scrooloose/syntastic'
-
+Plug 'w0rp/ale'
 
 " vim included plugins
 runtime macros/matchit.vim
@@ -303,18 +298,18 @@ nnoremap <F9> :call fun#ColorSchemeToggle()<cr>
 
 nmap <leader>ut :UndotreeToggle<CR>
 
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_enable_perl_checker = 1
-if has("autocmd")
-	autocmd FileType javascript.jsx let g:syntastic_javascript_checkers = ['jshint', 'eslint']
-	autocmd FileType javascript let g:syntastic_javascript_checkers = ['jshint', 'gjslint']
-endif
-let g:syntastic_ruby = ['rubocop', 'mri']
-let g:syntastic_php_phpcs_args='--standard=WordPress'
-" use pretty syntastic symbols
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_warning_symbol = '⚠'
+" let g:syntastic_aggregate_errors = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_enable_perl_checker = 1
+" if has("autocmd")
+" 	autocmd FileType javascript.jsx let g:syntastic_javascript_checkers = ['jshint', 'eslint']
+" 	autocmd FileType javascript let g:syntastic_javascript_checkers = ['jshint', 'gjslint']
+" endif
+" let g:syntastic_ruby = ['rubocop', 'mri']
+" let g:syntastic_php_phpcs_args='--standard=WordPress'
+" " use pretty syntastic symbols
+" let g:syntastic_error_symbol = '✗'
+" let g:syntastic_warning_symbol = '⚠'
 
 " don't fist anonymously, just privately
 let g:fist_anonymously = 0
