@@ -17,6 +17,7 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+if command -v grunt >/dev/null 2>&1; then eval "$(grunt --completion=bash)"; fi
 
 source ~/dotfiles/scripts/gitstatus.sh
 source ~/dotfiles/scripts/git-completion.bash

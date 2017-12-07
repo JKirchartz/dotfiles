@@ -17,7 +17,8 @@ Plug 'jkirchartz/writegooder.vim', { 'for': ['md', 'txt', 'htm', 'html'] } " 3 s
 
 
 " Plugs
-Plug 'editorconfig/editorconfig-vim' " honor .editorconfig files
+" Plug 'editorconfig/editorconfig-vim' " honor .editorconfig files
+Plug 'sgur/vim-editorconfig' " honor .editorconfig files, in vimscript
 Plug 'mbbill/undotree', { 'on' : 'UndotreeToggle' }
 Plug 'ajh17/vim-fist'
 Plug 'Valloric/MatchTagAlways'
@@ -77,7 +78,10 @@ let g:netrw_sort_sequence = '[\/]$,*' " use the previous window to open file
 let g:netrw_browse_split = 4
 
 " make EditorConfig play nice with vim-fugitive
-let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+" let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+let g:editorconfig_blacklist = {
+    \ 'filetype': ['git.*', 'fugitive'],
+    \ 'pattern': ['\.un~$']}
 
 " fix ultisnips/vimcompletesme & allow <CR> to select entry
 let g:UltiSnipsEditSplit="context"
