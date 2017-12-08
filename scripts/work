@@ -7,7 +7,8 @@ then
   tmux new-session -d -s "$USER" -n main
   tmux new-window -t "$USER"
   # tmux send-keys -t "$USER:main" " vim +':h|on'" 'C-m' # open help in vim
-  tmux send-keys -t "$USER:main" " vim +':Sb|on'" 'C-m' # open a scratch buffer in vim
+  # tmux send-keys -t "$USER:main" " vim +':Sb|on'" 'C-m' # open a scratch buffer in vim
+	tmux send-keys -t "$USER:main" "vim +':Sb|on|:vert h'" 'C-m' # open a scratch buffer and help in vim
   tmux split-window -t "$USER:main" -v -p 40
   tmux send-keys -t "$USER:main.1" " ssh derkirche@blinken" 'C-m'
   tmux split-window -t "$USER:main.1" -h -p 20
@@ -16,7 +17,7 @@ then
   tmux send-keys -t "$USER:main.1" " weather.sh" 'C-m'
   tmux select-pane -t "$USER:main.2"
   tmux new-window -t "$USER" -a 'main'
-  tmux send-keys -t "$USER:2:0" " cd ~/tprojects/" 'C-m'
+  tmux send-keys -t "$USER:2:0" " cd ~/projects/" 'C-m'
   tmux split-window -t "$USER:2:0" -h -p 30
 fi
 # attach or re-attach session
