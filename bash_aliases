@@ -17,6 +17,7 @@ alias ping='ping -c 10 '                  # set a default, coz I always forget
 alias rm='rm -i '                         # confirm, just in case...
 alias please='sudo $(fc -ln -1)'          # redo last command as root
 alias R='. ~/.bash_profile'
+alias M='motd.sh'
 
 
 #vim-like aliases
