@@ -98,3 +98,21 @@ alias vp="curl -F 'text=<-' http://vpaste.net"
 alias ix="curl -F 'f:1=<-' ix.io"
 
 
+# the following is weirdness GuyNoIR AKA Bob_Dobbs
+# Put these in .bash_aliases
+# Speech > Text > Chinese > Russian > English > Speech
+
+# Issues
+# Need to pkill pocketsphinx when done because we unbuffer it and shove it into the background
+
+# Ubuntu 17.10
+# deps in default repos
+# expect pocketsphinx pocketsphinx-en-us
+
+# deps not in default repos
+# https://github.com/andreineculau/google-translate-cli
+
+
+alias SpeakToTheSphinx="touch SphinxPipe; unbuffer pocketsphinx_continuous -inmic yes -logfn /dev/null >> SphinxPipe & tail -f SphinxPipe | grep --line-buffered -vwE 'READY....|Listening...' | stdbuf -oL trans -b {en=zh-CN} | stdbuf -oL trans -b {zh-CN=ru} | stdbuf -oL trans -b -p {ru=en}"
+
+alias KillTheSphinx="sudo pkill -9 pocketsphinx; reset; echo ''; rm SphinxPipe; echo ''; ps aux | grep pocketsphinx; echo ''"
