@@ -2,7 +2,7 @@
 ~/dotfiles/scripts/motd.sh
 
 # Bins
-PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/games"
 
 # system-specific configs
 case $OSTYPE in
