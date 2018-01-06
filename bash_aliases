@@ -16,8 +16,15 @@ alias py='python '
 alias ping='ping -c 10 '                  # set a default, coz I always forget
 alias rm='rm -i '                         # confirm, just in case...
 alias please='sudo $(fc -ln -1)'          # redo last command as root
-alias R='. ~/.bash_profile'
 alias M='motd.sh'
+
+
+if test -n "$ZSH_VERSION"; then
+	alias R='source ~/.zshrc'
+elif test -n "$BASH_VERSION"; then
+	alias R='. ~/.bash_profile'
+fi
+
 
 
 #vim-like aliases
@@ -44,7 +51,7 @@ alias iip="ifconfig | grep broadcast | awk '{print $ 2}'" # get internal ip
 alias eip="dig +short myip.opendns.com @resolver1.opendns.com" #get external ip
 
 # get weather from wttr.in
-alias weather="curl wttr.in/PIT"
+alias weather="curl wttr.in/Pittsburgh"
 alias moon="curl wttr.in/Moon"
 
 # speed up gulp dev
@@ -70,6 +77,7 @@ alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Cres
 
 # serve dir as static site
 alias serve="python -m SimpleHTTPServer"
+alias serveo="ssh -R 80:localhost:8000 serveo.net"
 
 # prettyprint json
 alias ppjson='python -m json.tool'
@@ -82,7 +90,7 @@ alias imgres="identify -format '%f: %wpx x %hpx\n'"
 case $OSTYPE in
     darwin*)
 # osx-only
-    alias hosts='sudo mvim -v /etc/hosts /private/etc/hosts'
+    alias hosts='sudo vim -v /etc/hosts /private/etc/hosts'
     alias ss2='screencapture -xP '
     alias ss='screencapture -xwP '
     ;;
@@ -97,6 +105,15 @@ alias cl="clbin=<-' https://clbin.com"
 alias vp="curl -F 'text=<-' http://vpaste.net"
 alias ix="curl -F 'f:1=<-' ix.io"
 
+alias yt2mp3='youtube-dl --extract-audio --audio-format mp3 '
+
+alias imgsize='identify -format "width: %[w]px;\nheight: %[h]px;"'
+alias imgcolor='convert -unique-colors -depth 8 txt:-'
+
+# Docker
+
+alias dockerstopall='docker stop $(docker ps -a -q)'
+alias dockerremoveall='docker rm $(docker ps -a -q)'
 
 # the following is weirdness GuyNoIR AKA Bob_Dobbs
 # Put these in .bash_aliases
@@ -116,3 +133,7 @@ alias ix="curl -F 'f:1=<-' ix.io"
 alias SpeakToTheSphinx="touch SphinxPipe; unbuffer pocketsphinx_continuous -inmic yes -logfn /dev/null >> SphinxPipe & tail -f SphinxPipe | grep --line-buffered -vwE 'READY....|Listening...' | stdbuf -oL trans -b {en=zh-CN} | stdbuf -oL trans -b {zh-CN=ru} | stdbuf -oL trans -b -p {ru=en}"
 
 alias KillTheSphinx="sudo pkill -9 pocketsphinx; reset; echo ''; rm SphinxPipe; echo ''; ps aux | grep pocketsphinx; echo ''"
+
+
+alias GHwork=". GHwork"
+alias btown="ssh -tt bs ssh -tt kirch@tilde.town screen -RRD"

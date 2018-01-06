@@ -18,7 +18,14 @@ function update-environment {
 # ps + grep, incase there's no pgrep(?)
 function psgrep(){ ps -ax | grep "$1" | grep -v "grep"; }
 # why not history
-function hgrep(){ history | grep "$1"; }
+function hgrep(){
+	if test -n "$ZSH_VERSION"; then
+		local HIST='zshhistory'
+	elif test -n "$BASH_VERSION"; then
+		local HIST='bash_history'
+	fi
+	grep "$1" "~/.${HIST}"
+}
 
 #simple calculator
 function calc () { echo "$*" | bc -l; }
@@ -36,6 +43,9 @@ function tmut () {
 
 # cd & ls
 function cl() { cd "$@" && ls -oFhA; }
+
+# mk & cd
+function mkcd() { mkdir "$@" && cd "$@" }
 
 # open files specified by other utilities
 function gitvim () { vim $(git diff --name-only $@ ); }
@@ -69,3 +79,39 @@ waitforinternet () {
 	fi
 		done
 }
+
+preload_b () {
+  for line in $(dirs -v); do
+		if [ line -neq "" ]; then
+			popd
+		fi
+  done
+  cat ~/.bash_cdhistory | sort | uniq -c > ~/.bash_cdhistory
+  while read line; do
+     pushd $line
+  done<~/.bash_cdhistory
+}
+
+b () {
+  dirs -v
+  first=`dirs -v | head -n 1 | cut -d ' ' -f 2`
+  last=`dirs -v | tail -n 1 | cut -d ' ' -f 2`
+  read -p "move to directory number [$first-$last]: " num
+  (($num<$last && $num>$first)) && eval "cd ~$num"
+}
+
+
+cwd () {
+  if [ $# -eq 0 ]; then
+    echo "Enter a word pattern to search for, use a . for unknowns"
+  fi
+  grep -w -i $1 /usr/share/dict/words
+}
+
+
+function fix-ssh {
+  ssh-add -K;
+  eval $(ssh-agent);
+  ssh-add -K;
+}
+

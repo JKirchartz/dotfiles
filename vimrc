@@ -12,8 +12,8 @@ filetype off                  " required for vundle init
 call plug#begin('~/.vim/plugged/')
 
 " personal forks/projects
-Plug 'jkirchartz/vim-colorschemes' " forked flazz's, not sure enough about licenses to send a PR
-Plug 'jkirchartz/writegooder.vim', { 'for': ['md', 'txt', 'htm', 'html'] } " 3 scripts to improve writing - wanna modify for other words/phrases to avoid
+Plug 'jkirchartz/vim-colors-megapack'
+Plug 'jkirchartz/writegooder.vim' " 3 scripts to improve writing - wanna modify for other words/phrases to avoid
 
 
 " Plugs
@@ -30,9 +30,6 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive' | Plug 'junegunn/gv.vim' " a commit browser, requires fugitive
 Plug 'tpope/vim-markdown', { 'for': 'md' }
 
-" Vim Wiki
-Plug 'vimwiki/vimwiki'
-
 " Plug 'FooSoft/vim-argwrap'
 Plug 'heavenshell/vim-jsdoc', { 'for': 'js' }
 
@@ -46,8 +43,15 @@ Plug 'mustache/vim-mustache-handlebars'
 Plug 'tmux-plugins/vim-tmux'
 " Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 " Plug 'dsawardekar/wordpress.vim', { 'for': 'php'}
-Plug 'ajh17/VimCompletesMe'
+if has('python') || has('python3')
+	Plug 'maralla/completor.vim', { 'do': 'make js' }
+else
+	Plug 'ajh17/VimCompletesMe'
+endif
 Plug 'w0rp/ale'
+
+" Vim Wiki
+Plug 'vimwiki/vimwiki'
 
 " vim included plugins
 runtime macros/matchit.vim
@@ -60,15 +64,53 @@ filetype plugin indent on    " required
 "}}}---------------------------------------------------------
 " Plugin Settings
 "------------------------------------------------------------ {{{
-
 let wiki = {}
-let wiki.path = "~/vimwiki/markdown/"
-let wiki.path_html = "~/vimwiki/html/"
+let wiki.path = "~/dotfiles/vimwiki/src/"
+let wiki.path_html = "~/dotfiles/vimwiki/html/"
+let wiki.template_path = "~/dotfiles/vim/templates/"
+let wiki.template_default = "vimwiki"
+let wiki.template_ext = ".html"
 let wiki.auto_export = 1
 let wiki.auto_toc = 1
 let wiki.auto_tags = 1
-
 let g:vimwiki_list = [wiki]
+
+let g:ale_sign_error='✗'
+let g:ale_sign_warning='⚠'
+let g:ale_statusline_format = ['✗ %d', '⚠ %d', '✔ ok']
+let g:ale_sign_column_always = 1
+
+" let g:ale_linter_aliases = {'html': ['html', 'javascript', 'css']}
+let g:ale_linters={
+      \ 'html': ['alex', 'htmlhint', 'proselint', 'stylelint', 'tidy', 'writegood', 'eslint', 'flow', 'flow-language-server', 'standard', 'tsserver', 'xo', 'csslint', 'stylelint'],
+      \ 'php': ['phpcs'],
+      \ 'javascript': ['eslint']
+      \}
+let g:ale_fixers = {
+      \ 'javascript': ['eslint'],
+      \ 'json': ['fixjson']
+      \}
+let g:ale_php_phpcs_standard = 'Wordpress'
+let g:ale_php_phpcs_use_global = 1
+
+
+" don't fist anonymously, just privately
+let g:fist_anonymously = 0
+let g:fist_in_private = 1
+
+" use _my_ info the default for vim-templates
+let g:username = "jkirchartz"
+let g:email = "me@jkirchartz.com"
+let g:license = "NPL (Necessary Public License)"
+let g:templates_directory = ["$HOME/.vim/templates"]
+
+
+let hostname = substitute(system('hostname'), '\n', '', '')
+if hostname =~ "aeo.ae"
+  autocmd BufNewFile,BufReadPost *.* let g:templates_global_name_prefix = '=template='
+  autocmd BufNewFile,BufReadPost *.html let g:templates_global_name_prefix = '=ae='
+  autocmd BufNewFile,BufReadPost *.html setlocal indentexpr=GetJavascriptIndent()
+endif
 
 " tree-view
 let g:netrw_liststyle = 3
@@ -80,19 +122,57 @@ let g:netrw_browse_split = 4
 " make EditorConfig play nice with vim-fugitive
 " let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 let g:editorconfig_blacklist = {
-    \ 'filetype': ['git.*', 'fugitive'],
-    \ 'pattern': ['\.un~$']}
+			\ 'filetype': ['git.*', 'fugitive'],
+			\ 'pattern': ['\.un~$']}
 
-" fix ultisnips/vimcompletesme & allow <CR> to select entry
-let g:UltiSnipsEditSplit="context"
-let g:UltiSnipsExpandTrigger = "<nop>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardsTrigger = "<s-tab>"
-let g:ulti_expand_or_jump_res = 0
-inoremap <expr> <CR> pumvisible() ? "<C-R>=fun#ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
+
+if has('python') || has('python3')
+  " Use TAB to complete when typing words, else inserts TABs as usual.  Uses
+  " dictionary, source files, and completor to find matching words to complete.
+
+  " Note: usual completion is on <C-n> but more trouble to press all the time.
+  " Never type the same word twice and maybe learn a new spellings!
+  " Use the Linux dictionary when spelling is in doubt.
+  function! Tab_Or_Complete() abort
+    " If completor is already open the `tab` cycles through suggested completions.
+    if pumvisible()
+      return "\<C-N>"
+    " If completor is not open and we are in the middle of typing a word then
+    " `tab` opens completor menu.
+    elseif col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
+      return "\<C-R>=completor#do('complete')\<CR>"
+    else
+      " If we aren't typing a word and we press `tab` simply do the normal `tab`
+      " action.
+      return "\<Tab>"
+    endif
+  endfunction
+
+  " Use `tab` key to select completions.  Default is arrow keys.
+  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+  " Use tab to trigger auto completion.  Default suggests completions as you type.
+  let g:completor_auto_trigger = 0
+  inoremap <expr> <Tab> Tab_Or_Complete()
+else
+  " fix ultisnips/vimcompletesme & allow <CR> to select entry
+  let g:UltiSnipsEditSplit="context"
+  let g:UltiSnipsExpandTrigger = "<nop>"
+  let g:UltiSnipsJumpForwardTrigger = "<tab>"
+  let g:UltiSnipsJumpBackwardsTrigger = "<s-tab>"
+  let g:ulti_expand_or_jump_res = 0
+
+  inoremap <expr> <CR> pumvisible() ? "<C-R>=fun#ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
+	" wedge Ulti into VimCompletesMe
+	set completefunc=fun#UltiComplete
+endif
 " set ultisnips directory
 set runtimepath+=~/.vim/LocalSnippets
-let g:UltiSnipsSnippetsDir=["UltiSnips", "LocalSnippets"]
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "LocalSnippets"]
+
+
+tnoremap <c-j> <C-W>
 
 "}}}---------------------------------------------------------zo
 " Vim Settings
@@ -101,6 +181,7 @@ let g:UltiSnipsSnippetsDir=["UltiSnips", "LocalSnippets"]
 "map leader to space for world domination
 nnoremap <Space> <Nop>
 let mapleader = " "
+
 
 set ffs=unix,mac,dos " Set default filetypes in descending wrongness
 set clipboard^=unnamed,unnamedplus
@@ -116,7 +197,11 @@ set listchars=tab:~>,nbsp:•,trail:•,extends:»,precedes:«,eol:¬
 set smartcase " smart case matching
 set hlsearch  " highlight search
 set ignorecase " make /foo match FOO & FOo but /FOO only match FOO
-set mouse=a " enable mouse. how quaint.
+" set mouse=a " enable mouse. how quaint.
+set backspace=indent,eol,start " fix backspace(?)
+" allow files to tell vim about themselves:
+set modeline
+set modelines=2
 
 " better menu like for autocomplete
 set wildmenu
@@ -127,11 +212,11 @@ set dictionary+=/usr/share/dict/words
 " Tabs & Indents
 set shiftround
 " tabs are 2 columns wide, but are hard tabs
-set shiftwidth=2 tabstop=2
+" set shiftwidth=2 tabstop=2
 " tabs are 2 spaces
 " set tabstop=2 expandtab
 " tabs are 2 spaces... or else.
-" set shiftwidth=2 softtabstop=2 expandtab
+set shiftwidth=2 softtabstop=2 expandtab
 
 " 80 columns
 set nowrap " don't soft-wrap
@@ -192,6 +277,11 @@ endif
 " Custom Commands
 "---------------------------------------------------------{{{
 
+" silence command & redraw screen on end
+command! -nargs=+ Silent
+      \ execute 'silent <args>'
+      \ | execute 'redraw!'
+
 " forgot to sudo vi? w!!
 cmap w!! %!sudo tee > /dev/null %
 
@@ -201,6 +291,17 @@ command! -bar Hitest :so $VIMRUNTIME/syntax/hitest.vim
 command -bar Bs call fun#ScratchBuffer()
 command -bar Sb call fun#ScratchBuffer()
 command -bar Scratch call fun#ScratchBuffer()
+
+
+" get image sizes
+
+command -bar ImageSize call fun#ImageSize()
+
+" easy access undotree
+nmap <leader>ut :UndotreeToggle<CR>
+
+" Replace the selected text with the base64 decoded version.
+vnoremap <leader>64 c<c-r>=system('base64 --decode', @")<cr><esc>
 
 " Send the selected text to pastebin.
 " TODO - automate putting the resulting uri on the clipboard, or
@@ -266,6 +367,12 @@ nmap <leader>b :ls<CR>:b<space>
 " reflow text using `par` command
 map <leader>f {v}!par -jw80
 
+if has('mac')
+  " copy file to osx clipboard
+  map <silent> <leader>cc :Silent !pbcopy < %<cr>
+  vnoremap <silent> <leader>cc :Silent <esc>:'<,'>:w !pbcopy<cr>
+endif
+
 
 "}}}---------------------------------------------------------
 " Function Keys
@@ -296,42 +403,13 @@ imap            <F8>            <C-O><F8>
 let g:colorSchemes = ["candycode", "darkblack", "molokai", "molokai_dark", "default"]
 nnoremap <F9> :call fun#ColorSchemeToggle()<cr>
 
-"}}}---------------------------------------------------------
-" Plugin Options
-"---------------------------------------------------------{{{
-
-nmap <leader>ut :UndotreeToggle<CR>
-
-" let g:syntastic_aggregate_errors = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_enable_perl_checker = 1
-" if has("autocmd")
-" 	autocmd FileType javascript.jsx let g:syntastic_javascript_checkers = ['jshint', 'eslint']
-" 	autocmd FileType javascript let g:syntastic_javascript_checkers = ['jshint', 'gjslint']
-" endif
-" let g:syntastic_ruby = ['rubocop', 'mri']
-" let g:syntastic_php_phpcs_args='--standard=WordPress'
-" " use pretty syntastic symbols
-" let g:syntastic_error_symbol = '✗'
-" let g:syntastic_warning_symbol = '⚠'
-
-" don't fist anonymously, just privately
-let g:fist_anonymously = 0
-let g:fist_in_private = 1
-
-" use _my_ info the default for vim-templates
-let g:username = "jkirchartz"
-let g:email = "me@jkirchartz.com"
-let g:license = "NPL (Necessary Public License)"
-" let g:templates_directory = ["$HOME/.vim/templates"]
-
-
 "}}}-----------------------------------------------------
 " Autocmds
 "-------------------------------------------------------{{{
 if has("autocmd")
 	" Use correct indenting for python
 	autocmd FileType python setlocal shiftwidth=2 softtabstop=2 expandtab
+	autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
 	" Jump to last position when reopening files
 	au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
 				\| exe "normal g'\"" | endif
@@ -340,9 +418,11 @@ if has("autocmd")
 	" ensure background is transparent
 	autocmd ColorScheme * highlight Normal ctermbg=None
 	autocmd ColorScheme * highlight NonText ctermbg=None
-	autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+	autocmd BufNewFile,BufReadPost *.md setlocal filetype=markdown
 	" trim trailing spaces (not tabs) before write
 	autocmd BufWritePre * silent! %s:\(\S*\) \+$:\1:
+	" a safer alternative to `set autochdir`
+	" autocmd BufEnter * silent! lcd %:p:h
 endif
 
 
@@ -352,6 +432,7 @@ if has('gui_macvim')
 endif
 
 
-
 " fold up this file
-" vim:foldmethod=marker
+" vim: foldmethod=marker
+"
+"

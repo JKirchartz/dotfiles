@@ -10,7 +10,11 @@
 if [ -z "${VIMRUNTIME}" ]; then
   if which fortune > /dev/null; then
     if which cowsay > /dev/null; then
-      ~/dotfiles/scripts/fortune.sh | ~/dotfiles/scripts/cowsay.sh
+      if which lolcat > /dev/null; then
+        ~/dotfiles/scripts/fortune.sh | ~/dotfiles/scripts/cowsay.sh | lolcat
+      else
+        ~/dotfiles/scripts/fortune.sh | ~/dotfiles/scripts/cowsay.sh
+      fi
     else
       ~/dotfiles/scripts/fortune.sh
     fi

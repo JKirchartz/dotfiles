@@ -2,7 +2,7 @@
 ~/dotfiles/scripts/motd.sh
 
 # Bins
-PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/games"
 
 # system-specific configs
 case $OSTYPE in
@@ -11,6 +11,7 @@ case $OSTYPE in
         export TERM=xterm-256color
         export GEM_HOME=$HOME/gems
         PATH=$PATH:$HOME/gems/bin
+				PATH=$PATH:$HOME/projects/ghint/
         if hash nvm 2>/dev/null; then
                 export NVM_DIR="$HOME/.nvm"
                 . "/usr/local/opt/nvm/nvm.sh"
@@ -19,11 +20,10 @@ case $OSTYPE in
         # take a screenshot
         alias ss2='screencapture -xP '
         alias ss='screencapture -xwP '
-        export EDITOR="/usr/local/bin/mvim -v"
+				alias editbanner='vim *.js *.less *.html'
+        export EDITOR="vim"
         export VISUAL="$EDITOR"
-        alias vi='mvim -v'
-        alias vim='mvim -v'
-        # alias vlc='/Applications/VLC.app/Contents/MacOS/VLC -I rc -q'
+        alias vlc='/Applications/VLC.app/Contents/MacOS/VLC -I rc -q'
         function fix-ssh {
             eval $(ssh-agent);
             ssh-add -K;
@@ -36,7 +36,7 @@ case $OSTYPE in
         case $HOSTNAME in
             triton)
                 # autostart screen
-                if [ "$(ps -p $PPID -o comm=)" != screen ]; then scr; fi
+                # if [ "$(ps -p $PPID -o comm=)" != screen ]; then scr; fi
                 ;;
             lucid32)
                 ### Added by the Heroku Toolbelt
@@ -74,6 +74,16 @@ case $OSTYPE in
                 PATH="$PATH:$HOME/.rbenv/bin"
                 eval "$(rbenv init -)"
                 ;;
+            fiddle)
+                export DISPLAY=:0
+                export BROWSER=/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
+                export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
+                # VAGRANT_WSL_WINDOWS_ACCESS_USER - Override current Windows username
+                # VAGRANT_WSL_DISABLE_VAGRANT_HOME - Do not modify the VAGRANT_HOME variable
+                # VAGRANT_WSL_WINDOWS_ACCESS_USER_HOME_PATH - Custom Windows system home path
+                export PATH="$PATH:/mnt/c/Program Files/Oracle/VirtualBox"
+                alias vi=vim
+                ;;
         esac
         ;;
     cygwin)
@@ -93,3 +103,7 @@ export PAGER="less -F"
 
 # import bashrc
 source ~/.bashrc
+
+if [ -d $HOME/.linuxbrew ]; then
+  export PATH="/home/kirch/.linuxbrew/bin:$PATH"
+fi

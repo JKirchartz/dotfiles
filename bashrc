@@ -37,6 +37,10 @@ function __prompt {
   # Get directory (and git-prompt)
   DIR=$(pwd | sed -e "s!$HOME!~!")
   echo -e "\n${DIR} $(gitstatus)"
+	last=$(history | tail -n 1 | rev | cut -d ' ' -f 2 | rev)
+	if [ "$last" = "cd" ]; then
+		echo $(pwd) >> ~/.bash_cdhistory
+	fi
 }
 PROMPT_COMMAND="__prompt"
 export __cr='\e[0;31m'
@@ -86,8 +90,8 @@ if [ -f ~/env.keys ]; then
   source ~/env.keys
 fi
 
-if [ "$OSTYPE" == "linux-gnu" ] && [ -d "/mnt/c/windows" ]; then
-  # ubuntu on windows, load bash_profile
-  source ~/.bash_profile
-fi
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
