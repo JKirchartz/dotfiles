@@ -1,5 +1,5 @@
 [user]
-	name = Joel Kirchartz
+	name = JKirchartz
 	email = jkirchartz@gmail.com
 
 [color]
@@ -36,7 +36,7 @@
   ds = diff --staged
 	edit = !$EDITOR $(git status -s | awk '{print $2}')
   last = log --name-status HEAD^..HEAD
-  lo = log --graph --format=oneline --abbrev-commit
+  lo = log --graph --branches --tags --decorate --format=oneline --abbrev-commit
   lob = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(refname:short) - %(objectname:short) - %(contents:subject) - %(authorname) (%(committerdate:relative))'
   ls = ls-files
   st = status
@@ -46,7 +46,7 @@
 	dad = !curl https://icanhazdadjoke.com/
 
 [http]
-  postBuffer = 4M
+	postBuffer = 1048576000
 
 [github]
   user = jkirchartz
