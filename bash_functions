@@ -69,3 +69,23 @@ waitforinternet () {
 	fi
 		done
 }
+
+preload_b () {
+  for line in $(dirs -v); do
+		if [ line -neq "" ]; then
+			popd
+		fi
+  done
+  cat ~/.bash_cdhistory | sort | uniq -c > ~/.bash_cdhistory
+  while read line; do
+     pushd $line
+  done<~/.bash_cdhistory
+}
+
+b () {
+  dirs -v
+  first=`dirs -v | head -n 1 | cut -d ' ' -f 2`
+  last=`dirs -v | tail -n 1 | cut -d ' ' -f 2`
+  read -p "move to directory number [$first-$last]: " num
+  (($num<$last && $num>$first)) && eval "cd ~$num"
+}

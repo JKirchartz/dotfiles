@@ -37,6 +37,10 @@ function __prompt {
   # Get directory (and git-prompt)
   DIR=$(pwd | sed -e "s!$HOME!~!")
   echo -e "\n${DIR} $(gitstatus)"
+	last=$(history | tail -n 1 | rev | cut -d ' ' -f 2 | rev)
+	if [ "$last" = "cd" ]; then
+		echo $(pwd) >> ~/.bash_cdhistory
+	fi
 }
 PROMPT_COMMAND="__prompt"
 export __cr='\e[0;31m'
