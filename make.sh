@@ -77,7 +77,7 @@ fi
 # checkout submodules
 ###
 git submodule init
-git submodule update
+git submodule update --recursive --remote
 
 ##########
 # make fortunes

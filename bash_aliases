@@ -44,7 +44,7 @@ alias iip="ifconfig | grep broadcast | awk '{print $ 2}'" # get internal ip
 alias eip="dig +short myip.opendns.com @resolver1.opendns.com" #get external ip
 
 # get weather from wttr.in
-alias weather="curl wttr.in/PIT"
+alias weather="curl wttr.in/Pittsburgh"
 alias moon="curl wttr.in/Moon"
 
 # speed up gulp dev
@@ -82,7 +82,7 @@ alias imgres="identify -format '%f: %wpx x %hpx\n'"
 case $OSTYPE in
     darwin*)
 # osx-only
-    alias hosts='sudo mvim -v /etc/hosts /private/etc/hosts'
+    alias hosts='sudo vim -v /etc/hosts /private/etc/hosts'
     alias ss2='screencapture -xP '
     alias ss='screencapture -xwP '
     ;;
@@ -96,6 +96,9 @@ alias sp="curl -F 'sprunge=<-' http://sprunge.us"
 alias cl="clbin=<-' https://clbin.com"
 alias vp="curl -F 'text=<-' http://vpaste.net"
 alias ix="curl -F 'f:1=<-' ix.io"
+
+
+alias imgsize='identify -format "width: %[w]px;\nheight: %[h]px;"'
 
 
 # the following is weirdness GuyNoIR AKA Bob_Dobbs

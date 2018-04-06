@@ -116,7 +116,8 @@ set listchars=tab:~>,nbsp:•,trail:•,extends:»,precedes:«,eol:¬
 set smartcase " smart case matching
 set hlsearch  " highlight search
 set ignorecase " make /foo match FOO & FOo but /FOO only match FOO
-set mouse=a " enable mouse. how quaint.
+" set mouse=a " enable mouse. how quaint.
+set backspace=indent,eol,start " fix backspace(?)
 
 " better menu like for autocomplete
 set wildmenu
@@ -201,6 +202,11 @@ command! -bar Hitest :so $VIMRUNTIME/syntax/hitest.vim
 command -bar Bs call fun#ScratchBuffer()
 command -bar Sb call fun#ScratchBuffer()
 command -bar Scratch call fun#ScratchBuffer()
+
+
+" get image sizes
+
+command -bar ImageSize call fun#ImageSize()
 
 " Send the selected text to pastebin.
 " TODO - automate putting the resulting uri on the clipboard, or
