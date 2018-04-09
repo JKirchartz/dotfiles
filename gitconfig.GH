@@ -1,0 +1,98 @@
+[credential]
+	helper = osxkeychain
+[core]
+	excludesfile = ~/.gitignore
+[core]
+	editor = /usr/local/bin/subl -w
+
+[apply]
+	# Detect whitespace errors when applying a patch
+	whitespace = fix
+
+[push]
+	default = simple
+
+[merge]
+	# Include summaries of merged commits in newly created merge commit messages
+	log = true
+	tool = FileMerge
+
+[diff]
+	tool = FileMerge
+
+[difftool]
+	prompt = false
+
+[mergetool]
+	prompt = false
+	keepBackup = false
+
+[color]
+	# Use colors in Git commands that are capable of colored output when outputting to the terminal
+	ui = auto
+
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+
+[color "status"]
+	added = green
+	changed = yellow
+	untracked = cyan
+
+[alias]
+	# View the current working tree status using the short format
+	s = status -s
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	prp = pull --rebase --prune
+	br = branch
+	caa = commit --all --amend --no-edit
+	ci = commit
+	co = checkout
+	cob = checkout -b
+	df = diff
+	ds = diff --staged
+	edit = !$EDITOR $(git status -s | awk '{print $2}')
+	last = log --name-status HEAD^..HEAD
+	lo = log --graph --branches --tags --decorate --format=oneline --abbrev-commit
+	lob = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(refname:short) - %(objectname:short) - %(contents:subject) - %(authorname) (%(committerdate:relative))'
+	ls = ls-files
+	st = status
+	undo = reset HEAD~1
+	unstage = reset HEAD --
+	up = pull --all --rebase --autostash
+	dad = !curl https://icanhazdadjoke.com/
+
+[difftool "FileMerge"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+
+[mergetool "FileMerge"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[http]
+	postBuffer = 1572864000
+[core]
+	packedGitLimit = 512m
+	packedGitWindowSize = 512m
+[pack]
+	deltaCacheSize = 2047m
+	packSizeLimit = 2047m
+	windowMemory = 2047m
+[user]
+	name = Joel Kirchartz
+	email = jkirchartz@garrisonhughes.com
+
+# vim: ft=gitconfig

@@ -1,9 +1,11 @@
-[bitbucket]
-	name = JKirchartzGH
+[user]
+	name = JKirchartz
+	user = JKirchartzGH
 	email = jkirchartz@garrisonhughes.com
 
 [github]
 	user = jkirchartz
+	name = JKirchartz
 	email = jkirchartz@gmail.com
 
 [apply]
