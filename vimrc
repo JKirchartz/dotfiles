@@ -118,6 +118,9 @@ set hlsearch  " highlight search
 set ignorecase " make /foo match FOO & FOo but /FOO only match FOO
 " set mouse=a " enable mouse. how quaint.
 set backspace=indent,eol,start " fix backspace(?)
+" allow files to tell vim about themselves:
+set modeline
+set modelines=2
 
 " better menu like for autocomplete
 set wildmenu
@@ -337,7 +340,7 @@ let g:license = "NPL (Necessary Public License)"
 "-------------------------------------------------------{{{
 if has("autocmd")
 	" Use correct indenting for python
-	autocmd FileType python setlocal shiftwidth=2 softtabstop=2 expandtab
+	" autocmd FileType python setlocal shiftwidth=2 softtabstop=2 expandtab
 	autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
 	" Jump to last position when reopening files
 	au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
@@ -361,4 +364,4 @@ endif
 
 
 " fold up this file
-" vim:foldmethod=marker
+" vim: foldmethod=marker
