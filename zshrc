@@ -1,13 +1,18 @@
 #------------------------------
 # set options
 #-----------------------------{{{
-setopt promptsubst
+zstyle ':completion:*' completer _complete _correct _expand
+autoload -Uz compinit; compinit
+autoload -U zmv
+setopt promptsubst autocd notify hist_ignore_dups NO_BEEP hist_ignore_space
 
+export PATH=$HOME/dotfiles/scripts:$PATH
+export EDITOR="vim" PAGER="less"
 
-#}}}-----------------------------
-# run scripts
-#-----------------------------{{{
-~/dotfiles/scripts/motd.sh
+HISTFILE="${HOME}/.zshhistory"
+HISTSIZE=50000
+SAVEHIST=50000
+
 
 #}}}-----------------------------
 #detect/install zplug plugins
@@ -45,9 +50,10 @@ fi
 
 
 # }}}----------------------------
-# load same aliases as bash
+# load same aliases/functions as bash
 # ----------------------------{{{
 source ~/dotfiles/bash_aliases
+source ~/dotfiles/bash_functions
 
 # }}}----------------------------
 # setup prompt
@@ -70,6 +76,11 @@ __rule=$(printf '\e[0;31m%*s\n\e[m' "${COLUMNS:-$(tput cols)}" '' | tr ' ' '#')
 PS1=$'\n\n'"%F{red}$__rule"$'\n\n'"%F{white}%d $(git_prompt_info)"$'\n'"%F{red}┌─[%F{cyan}%n@%m%F{red}]-[%F{cyan}%D{%x %X}%F{red}]-[%F{cyan}%j%F{red}]"$'\n'"%F{red}└─[%F{cyan}%!%F{red}]-$__vim%F{cyan}%(#.#.$)>%F{white}%{$reset_color%}"
 PS2="%F{red}└─%F{cyan}>%{$reset_color%}"
 
+#}}}-----------------------------
+# run scripts
+#-----------------------------{{{
+~/dotfiles/scripts/motd.sh
 
-# fold up this file
-# vim:foldmethod=marker
+
+# }}} fold up this file
+# vim: foldmethod=marker

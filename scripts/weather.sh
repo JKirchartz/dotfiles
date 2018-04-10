@@ -12,7 +12,8 @@
 while true
 do
   printf "\ec" # clear screen
-  curl wttr.in/PIT # get weather for pittsburgh (via IATA airport code)
+	# get weather for pittsburgh (via IATA airport code), remove cruft
+  curl -s wttr.in/PIT?1 2>/dev/null | head -n 17
   sleep 3600 # one hour
 done
 
