@@ -1,43 +1,58 @@
 # [link][]
 snippet []
 	[${1:link_id}][]${2}
+endsnippet
 # [link][id]
 snippet [[
 	[${1:link}][${2:id}]${3}
+endsnippet
 # [link](url)
 snippet [(
 	[${1:link}](http://${2:url})${3}
+endsnippet
 # [link](email)
 snippet [@
 	[${1:link}(mailto:${2:email})${3}
+endsnippet
 # [link](url "title")
 snippet [("
 	[${1:link}](${2:url} "${3:title}")${4}
+endsnippet
 # [id]: url "title"
 snippet [:
 	[${1:id}]: http://${2:url} "${3:title}"
+endsnippet
 # [id]: email "title"
 snippet [:@
 	[${1:id}]: mailto:${2:url} "${3:title}"
+endsnippet
 # ![alt][id]
 snippet ![
 	![${1:alt}][${2:id}]${3}
+endsnippet
 # ![alt](url)
 snippet !(
 	![${1:alt}](${2:url})${3}
+endsnippet
 # ![alt](url "title")
 snippet !("
 	![${1:alt}](${2:url} "${3:title}")${4}
+endsnippet
 # *emphasis* or _emphasis_
 snippet *
 	*${1}*${2}
+endsnippet
 snippet _
 	_${1}_${2}
+endsnippet
 # **strong** or __strong__
 snippet **
 	**${1}**${2}
+endsnippet
 snippet __
 	__${1}__${2}
+endsnippet
 # `code`
 snippet `
 	\`${1}\`${2}
+endsnippet

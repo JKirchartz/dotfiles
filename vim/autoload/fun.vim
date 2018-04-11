@@ -72,8 +72,9 @@ endfunction
 " Make UltiSnips & VimCompletesMe play nice
 "-------------------------------------------------------{{{
 function! fun#ExpandSnippetOrCarriageReturn()
-    " this works, but doesn't look like expected, it doesn't denote the
-    " snippet but looks like a regular ins-complete (e.g. from another buffer)
+    " this works, but doesn't look like expected, it doesn't denote
+    " the snippet but looks like a regular ins-complete (e.g. from
+    " another buffer)
     let snippet = UltiSnips#ExpandSnippetOrJump()
     if g:ulti_expand_or_jump_res > 0
         return snippet
@@ -139,7 +140,7 @@ endfunction
 "}}}--------------------------------------------------
 " Cleanup output from 'Query Scraper' bookmarklet: jkirchartz.com/demos/bookmarklets.html
 "-------------------------------------------------------{{{
-"C
+
 function fun#CleanQueryScraper()
 	let xtemp = @x
 	let @x = 'ji  ~ j0d/%<CR>@x'
@@ -151,6 +152,7 @@ function fun#CleanQueryScraper()
 	:normal @x
 	" let @x = xtemp
 endfunction
+
 "}}}--------------------------------------------------
 " Append height/width of image after current line
 "-------------------------------------------------------{{{

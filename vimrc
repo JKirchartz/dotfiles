@@ -60,7 +60,6 @@ filetype plugin indent on    " required
 "}}}---------------------------------------------------------
 " Plugin Settings
 "------------------------------------------------------------ {{{
-
 let wiki = {}
 let wiki.path = "~/dotfiles/vimwiki/markdown/"
 let wiki.path_html = "~/dotfiles/vimwiki/html/"
@@ -90,9 +89,10 @@ let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardsTrigger = "<s-tab>"
 let g:ulti_expand_or_jump_res = 0
 inoremap <expr> <CR> pumvisible() ? "<C-R>=fun#ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
+
 " set ultisnips directory
 set runtimepath+=~/.vim/LocalSnippets
-let g:UltiSnipsSnippetsDir=["UltiSnips", "LocalSnippets"]
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "LocalSnippets"]
 
 "}}}---------------------------------------------------------zo
 " Vim Settings
@@ -340,7 +340,7 @@ let g:license = "NPL (Necessary Public License)"
 "-------------------------------------------------------{{{
 if has("autocmd")
 	" Use correct indenting for python
-	" autocmd FileType python setlocal shiftwidth=2 softtabstop=2 expandtab
+	autocmd FileType python setlocal shiftwidth=2 softtabstop=2 expandtab
 	autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
 	" Jump to last position when reopening files
 	au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
