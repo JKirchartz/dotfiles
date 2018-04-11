@@ -46,7 +46,11 @@ Plug 'mustache/vim-mustache-handlebars'
 Plug 'tmux-plugins/vim-tmux'
 " Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 " Plug 'dsawardekar/wordpress.vim', { 'for': 'php'}
-Plug 'ajh17/VimCompletesMe'
+if has('python')
+	Plug 'maralla/completor.vim', { 'do': 'make js' }
+else
+	Plug 'ajh17/VimCompletesMe'
+endif
 Plug 'w0rp/ale'
 
 " vim included plugins
@@ -88,8 +92,18 @@ let g:UltiSnipsExpandTrigger = "<nop>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardsTrigger = "<s-tab>"
 let g:ulti_expand_or_jump_res = 0
+
 inoremap <expr> <CR> pumvisible() ? "<C-R>=fun#ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
 
+if has('python')
+	" use tab to select completion in completor.vim
+	inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+	inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+	" inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+else
+	" wedge Ulti into VimCompletesMe
+	set completefunc=fun#UltiComplete
+endif
 " set ultisnips directory
 set runtimepath+=~/.vim/LocalSnippets
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "LocalSnippets"]
@@ -360,7 +374,6 @@ if has('gui_macvim')
 	set macligatures
 	set guifont=Fira\ Code:h12
 endif
-
 
 
 " fold up this file
