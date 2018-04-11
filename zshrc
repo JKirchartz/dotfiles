@@ -1,10 +1,12 @@
 #------------------------------
 # set options
 #-----------------------------{{{
-zstyle ':completion:*' completer _complete _correct _expand
+zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
+zstyle ':completion:*' max-errors 3
+zstyle :compinstall filename '${HOME}/.zshrc'
 autoload -Uz compinit; compinit
 autoload -U zmv
-setopt promptsubst autocd notify hist_ignore_dups NO_BEEP hist_ignore_space
+setopt promptsubst autocd notify hist_ignore_dups NO_BEEP hist_ignore_space inc_append_history share_history history_ignore_dups
 
 export PATH=$HOME/dotfiles/scripts:$PATH
 export EDITOR="vim" PAGER="less"
@@ -13,6 +15,9 @@ HISTFILE="${HOME}/.zshhistory"
 HISTSIZE=50000
 SAVEHIST=50000
 
+EDITOR=vim
+
+bindkey -v
 
 #}}}-----------------------------
 #detect/install zplug plugins
@@ -26,7 +31,8 @@ if [[ -a ~/.zplug/init.zsh ]];then
 	zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 	zplug "zsh-users/zsh-autosuggestions"
-	zplug "chrissicool/zsh-bash"
+	# zplug "chrissicool/zsh-bash",    defer:3
+	zplug "zsh-users/zsh-syntax-highlighting", defer:2
 	zplug "sharat87/zsh-vim-mode"
 	zplug "rbirnie/oh-my-zsh-keybase"
 	zplug "lukechilds/zsh-better-npm-completion"
@@ -60,7 +66,7 @@ source ~/dotfiles/bash_functions
 # ----------------------------{{{
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[red]%}[%{$fg_bold[white]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}%{$fg[red]%}] "
-# ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}⚡%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}⚡%{$reset_color%}"
 
 # if shell's running INSIDE vim, mark it in the prompt (as a white V)
 if [ -z "${VIMRUNTIME}" ]; then

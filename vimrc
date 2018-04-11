@@ -62,8 +62,8 @@ filetype plugin indent on    " required
 "------------------------------------------------------------ {{{
 
 let wiki = {}
-let wiki.path = "~/vimwiki/markdown/"
-let wiki.path_html = "~/vimwiki/html/"
+let wiki.path = "~/dotfiles/vimwiki/markdown/"
+let wiki.path_html = "~/dotfiles/vimwiki/html/"
 let wiki.auto_export = 1
 let wiki.auto_toc = 1
 let wiki.auto_tags = 1
