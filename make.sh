@@ -15,7 +15,7 @@ case "$OSTYPE" in
     darwin*)
         # Files for OSX
         echo "Preparing files for OSX"
-				files="jshintrc ackrc inputrc zshrc bashrc bash_profile vimrc vim tmux.conf slate ssh gitconfig screenrc scss-lint.yml"
+				files="tern-config jshintrc ackrc inputrc zshrc bashrc bash_profile vimrc vim tmux.conf slate ssh gitconfig screenrc scss-lint.yml"
         echo "Installing Homebrew"
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
         echo "Installing required software via Homebrew"
@@ -24,12 +24,12 @@ case "$OSTYPE" in
     msys|cygwin)
         # Files for cygwin & msys << obsoleted by windows 10 anniversary release
         echo "Preparing files for *doze"
-				files="inputrc zshrc bashrc bash_profile vimrc vim tmux.conf ssh gitconfig screenrc scss-lint.yml"
+				files="tern-config inputrc zshrc bashrc bash_profile vimrc vim tmux.conf ssh gitconfig screenrc scss-lint.yml"
         ;;
     *)
         # Files for *nix
         echo "Preparing files for *nix"
-				files="jshintrc ackrc inputrc zshrc bashrc bash_profile vimrc vim tmux.conf gitconfig screenrc profile scss-lint.yml"
+				files="tern-config jshintrc ackrc inputrc zshrc bashrc bash_profile vimrc vim tmux.conf gitconfig screenrc profile scss-lint.yml"
         ;;
 esac
 
