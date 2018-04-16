@@ -367,6 +367,8 @@ if has("autocmd")
 	autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 	" trim trailing spaces (not tabs) before write
 	autocmd BufWritePre * silent! %s:\(\S*\) \+$:\1:
+	" a safer alternative to `set autochdir`
+	autocmd BufEnter * silent! lcd %:p:h
 endif
 
 

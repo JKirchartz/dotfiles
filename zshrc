@@ -6,7 +6,7 @@ zstyle ':completion:*' max-errors 3
 zstyle :compinstall filename '${HOME}/.zshrc'
 autoload -Uz compinit; compinit
 autoload -U zmv
-setopt promptsubst autocd notify hist_ignore_dups NO_BEEP hist_ignore_space inc_append_history share_history history_ignore_dups
+setopt promptsubst autocd notify hist_ignore_dups NO_BEEP hist_ignore_space inc_append_history share_history interactivecomments
 
 export PATH=$HOME/dotfiles/scripts:$PATH
 export EDITOR="vim" PAGER="less"
@@ -15,9 +15,32 @@ HISTFILE="${HOME}/.zshhistory"
 HISTSIZE=50000
 SAVEHIST=50000
 
+
+#}}}-----------------------------
+# make ZSH vimlike
+#-----------------------------{{{
+
 EDITOR=vim
 
 bindkey -v
+export KEYTIMEOUT=1
+bindkey '\e[A' history-beginning-search-backward
+bindkey '\e[B' history-beginning-search-forward
+# Use vim cli mode
+bindkey '^P' up-history
+bindkey '^N' down-history
+
+# backspace and ^h working even after
+# returning from command mode
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+
+# ctrl-w removed word backwards
+bindkey '^w' backward-kill-word
+#
+# ctrl-r starts searching history backward
+bindkey '^r' history-incremental-search-backward
+
 
 #}}}-----------------------------
 #detect/install zplug plugins
@@ -74,6 +97,15 @@ if [ -z "${VIMRUNTIME}" ]; then
 else
   __vim="(%F{white}V%F{red})-[";
 fi
+
+function zle-line-init zle-keymap-select {
+	VIM_PROMPT="%{$fg_bold[white]%} [% NORMAL]%  %{$reset_color%}"
+	RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$EPS1"
+	zle reset-prompt
+}
+
+zle -N zle-line-init
+zle -N zle-keymap-select
 
 # setup horizontal rule
 __rule=$(printf '\e[0;31m%*s\n\e[m' "${COLUMNS:-$(tput cols)}" '' | tr ' ' '#')
