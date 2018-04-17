@@ -27,19 +27,19 @@ export KEYTIMEOUT=1
 bindkey '\e[A' history-beginning-search-backward
 bindkey '\e[B' history-beginning-search-forward
 # Use vim cli mode
-bindkey '^P' up-history
-bindkey '^N' down-history
+# bindkey '^P' up-history
+# bindkey '^N' down-history
 
 # backspace and ^h working even after
 # returning from command mode
 bindkey '^?' backward-delete-char
-bindkey '^h' backward-delete-char
+# bindkey '^h' backward-delete-char
 
 # ctrl-w removed word backwards
-bindkey '^w' backward-kill-word
+# bindkey '^w' backward-kill-word
 #
 # ctrl-r starts searching history backward
-bindkey '^r' history-incremental-search-backward
+# bindkey '^r' history-incremental-search-backward
 
 
 #}}}-----------------------------
@@ -63,6 +63,8 @@ if [[ -a ~/.zplug/init.zsh ]];then
 
 	zplug "plugins/command-not-found",   from:oh-my-zsh
 	zplug "plugins/git",   from:oh-my-zsh
+
+	zplug load
 
 
 else
@@ -98,14 +100,13 @@ else
   __vim="(%F{white}V%F{red})-[";
 fi
 
-function zle-line-init zle-keymap-select {
-	VIM_PROMPT="%{$fg_bold[white]%} [% NORMAL]%  %{$reset_color%}"
-	RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$EPS1"
-	zle reset-prompt
-}
+# 	VIM_PROMPT="%{$fg_bold[white]%} [% NORMAL]%  %{$reset_color%}"
+# 	RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$EPS1"
+# 	zle reset-prompt
+# }
 
-zle -N zle-line-init
-zle -N zle-keymap-select
+# zle -N zle-line-init
+# zle -N zle-keymap-select
 
 # setup horizontal rule
 __rule=$(printf '\e[0;31m%*s\n\e[m' "${COLUMNS:-$(tput cols)}" '' | tr ' ' '#')

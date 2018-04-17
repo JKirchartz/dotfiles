@@ -16,8 +16,15 @@ alias py='python '
 alias ping='ping -c 10 '                  # set a default, coz I always forget
 alias rm='rm -i '                         # confirm, just in case...
 alias please='sudo $(fc -ln -1)'          # redo last command as root
-alias R='. ~/.bash_profile'
 alias M='motd.sh'
+
+
+if test -n "$ZSH_VERSION"; then
+	alias R='source ~/.zshrc'
+elif test -n "$BASH_VERSION"; then
+	alias R='. ~/.bash_profile'
+fi
+
 
 
 #vim-like aliases

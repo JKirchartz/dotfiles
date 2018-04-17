@@ -18,7 +18,14 @@ function update-environment {
 # ps + grep, incase there's no pgrep(?)
 function psgrep(){ ps -ax | grep "$1" | grep -v "grep"; }
 # why not history
-function hgrep(){ history | grep "$1"; }
+function hgrep(){
+	if test -n "$ZSH_VERSION"; then
+		local HIST='zshhistory'
+	elif test -n "$BASH_VERSION"; then
+		local HIST='bash_history'
+	fi
+	grep "$1" "~/.${HIST}"
+}
 
 #simple calculator
 function calc () { echo "$*" | bc -l; }

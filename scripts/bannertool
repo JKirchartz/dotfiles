@@ -1,0 +1,51 @@
+#!/bin/bash
+
+case $1 in
+    png)
+        echo "renaming pngs"
+				prefix=$2
+				frame=$3
+				for filename in *.png; do
+					if [[ "$filename" = "$prefix"* ]]; then
+						echo "skipping $filename: already exists";
+					else
+						mv "$filename" "${prefix}_frame${frame}-${filename}";
+						echo "moved $filename to ${prefix}_frame${frame}-${filename}"
+					fi
+				done;
+    ;;
+    move)
+        echo "moving"
+				input=$2
+				output=$3
+
+
+				INdimensions=("${(@s/x/)input}")
+				INwidth="INdimensions[0]"
+				INheight="INdimensions[1]"
+				OUTdimensions=("${(@s/x/)input}")
+				OUTwidth="OUTdimensions[0]"
+				OUTheight="OUTdimensions[1]"
+
+				zsh -c "autoload zmv && zmv \"(*)${input}(*)\" '\$1${output}\$2'"
+				find -E ./ -regex '.*\.(html|js|less)' -exec sed -i -e "s/${input}/${output}/g" \
+					-e "0,/${INwidth}/s/${INwidth}/${OUTwidth}/" \
+					-e "0,/${INheight}/s/${INheight}/${OUTheight}/" {} \;
+    ;;
+		adsize)
+			echo "updating adsize meta tags in subdirectories"
+			for dir in ./*; do
+				if [[ -d "$dir" && ! -L "$dir" ]]; then
+					dir="${dir%/}"
+					dir="${dir##*/}"
+					dim=(${dir//x/ })
+					find -E "./$dir" -regex '.*\.(html)' -exec sed -i "s/width=[[:digit:]]\+,height=[[:digit:]]\+/width=${dim[0]},height=${dim[1]}/g" {} \;
+				fi;
+			done;
+		;;
+    *)
+        echo "not a valid banner operation"
+esac
+
+
+# vim: ft=sh
