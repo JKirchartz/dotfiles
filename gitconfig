@@ -29,11 +29,11 @@
 	excludesfile = ~/dotfiles/gitignore_global
 
 [diff]
-	tool = vimdiff
+	tool = vim
 
 [merge]
 	log = true
-	tool = vimdiff
+	tool = fugitive
 
 [difftool]
 	prompt = false
@@ -41,6 +41,9 @@
 [mergetool]
 	prompt = false
 	keepBackup = false
+
+[mergetool "vim"]
+	cmd = vim -f -c \"Gvdiff\" \"$MERGED\"
 
 [alias]
 	br = branch
