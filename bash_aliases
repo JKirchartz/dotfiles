@@ -104,6 +104,7 @@ alias cl="clbin=<-' https://clbin.com"
 alias vp="curl -F 'text=<-' http://vpaste.net"
 alias ix="curl -F 'f:1=<-' ix.io"
 
+alias yt2mp3='youtube-dl --extract-audio --audio-format mp3 '
 
 alias imgsize='identify -format "width: %[w]px;\nheight: %[h]px;"'
 
