@@ -82,7 +82,7 @@ git submodule update --recursive --remote
 ##########
 # make fortunes
 ###
-fortunes=$(cd "$dir/scripts/fortune" && make)
+fortunes=$(cd "$dir/fortunes" && make)
 echo "$fortunes"
 
 ##########
