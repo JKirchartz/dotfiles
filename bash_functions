@@ -96,3 +96,11 @@ b () {
   read -p "move to directory number [$first-$last]: " num
   (($num<$last && $num>$first)) && eval "cd ~$num"
 }
+
+
+cwd () {
+  if [ $# -eq 0 ]; then
+    echo "Enter a word pattern to search for, use a . for unknowns"
+  fi
+  grep -w -i $1 /usr/share/dict/words
+}
