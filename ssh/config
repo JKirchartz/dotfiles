@@ -11,5 +11,9 @@ Host sdf
 	HostName sdf.org
 	User kirch
 
+Host hb
+	HostName ny1.hashbang.sh
+	User kirch
+
 Host sftp.barkleyhosting.com
 	PubkeyAcceptedKeyTypes +ssh-dss

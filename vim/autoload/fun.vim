@@ -184,3 +184,21 @@ function! fun#ImageSize()
 	call append(line('.'), split(imgsize, '\v\n'))
 	norm j2==
 endfunction
+
+
+"}}}--------------------------------------------------
+" Check all buffers for errors (with ALE)
+"-------------------------------------------------------{{{
+function! fun#AllALEBuffers()
+	" check for errors
+	for bufnr in range(1, bufnr('$'))
+		if ale#statusline#Count(bufnr).total > 0
+			caddexpr printf('%s:%s:%s', expand('%'), line('.'), "entry")
+		endif
+	endfor
+	if count(clist)
+		copen
+	else
+		echo "no errors found in open buffers"
+	endif
+endfunction

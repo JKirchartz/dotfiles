@@ -1,5 +1,5 @@
-[submodule "scripts/fortune"]
-	path = scripts/fortune
+[submodule "fortune"]
+	path = fortune
 	url = https://github.com/JKirchartz/fortune.git
 	ignore = dirty
 [submodule "vimwiki"]

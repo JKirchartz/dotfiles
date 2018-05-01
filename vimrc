@@ -37,7 +37,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'heavenshell/vim-jsdoc', { 'for': 'js' }
 
 " snippets engine & library
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'aperezdc/vim-template'
 
 " syntax completion, checking, & highlighting
@@ -46,8 +46,8 @@ Plug 'mustache/vim-mustache-handlebars'
 Plug 'tmux-plugins/vim-tmux'
 " Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 " Plug 'dsawardekar/wordpress.vim', { 'for': 'php'}
-if has('python')
-	Plug 'maralla/completor.vim', { 'do': 'make js' }
+if has('python') || has('python3')
+	" Plug 'maralla/completor.vim', { 'do': 'make js' }
 else
 	Plug 'ajh17/VimCompletesMe'
 endif
@@ -101,7 +101,7 @@ let g:ulti_expand_or_jump_res = 0
 
 inoremap <expr> <CR> pumvisible() ? "<C-R>=fun#ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
 
-if has('python')
+if has('python') || has('python3')
 	" use tab to select completion in completor.vim
 	inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 	inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -151,11 +151,11 @@ set dictionary+=/usr/share/dict/words
 " Tabs & Indents
 set shiftround
 " tabs are 2 columns wide, but are hard tabs
-set shiftwidth=2 tabstop=2
+" set shiftwidth=2 tabstop=2
 " tabs are 2 spaces
 " set tabstop=2 expandtab
 " tabs are 2 spaces... or else.
-" set shiftwidth=2 softtabstop=2 expandtab
+set shiftwidth=2 softtabstop=2 expandtab
 
 " 80 columns
 set nowrap " don't soft-wrap
