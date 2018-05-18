@@ -10,7 +10,9 @@ zstyle ':completion:*' max-errors 3
 zstyle :compinstall filename '${HOME}/.zshrc'
 autoload -Uz compinit; compinit
 autoload -U zmv
-setopt promptsubst autocd notify hist_ignore_dups NO_BEEP hist_ignore_space inc_append_history share_history interactivecomments
+setopt promptsubst autocd notify hist_ignore_dups hist_ignore_space inc_append_history share_history interactivecomments
+# setopt appendhistory nomatch
+unsetopt beep
 
 export PATH=$HOME/dotfiles/scripts:$PATH
 export PATH=$HOME/projects/ghint:$PATH
