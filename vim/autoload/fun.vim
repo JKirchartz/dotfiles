@@ -173,7 +173,7 @@ function fun#CleanQueryScraper()
 endfunction
 
 "}}}--------------------------------------------------
-" Append height/width of image after current line
+" Append height/width of image in current line
 "-------------------------------------------------------{{{
 function! fun#ImageSize()
 	let imgcmd = 'identify -format "width:%[w]px;\nheight:%[h]px;" '
@@ -183,6 +183,21 @@ function! fun#ImageSize()
 	let imgsize = system(imgcmd . filename)
 	call append(line('.'), split(imgsize, '\v\n'))
 	norm j2==
+endfunction
+
+"}}}--------------------------------------------------
+" get most prominent color if image in current line
+"-------------------------------------------------------{{{
+
+" convert fed_8282_clover_160x600_frame2-overlay.png -format %c -depth 8 histogram:info: | sort -n | tail -1 | cut -d' ' -f10,11
+function! fun#ImageColor()
+	let imgcmd = 'convert'
+	let imgcmd2 = '-format %c -depth 8 histogram:info: | sort -n | tail -1 | cut -d\' \' -f10,11'
+	let line = split(getline('.'), "'")
+	let filename = line[1]
+	let imgsize = system(imgcmd . filename)
+	call append(line('.'), split(imgsize, '\v\n'))
+	norm j==
 endfunction
 
 
@@ -202,3 +217,4 @@ function! fun#AllALEBuffers()
 		echo "no errors found in open buffers"
 	endif
 endfunction
+

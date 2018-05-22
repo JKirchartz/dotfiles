@@ -77,6 +77,7 @@ alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Cres
 
 # serve dir as static site
 alias serve="python -m SimpleHTTPServer"
+alias serveo="ssh -R 80:localhost:8000 serveo.net"
 
 # prettyprint json
 alias ppjson='python -m json.tool'
@@ -107,7 +108,12 @@ alias ix="curl -F 'f:1=<-' ix.io"
 alias yt2mp3='youtube-dl --extract-audio --audio-format mp3 '
 
 alias imgsize='identify -format "width: %[w]px;\nheight: %[h]px;"'
+alias imgcolor='convert -unique-colors -depth 8 txt:-'
 
+# Docker
+
+alias dockerstopall='docker stop $(docker ps -a -q)'
+alias dockerremoveall='docker rm $(docker ps -a -q)'
 
 # the following is weirdness GuyNoIR AKA Bob_Dobbs
 # Put these in .bash_aliases
@@ -127,3 +133,6 @@ alias imgsize='identify -format "width: %[w]px;\nheight: %[h]px;"'
 alias SpeakToTheSphinx="touch SphinxPipe; unbuffer pocketsphinx_continuous -inmic yes -logfn /dev/null >> SphinxPipe & tail -f SphinxPipe | grep --line-buffered -vwE 'READY....|Listening...' | stdbuf -oL trans -b {en=zh-CN} | stdbuf -oL trans -b {zh-CN=ru} | stdbuf -oL trans -b -p {ru=en}"
 
 alias KillTheSphinx="sudo pkill -9 pocketsphinx; reset; echo ''; rm SphinxPipe; echo ''; ps aux | grep pocketsphinx; echo ''"
+
+
+

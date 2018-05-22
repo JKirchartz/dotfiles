@@ -104,3 +104,10 @@ cwd () {
   fi
   grep -w -i $1 /usr/share/dict/words
 }
+
+
+function fix-ssh {
+  eval $(ssh-agent);
+  ssh-add -K;
+}
+

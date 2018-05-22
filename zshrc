@@ -1,6 +1,10 @@
 #------------------------------
 # set options
 #-----------------------------{{{
+autoload bashcompinit
+bashcompinit
+source '${HOME}/dotfiles/scripts/wp-completion.bash'
+
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle ':completion:*' max-errors 3
 zstyle :compinstall filename '${HOME}/.zshrc'
@@ -9,6 +13,7 @@ autoload -U zmv
 setopt promptsubst autocd notify hist_ignore_dups NO_BEEP hist_ignore_space inc_append_history share_history interactivecomments
 
 export PATH=$HOME/dotfiles/scripts:$PATH
+export PATH=$HOME/projects/ghint:$PATH
 export EDITOR="vim" PAGER="less"
 
 HISTFILE="${HOME}/.zshhistory"
