@@ -2,20 +2,25 @@ Host blinken
   HostName ssh.blinkenshell.org
   Port 2222
   User derkirche
+  ServerAliveInterval 30
 
 Host fu
+  ServerAliveInterval 30
   HostName fuckup.solutions
   User derkirche
 
 Host sdf
+  ServerAliveInterval 30
   HostName sdf.org
   User kirch
 
 Host tt
+  ServerAliveInterval 30
   HostName tilde.town
   User kirch
 
 Host hb
+  ServerAliveInterval 30
   HostName ny1.hashbang.sh
   User kirch
 
