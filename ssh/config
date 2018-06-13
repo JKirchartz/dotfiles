@@ -1,4 +1,11 @@
-Host blinken
+Host b-irc
+  HostName ssh.blinkenshell.org
+  Port 2222
+  User derkirche
+  ServerAliveInterval 30
+  LocalForward 6667 irc:6667
+
+Host b
   HostName ssh.blinkenshell.org
   Port 2222
   User derkirche
@@ -18,6 +25,7 @@ Host tt
   ServerAliveInterval 30
   HostName tilde.town
   User kirch
+  LocalForward 6667 localhost:6667
 
 Host hb
   ServerAliveInterval 30

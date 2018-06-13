@@ -21,9 +21,6 @@
 [push]
 	default = current
 
-[pull]
-	rebase = true
-
 [core]
 	pager = less -R
 	excludesfile = ~/dotfiles/gitignore_global

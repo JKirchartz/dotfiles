@@ -177,8 +177,9 @@ endfunction
 "-------------------------------------------------------{{{
 function! fun#ImageSize()
 	let imgcmd = 'identify -format "width:%[w]px;\nheight:%[h]px;" '
-	let line = split(getline('.'), "'")
-	let filename = line[1]
+	" let line = split(getline('.'), "'")
+	" let filename = line[1]
+	let filename = expand('<cfile>')
 	" this may work better than split, with some jiggering: echo matchstr(getline('.'),"'\\zs\\f\\+\\ze'")
 	let imgsize = system(imgcmd . filename)
 	call append(line('.'), split(imgsize, '\v\n'))

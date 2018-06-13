@@ -75,9 +75,11 @@ let wiki.ext = ".md"
 let wiki.auto_export = 1
 let wiki.auto_toc = 1
 let wiki.auto_tags = 1
+let wiki.custom_wiki2html = 'vimwiki_markdown'
+" let wiki.custom_wiki2html=$HOME.'/.vim/plugged/vimwiki/autoload/vimwiki/customwiki2html.sh'
 
 let g:vimwiki_list = [wiki]
-let g:vimwiki_custom_wiki2html=$HOME.'/.vim/plugged/vimwiki/autoload/vimwiki/customwiki2html.sh'
+
 
 " tree-view
 let g:netrw_liststyle = 3
