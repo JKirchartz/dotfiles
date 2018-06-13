@@ -28,8 +28,9 @@ case $OSTYPE in
                 if [[ $STY ]] ; then
                   # import bashrc
                   source ~/.bashrc;
+                else
+                  return;
                 fi;
-                exit 0;
                 ;;
             lucid32)
                 ### Added by the Heroku Toolbelt
