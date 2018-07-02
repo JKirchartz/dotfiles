@@ -12,7 +12,7 @@ filetype off                  " required for vundle init
 call plug#begin('~/.vim/plugged/')
 
 " personal forks/projects
-Plug 'jkirchartz/vim-colorschemes' " forked flazz's, not sure enough about licenses to send a PR
+Plug 'jkirchartz/vim-colors-megapack'
 Plug 'jkirchartz/writegooder.vim', { 'for': ['md', 'txt', 'htm', 'html'] } " 3 scripts to improve writing - wanna modify for other words/phrases to avoid
 
 
@@ -37,7 +37,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'heavenshell/vim-jsdoc', { 'for': 'js' }
 
 " snippets engine & library
-" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'aperezdc/vim-template'
 
 " syntax completion, checking, & highlighting
@@ -47,7 +47,7 @@ Plug 'tmux-plugins/vim-tmux'
 " Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 " Plug 'dsawardekar/wordpress.vim', { 'for': 'php'}
 if has('python') || has('python3')
-	" Plug 'maralla/completor.vim', { 'do': 'make js' }
+	Plug 'maralla/completor.vim', { 'do': 'make js' }
 else
 	Plug 'ajh17/VimCompletesMe'
 endif
@@ -77,8 +77,19 @@ let wiki.auto_toc = 1
 let wiki.auto_tags = 1
 let wiki.custom_wiki2html = 'vimwiki_markdown'
 " let wiki.custom_wiki2html=$HOME.'/.vim/plugged/vimwiki/autoload/vimwiki/customwiki2html.sh'
-
 let g:vimwiki_list = [wiki]
+
+
+let g:ale_sign_error='✗'
+let g:ale_sign_warning='⚠'
+let g:ale_statusline_format = ['✗ %d', '⚠ %d', '✔ ok']
+
+let g:ale_sign_column_always = 1
+
+let b:ale_linters={ 'php': ['phpcs'] }
+let g:ale_php_phpcs_standard = 'Wordpress'
+let g:ale_php_phpcs_use_global = 1
+
 
 
 " tree-view
@@ -232,6 +243,10 @@ command -bar Scratch call fun#ScratchBuffer()
 " get image sizes
 
 command -bar ImageSize call fun#ImageSize()
+
+
+" Replace the selected text with the base64 decoded version.
+vnoremap <leader>64 c<c-r>=system('base64 --decode', @")<cr><esc>
 
 " Send the selected text to pastebin.
 " TODO - automate putting the resulting uri on the clipboard, or

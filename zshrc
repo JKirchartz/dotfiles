@@ -14,6 +14,7 @@ setopt promptsubst autocd notify hist_ignore_dups NO_BEEP hist_ignore_space inc_
 
 export PATH=$HOME/dotfiles/scripts:$PATH
 export PATH=$HOME/projects/ghint:$PATH
+export PATH=$HOME/.composer/vendor/bin:$PATH
 export EDITOR="vim" PAGER="less"
 
 HISTFILE="${HOME}/.zshhistory"
