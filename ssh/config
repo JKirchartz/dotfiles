@@ -32,5 +32,9 @@ Host hb
   HostName ny1.hashbang.sh
   User kirch
 
+Host hb
+	HostName hashbang.sh
+	User kirch
+
 Host sftp.barkleyhosting.com
   PubkeyAcceptedKeyTypes +ssh-dss

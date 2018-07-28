@@ -13,7 +13,7 @@ call plug#begin('~/.vim/plugged/')
 
 " personal forks/projects
 Plug 'jkirchartz/vim-colors-megapack'
-Plug 'jkirchartz/writegooder.vim', { 'for': ['md', 'txt', 'htm', 'html'] } " 3 scripts to improve writing - wanna modify for other words/phrases to avoid
+Plug 'jkirchartz/writegooder.vim' " 3 scripts to improve writing - wanna modify for other words/phrases to avoid
 
 
 " Plugs
