@@ -25,7 +25,9 @@ Host tt
   ServerAliveInterval 30
   HostName tilde.town
   User kirch
-  LocalForward 6667 localhost:6667
+  # LocalForward 6667 localhost:6667
+  # RequestTTY force
+  # RemoteCommand screen -r
 
 Host hb
   ServerAliveInterval 30
@@ -33,8 +35,8 @@ Host hb
   User kirch
 
 Host hb
-	HostName hashbang.sh
-	User kirch
+    HostName hashbang.sh
+    User kirch
 
 Host sftp.barkleyhosting.com
   PubkeyAcceptedKeyTypes +ssh-dss
