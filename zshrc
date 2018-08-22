@@ -131,3 +131,5 @@ PS2="%F{red}└─%F{cyan}>%{$reset_color%}"
 
 # }}} fold up this file
 # vim: foldmethod=marker
+export PATH="/usr/local/opt/mozjpeg/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"

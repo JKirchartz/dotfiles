@@ -107,6 +107,7 @@ cwd () {
 
 
 function fix-ssh {
+  ssh-add -K;
   eval $(ssh-agent);
   ssh-add -K;
 }

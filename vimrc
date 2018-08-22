@@ -127,6 +127,9 @@ endif
 set runtimepath+=~/.vim/LocalSnippets
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "LocalSnippets"]
 
+
+tnoremap <c-j> <C-W>j
+
 "}}}---------------------------------------------------------zo
 " Vim Settings
 "---------------------------------------------------------{{{
@@ -403,3 +406,4 @@ endif
 
 " fold up this file
 " vim: foldmethod=marker
+"

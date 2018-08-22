@@ -21,11 +21,17 @@ Host sdf
   HostName sdf.org
   User kirch
 
-Host tt
+Host team
+  ServerAliveInterval 30
+  HostName tilde.team
+  User kirch
+
+Host town
   ServerAliveInterval 30
   HostName tilde.town
   User kirch
-  LocalForward 6667 localhost:6667
+  RequestTTY force
+  RemoteCommand screen -r
 
 Host hb
   ServerAliveInterval 30

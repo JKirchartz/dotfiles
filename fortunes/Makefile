@@ -1,4 +1,4 @@
-#
+
 # Make plaintext quote lists into fortune files
 #
 
