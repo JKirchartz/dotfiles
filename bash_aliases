@@ -135,4 +135,4 @@ alias SpeakToTheSphinx="touch SphinxPipe; unbuffer pocketsphinx_continuous -inmi
 alias KillTheSphinx="sudo pkill -9 pocketsphinx; reset; echo ''; rm SphinxPipe; echo ''; ps aux | grep pocketsphinx; echo ''"
 
 
-
+alias GHwork=". GHwork"
