@@ -33,10 +33,14 @@ Host town
   RequestTTY force
   RemoteCommand screen -r
 
-Host hb
+Host hb1
   ServerAliveInterval 30
   HostName ny1.hashbang.sh
   User kirch
+
+Host hb
+    HostName hashbang.sh
+    User kirch
 
 Host sftp.barkleyhosting.com
   PubkeyAcceptedKeyTypes +ssh-dss

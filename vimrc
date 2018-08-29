@@ -13,7 +13,7 @@ call plug#begin('~/.vim/plugged/')
 
 " personal forks/projects
 Plug 'jkirchartz/vim-colors-megapack'
-Plug 'jkirchartz/writegooder.vim', { 'for': ['md', 'txt', 'htm', 'html'] } " 3 scripts to improve writing - wanna modify for other words/phrases to avoid
+Plug 'jkirchartz/writegooder.vim' " 3 scripts to improve writing - wanna modify for other words/phrases to avoid
 
 
 " Plugs
@@ -102,8 +102,8 @@ let g:netrw_browse_split = 4
 " make EditorConfig play nice with vim-fugitive
 " let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 let g:editorconfig_blacklist = {
-    \ 'filetype': ['git.*', 'fugitive'],
-    \ 'pattern': ['\.un~$']}
+			\ 'filetype': ['git.*', 'fugitive'],
+			\ 'pattern': ['\.un~$']}
 
 " fix ultisnips/vimcompletesme & allow <CR> to select entry
 let g:UltiSnipsEditSplit="context"
@@ -137,6 +137,7 @@ tnoremap <c-j> <C-W>j
 "map leader to space for world domination
 nnoremap <Space> <Nop>
 let mapleader = " "
+
 
 set ffs=unix,mac,dos " Set default filetypes in descending wrongness
 set clipboard^=unnamed,unnamedplus
