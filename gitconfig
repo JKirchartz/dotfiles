@@ -8,6 +8,12 @@
 	name = JKirchartz
 	email = jkirchartz@gmail.com
 
+[gitlab]
+	user = jkirchartz
+	name = JKirchartz
+	email = jkirchartz@gmail.com
+
+
 [apply]
 	# Detect whitespace errors when applying a patch
 	whitespace = fix
