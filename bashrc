@@ -90,8 +90,4 @@ if [ -f ~/env.keys ]; then
   source ~/env.keys
 fi
 
-if [ "$OSTYPE" == "linux-gnu" ] && [ -d "/mnt/c/windows" ]; then
-  # ubuntu on windows, load bash_profile
-  source ~/.bash_profile
-fi
 

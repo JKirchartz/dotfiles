@@ -1,7 +1,6 @@
 [submodule "fortunes"]
 	path = fortunes
 	url = https://github.com/JKirchartz/fortune.git
-	ignore = dirty
 [submodule "vimwiki"]
 	path = vimwiki
 	url = git@gitlab.com:JKirchartz/vimwiki.git

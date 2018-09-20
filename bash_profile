@@ -74,6 +74,11 @@ case $OSTYPE in
                 PATH="$PATH:$HOME/.rbenv/bin"
                 eval "$(rbenv init -)"
                 ;;
+            fiddle)
+                export DISPLAY=:0
+                export BROWSER=/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
+                alias vi=vim
+                ;;
         esac
         ;;
     cygwin)
@@ -93,3 +98,7 @@ export PAGER="less -F"
 
 # import bashrc
 source ~/.bashrc
+
+if [ -d $HOME/.linuxbrew ]; then
+  export PATH="/home/kirch/.linuxbrew/bin:$PATH"
+fi

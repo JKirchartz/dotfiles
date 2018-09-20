@@ -1,3 +1,7 @@
+# Host *
+#     ForwardAgent yes
+#     ForwardX11 yes
+
 Host b-irc
   HostName ssh.blinkenshell.org
   Port 2222
@@ -10,6 +14,8 @@ Host b
   Port 2222
   User derkirche
   ServerAliveInterval 30
+  # RequestTTY force
+  # RemoteCommand screen -r
 
 Host fu
   ServerAliveInterval 30
@@ -25,13 +31,15 @@ Host team
   ServerAliveInterval 30
   HostName tilde.team
   User kirch
+  # RequestTTY force
+  # RemoteCommand screen -r
 
 Host town
   ServerAliveInterval 30
   HostName tilde.town
   User kirch
-  RequestTTY force
-  RemoteCommand screen -r
+  # RequestTTY force
+  # RemoteCommand screen -r
 
 Host hb1
   ServerAliveInterval 30
