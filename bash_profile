@@ -77,6 +77,11 @@ case $OSTYPE in
             fiddle)
                 export DISPLAY=:0
                 export BROWSER=/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
+                export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
+                # VAGRANT_WSL_WINDOWS_ACCESS_USER - Override current Windows username
+                # VAGRANT_WSL_DISABLE_VAGRANT_HOME - Do not modify the VAGRANT_HOME variable
+                # VAGRANT_WSL_WINDOWS_ACCESS_USER_HOME_PATH - Custom Windows system home path
+                export PATH="$PATH:/mnt/c/Program Files/Oracle/VirtualBox"
                 alias vi=vim
                 ;;
         esac

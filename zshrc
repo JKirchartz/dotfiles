@@ -88,6 +88,17 @@ else
   echo "curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh"
 fi
 
+if [[ $HOSTNAME -eq "fiddle" ]]; then
+  export DISPLAY=:0
+  export BROWSER=/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
+  export SHELL=zsh
+  export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
+  # VAGRANT_WSL_WINDOWS_ACCESS_USER - Override current Windows username
+  # VAGRANT_WSL_DISABLE_VAGRANT_HOME - Do not modify the VAGRANT_HOME variable
+  # VAGRANT_WSL_WINDOWS_ACCESS_USER_HOME_PATH - Custom Windows system home path
+  export PATH="$PATH:/mnt/c/Program Files/Oracle/VirtualBox"
+  alias vi=vim
+fi
 
 
 # }}}----------------------------
