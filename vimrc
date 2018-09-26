@@ -30,9 +30,6 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive' | Plug 'junegunn/gv.vim' " a commit browser, requires fugitive
 Plug 'tpope/vim-markdown', { 'for': 'md' }
 
-" Vim Wiki
-Plug 'vimwiki/vimwiki'
-
 " Plug 'FooSoft/vim-argwrap'
 Plug 'heavenshell/vim-jsdoc', { 'for': 'js' }
 
@@ -53,6 +50,9 @@ else
 endif
 Plug 'w0rp/ale'
 
+" Vim Wiki
+Plug 'vimwiki/vimwiki'
+
 " vim included plugins
 runtime macros/matchit.vim
 runtime ftplugin/man.vim
@@ -65,18 +65,14 @@ filetype plugin indent on    " required
 " Plugin Settings
 "------------------------------------------------------------ {{{
 let wiki = {}
-let wiki.path = "~/dotfiles/vimwiki/markdown/"
+let wiki.path = "~/dotfiles/vimwiki/src/"
 let wiki.path_html = "~/dotfiles/vimwiki/html/"
 let wiki.template_path = "~/dotfiles/vim/templates/"
 let wiki.template_default = "vimwiki"
 let wiki.template_ext = ".html"
-let wiki.syntax = "markdown"
-let wiki.ext = ".md"
 let wiki.auto_export = 1
 let wiki.auto_toc = 1
 let wiki.auto_tags = 1
-let wiki.custom_wiki2html = 'vimwiki_markdown'
-" let wiki.custom_wiki2html=$HOME.'/.vim/plugged/vimwiki/autoload/vimwiki/customwiki2html.sh'
 let g:vimwiki_list = [wiki]
 
 
