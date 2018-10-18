@@ -23,3 +23,13 @@ Here's how my terminal looks after running 'work'
 DISCLAIMER: My [vimrc](vimrc) (and everything else) is setup the way I like it, for now, and will likely change whenever I feel like it. Use it at the risk of **Pandajail** where pandas are sent when you use someone else's `vimrc`. Don't be the vimmer responsible for this:
 
 ![pandajail](https://i.chzbgr.com/maxW500/7518742016/h59D3B471/)
+
+
+
+colophon:
+
+The [Arthur Colorscheme](colors) was created by [Baskerville](https://baskerville.github.io/), and liberated from [iterm2-color-schemes](https://github.com/mbadolato/iTerm2-Color-Schemes)
+
+![Arthur Colorscheme](colors/arthur.png)
+
+Preferred font is [Fira Code](https://github.com/tonsky/FiraCode), a monospaced font with programming ligatures

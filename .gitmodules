@@ -3,4 +3,4 @@
 	url = https://github.com/JKirchartz/fortunes
 [submodule "vimwiki"]
 	path = vimwiki
-	url = git@gitlab.com:JKirchartz/vimwiki.git
+	url = https://gitlab.com/JKirchartz/vimwiki.git

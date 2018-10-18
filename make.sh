@@ -15,7 +15,7 @@ case "$OSTYPE" in
     darwin*)
         # Files for OSX
         echo "Preparing files for OSX"
-				files="tern-config jshintrc ackrc inputrc zshrc bashrc bash_profile vimrc vim tmux.conf slate ssh gitconfig screenrc scss-lint.yml"
+        files="tern-config jshintrc ackrc inputrc zshrc bashrc bash_profile vimrc vim tmux.conf slate ssh gitconfig screenrc scss-lint.yml"
         echo "Installing Homebrew"
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
         echo "Installing required software via Homebrew"
@@ -24,12 +24,12 @@ case "$OSTYPE" in
     msys|cygwin)
         # Files for cygwin & msys << obsoleted by windows 10 anniversary release
         echo "Preparing files for *doze"
-				files="tern-config inputrc zshrc bashrc bash_profile vimrc vim tmux.conf ssh gitconfig screenrc scss-lint.yml"
+        files="tern-config inputrc zshrc bashrc bash_profile vimrc vim tmux.conf ssh gitconfig screenrc scss-lint.yml"
         ;;
     *)
         # Files for *nix
         echo "Preparing files for *nix"
-				files="tern-config jshintrc ackrc inputrc zshrc bashrc bash_profile vimrc vim tmux.conf gitconfig screenrc profile scss-lint.yml"
+        files="tern-config jshintrc ackrc inputrc zshrc bashrc bash_profile vimrc vim tmux.conf gitconfig screenrc profile scss-lint.yml"
         ;;
 esac
 
@@ -90,9 +90,11 @@ echo "$fortunes"
 ###
 echo "Attempting to install vim-plug"
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-echo "Attempting to setup gist/vim-fist"
-gem install gist && gist --login
-echo "Installing vim plugins with Vundle"
+if type gem >/dev/null 2>&1; then
+  echo "Attempting to setup gist/vim-fist"
+  gem install gist && gist --login
+fi
+echo "Installing vim plugins with Plug"
 vim +PlugInstall +qall
 
 ##########
@@ -109,3 +111,14 @@ if type nvim >/dev/null 2>&1; then
   nvim +PlugInstall +qall
 fi
 
+
+##########
+# setup zsh
+###
+
+if type zsh >/dev/null 2>&1; then
+  echo "Attempting to install zplug"
+  curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+  echo "Installing zsh plugins via ZPlug"
+  zplug install
+fi
