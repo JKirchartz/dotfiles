@@ -18,8 +18,8 @@ case "$OSTYPE" in
         files="tern-config jshintrc ackrc inputrc zshrc bashrc bash_profile vimrc vim tmux.conf slate ssh gitconfig screenrc scss-lint.yml"
         echo "Installing Homebrew"
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-        echo "Installing required software via Homebrew"
-        brew install iterm2 tmux ack bash cowsay fortune vim reattach-to-user-namespace
+        echo "Installing required software via Homebrew (see Brewfile for details)"
+        brew bundle
         ;;
     msys|cygwin)
         # Files for cygwin & msys << obsoleted by windows 10 anniversary release
