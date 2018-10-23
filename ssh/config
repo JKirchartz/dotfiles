@@ -2,12 +2,22 @@
 #     ForwardAgent yes
 #     ForwardX11 yes
 
-Host b-irc
+Host bs
   HostName ssh.blinkenshell.org
-  Port 2222
+  Port 443
   User derkirche
   ServerAliveInterval 30
-  LocalForward 6667 irc:6667
+
+Host btown
+  HostName ssh.blinkenshell.org
+  Port 443
+  User derkirche
+  ServerAliveInterval 30
+  ProxyJump town
+
+Host stash.ae.com
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/ae_rsa
 
 Host b
   HostName ssh.blinkenshell.org
