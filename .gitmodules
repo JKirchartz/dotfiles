@@ -1,3 +1,6 @@
-[submodule "scripts/fortune"]
-	path = scripts/fortune
-	url = https://github.com/JKirchartz/fortune.git
+[submodule "fortunes"]
+	path = fortunes
+	url = https://github.com/JKirchartz/fortunes
+[submodule "vimwiki"]
+	path = vimwiki
+	url = https://gitlab.com/JKirchartz/vimwiki.git
