@@ -229,6 +229,11 @@ endif
 " Custom Commands
 "---------------------------------------------------------{{{
 
+" silence command & redraw screen on end
+command! -nargs=+ Silent
+      \ execute 'silent <args>'
+      \ | execute 'redraw!'
+
 " forgot to sudo vi? w!!
 cmap w!! %!sudo tee > /dev/null %
 
@@ -311,6 +316,12 @@ nmap <leader>b :ls<CR>:b<space>
 
 " reflow text using `par` command
 map <leader>f {v}!par -jw80
+
+if has('mac')
+  " copy file to osx clipboard
+  map <silent> <leader>cc :Silent !pbcopy < %<cr>
+  vnoremap <silent> <leader>cc :Silent <esc>:'<,'>:w !pbcopy<cr>
+endif
 
 
 "}}}---------------------------------------------------------

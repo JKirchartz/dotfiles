@@ -36,7 +36,7 @@ case $OSTYPE in
         case $HOSTNAME in
             triton)
                 # autostart screen
-                if [ "$(ps -p $PPID -o comm=)" != screen ]; then scr; fi
+                # if [ "$(ps -p $PPID -o comm=)" != screen ]; then scr; fi
                 ;;
             lucid32)
                 ### Added by the Heroku Toolbelt
