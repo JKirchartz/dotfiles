@@ -1,5 +1,64 @@
+# Host *
+#     ForwardAgent yes
+#     ForwardX11 yes
 
-Host blinken
+Host bs
+  HostName ssh.blinkenshell.org
+  Port 443
+  User derkirche
+  ServerAliveInterval 30
+
+Host btown
+  HostName ssh.blinkenshell.org
+  Port 443
+  User derkirche
+  ServerAliveInterval 30
+  ProxyJump town
+
+Host stash.ae.com
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/ae_rsa
+
+Host b
   HostName ssh.blinkenshell.org
   Port 2222
+  User derkirche
+  ServerAliveInterval 30
+  # RequestTTY force
+  # RemoteCommand screen -r
 
+Host fu
+  ServerAliveInterval 30
+  HostName fuckup.solutions
+  User derkirche
+
+Host sdf
+  ServerAliveInterval 30
+  HostName sdf.org
+  User kirch
+
+Host team
+  ServerAliveInterval 30
+  HostName tilde.team
+  User kirch
+  # RequestTTY force
+  # RemoteCommand screen -r
+
+Host town
+  ServerAliveInterval 30
+  HostName tilde.town
+  User kirch
+  # RequestTTY force
+  # RemoteCommand screen -r
+
+Host hb1
+  ServerAliveInterval 30
+  HostName ny1.hashbang.sh
+  User kirch
+
+Host hb
+    HostName hashbang.sh
+    User kirch
+
+Host sftp.barkleyhosting.com
+  PubkeyAcceptedKeyTypes +ssh-dss
