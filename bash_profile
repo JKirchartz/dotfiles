@@ -24,7 +24,7 @@ case $OSTYPE in
         case $HOSTNAME in
             triton)
                 # autostart screen
-                if [ "$(ps -p $PPID -o comm=)" != screen ]; then scr; fi
+                # if [ "$(ps -p $PPID -o comm=)" != screen ]; then scr; fi
                 if [[ $STY ]] ; then
                   # import bashrc
                   source ~/.bashrc;
