@@ -390,6 +390,7 @@ if has("autocmd")
 	" Use correct indenting for python
 	autocmd FileType python setlocal shiftwidth=2 softtabstop=2 expandtab
 	autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
+        autocmd BufNewFile,BufRead *.ae setlocal filetype=javascript
 	" Jump to last position when reopening files
 	au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
 				\| exe "normal g'\"" | endif

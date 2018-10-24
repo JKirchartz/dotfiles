@@ -1,0 +1,28 @@
+<script>
+(function(){
+
+  var jiraTicket = '%HERE%',
+      activity_style = '<css for module>';
+
+  try{
+    var init = function() {
+
+    };
+
+    if(typeof awo !== 'undefined'){
+      awo.at.activities.push({
+        "name": "<name to match target>",
+        "info": {
+          "desc": "<description of functionality>",
+          "jira": jiraTicket
+        },
+        "elements": [
+        ]
+      });
+
+      awo.runPoll('<class function operates on>',init);
+      awo.setStyles(activity_style, jiraTicket);
+    }
+  }catch(e){}
+})();
+</script>

@@ -13,7 +13,8 @@ Host btown
   Port 443
   User derkirche
   ServerAliveInterval 30
-  ProxyJump town
+  # ProxyJump town
+  # ProxyCommand ssh town -W %h:22
 
 Host stash.ae.com
   IdentitiesOnly yes

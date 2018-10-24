@@ -44,6 +44,9 @@ function tmut () {
 # cd & ls
 function cl() { cd "$@" && ls -oFhA; }
 
+# mk & cd
+function mkcd() { mkdir "$@" && cd "$@" }
+
 # open files specified by other utilities
 function gitvim () { vim $(git diff --name-only $@ ); }
 function ackvim () { vim $(ack -l $@ ); }
