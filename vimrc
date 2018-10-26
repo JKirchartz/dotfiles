@@ -75,18 +75,39 @@ let wiki.auto_toc = 1
 let wiki.auto_tags = 1
 let g:vimwiki_list = [wiki]
 
-
 let g:ale_sign_error='✗'
 let g:ale_sign_warning='⚠'
 let g:ale_statusline_format = ['✗ %d', '⚠ %d', '✔ ok']
-
 let g:ale_sign_column_always = 1
 
-let b:ale_linters={ 'php': ['phpcs'] }
+" let g:ale_linter_aliases = {'html': ['html', 'javascript', 'css']}
+let b:ale_linters={
+      \ 'html': ['alex', 'htmlhint', 'proselint', 'stylelint', 'tidy', 'writegood', 'eslint', 'flow', 'flow-language-server', 'standard', 'tsserver', 'xo', 'csslint', 'stylelint'],
+      \ 'php': ['phpcs'],
+      \ 'javascript': ['eslint']
+      \}
+let b:ale_fixers = {
+      \ 'javascript': ['eslint']
+      \}
 let g:ale_php_phpcs_standard = 'Wordpress'
 let g:ale_php_phpcs_use_global = 1
 
 
+" don't fist anonymously, just privately
+let g:fist_anonymously = 0
+let g:fist_in_private = 1
+
+" use _my_ info the default for vim-templates
+let g:username = "jkirchartz"
+let g:email = "me@jkirchartz.com"
+let g:license = "NPL (Necessary Public License)"
+let g:templates_directory = ["$HOME/.vim/templates"]
+
+
+let hostname = substitute(system('hostname'), '\n', '', '')
+if hostname =~ "aeo.ae"
+  let g:templates_global_name_prefix = '=ae='
+endif
 
 " tree-view
 let g:netrw_liststyle = 3
@@ -249,6 +270,8 @@ command -bar Scratch call fun#ScratchBuffer()
 
 command -bar ImageSize call fun#ImageSize()
 
+" easy access undotree
+nmap <leader>ut :UndotreeToggle<CR>
 
 " Replace the selected text with the base64 decoded version.
 vnoremap <leader>64 c<c-r>=system('base64 --decode', @")<cr><esc>
@@ -353,36 +376,6 @@ imap            <F8>            <C-O><F8>
 let g:colorSchemes = ["candycode", "darkblack", "molokai", "molokai_dark", "default"]
 nnoremap <F9> :call fun#ColorSchemeToggle()<cr>
 
-"}}}---------------------------------------------------------
-" Plugin Options
-"---------------------------------------------------------{{{
-
-nmap <leader>ut :UndotreeToggle<CR>
-
-" let g:syntastic_aggregate_errors = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_enable_perl_checker = 1
-" if has("autocmd")
-" 	autocmd FileType javascript.jsx let g:syntastic_javascript_checkers = ['jshint', 'eslint']
-" 	autocmd FileType javascript let g:syntastic_javascript_checkers = ['jshint', 'gjslint']
-" endif
-" let g:syntastic_ruby = ['rubocop', 'mri']
-" let g:syntastic_php_phpcs_args='--standard=WordPress'
-" " use pretty syntastic symbols
-" let g:syntastic_error_symbol = '✗'
-" let g:syntastic_warning_symbol = '⚠'
-
-" don't fist anonymously, just privately
-let g:fist_anonymously = 0
-let g:fist_in_private = 1
-
-" use _my_ info the default for vim-templates
-let g:username = "jkirchartz"
-let g:email = "me@jkirchartz.com"
-let g:license = "NPL (Necessary Public License)"
-" let g:templates_directory = ["$HOME/.vim/templates"]
-
-
 "}}}-----------------------------------------------------
 " Autocmds
 "-------------------------------------------------------{{{
@@ -390,7 +383,6 @@ if has("autocmd")
 	" Use correct indenting for python
 	autocmd FileType python setlocal shiftwidth=2 softtabstop=2 expandtab
 	autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
-        autocmd BufNewFile,BufRead *.ae setlocal filetype=javascript
 	" Jump to last position when reopening files
 	au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
 				\| exe "normal g'\"" | endif
@@ -415,4 +407,5 @@ endif
 
 " fold up this file
 " vim: foldmethod=marker
+"
 "
