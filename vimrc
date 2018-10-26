@@ -80,7 +80,7 @@ let g:ale_sign_warning='⚠'
 let g:ale_statusline_format = ['✗ %d', '⚠ %d', '✔ ok']
 let g:ale_sign_column_always = 1
 
-let g:ale_linter_aliases = {'html': ['html', 'javascript', 'css']}
+" let g:ale_linter_aliases = {'html': ['html', 'javascript', 'css']}
 let b:ale_linters={
       \ 'html': ['alex', 'htmlhint', 'proselint', 'stylelint', 'tidy', 'writegood', 'eslint', 'flow', 'flow-language-server', 'standard', 'tsserver', 'xo', 'csslint', 'stylelint'],
       \ 'php': ['phpcs'],
