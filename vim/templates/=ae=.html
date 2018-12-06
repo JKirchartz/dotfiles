@@ -1,28 +1,28 @@
 <script>
-(function(){
+  (function(){
+    try{
+      var jiraTicket = '<jira ticket number>';
+      var activity_style = '<css for module>';
+      if(typeof awo !== 'undefined'){
+        awo.at.activities.push({
+          "name": "<name to match target>",
+          "info": {
+            "desc": "<description of functionality>",
+            "jira": jiraTicket
+          },
+          "elements": [ ]
+        });
 
- var jiraTicket = '<jira ticket number>',
-      activity_style = '<css for module>';
+        var init = function() {
+          awo.setStyles(activity_style, jiraTicket);
 
-  try{
-    var init = function() {
+        };
 
-    };
 
-    if(typeof awo !== 'undefined'){
-      awo.at.activities.push({
-        "name": "<name to match target>",
-        "info": {
-          "desc": "<description of functionality>",
-          "jira": jiraTicket
-        },
-        "elements": [
-        ]
-      });
-
-      awo.runPoll('<class function operates on>',init);
-      awo.setStyles(activity_style, jiraTicket);
+        awo.runPoll('<class function operates on>',init);
+      }
+    }catch(e){
+      awo.error(e);
     }
-  }catch(e){}
-})();
+  })();
 </script>
