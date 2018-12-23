@@ -81,13 +81,14 @@ let g:ale_statusline_format = ['✗ %d', '⚠ %d', '✔ ok']
 let g:ale_sign_column_always = 1
 
 " let g:ale_linter_aliases = {'html': ['html', 'javascript', 'css']}
-let b:ale_linters={
+let g:ale_linters={
       \ 'html': ['alex', 'htmlhint', 'proselint', 'stylelint', 'tidy', 'writegood', 'eslint', 'flow', 'flow-language-server', 'standard', 'tsserver', 'xo', 'csslint', 'stylelint'],
       \ 'php': ['phpcs'],
       \ 'javascript': ['eslint']
       \}
-let b:ale_fixers = {
-      \ 'javascript': ['eslint']
+let g:ale_fixers = {
+      \ 'javascript': ['eslint'],
+      \ 'json': ['fixjson']
       \}
 let g:ale_php_phpcs_standard = 'Wordpress'
 let g:ale_php_phpcs_use_global = 1
@@ -122,14 +123,6 @@ let g:editorconfig_blacklist = {
 			\ 'filetype': ['git.*', 'fugitive'],
 			\ 'pattern': ['\.un~$']}
 
-" fix ultisnips/vimcompletesme & allow <CR> to select entry
-let g:UltiSnipsEditSplit="context"
-let g:UltiSnipsExpandTrigger = "<nop>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardsTrigger = "<s-tab>"
-let g:ulti_expand_or_jump_res = 0
-
-inoremap <expr> <CR> pumvisible() ? "<C-R>=fun#ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
 
 if has('python') || has('python3')
 	" use tab to select completion in completor.vim
@@ -137,6 +130,14 @@ if has('python') || has('python3')
 	inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 	" inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 else
+  " fix ultisnips/vimcompletesme & allow <CR> to select entry
+  let g:UltiSnipsEditSplit="context"
+  let g:UltiSnipsExpandTrigger = "<nop>"
+  let g:UltiSnipsJumpForwardTrigger = "<tab>"
+  let g:UltiSnipsJumpBackwardsTrigger = "<s-tab>"
+  let g:ulti_expand_or_jump_res = 0
+
+  inoremap <expr> <CR> pumvisible() ? "<C-R>=fun#ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
 	" wedge Ulti into VimCompletesMe
 	set completefunc=fun#UltiComplete
 endif
@@ -145,7 +146,7 @@ set runtimepath+=~/.vim/LocalSnippets
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "LocalSnippets"]
 
 
-tnoremap <c-j> <C-W>j
+tnoremap <c-j> <C-W>
 
 "}}}---------------------------------------------------------zo
 " Vim Settings
