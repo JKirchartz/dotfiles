@@ -8,6 +8,12 @@ Host bs
   User derkirche
   ServerAliveInterval 30
 
+Host teams
+  ServerAliveInterval 30
+  Port 443
+  HostName ssh.tilde.team
+  User kirch
+
 Host btown
   HostName ssh.blinkenshell.org
   Port 443

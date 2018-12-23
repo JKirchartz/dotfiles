@@ -107,7 +107,9 @@ let g:templates_directory = ["$HOME/.vim/templates"]
 
 let hostname = substitute(system('hostname'), '\n', '', '')
 if hostname =~ "aeo.ae"
-  let g:templates_global_name_prefix = '=ae='
+  autocmd BufNewFile,BufReadPost *.* let g:templates_global_name_prefix = '=template='
+  autocmd BufNewFile,BufReadPost *.html let g:templates_global_name_prefix = '=ae='
+  autocmd BufNewFile,BufReadPost *.html setlocal indentexpr=GetJavascriptIndent()
 endif
 
 " tree-view
@@ -392,7 +394,7 @@ if has("autocmd")
 	" ensure background is transparent
 	autocmd ColorScheme * highlight Normal ctermbg=None
 	autocmd ColorScheme * highlight NonText ctermbg=None
-	autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+	autocmd BufNewFile,BufReadPost *.md setlocal filetype=markdown
 	" trim trailing spaces (not tabs) before write
 	autocmd BufWritePre * silent! %s:\(\S*\) \+$:\1:
 	" a safer alternative to `set autochdir`

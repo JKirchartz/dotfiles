@@ -79,3 +79,5 @@
 	status = true
 
 # vim: ft=gitconfig
+[url "https://"]
+	insteadOf = git://
