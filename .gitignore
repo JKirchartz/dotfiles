@@ -3,6 +3,7 @@
 /vim/bundle
 /vim/view
 /vim/spell
+/vim/autoload/plug*
 /vim/plugged/
 /nvim/plugged/
 /nvim/autoload/

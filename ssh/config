@@ -26,6 +26,10 @@ Host stash.ae.com
   IdentitiesOnly yes
   IdentityFile ~/.ssh/ae_rsa
 
+Host c
+  Hostname cosmic.voyage
+  User kirch
+
 Host b
   HostName ssh.blinkenshell.org
   Port 2222
@@ -66,6 +70,3 @@ Host hb1
 Host hb
     HostName hashbang.sh
     User kirch
-
-Host sftp.barkleyhosting.com
-  PubkeyAcceptedKeyTypes +ssh-dss
