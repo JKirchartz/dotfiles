@@ -109,8 +109,13 @@ function! fun#DeleteDuplicateLines()
         %!awk 'seen[$0]++ == 0'
 endfunction
 
-" fold up this file
-" vim:foldmethod=marker
+"}}}-----------------------------------------------------
+" Delete HTML/XML tags
+"-------------------------------------------------------{{{
+function! fun#DeleteHTMLTags()
+        :%s/<\_.\{-1,\}>//g
+endfunction
+
 "}}}-----------------------------------------------------
 " Hexmode, via http://vim.wikia.com/wiki/Improved_Hex_editing
 "-------------------------------------------------------{{{
@@ -219,3 +224,5 @@ function! fun#AllALEBuffers()
 	endif
 endfunction
 
+" }}} fold up this file
+" vim:foldmethod=marker
