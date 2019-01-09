@@ -2,8 +2,8 @@
 "---------------------------------------------------------{{{
 
 if empty(glob('~/.vim/autoload/plug.vim'))
-	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
 endif
 
 set nocompatible              " be iMproved
@@ -30,6 +30,8 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive' | Plug 'junegunn/gv.vim' " a commit browser, requires fugitive
 Plug 'tpope/vim-markdown', { 'for': 'md' }
 
+"Plug 'romainl/vim-devdocs'
+
 " Plug 'FooSoft/vim-argwrap'
 Plug 'heavenshell/vim-jsdoc', { 'for': 'js' }
 
@@ -38,20 +40,25 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'aperezdc/vim-template'
 
 " syntax completion, checking, & highlighting
+Plug 'iloginow/vim-stylus'
 Plug 'othree/html5.vim'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'tmux-plugins/vim-tmux'
 " Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 " Plug 'dsawardekar/wordpress.vim', { 'for': 'php'}
 if has('python') || has('python3')
-	Plug 'maralla/completor.vim', { 'do': 'make js' }
+  Plug 'maralla/completor.vim', { 'do': 'make js' }
 else
-	Plug 'ajh17/VimCompletesMe'
+  Plug 'ajh17/VimCompletesMe'
 endif
 Plug 'w0rp/ale'
 
 " Vim Wiki
-Plug 'vimwiki/vimwiki'
+" Plug 'vimwiki/vimwiki'
+Plug 'fcpg/vim-waikiki'
+
+" use <leader>K(K|B|R|P) to access cheat.sh
+Plug 'dbeniamine/cheat.sh-vim'
 
 " vim included plugins
 runtime macros/matchit.vim
@@ -75,6 +82,12 @@ let wiki.auto_toc = 1
 let wiki.auto_tags = 1
 let g:vimwiki_list = [wiki]
 
+let g:waikiki_roots = ['~/dotfiles/vimwiki/']
+let g:waikiki_wiki_patterns = ['/src/']
+let maplocalleader = '\'
+let g:waikiki_default_maps = 1
+
+
 let g:ale_sign_error='✗'
 let g:ale_sign_warning='⚠'
 let g:ale_statusline_format = ['✗ %d', '⚠ %d', '✔ ok']
@@ -82,16 +95,19 @@ let g:ale_sign_column_always = 1
 
 " let g:ale_linter_aliases = {'html': ['html', 'javascript', 'css']}
 let g:ale_linters={
-      \ 'html': ['alex', 'htmlhint', 'proselint', 'stylelint', 'tidy', 'writegood', 'eslint', 'flow', 'flow-language-server', 'standard', 'tsserver', 'xo', 'csslint', 'stylelint'],
+      \ 'html': ['alex', 'htmlhint', 'proselint', 'stylelint', 'tidy', 'writegood', 'eslint', 'standard', 'xo', 'csslint', 'stylelint'],
       \ 'php': ['phpcs'],
       \ 'javascript': ['eslint']
       \}
 let g:ale_fixers = {
-      \ 'javascript': ['eslint'],
+      \ 'html': ['tidy', 'prettier'],
+      \ 'javascript': ['eslint', 'js-langserver'],
       \ 'json': ['fixjson']
       \}
 let g:ale_php_phpcs_standard = 'Wordpress'
 let g:ale_php_phpcs_use_global = 1
+let g:ale_completion_enabled = 1
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%:%code%]' " show linter in messages/loclist
 
 
 " don't fist anonymously, just privately
@@ -122,54 +138,23 @@ let g:netrw_browse_split = 4
 " make EditorConfig play nice with vim-fugitive
 " let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 let g:editorconfig_blacklist = {
-			\ 'filetype': ['git.*', 'fugitive'],
-			\ 'pattern': ['\.un~$']}
+      \ 'filetype': ['git.*', 'fugitive'],
+      \ 'pattern': ['\.un~$']}
 
 
 if has('python') || has('python3')
-  " Use TAB to complete when typing words, else inserts TABs as usual.  Uses
-  " dictionary, source files, and completor to find matching words to complete.
-
-  " Note: usual completion is on <C-n> but more trouble to press all the time.
-  " Never type the same word twice and maybe learn a new spellings!
-  " Use the Linux dictionary when spelling is in doubt.
-  function! Tab_Or_Complete() abort
-    " If completor is already open the `tab` cycles through suggested completions.
-    if pumvisible()
-      return "\<C-N>"
-    " If completor is not open and we are in the middle of typing a word then
-    " `tab` opens completor menu.
-    elseif col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
-      return "\<C-R>=completor#do('complete')\<CR>"
-    else
-      " If we aren't typing a word and we press `tab` simply do the normal `tab`
-      " action.
-      return "\<Tab>"
-    endif
-  endfunction
-
-  " Use `tab` key to select completions.  Default is arrow keys.
-  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-  " Use tab to trigger auto completion.  Default suggests completions as you type.
-  let g:completor_auto_trigger = 0
-  inoremap <expr> <Tab> Tab_Or_Complete()
-else
-  " fix ultisnips/vimcompletesme & allow <CR> to select entry
   let g:UltiSnipsEditSplit="context"
   let g:UltiSnipsExpandTrigger = "<nop>"
   let g:UltiSnipsJumpForwardTrigger = "<tab>"
   let g:UltiSnipsJumpBackwardsTrigger = "<s-tab>"
-  let g:ulti_expand_or_jump_res = 0
-
-  inoremap <expr> <CR> pumvisible() ? "<C-R>=fun#ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
-	" wedge Ulti into VimCompletesMe
-	set completefunc=fun#UltiComplete
+  " use tab to select completion in completor.vim
+  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+  " set ultisnips directory
+  set runtimepath+=~/.vim/LocalSnippets
+  let g:UltiSnipsSnippetDirectories=["UltiSnips", "LocalSnippets"]
 endif
-" set ultisnips directory
-set runtimepath+=~/.vim/LocalSnippets
-let g:UltiSnipsSnippetDirectories=["UltiSnips", "LocalSnippets"]
 
 
 tnoremap <c-j> <C-W>
@@ -193,7 +178,7 @@ set shortmess=atI " abbreviate or avoid certain messages
 set noerrorbells " hear no evil
 set novisualbell " see no evil
 set list " show whitespace (using textmate-like symbols in the next line)
-set listchars=tab:~>,nbsp:•,trail:•,extends:»,precedes:«,eol:¬
+set listchars=conceal:×,tab:->,nbsp:∙,trail:•,extends:»,precedes:«,eol:¬
 set smartcase " smart case matching
 set hlsearch  " highlight search
 set ignorecase " make /foo match FOO & FOo but /FOO only match FOO
@@ -226,10 +211,10 @@ set nowrap " don't soft-wrap
 set colorcolumn=80 " show me what's TOO far
 
 if has('persistent_undo')
-	" save undos, so you can actually close vim without erasing the undo tree!
-	silent call system('mkdir -p /tmp/vim_undo')
-	set undodir=/tmp/vim_undo
-	set undofile
+  " save undos, so you can actually close vim without erasing the undo tree!
+  silent call system('mkdir -p /tmp/vim_undo')
+  set undodir=/tmp/vim_undo
+  set undofile
 endif
 
 " use ack for grepping
@@ -242,7 +227,6 @@ set showmode
 set showcmd
 " show cursor position (like :set ruler) & git status in statusline
 set statusline=\ b%n\ %<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
-colorscheme molokai
 
 " overwrite common misfires
 command E e
@@ -270,7 +254,7 @@ set keywordprg=:Man
 
 if exists("syntax_on") || exists("syntax_manual")
 else
-	syntax on
+  syntax on
 endif
 
 "}}}---------------------------------------------------------
@@ -313,13 +297,18 @@ map vp :exec "w !vpaste ft=".&ft<CR>
 vmap vp <ESC>:exec "'<,'>w !vpaste ft=".&ft<CR>
 
 " Make NetRW work more like NerdTree
-map <leader>t :call fun#ToggleVExplorer()<CR>
+" map <leader>t :call fun#ToggleVExplorer()<CR>
+map <leader>t <ESC>:Lexplore<CR>
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize=25
 let g:netrw_liststyle=3
 " Change directory to the current buffer when opening files.
 " set autochdir
+
+" Easier navigation for ALE
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 "}}}---------------------------------------------------------
 " Leader
@@ -407,32 +396,49 @@ nnoremap <F9> :call fun#ColorSchemeToggle()<cr>
 " Autocmds
 "-------------------------------------------------------{{{
 if has("autocmd")
-	" Use correct indenting for python
-	autocmd FileType python setlocal shiftwidth=2 softtabstop=2 expandtab
-	autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
-	" Jump to last position when reopening files
-	au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-				\| exe "normal g'\"" | endif
-	" Set title to filename (or something IDK, it's been off for a while)
-	"au BufEnter * let &titlestring = ' ' . expand("%:t")
-	" ensure background is transparent
-	autocmd ColorScheme * highlight Normal ctermbg=None
-	autocmd ColorScheme * highlight NonText ctermbg=None
-	autocmd BufNewFile,BufReadPost *.md setlocal filetype=markdown
-	" trim trailing spaces (not tabs) before write
-	autocmd BufWritePre * silent! %s:\(\S*\) \+$:\1:
-	" a safer alternative to `set autochdir`
-	" autocmd BufEnter * silent! lcd %:p:h
+  " Use correct indenting for python
+  autocmd FileType python setlocal shiftwidth=2 softtabstop=2 expandtab
+  autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
+  " Jump to last position when reopening files
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+        \| exe "normal g'\"" | endif
+  " Set title to filename (or something IDK, it's been off for a while)
+  "au BufEnter * let &titlestring = ' ' . expand("%:t")
+  " ensure background is transparent
+  autocmd ColorScheme * highlight Normal ctermbg=None
+  autocmd ColorScheme * highlight NonText ctermbg=None
+  autocmd BufNewFile,BufReadPost *.md setlocal filetype=markdown
+  " trim trailing spaces (not tabs) before write
+  autocmd BufWritePre * silent! %s:\(\S*\) \+$:\1:
+  " a safer alternative to `set autochdir`
+  " autocmd BufEnter * silent! lcd %:p:h
 endif
 
 
 if has('gui_macvim')
-	set macligatures
-	set guifont=Fira\ Code:h12
+  set macligatures
+  set guifont=Fira\ Code:h12
 endif
 
+"}}}---------------------------------------------------
+" set colorscheme
+"----------------------------------------------------{{{
+
+colorscheme molokai
+
+function! Concealer()
+  syntax match Equals "===" conceal cchar=≡
+  syntax match NotEquals "!==" conceal cchar=≠
+  syntax match GreaterThan ">=" conceal cchar=≥
+  syntax match LessThan "<=" conceal cchar=≤
+  hi! link Conceal Equals
+  hi! link Conceal NotEquals
+  hi! link Conceal GreaterThan
+  hi! link Conceal LessThan
+  setlocal conceallevel=1
+endfunction
+
+autocmd Syntax * call Concealer()
 
 " fold up this file
 " vim: foldmethod=marker
-"
-"

@@ -3,7 +3,7 @@
 call plug#begin()
 
 " personal forks
-Plug 'jkirchartz/vim-colorschemes' " forked flazz's, not sure enough about licenses to send a PR
+Plug 'jkirchartz/vim-colors-megapack' " forked flazz's, not sure enough about licenses to send a PR
 Plug 'jkirchartz/writegooder.vim' " 3 scripts to improve writing - wanna modify for other words/phrases to avoid
 
 " Plugs
@@ -25,6 +25,7 @@ function! DoRemote(arg)
 endfunction
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'scrooloose/syntastic'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sheerun/vim-polyglot'
 Plug 'lukaszb/vim-web-indent'
 Plug 'heavenshell/vim-jsdoc'

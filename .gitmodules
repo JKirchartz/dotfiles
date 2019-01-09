@@ -1,4 +1,7 @@
-[submodule "fortunes"]
-	path = fortunes
+[submodule "vimwiki"]
+	path = vimwiki
 	branch = master
-	url = https://github.com/JKirchartz/fortunes.git
+	url = https://gitlab.com/JKirchartz/vimwiki.git
+[submodule "LS_COLORS"]
+	path = LS_COLORS
+	url = https://github.com/trapd00r/LS_COLORS

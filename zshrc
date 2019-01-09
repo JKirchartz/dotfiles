@@ -18,6 +18,7 @@ unsetopt beep
 export PATH=$HOME/dotfiles/scripts:$PATH
 export PATH=$HOME/projects/ghint:$PATH
 export PATH=$HOME/.composer/vendor/bin:$PATH
+export PATH=$HOME/go/bin:$PATH
 export EDITOR="vim" PAGER="less"
 
 HISTFILE="${HOME}/.zshhistory"
@@ -50,6 +51,19 @@ bindkey '^?' backward-delete-char
 # ctrl-r starts searching history backward
 # bindkey '^r' history-incremental-search-backward
 
+
+#}}}-----------------------------
+# UTF-8
+#------------------------------{{{
+
+LANG="en_US.UTF-8"
+LC_COLLATE="en_US.UTF-8"
+LC_CTYPE="en_US.UTF-8"
+LC_MESSAGES="en_US.UTF-8"
+LC_MONETARY="en_US.UTF-8"
+LC_NUMERIC="en_US.UTF-8"
+LC_TIME="en_US.UTF-8"
+LC_ALL="en_US.UTF-8"
 
 #}}}-----------------------------
 #detect/install zplug plugins
@@ -114,8 +128,6 @@ source ~/dotfiles/bash_functions
 ~/dotfiles/scripts/motd.sh
 
 
-# }}} fold up this file
-# vim: foldmethod=marker
 export PATH="/usr/local/opt/mozjpeg/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 
@@ -124,3 +136,6 @@ if [ -d "$HOME/.nvm" ];then
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 fi
 
+export LESS="-FX"
+# }}} fold up this file
+# vim: foldmethod=marker

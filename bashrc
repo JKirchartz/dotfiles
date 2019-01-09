@@ -1,14 +1,27 @@
 # avoid shellcheck errors for sourced files:
 # shellcheck source=/dev/null
-
-
+#}}}-----------------------------
 # set readline to be vi-like
+#------------------------------{{{
 set -o vi
 
-#
+#}}}-----------------------------
+# UTF-8
+#------------------------------{{{
+
+LANG="en_US.UTF-8"
+LC_COLLATE="en_US.UTF-8"
+LC_CTYPE="en_US.UTF-8"
+LC_MESSAGES="en_US.UTF-8"
+LC_MONETARY="en_US.UTF-8"
+LC_NUMERIC="en_US.UTF-8"
+LC_TIME="en_US.UTF-8"
+LC_ALL="en_US.UTF-8"
+
+#}}}-----------------------------
 # source external files
 # fzf, git, npm, bashisms
-#
+#------------------------------{{{
 
 source ~/dotfiles/bash_aliases
 source ~/dotfiles/bash_functions
@@ -23,9 +36,9 @@ source ~/dotfiles/scripts/gitstatus.sh
 source ~/dotfiles/scripts/git-completion.bash
 source ~/dotfiles/scripts/npm-completion.bash
 
-#
+#}}}-----------------------------
 # setup prompt
-#
+#------------------------------{{{
 
 function __prompt {
   echo
@@ -61,12 +74,19 @@ export GIT_PS1_SHOWCOLORHINTS=1
 export PS1="\[$__cr\]┌─[\[$__cc\]\u@\h\[$__cr\]]-[\[$__cc\]\D{%x %X}\[$__cr\]]-[\[$__cc\]\j\[$__cr\]]\n\[$__cr\]└─[\[$__cc\]\!\[$__cr\]]-$__vim\[$__cc\]\$>\[$__nc\]"
 export PS2="\[$__cr\]└─\[$__cc\]>\[$__nc\]"
 
+#}}}-----------------------------
 #fix history
+#------------------------------{{{
 export HISTCONTROL=ignoredups             # no duplicate entries
 export HISTSIZE=50000                     # big history
 export HISTFILESIZE=50000                 # big history
 export HISTIGNORE="&:ls:ll:pwd:exit:clear:[ \t]*"
 shopt -s histappend                       # append to history, not overwrite it
+
+
+#}}}-----------------------------
+#fix cd
+#------------------------------{{{
 shopt -s cdspell                          # spellcheck for cd
 shopt -s nocaseglob                       # ignore case for autoexpansion
 shopt -s expand_aliases
@@ -78,6 +98,10 @@ fi
 
 # search-path for CD command
 # export CDPATH=".:..:~:~/projects:~/Dropbox/projects"
+
+#}}}-----------------------------
+# paths and completions
+#------------------------------{{{
 
 # put this last, so current dir & my scripts always get preference
 # this is insecure because various bins are overwritten by the current/script
@@ -95,3 +119,13 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# }}} fold up this file
+# vim: foldmethod=marker
+eval $(dircolors -b $HOME/dotfiles/LS_COLORS/LS_COLORS)
+
+PATH="/home/kirch/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/kirch/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/kirch/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/kirch/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/kirch/perl5"; export PERL_MM_OPT;

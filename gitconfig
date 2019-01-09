@@ -46,9 +46,9 @@
 	df = diff
 	ds = diff --staged
 	edit = !$EDITOR $(git status -s | awk '{print $2}')
-	last = log --name-status HEAD^..HEAD
-	lo = log --graph --branches --tags --decorate --format=oneline --abbrev-commit
-	lob = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(refname:short) - %(objectname:short) - %(contents:subject) - %(authorname) (%(committerdate:relative))'
+	last = log  --show-notes="*" --name-status HEAD^..HEAD
+	lo = log --graph --branches --tags --decorate --format=oneline --abbrev-commit --show-notes="*"
+	lob = for-each-ref  --show-notes="*"--sort=committerdate refs/heads/ --format='%(HEAD) %(refname:short) - %(objectname:short) - %(contents:subject) - %(authorname) (%(committerdate:relative))'
 	ls = ls-files
 	st = status
 	undo = reset HEAD~1
@@ -56,6 +56,9 @@
 	up = pull --all --rebase --autostash
 	this = !git init && git add . && git commmit -m \"Initial commit.\"
 	dad = !curl https://icanhazdadjoke.com/
+	joke = !curl -s https://raw.githubusercontent.com/EugeneKay/git-jokes/lulz/Jokes.txt | awk 'BEGIN { srand() } int(rand() * NR) == 0 { x = $0 } END { print x }'
+	erdone = !git commit -am \"git'er done\" && git push
+	pushall = "!f(){ for var in $(git remote show); do echo \"pushing to $var\"; git push $var; done; }; f"
 
 [url "https://github.com/"]
     insteadOf = gh:
@@ -69,15 +72,19 @@
 [url "https://gitlab.com/"]
     insteadOf = gl:
 
+[includeIf "gitdir:~/work/*"]
+  path = ~/work/.gitconfig
+
 [http]
 	postBuffer = 1048576000
-
 
 [credential]
 	helper = cache --timeout=28800
 [pager]
 	status = true
 
-# vim: ft=gitconfig
 [url "https://"]
 	insteadOf = git://
+
+
+# vim: ft=gitconfig

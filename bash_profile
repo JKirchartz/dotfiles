@@ -28,6 +28,8 @@ case $OSTYPE in
             eval $(ssh-agent);
             ssh-add -K;
         }
+        export GOPATH=$HOME/Go
+        export GOROOT=/usr/local/opt/go/libexec
     ;;
     linux*)
         # this is linux
@@ -73,6 +75,9 @@ case $OSTYPE in
                 PATH="$PATH:/usr/local/heroku/bin"
                 PATH="$PATH:$HOME/.rbenv/bin"
                 eval "$(rbenv init -)"
+                # vagrant
+                export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
+                export PATH="$PATH:/mnt/c/Program Files/Oracle/VirtualBox"
                 ;;
             fiddle)
                 export DISPLAY=:0
@@ -82,7 +87,12 @@ case $OSTYPE in
                 # VAGRANT_WSL_DISABLE_VAGRANT_HOME - Do not modify the VAGRANT_HOME variable
                 # VAGRANT_WSL_WINDOWS_ACCESS_USER_HOME_PATH - Custom Windows system home path
                 export PATH="$PATH:/mnt/c/Program Files/Oracle/VirtualBox"
+                export PATH="$PATH:/mnt/c/Windows/System32"
                 alias vi=vim
+                ;;
+            nao*)
+                export GEM_HOME=$HOME/gems
+                PATH=$PATH:$HOME/gems/bin
                 ;;
         esac
         ;;
