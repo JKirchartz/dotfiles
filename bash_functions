@@ -53,53 +53,13 @@ function ackvim () { vim $(ack -l $@ ); }
 
 
 # easy start grunt projects
-begin () {
+gruntbegin () {
 	if [ -n "$TMUX" ]; then
 		tmux split-window -v -p 90 "grunt server" 'C-m';
 	else
 		grunt server;
 	fi
 }
-
-
-# test if the internet is back on
-waitforinternet () {
-	iptoping=8.8.8.8
-		if ["$1" -neq ""]; then
-			iptoping=$1;
-	fi
-		while true; do
-			ping -c1 $iptoping 1>/dev/null 2>&1;
-	if [ $? -eq 0 ]; then
-		say "Now we're cookin!";
-	ping -c1 $iptoping;
-	break
-	else:
-		sleep 10;
-	fi
-		done
-}
-
-preload_b () {
-  for line in $(dirs -v); do
-		if [ line -neq "" ]; then
-			popd
-		fi
-  done
-  cat ~/.bash_cdhistory | sort | uniq -c > ~/.bash_cdhistory
-  while read line; do
-     pushd $line
-  done<~/.bash_cdhistory
-}
-
-b () {
-  dirs -v
-  first=`dirs -v | head -n 1 | cut -d ' ' -f 2`
-  last=`dirs -v | tail -n 1 | cut -d ' ' -f 2`
-  read -p "move to directory number [$first-$last]: " num
-  (($num<$last && $num>$first)) && eval "cd ~$num"
-}
-
 
 cwd () {
   if [ $# -eq 0 ]; then
@@ -113,5 +73,14 @@ function fix-ssh {
   ssh-add -K;
   eval $(ssh-agent);
   ssh-add -K;
+}
+
+
+function rgp () {
+  # use rg as function name:
+  # command rg -p $@ | less -MRFX
+  # don't use rg as function name:
+  rg -p $@ | less -MRFX
+  # TODO: investigate less -rFiXSw
 }
 
