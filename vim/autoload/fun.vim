@@ -224,5 +224,14 @@ function! fun#AllALEBuffers()
 	endif
 endfunction
 
+" }}}---------------------------------------------------
+" Reset Highlights (ala https://gist.github.com/romainl/379904f91fa40533175dfaec4c833f2f )
+" ----------------------------------------------------{{{
+
+function! fun#FixHighlights() abort
+  highlight Normal ctermbg=None
+  highlight NonText ctermbg=None
+endfunction
+
 " }}} fold up this file
 " vim:foldmethod=marker

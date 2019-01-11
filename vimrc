@@ -242,7 +242,6 @@ set showmode
 set showcmd
 " show cursor position (like :set ruler) & git status in statusline
 set statusline=\ b%n\ %<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
-colorscheme molokai
 
 " overwrite common misfires
 command E e
@@ -415,9 +414,7 @@ if has("autocmd")
 				\| exe "normal g'\"" | endif
 	" Set title to filename (or something IDK, it's been off for a while)
 	"au BufEnter * let &titlestring = ' ' . expand("%:t")
-	" ensure background is transparent
-	autocmd ColorScheme * highlight Normal ctermbg=None
-	autocmd ColorScheme * highlight NonText ctermbg=None
+        autocmd ColorScheme * call fun#FixHighlights()
 	autocmd BufNewFile,BufReadPost *.md setlocal filetype=markdown
 	" trim trailing spaces (not tabs) before write
 	autocmd BufWritePre * silent! %s:\(\S*\) \+$:\1:
@@ -431,8 +428,12 @@ if has('gui_macvim')
 	set guifont=Fira\ Code:h12
 endif
 
+"}}}---------------------------------------------------
+" set colorscheme
+"----------------------------------------------------{{{
+
+colorscheme molokai
+
 
 " fold up this file
 " vim: foldmethod=marker
-"
-"
