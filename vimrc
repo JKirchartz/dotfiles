@@ -2,8 +2,8 @@
 "---------------------------------------------------------{{{
 
 if empty(glob('~/.vim/autoload/plug.vim'))
-	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
 endif
 
 set nocompatible              " be iMproved
@@ -45,9 +45,9 @@ Plug 'tmux-plugins/vim-tmux'
 " Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 " Plug 'dsawardekar/wordpress.vim', { 'for': 'php'}
 if has('python') || has('python3')
-	Plug 'maralla/completor.vim', { 'do': 'make js' }
+  Plug 'maralla/completor.vim', { 'do': 'make js' }
 else
-	Plug 'ajh17/VimCompletesMe'
+  Plug 'ajh17/VimCompletesMe'
 endif
 Plug 'w0rp/ale'
 
@@ -126,50 +126,26 @@ let g:netrw_browse_split = 4
 " make EditorConfig play nice with vim-fugitive
 " let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 let g:editorconfig_blacklist = {
-			\ 'filetype': ['git.*', 'fugitive'],
-			\ 'pattern': ['\.un~$']}
+      \ 'filetype': ['git.*', 'fugitive'],
+      \ 'pattern': ['\.un~$']}
 
+
+" fix ultisnips/vimcompletesme & allow <CR> to select entry
+let g:UltiSnipsEditSplit="context"
+let g:UltiSnipsExpandTrigger = "<nop>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardsTrigger = "<s-tab>"
 
 if has('python') || has('python3')
-  " Use TAB to complete when typing words, else inserts TABs as usual.  Uses
-  " dictionary, source files, and completor to find matching words to complete.
-
-  " Note: usual completion is on <C-n> but more trouble to press all the time.
-  " Never type the same word twice and maybe learn a new spellings!
-  " Use the Linux dictionary when spelling is in doubt.
-  function! Tab_Or_Complete() abort
-    " If completor is already open the `tab` cycles through suggested completions.
-    if pumvisible()
-      return "\<C-N>"
-    " If completor is not open and we are in the middle of typing a word then
-    " `tab` opens completor menu.
-    elseif col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
-      return "\<C-R>=completor#do('complete')\<CR>"
-    else
-      " If we aren't typing a word and we press `tab` simply do the normal `tab`
-      " action.
-      return "\<Tab>"
-    endif
-  endfunction
-
-  " Use `tab` key to select completions.  Default is arrow keys.
+  " use tab to select completion in completor.vim
   inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
   inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-  " Use tab to trigger auto completion.  Default suggests completions as you type.
-  let g:completor_auto_trigger = 0
-  inoremap <expr> <Tab> Tab_Or_Complete()
+  inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<cr>"
 else
-  " fix ultisnips/vimcompletesme & allow <CR> to select entry
-  let g:UltiSnipsEditSplit="context"
-  let g:UltiSnipsExpandTrigger = "<nop>"
-  let g:UltiSnipsJumpForwardTrigger = "<tab>"
-  let g:UltiSnipsJumpBackwardsTrigger = "<s-tab>"
   let g:ulti_expand_or_jump_res = 0
-
   inoremap <expr> <CR> pumvisible() ? "<C-R>=fun#ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
-	" wedge Ulti into VimCompletesMe
-	set completefunc=fun#UltiComplete
+  " wedge Ulti into VimCompletesMe
+  set completefunc=fun#UltiComplete
 endif
 " set ultisnips directory
 set runtimepath+=~/.vim/LocalSnippets
@@ -230,10 +206,10 @@ set nowrap " don't soft-wrap
 set colorcolumn=80 " show me what's TOO far
 
 if has('persistent_undo')
-	" save undos, so you can actually close vim without erasing the undo tree!
-	silent call system('mkdir -p /tmp/vim_undo')
-	set undodir=/tmp/vim_undo
-	set undofile
+  " save undos, so you can actually close vim without erasing the undo tree!
+  silent call system('mkdir -p /tmp/vim_undo')
+  set undodir=/tmp/vim_undo
+  set undofile
 endif
 
 " use ack for grepping
@@ -273,7 +249,7 @@ set keywordprg=:Man
 
 if exists("syntax_on") || exists("syntax_manual")
 else
-	syntax on
+  syntax on
 endif
 
 "}}}---------------------------------------------------------
@@ -410,26 +386,27 @@ nnoremap <F9> :call fun#ColorSchemeToggle()<cr>
 " Autocmds
 "-------------------------------------------------------{{{
 if has("autocmd")
-	" Use correct indenting for python
-	autocmd FileType python setlocal shiftwidth=2 softtabstop=2 expandtab
-	autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
-	" Jump to last position when reopening files
-	au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-				\| exe "normal g'\"" | endif
-	" Set title to filename (or something IDK, it's been off for a while)
-	"au BufEnter * let &titlestring = ' ' . expand("%:t")
-        autocmd ColorScheme * call fun#FixHighlights()
-	autocmd BufNewFile,BufReadPost *.md setlocal filetype=markdown
-	" trim trailing spaces (not tabs) before write
-	autocmd BufWritePre * silent! %s:\(\S*\) \+$:\1:
-	" a safer alternative to `set autochdir`
-	" autocmd BufEnter * silent! lcd %:p:h
+  " Use correct indenting for python
+  autocmd FileType python setlocal shiftwidth=2 softtabstop=2 expandtab
+  autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
+  " Jump to last position when reopening files
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+        \| exe "normal g'\"" | endif
+  " Set title to filename (or something IDK, it's been off for a while)
+  "au BufEnter * let &titlestring = ' ' . expand("%:t")
+  " ensure background is transparent
+  autocmd ColorScheme * call fun#FixHighlights()
+  autocmd BufNewFile,BufReadPost *.md setlocal filetype=markdown
+  " trim trailing spaces (not tabs) before write
+  autocmd BufWritePre * silent! %s:\(\S*\) \+$:\1:
+  " a safer alternative to `set autochdir`
+  autocmd BufEnter * silent! lcd %:p:h
 endif
 
 
 if has('gui_macvim')
-	set macligatures
-	set guifont=Fira\ Code:h12
+  set macligatures
+  set guifont=Fira\ Code:h12
 endif
 
 "}}}---------------------------------------------------
