@@ -38,6 +38,7 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'aperezdc/vim-template'
 
 " syntax completion, checking, & highlighting
+Plug 'iloginow/vim-stylus'
 Plug 'othree/html5.vim'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'tmux-plugins/vim-tmux'
@@ -52,6 +53,9 @@ Plug 'w0rp/ale'
 
 " Vim Wiki
 Plug 'vimwiki/vimwiki'
+
+" use <leader>K(K|B|R|P) to access cheat.sh
+Plug 'dbeniamine/cheat.sh-vim'
 
 " vim included plugins
 runtime macros/matchit.vim

@@ -25,6 +25,8 @@ brew "lynx"
 brew "openssh"
 # Reattach process (e.g., tmux) to background
 brew "reattach-to-user-namespace"
+# Media player based on MPlayer and mplayer2
+brew "mpv"
 # Terminal multiplexer
 brew "tmux", args: ["HEAD"]
 # Vi 'workalike' with many additional features
