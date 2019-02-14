@@ -173,7 +173,7 @@ set shortmess=atI " abbreviate or avoid certain messages
 set noerrorbells " hear no evil
 set novisualbell " see no evil
 set list " show whitespace (using textmate-like symbols in the next line)
-set listchars=tab:~>,nbsp:•,trail:•,extends:»,precedes:«,eol:¬
+set listchars=conceal:×,tab:->,nbsp:∙,trail:•,extends:»,precedes:«,eol:¬
 set smartcase " smart case matching
 set hlsearch  " highlight search
 set ignorecase " make /foo match FOO & FOo but /FOO only match FOO
