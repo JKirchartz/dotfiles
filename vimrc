@@ -52,7 +52,8 @@ endif
 Plug 'w0rp/ale'
 
 " Vim Wiki
-Plug 'vimwiki/vimwiki'
+" Plug 'vimwiki/vimwiki'
+Plug 'fcpg/vim-waikiki'
 
 " use <leader>K(K|B|R|P) to access cheat.sh
 Plug 'dbeniamine/cheat.sh-vim'
@@ -78,6 +79,11 @@ let wiki.auto_export = 1
 let wiki.auto_toc = 1
 let wiki.auto_tags = 1
 let g:vimwiki_list = [wiki]
+
+let g:waikiki_roots = ["~/dotfiles/vimwiki/"]
+let maplocalleader = " "
+let g:waikiki_default_maps = 1
+
 
 let g:ale_sign_error='✗'
 let g:ale_sign_warning='⚠'

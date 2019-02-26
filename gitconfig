@@ -56,7 +56,8 @@
 	up = pull --all --rebase --autostash
 	this = !git init && git add . && git commmit -m \"Initial commit.\"
 	dad = !curl https://icanhazdadjoke.com/
-        erdone = !git commit -am \"git'er done\" && git push
+	erdone = !git commit -am \"git'er done\" && git push
+	pushall = "!f(){ for var in $(git remote show); do echo \"pushing to $var\"; git push $var; done; }; f"
 
 [url "https://github.com/"]
     insteadOf = gh:
