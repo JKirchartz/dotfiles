@@ -80,8 +80,9 @@ let wiki.auto_toc = 1
 let wiki.auto_tags = 1
 let g:vimwiki_list = [wiki]
 
-let g:waikiki_roots = ["~/dotfiles/vimwiki/"]
-let maplocalleader = " "
+let g:waikiki_roots = ['~/dotfiles/vimwiki/']
+let g:waikiki_wiki_patterns = ['/src/']
+let maplocalleader = '\'
 let g:waikiki_default_maps = 1
 
 
@@ -97,6 +98,7 @@ let g:ale_linters={
       \ 'javascript': ['eslint']
       \}
 let g:ale_fixers = {
+      \ 'html': ['tidy', 'prettier'],
       \ 'javascript': ['eslint'],
       \ 'json': ['fixjson']
       \}
@@ -305,6 +307,10 @@ let g:netrw_winsize=25
 let g:netrw_liststyle=3
 " Change directory to the current buffer when opening files.
 " set autochdir
+
+" Easier navigation for ALE
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 "}}}---------------------------------------------------------
 " Leader
