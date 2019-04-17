@@ -1,7 +1,5 @@
 # avoid shellcheck errors for sourced files:
 # shellcheck source=/dev/null
-
-
 #}}}-----------------------------
 # set readline to be vi-like
 #------------------------------{{{

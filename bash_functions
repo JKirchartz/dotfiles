@@ -19,12 +19,7 @@ function update-environment {
 function psgrep(){ ps -ax | grep "$1" | grep -v "grep"; }
 # why not history
 function hgrep(){
-	if test -n "$ZSH_VERSION"; then
-		local HIST='zshhistory'
-	elif test -n "$BASH_VERSION"; then
-		local HIST='bash_history'
-	fi
-	grep "$1" "~/.${HIST}"
+	grep "$@" "${HISTFILE}"
 }
 
 #simple calculator
@@ -76,11 +71,11 @@ function fix-ssh {
 }
 
 
-function rgp () {
+function rg () {
   # use rg as function name:
-  # command rg -p $@ | less -MRFX
+  command rg -p $@ | less -MrFX
   # don't use rg as function name:
-  rg -p $@ | less -MRFX
+  # rg -p $@ | less -MRFX
   # TODO: investigate less -rFiXSw
 }
 

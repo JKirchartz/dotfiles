@@ -46,9 +46,9 @@
 	df = diff
 	ds = diff --staged
 	edit = !$EDITOR $(git status -s | awk '{print $2}')
-	last = log --name-status HEAD^..HEAD
-	lo = log --graph --branches --tags --decorate --format=oneline --abbrev-commit
-	lob = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(refname:short) - %(objectname:short) - %(contents:subject) - %(authorname) (%(committerdate:relative))'
+	last = log  --show-notes="*" --name-status HEAD^..HEAD
+	lo = log --graph --branches --tags --decorate --format=oneline --abbrev-commit --show-notes="*"
+	lob = for-each-ref  --show-notes="*"--sort=committerdate refs/heads/ --format='%(HEAD) %(refname:short) - %(objectname:short) - %(contents:subject) - %(authorname) (%(committerdate:relative))'
 	ls = ls-files
 	st = status
 	undo = reset HEAD~1

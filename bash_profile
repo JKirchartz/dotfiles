@@ -28,6 +28,8 @@ case $OSTYPE in
             eval $(ssh-agent);
             ssh-add -K;
         }
+        export GOPATH=$HOME/Go
+        export GOROOT=/usr/local/opt/go/libexec
     ;;
     linux*)
         # this is linux

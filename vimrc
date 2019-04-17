@@ -95,7 +95,7 @@ let g:ale_sign_column_always = 1
 let g:ale_linters={
       \ 'html': ['alex', 'htmlhint', 'proselint', 'stylelint', 'tidy', 'writegood', 'eslint', 'flow', 'flow-language-server', 'standard', 'tsserver', 'xo', 'csslint', 'stylelint'],
       \ 'php': ['phpcs'],
-      \ 'javascript': ['eslint']
+      \ 'javascript': ['eslint', 'jshint']
       \}
 let g:ale_fixers = {
       \ 'html': ['tidy', 'prettier'],
