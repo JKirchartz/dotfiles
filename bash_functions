@@ -43,7 +43,7 @@ mkcd() { mkdir "$@" && cd "$@"; }
 # open files specified by other utilities
 gitvim () { vim $(git diff --name-only $@ ); }
 ackvim () { vim $(ack -l $@ ); }
-rgvim () { vim $(rg -l $@ ); }
+rgvim () { vim $(command rg -l $@ ); }
 
 cwd () {
   if [ $# -eq 0 ]; then

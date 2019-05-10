@@ -71,15 +71,19 @@
 [url "https://gitlab.com/"]
     insteadOf = gl:
 
+[includeIf "gitdir:~/work/*"]
+  path = ~/work/.gitconfig
+
 [http]
 	postBuffer = 1048576000
-
 
 [credential]
 	helper = cache --timeout=28800
 [pager]
 	status = true
 
-# vim: ft=gitconfig
 [url "https://"]
 	insteadOf = git://
+
+
+# vim: ft=gitconfig

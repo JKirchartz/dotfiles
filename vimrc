@@ -30,6 +30,8 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive' | Plug 'junegunn/gv.vim' " a commit browser, requires fugitive
 Plug 'tpope/vim-markdown', { 'for': 'md' }
 
+"Plug 'romainl/vim-devdocs'
+
 " Plug 'FooSoft/vim-argwrap'
 Plug 'heavenshell/vim-jsdoc', { 'for': 'js' }
 
@@ -93,17 +95,19 @@ let g:ale_sign_column_always = 1
 
 " let g:ale_linter_aliases = {'html': ['html', 'javascript', 'css']}
 let g:ale_linters={
-      \ 'html': ['alex', 'htmlhint', 'proselint', 'stylelint', 'tidy', 'writegood', 'eslint', 'flow', 'flow-language-server', 'standard', 'tsserver', 'xo', 'csslint', 'stylelint'],
+      \ 'html': ['alex', 'htmlhint', 'proselint', 'stylelint', 'tidy', 'writegood', 'eslint', 'standard', 'xo', 'csslint', 'stylelint'],
       \ 'php': ['phpcs'],
-      \ 'javascript': ['eslint', 'jshint']
+      \ 'javascript': ['eslint']
       \}
 let g:ale_fixers = {
       \ 'html': ['tidy', 'prettier'],
-      \ 'javascript': ['eslint'],
+      \ 'javascript': ['eslint', 'js-langserver'],
       \ 'json': ['fixjson']
       \}
 let g:ale_php_phpcs_standard = 'Wordpress'
 let g:ale_php_phpcs_use_global = 1
+let g:ale_completion_enabled = 1
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%:%code%]' " show linter in messages/loclist
 
 
 " don't fist anonymously, just privately
@@ -150,10 +154,10 @@ if has('python') || has('python3')
   inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
   inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<cr>"
 else
-  let g:ulti_expand_or_jump_res = 0
-  inoremap <expr> <CR> pumvisible() ? "<C-R>=fun#ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
+  " let g:ulti_expand_or_jump_res = 0
+  " inoremap <expr> <CR> pumvisible() ? "<C-R>=fun#ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
   " wedge Ulti into VimCompletesMe
-  set completefunc=fun#UltiComplete
+  " set completefunc=fun#UltiComplete
 endif
 " set ultisnips directory
 set runtimepath+=~/.vim/LocalSnippets
@@ -427,6 +431,13 @@ endif
 
 colorscheme molokai
 
+function! Concealer()
+  syntax match Operator "===" conceal cchar=≡
+  hi! link Conceal Operator
+  setlocal conceallevel=1
+endfunction
+
+autocmd TermChanged * call Concealer()
 
 " fold up this file
 " vim: foldmethod=marker
