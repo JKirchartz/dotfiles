@@ -304,7 +304,8 @@ map vp :exec "w !vpaste ft=".&ft<CR>
 vmap vp <ESC>:exec "'<,'>w !vpaste ft=".&ft<CR>
 
 " Make NetRW work more like NerdTree
-map <leader>t :call fun#ToggleVExplorer()<CR>
+" map <leader>t :call fun#ToggleVExplorer()<CR>
+map <leader>t <ESC>:Lexplore<CR>
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize=25
@@ -437,7 +438,7 @@ function! Concealer()
   setlocal conceallevel=1
 endfunction
 
-autocmd TermChanged * call Concealer()
+autocmd Syntax * call Concealer()
 
 " fold up this file
 " vim: foldmethod=marker

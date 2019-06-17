@@ -62,3 +62,9 @@ rg () {
   command rg -p $@ | less -MRFX;
   # TODO: investigate less -rFiXSw
 }
+
+lsd () {
+  ls $@ | lolcat
+}
+
+}

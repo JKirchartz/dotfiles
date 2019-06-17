@@ -17,6 +17,7 @@ unsetopt beep
 export PATH=$HOME/dotfiles/scripts:$PATH
 export PATH=$HOME/projects/ghint:$PATH
 export PATH=$HOME/.composer/vendor/bin:$PATH
+export PATH=$HOME/go/bin:$PATH
 export EDITOR="vim" PAGER="less"
 
 HISTFILE="${HOME}/.zshhistory"
