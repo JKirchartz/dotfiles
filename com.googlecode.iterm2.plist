@@ -47562,7 +47562,7 @@
 	gAKACoAN0xAJChEVGVdOUy5rZXlzoxITFIADgASABaMWFxiABoAHgAiACVpJZGVudGlm
 	aWVyVVdpZHRoVkhpZGRlblEwI0BowAAAAAAACNIhIiMkWiRjbGFzc25hbWVYJGNsYXNz
 	ZXNcTlNEaWN0aW9uYXJ5oiMlWE5TT2JqZWN00xAJCicrGaMSExSAA4AEgAWjLC0YgAuA
-	DIAIgAlRMSNAc7Gdsi0OVtIhIjM0Xk5TTXV0YWJsZUFycmF5ozM1JVdOU0FycmF5XxAP
+	DIAIgAlRMSNAdKGdsi0OVtIhIjM0Xk5TTXV0YWJsZUFycmF5ozM1JVdOU0FycmF5XxAP
 	TlNLZXllZEFyY2hpdmVy0Tg5VUFycmF5gAEACAARABoAIwAtADIANwBGAEwAUQBcAGMA
 	ZgBoAGoAbABzAHsAfwCBAIMAhQCJAIsAjQCPAJEAnACiAKkAqwC0ALUAugDFAM4A2wDe
 	AOcA7gDyAPQA9gD4APwA/gEAAQIBBAEGAQ8BFAEjAScBLwFBAUQBSgAAAAAAAAIBAAAA
@@ -47590,11 +47590,11 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>-1030 561 620 392 -1440 180 1440 900 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>-1199 630 796 486 -1440 540 1440 877 </string>
+	<string>44 213 796 486 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>-1440 540 1440 900 -1440 540 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>155 212 650 452 0 0 1440 877 </string>
+	<string>-1440 540 1440 900 -1440 540 1440 877 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -47603,7 +47603,7 @@
 			<key>ASCII Ligatures</key>
 			<true/>
 			<key>Ambiguous Double Width</key>
-			<true/>
+			<false/>
 			<key>Ansi 0 Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -48213,7 +48213,7 @@
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
 			<key>Transparency</key>
-			<real>0.20087246192893402</real>
+			<real>0.29524111675126902</real>
 			<key>Unicode Normalization</key>
 			<integer>3</integer>
 			<key>Unicode Version</key>
