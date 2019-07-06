@@ -19,13 +19,13 @@ done < <(tmux show-environment)
 psgrep(){ ps -ax | grep "$1" | grep -v "grep"; }
 # why not history
 function hgrep(){
-	grep "$@" "${HISTFILE}"
+  grep "$@" "${HISTFILE}"
 }
 
 #simple calculator
 calc () { echo "$*" | bc -l; }
 
-#tmux title changer
+# tmux title changer
 tmut () {
   if [[ $# -eq 0 ]]; then
     # rename tmux window after current directory
@@ -36,6 +36,10 @@ tmut () {
   fi
 }
 
+# tmux split and run
+tmus () {
+  tmux split-window -l 20 $@;
+}
 
 # mk & cd
 mkcd() { mkdir "$@" && cd "$@"; }
@@ -65,6 +69,4 @@ rg () {
 
 lsd () {
   ls $@ | lolcat
-}
-
 }
