@@ -66,5 +66,3 @@ rg () {
 lsd () {
   ls $@ | lolcat
 }
-
-}
