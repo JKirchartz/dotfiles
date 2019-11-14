@@ -37,9 +37,7 @@ tmut () {
 }
 
 # tmux split and run
-tmus () {
-  tmux split-window -l 20 $@;
-}
+tmus () { tmux split-window -p 20 $@; }
 
 # mk & cd
 mkcd() { mkdir "$@" && cd "$@"; }

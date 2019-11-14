@@ -142,26 +142,15 @@ let g:editorconfig_blacklist = {
       \ 'pattern': ['\.un~$']}
 
 
-" fix ultisnips/vimcompletesme & allow <CR> to select entry
-let g:UltiSnipsEditSplit="context"
-let g:UltiSnipsExpandTrigger = "<nop>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardsTrigger = "<s-tab>"
-
 if has('python') || has('python3')
   " use tab to select completion in completor.vim
   inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
   inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-  inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<cr>"
-else
-  " let g:ulti_expand_or_jump_res = 0
-  " inoremap <expr> <CR> pumvisible() ? "<C-R>=fun#ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
-  " wedge Ulti into VimCompletesMe
-  " set completefunc=fun#UltiComplete
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+  " set ultisnips directory
+  set runtimepath+=~/.vim/LocalSnippets
+  let g:UltiSnipsSnippetDirectories=["UltiSnips", "LocalSnippets"]
 endif
-" set ultisnips directory
-set runtimepath+=~/.vim/LocalSnippets
-let g:UltiSnipsSnippetDirectories=["UltiSnips", "LocalSnippets"]
 
 
 tnoremap <c-j> <C-W>
