@@ -154,10 +154,10 @@ if has('python') || has('python3')
   inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
   inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<cr>"
 else
-  " let g:ulti_expand_or_jump_res = 0
-  " inoremap <expr> <CR> pumvisible() ? "<C-R>=fun#ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
+  let g:ulti_expand_or_jump_res = 0
+  inoremap <expr> <CR> pumvisible() ? "<C-R>=fun#ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
   " wedge Ulti into VimCompletesMe
-  " set completefunc=fun#UltiComplete
+  set completefunc=fun#UltiComplete
 endif
 " set ultisnips directory
 set runtimepath+=~/.vim/LocalSnippets
