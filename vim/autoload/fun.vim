@@ -68,41 +68,6 @@ function! fun#ToggleVExplorer()
 endfunction
 
 "}}}-----------------------------------------------------
-" Make UltiSnips & VimCompletesMe (or completor.vim) play nice
-"-------------------------------------------------------{{{
-"function! fun#UltiComplete() abort
-"	" from here: https://github.com/SirVer/ultisnips/issues/886#issuecomment-326829323
-"	if empty(UltiSnips#SnippetsInCurrentScope(1))
-"		return ''
-"	endif
-"	let word_to_complete = matchstr(strpart(getline('.'), 0, col('.') - 1), '\S\+$')
-"	let contain_word = 'stridx(v:val, word_to_complete)>=0'
-"	let candidates = map(filter(keys(g:current_ulti_dict_info), contain_word),
-"				\  "{
-"				\      'word': v:val,
-"				\      'menu': '[snip]',
-"				\      'info': g:current_ulti_dict_info[v:val]['description'],
-"				\      'dup' : 1,
-"				\   }")
-"	let from_where = col('.') - len(word_to_complete)
-"	if !empty(candidates)
-"		call complete(from_where, candidates)
-"	endif
-"	return ''
-"endfunction
-"
-"function! fun#ExpandSnippetOrCarriageReturn()
-"	" this works, but doesn't look like expected, it doesn't denote
-"	" the snippet but looks like a regular ins-complete (e.g. from
-"	" another buffer)
-"	let snippet = UltiSnips#ExpandSnippetOrJump()
-"	if g:ulti_expand_or_jump_res > 0
-"		return snippet
-"	else
-"		return pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-"	endif
-"endfunction
-"}}}-----------------------------------------------------
 " Delete Duplicate Lines
 "-------------------------------------------------------{{{
 function! fun#DeleteDuplicateLines()
