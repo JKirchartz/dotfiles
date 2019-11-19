@@ -86,6 +86,10 @@ case $OSTYPE in
                 export PATH="$PATH:/mnt/c/Program Files/Oracle/VirtualBox"
                 alias vi=vim
                 ;;
+            nao*)
+                export GEM_HOME=$HOME/gems
+                PATH=$PATH:$HOME/gems/bin
+                ;;
         esac
         ;;
     cygwin)
