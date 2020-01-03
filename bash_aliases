@@ -136,4 +136,4 @@ alias KillTheSphinx="sudo pkill -9 pocketsphinx; reset; echo ''; rm SphinxPipe; 
 
 
 alias GHwork=". GHwork"
-alias btown="ssh -tt bs ssh -tt kirch@tilde.town screen -RRD"
+alias btown="ssh -tt b ssh -tt town screen -dR"

@@ -1,0 +1,3 @@
+#! /usr/bin/env bash
+
+ssh -tt b ssh -tt town 'screen -dR'
