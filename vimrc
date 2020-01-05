@@ -423,8 +423,14 @@ endif
 colorscheme molokai
 
 function! Concealer()
-  syntax match Operator "===" conceal cchar=≡
-  hi! link Conceal Operator
+  syntax match Equals "===" conceal cchar=≡
+  syntax match NotEquals "!==" conceal cchar=≠
+  syntax match GreaterThan ">=" conceal cchar=≥
+  syntax match LessThan "<=" conceal cchar=≤
+  hi! link Conceal Equals
+  hi! link Conceal NotEquals
+  hi! link Conceal GreaterThan
+  hi! link Conceal LessThan
   setlocal conceallevel=1
 endfunction
 
