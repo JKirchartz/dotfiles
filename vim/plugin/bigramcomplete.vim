@@ -1,5 +1,4 @@
-
-s:bigrams=""
+let s:bigrams=""
 
 " add corpus to bigram list:
 function! bigramcomplete#AddCorpus(filename)
