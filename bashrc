@@ -42,6 +42,12 @@ source ~/dotfiles/scripts/npm-completion.bash
 
 function __prompt {
   echo
+  # Bentley:
+  # case $OSTYPE in
+  #   darwin*)
+  #       nvm use --delete-prefix v12.16.2
+  #   ;;
+  # esac
   # sync history across terms
   history -a
   history -n
@@ -120,12 +126,13 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+if command -V gdircolors &> /dev/null
+then
+  eval "$(gdircolors -b "$HOME/dotfiles/LS_COLORS/LS_COLORS")"
+else
+  eval "$(dircolors -b "$HOME/dotfiles/LS_COLORS/LS_COLORS")"
+fi
+
+
 # }}} fold up this file
 # vim: foldmethod=marker
-eval $(dircolors -b $HOME/dotfiles/LS_COLORS/LS_COLORS)
-
-PATH="/home/kirch/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/kirch/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/kirch/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/kirch/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/kirch/perl5"; export PERL_MM_OPT;

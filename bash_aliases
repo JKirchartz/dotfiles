@@ -17,7 +17,7 @@ alias ping='ping -c 10 '                  # set a default, coz I always forget
 alias rm='rm -i '                         # confirm, just in case...
 alias please='sudo $(fc -ln -1)'          # redo last command as root
 alias M='motd.sh'
-
+alias gir=git
 
 if test -n "$ZSH_VERSION"; then
 	alias R='source ~/.zshrc'
@@ -25,17 +25,22 @@ elif test -n "$BASH_VERSION"; then
 	alias R='. ~/.bash_profile'
 fi
 
-
-
 #vim-like aliases
 alias :e='vim'
 alias :q='exit'
 alias :wq='exit'
 
 # lil' bit of fun
+alias figlet='figlet -d ~/dotfiles/figlet-fonts/'
+alias toilet='toilet -d ~/dotfiles/figlet-fonts/'
 alias f='fortune -ae'
 alias dopewars='dopewars -tn'
 alias RR='[ $[ $RANDOM % 6 ] == 0 ] && echo *BANG* || echo *Click*'
+alias zen="~/dotfiles/scripts/bonsai.sh -i -w 15 -b 2 -c ~oO0%*"
+alias beef="cowsay"
+# I keep mispelling these, but they're also humorous.
+alias rocker="docker"
+alias focker="docker"
 
 #alternative to cd -
 alias back='cd $OLDPWD'
@@ -134,6 +139,10 @@ alias SpeakToTheSphinx="touch SphinxPipe; unbuffer pocketsphinx_continuous -inmi
 
 alias KillTheSphinx="sudo pkill -9 pocketsphinx; reset; echo ''; rm SphinxPipe; echo ''; ps aux | grep pocketsphinx; echo ''"
 
-
-alias GHwork=". GHwork"
+# ssh
 alias btown="ssh -tt b ssh -tt town screen -dR"
+alias ttown="ssh -tt teams ssh -tt t screen -dR"
+alias addlink="ssh b -o LogLevel=error ./add_link.sh" # use -o to suppress welcome message
+
+# office assistants
+alias ben=". ben"

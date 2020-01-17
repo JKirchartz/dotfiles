@@ -8,6 +8,7 @@ PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/u
 case $OSTYPE in
     darwin*)
         # this is a mac
+        export BASH_SILENCE_DEPRECATION_WARNING=1 # stop telling me about zsh!
         export TERM=xterm-256color
         export GEM_HOME=$HOME/gems
         PATH=$PATH:$HOME/gems/bin
@@ -30,6 +31,17 @@ case $OSTYPE in
         }
         export GOPATH=$HOME/Go
         export GOROOT=/usr/local/opt/go/libexec
+        export BENPROJECTROOT=$HOME/projects/TCDEAppService
+        export PATH="$HOME/.gem/ruby/2.6.0/bin:$PATH"
+        export PATH="$PATH:/usr/local/share/dotnet/dotnet"
+        source ~/.iterm2_shell_integration.bash
+
+        eval "$(pyenv init -)"
+        eval "$(pyenv virtualenv-init -)"
+
+        export NVM_DIR="$HOME/.nvm"
+        [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+        [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
     ;;
     linux*)
         # this is linux
@@ -78,6 +90,12 @@ case $OSTYPE in
                 # vagrant
                 export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
                 export PATH="$PATH:/mnt/c/Program Files/Oracle/VirtualBox"
+
+                PATH="/home/kirch/perl5/bin${PATH:+:${PATH}}"; export PATH;
+                PERL5LIB="/home/kirch/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+                PERL_LOCAL_LIB_ROOT="/home/kirch/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+                PERL_MB_OPT="--install_base \"/home/kirch/perl5\""; export PERL_MB_OPT;
+                PERL_MM_OPT="INSTALL_BASE=/home/kirch/perl5"; export PERL_MM_OPT;
                 ;;
             fiddle)
                 export DISPLAY=:0
@@ -117,3 +135,8 @@ source ~/.bashrc
 if [ -d $HOME/.linuxbrew ]; then
   export PATH="/home/kirch/.linuxbrew/bin:$PATH"
 fi
+export PATH="/usr/local/opt/node@12/bin:$PATH"
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash" || true
+
+source /etc/bash_completion.d/azds

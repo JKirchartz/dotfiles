@@ -32,6 +32,8 @@ Plug 'tpope/vim-markdown', { 'for': 'md' }
 
 "Plug 'romainl/vim-devdocs'
 
+Plug 'fcpg/vim-altscreen'
+
 " Plug 'FooSoft/vim-argwrap'
 Plug 'heavenshell/vim-jsdoc', { 'for': 'js' }
 
@@ -46,12 +48,17 @@ Plug 'mustache/vim-mustache-handlebars'
 Plug 'tmux-plugins/vim-tmux'
 " Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 " Plug 'dsawardekar/wordpress.vim', { 'for': 'php'}
-if has('python') || has('python3')
-  Plug 'maralla/completor.vim', { 'do': 'make js' }
-else
-  Plug 'ajh17/VimCompletesMe'
-endif
-Plug 'w0rp/ale'
+
+" completion
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'liuchengxu/vista.vim'
+" if has('python') || has('python3')
+"   Plug 'maralla/completor.vim', { 'do': 'make js' }
+" else
+"   Plug 'ajh17/VimCompletesMe'
+" endif
+" Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 
 " Vim Wiki
 " Plug 'vimwiki/vimwiki'
@@ -59,6 +66,9 @@ Plug 'fcpg/vim-waikiki'
 
 " use <leader>K(K|B|R|P) to access cheat.sh
 Plug 'dbeniamine/cheat.sh-vim'
+
+" try out vim-leader-guide
+Plug 'hecal3/vim-leader-guide'
 
 " vim included plugins
 runtime macros/matchit.vim
@@ -93,21 +103,28 @@ let g:ale_sign_warning='⚠'
 let g:ale_statusline_format = ['✗ %d', '⚠ %d', '✔ ok']
 let g:ale_sign_column_always = 1
 
-" let g:ale_linter_aliases = {'html': ['html', 'javascript', 'css']}
-let g:ale_linters={
-      \ 'html': ['alex', 'htmlhint', 'proselint', 'stylelint', 'tidy', 'writegood', 'eslint', 'standard', 'xo', 'csslint', 'stylelint'],
-      \ 'php': ['phpcs'],
-      \ 'javascript': ['eslint']
-      \}
-let g:ale_fixers = {
-      \ 'html': ['tidy', 'prettier'],
-      \ 'javascript': ['eslint', 'js-langserver'],
-      \ 'json': ['fixjson']
-      \}
-let g:ale_php_phpcs_standard = 'Wordpress'
-let g:ale_php_phpcs_use_global = 1
-let g:ale_completion_enabled = 1
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%:%code%]' " show linter in messages/loclist
+ let g:ale_linter_aliases = {'html': ['html', 'javascript', 'css']}
+ let g:ale_linters={
+       \ 'html': ['alex', 'htmlhint', 'proselint', 'stylelint', 'tidy', 'writegood', 'eslint', 'standard', 'xo', 'csslint', 'stylelint'],
+       \ 'php': ['phpcs'],
+       \ 'javascript': ['eslint'],
+       \ 'typescript': ['tsserver', 'eslint'],
+       \ 'typescriptreact': ['tsserver', 'eslint'],
+       \ 'python': ['flake8', 'pylint']
+       \}
+ let g:ale_fixers = {
+       \ 'html': ['tidy', 'prettier'],
+       \ 'javascript': ['eslint', 'js-langserver'],
+       \ 'typescript': ['eslint'],
+       \ 'typescriptreact': ['eslint'],
+       \ 'json': ['fixjson'],
+       \ 'python': ['autopep8']
+       \}
+ let g:ale_completion_tsserver_autoimport = 1 " automatic imports from external modules for typescript
+ let g:ale_php_phpcs_standard = 'Wordpress'
+ let g:ale_php_phpcs_use_global = 1
+ let g:ale_completion_enabled = 1
+ let g:ale_echo_msg_format = '[%linter%] %s [%severity%:%code%]' " show linter in messages/loclist
 
 
 " don't fist anonymously, just privately
@@ -142,19 +159,19 @@ let g:editorconfig_blacklist = {
       \ 'pattern': ['\.un~$']}
 
 
-if has('python') || has('python3')
-  let g:UltiSnipsEditSplit="context"
-  let g:UltiSnipsExpandTrigger = "<nop>"
-  let g:UltiSnipsJumpForwardTrigger = "<tab>"
-  let g:UltiSnipsJumpBackwardsTrigger = "<s-tab>"
-  " use tab to select completion in completor.vim
-  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
-  " set ultisnips directory
-  set runtimepath+=~/.vim/LocalSnippets
-  let g:UltiSnipsSnippetDirectories=["UltiSnips", "LocalSnippets"]
-endif
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 
 tnoremap <c-j> <C-W>
@@ -412,6 +429,8 @@ if has("autocmd")
   autocmd BufWritePre * silent! %s:\(\S*\) \+$:\1:
   " a safer alternative to `set autochdir`
   " autocmd BufEnter * silent! lcd %:p:h
+  " if a file starts with a shebang, automatically make it executable
+  au BufWritePost * if getline(1) =~ "^#!" | if getline(1) =~ "/bin/" | silent !chmod +x <afile> | endif | endif
 endif
 
 
