@@ -138,3 +138,4 @@ alias KillTheSphinx="sudo pkill -9 pocketsphinx; reset; echo ''; rm SphinxPipe; 
 alias GHwork=". GHwork"
 alias zen="while :; do ~/dotfiles/scripts/bonsai.sh -l -b 2 -c ~oO0%* ; sleep 15; done"
 alias btown="ssh -tt b ssh -tt town screen -dR"
+alias ttown="ssh -tt team ssh -tt town screen -dR"
