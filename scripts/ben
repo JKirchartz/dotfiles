@@ -1,0 +1,29 @@
+#! /usr/bin/env bash
+
+shopt -s nocasematch
+
+cd ~/projects/TCDEAppService/;
+
+case $1 in
+  dcup) docker-compose up;;
+  raa)
+    case $2 in
+      start) npx lerna bootstrap && cd packages/apps/reviewAndApproval/ && yarn start-dev;;
+      restart) pkill -f node && npx lerna bootstrap && cd packages/apps/reviewAndApproval/ && yarn start-dev;;
+      intall)
+        npm install
+        cd packages/apps/reviewAndApproval/server
+        npm install
+        cd ../client
+        npm install
+        ;;
+    esac
+    ;;
+  help|*)
+    echo -e "Welcome to Ben, the Bentley assistant.\nBen will run it's processes in the TCDEAppService directory\n\nUsage:"
+    echo "ben dcup:		docker-compose up"
+    echo "ben raa start:		start the reviewAndApproval dev server"
+    echo "ben raa restart:		restart the reviewAndApproval dev server"
+esac
+
+# vim: set ft=bash
