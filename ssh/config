@@ -20,7 +20,7 @@ Host btown
   User derkirche
   ServerAliveInterval 30
   # ProxyJump town
-  # ProxyCommand ssh town -W %h:22
+  ProxyCommand ssh -q -W %h:%p town
 
 Host stash.ae.com
   IdentitiesOnly yes

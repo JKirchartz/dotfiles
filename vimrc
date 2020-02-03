@@ -97,13 +97,18 @@ let g:ale_sign_column_always = 1
 let g:ale_linters={
       \ 'html': ['alex', 'htmlhint', 'proselint', 'stylelint', 'tidy', 'writegood', 'eslint', 'standard', 'xo', 'csslint', 'stylelint'],
       \ 'php': ['phpcs'],
-      \ 'javascript': ['eslint']
+      \ 'javascript': ['eslint'],
+      \ 'typescript': ['tsserver', 'eslint'],
+      \ 'typescriptreact': ['tsserver', 'eslint'],
       \}
 let g:ale_fixers = {
       \ 'html': ['tidy', 'prettier'],
       \ 'javascript': ['eslint', 'js-langserver'],
+      \ 'typescript': ['eslint'],
+      \ 'typescriptreact': ['eslint'],
       \ 'json': ['fixjson']
       \}
+let g:ale_completion_tsserver_autoimport = 1 " automatic imports from external modules for typescript
 let g:ale_php_phpcs_standard = 'Wordpress'
 let g:ale_php_phpcs_use_global = 1
 let g:ale_completion_enabled = 1
