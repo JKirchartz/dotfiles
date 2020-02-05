@@ -413,6 +413,8 @@ if has("autocmd")
   autocmd BufWritePre * silent! %s:\(\S*\) \+$:\1:
   " a safer alternative to `set autochdir`
   " autocmd BufEnter * silent! lcd %:p:h
+  " if a file starts with a shebang, automatically make it executable
+  au BufWritePost * if getline(1) =~ "^#!" | if getline(1) =~ "/bin/" | silent !chmod +x <afile> | endif | endif
 endif
 
 

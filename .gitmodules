@@ -9,3 +9,6 @@
 [submodule "LS_COLORS"]
 	path = LS_COLORS
 	url = https://github.com/trapd00r/LS_COLORS
+[submodule "figlet-fonts"]
+	path = figlet-fonts
+	url = https://github.com/JKirchartz/figlet-fonts.git

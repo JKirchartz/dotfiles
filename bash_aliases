@@ -18,14 +18,11 @@ alias rm='rm -i '                         # confirm, just in case...
 alias please='sudo $(fc -ln -1)'          # redo last command as root
 alias M='motd.sh'
 
-
 if test -n "$ZSH_VERSION"; then
 	alias R='source ~/.zshrc'
 elif test -n "$BASH_VERSION"; then
 	alias R='. ~/.bash_profile'
 fi
-
-
 
 #vim-like aliases
 alias :e='vim'
@@ -33,9 +30,12 @@ alias :q='exit'
 alias :wq='exit'
 
 # lil' bit of fun
+alias figlet='figlet -d ~/dotfiles/figlet-fonts/'
+alias toilet='toilet -d ~/dotfiles/figlet-fonts/'
 alias f='fortune -ae'
 alias dopewars='dopewars -tn'
 alias RR='[ $[ $RANDOM % 6 ] == 0 ] && echo *BANG* || echo *Click*'
+alias zen="while :; do ~/dotfiles/scripts/bonsai.sh -l -b 2 -c ~oO0%* ; sleep 15; done"
 
 #alternative to cd -
 alias back='cd $OLDPWD'
@@ -134,9 +134,10 @@ alias SpeakToTheSphinx="touch SphinxPipe; unbuffer pocketsphinx_continuous -inmi
 
 alias KillTheSphinx="sudo pkill -9 pocketsphinx; reset; echo ''; rm SphinxPipe; echo ''; ps aux | grep pocketsphinx; echo ''"
 
+# ssh
+alias btown="ssh -tt b ssh -tt town screen -dR"
+alias ttown="ssh -tt teams ssh -tt t screen -dR"
 
+# office assistants
 alias GHwork=". GHwork"
 alias ben=". ben"
-alias zen="while :; do ~/dotfiles/scripts/bonsai.sh -l -b 2 -c ~oO0%* ; sleep 15; done"
-alias btown="ssh -tt b ssh -tt town screen -dR"
-alias ttown="ssh -tt team ssh -tt town screen -dR"
