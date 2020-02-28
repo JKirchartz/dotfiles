@@ -1,29 +1,79 @@
 #! /usr/bin/env bash
+#
+# Welcome to Ben, the Bentley assistant.
+# Ben will run it's processes in the $BENPROJECTROOT directory
+#
+# Usage:
+# ben:		Move into the project directory & print this message
+# ben dcup:		docker-compose up
+# ben start:		start the reviewAndApproval dev server
+# ben install:		install server/client packages
+# ben restart:		restart the reviewAndApproval dev server
+# ben rebuild:		clean install & start the reviewAndApproval dev server
+#
+# Add the following lines to your ~/.bashrc
+#
+# export BENPROJECTROOT=/path/to/TCDEAppService/
+# alias ben=". /path/to/ben.sh"
+#
+# Now ben will run everywhere and run these commands into the apropriate directories
+
+if [ -z ${BENPROJECTROOT+x} ]; then
+  echo "Error: BENPROJECTROOT environment variable is not set";
+  echo "";
+  echo "please add \"export BENPROJECTROOT=/path/to/TCDEAppService/\" to your .bash_profile"
+  exit 1;
+fi
+
+ben-start () {
+  npx lerna bootstrap
+  cd packages/apps/reviewAndApproval/
+  yarn start-dev
+}
+
+ben-clean () {
+  npx lerna clean --yes
+  # git clean -idx -e **.local
+}
+
+ben-end () {
+  pgrep -f TCDE && kill -9 `pgrep -f TCDE`
+  # kill $(lsof -ti :9230)
+}
 
 shopt -s nocasematch
 
-cd ~/projects/TCDEAppService/;
+cd $BENPROJECTROOT;
 
 case $1 in
   dcup) docker-compose up;;
-  raa)
-    case $2 in
-      start) npx lerna bootstrap && cd packages/apps/reviewAndApproval/ && yarn start-dev;;
-      restart) pkill -f node && npx lerna bootstrap && cd packages/apps/reviewAndApproval/ && yarn start-dev;;
-      intall)
-        npm install
-        cd packages/apps/reviewAndApproval/server
-        npm install
-        cd ../client
-        npm install
-        ;;
-    esac
+  end) ben-end;;
+  clean) ben-clean;;
+  start) ben-start;;
+  restart)
+    ben-end
+    ben-start
+    ;;
+  rebuild|redo)
+    ben-end
+    ben-clean
+    ben-start
+    ;;
+  install)
+    yarn install
+    cd packages/apps/reviewAndApproval/server
+    yarn install
+    cd ../client
+    yarn install
     ;;
   help|*)
-    echo -e "Welcome to Ben, the Bentley assistant.\nBen will run it's processes in the TCDEAppService directory\n\nUsage:"
+    echo -e "Welcome to Ben, the Bentley assistant.\nBen will run it's processes in the ${BENPROJECTROOT} directory\n\nUsage:"
+    echo "ben		move to project root & show this message"
     echo "ben dcup:		docker-compose up"
-    echo "ben raa start:		start the reviewAndApproval dev server"
-    echo "ben raa restart:		restart the reviewAndApproval dev server"
+    echo "ben start:		start the reviewAndApproval dev servers"
+    echo "ben install:		install server/client packages"
+    echo "ben restart:		restart the reviewAndApproval dev servers"
+    echo "ben rebuild:		clean install & start the reviewAndApproval dev servers"
 esac
 
 # vim: set ft=bash

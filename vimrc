@@ -60,6 +60,9 @@ Plug 'fcpg/vim-waikiki'
 " use <leader>K(K|B|R|P) to access cheat.sh
 Plug 'dbeniamine/cheat.sh-vim'
 
+" try out vim-leader-guide
+Plug 'hecal3/vim-leader-guide'
+
 " vim included plugins
 runtime macros/matchit.vim
 runtime ftplugin/man.vim

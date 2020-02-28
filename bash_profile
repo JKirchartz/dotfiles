@@ -8,6 +8,7 @@ PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/u
 case $OSTYPE in
     darwin*)
         # this is a mac
+        export BASH_SILENCE_DEPRECATION_WARNING=1 # stop telling me about zsh!
         export TERM=xterm-256color
         export GEM_HOME=$HOME/gems
         PATH=$PATH:$HOME/gems/bin
@@ -30,6 +31,7 @@ case $OSTYPE in
         }
         export GOPATH=$HOME/Go
         export GOROOT=/usr/local/opt/go/libexec
+        export BENPROJECTROOT=$HOME/projects/TCDEAppService
     ;;
     linux*)
         # this is linux
