@@ -119,3 +119,4 @@ source ~/.bashrc
 if [ -d $HOME/.linuxbrew ]; then
   export PATH="/home/kirch/.linuxbrew/bin:$PATH"
 fi
+export PATH="/usr/local/opt/node@12/bin:$PATH"
