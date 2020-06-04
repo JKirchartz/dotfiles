@@ -32,6 +32,7 @@ case $OSTYPE in
         export GOPATH=$HOME/Go
         export GOROOT=/usr/local/opt/go/libexec
         export BENPROJECTROOT=$HOME/projects/TCDEAppService
+        source ~/.iterm2_shell_integration.bash
     ;;
     linux*)
         # this is linux
@@ -120,3 +121,6 @@ if [ -d $HOME/.linuxbrew ]; then
   export PATH="/home/kirch/.linuxbrew/bin:$PATH"
 fi
 export PATH="/usr/local/opt/node@12/bin:$PATH"
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash" || true
+
