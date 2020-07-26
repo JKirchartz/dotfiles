@@ -1,0 +1,134 @@
+#! /usr/bin/env bash
+#
+# Welcome to Ben, the Bentley assistant.  Ben will run it's processes in the
+# $BENPROJECTROOT directory
+#
+# Add the following lines to your ~/.bashrc
+#
+# export BENPROJECTROOT=/path/to/TCDEAppService/ alias ben=". /path/to/ben.sh"
+#
+# for the best `ben` experience, install tmux.  add the following options to
+# your tmux configuration to bind <hotkey> + r to restart an app in a specific
+# pane.
+#
+#     bind r respawn-pane -k
+#
+# Now ben will run everywhere and run these commands into the apropriate
+# directories
+
+muxer=$(env | grep -i tmux)
+
+if [ -z ${BENPROJECTROOT+x} ]; then
+  echo "Error: BENPROJECTROOT environment variable is not set";
+  echo "";
+  echo "please add \"export BENPROJECTROOT=/path/to/TCDEAppService/\" to your .bash_profile"
+  exit 1;
+fi
+
+# check if we're in tmux
+if [ -z "$muxer" ]; then
+  # if we're not, try to start a tmux session
+  SESSION="${USER}_${BENPROJECTROOT}"
+  tmux ls $> /dev/null
+  if [ $? != 0 ]
+  then
+    # No TMUX sessions - create
+    tmux new-session -s $SESSION
+  else
+    # One TMUX - resume
+    tmux attach -t $SESSION
+  fi
+fi
+
+ben-bootstrap () {
+  cd "$BENPROJECTROOT"
+  npx lerna bootstrap
+  cd packages/apps/reviewAndApproval/
+}
+
+ben-clean () {
+  cd "$BENPROJECTROOT"
+  npx lerna clean --yes
+  npx rimraf node_modules
+  # git clean -dx -e "*.local" # nuclear option?
+}
+
+ben-end () {
+  # pgrep -f TCDE && kill -9 `pgrep -f TCDE`
+  lsof -ti :9230 && kill $(lsof -ti :9230)
+}
+
+ben-start () {
+  yarn run start-dev
+}
+
+ben-tmux-start () {
+    cd "$BENPROJECTROOT/packages/apps/reviewAndApproval/"
+    tmux rename-window "work"
+    tmux split-window "yarn run start-client"
+    tmux split-window -h "yarn run start-server"
+    cd client/
+    yarn run test
+}
+
+shopt -s nocasematch
+
+cd $BENPROJECTROOT;
+
+case $1 in
+  raa) cd packages/apps/reviewAndApproval;;
+  dcup) docker-compose up;;
+  end) ben-end;;
+  clean) ben-clean;;
+  start)
+    ben-bootstrap
+    ben-tmux-start
+    ;;
+  restart)
+    ben-end
+    ben-tmux-start
+    ;;
+  rebuild)
+    ben-end
+    ben-clean
+    ben-bootstrap
+    ;;
+  redo)
+    ben-end
+    ben-clean
+    ben-bootstrap
+    ben-tmux-start
+    ;;
+  install)
+    yarn install
+    cd packages/apps/reviewAndApproval/server
+    yarn install
+    cd ../client
+    yarn install
+    ;;
+  run)
+    ben-end
+    ben-tmux-start
+    ;;
+  locals)
+    cd ${BENPROJECTROOT}
+    find ./ -name "*.local"
+    if [ "$2" == "-s"]; then
+        rsync -a --prune-empty-dirs --include '*/' --include '*.local' --exclude '*' ./ ../TCDElocals
+    fi
+    ;;
+  help|*)
+    echo -e "Welcome to Ben, the Bentley assistant.\nBen will run it's processes in the ${BENPROJECTROOT} directory\n\nUsage:"
+    echo "ben		move to project root & show this message"
+    echo "ben dcup:		docker-compose up"
+    echo "ben install:		install server/client packages"
+    echo "ben locals:		list the *.local environment files"
+    echo "ben locals -s:		list the *.local environment files"
+    echo "ben rebuild:		clean install & build the reviewAndApproval dev servers"
+    echo "ben start:		start the reviewAndApproval dev servers & tests in tmux panes"
+    echo "ben run:		start the dev servers & tests in separate tmux panes"
+    echo "ben restart:		restart the reviewAndApproval dev servers & tests in tmux panes"
+    echo "ben redo:		clean install & start testing & the reviewAndApproval dev servers in tmux panes"
+esac
+
+# vim: set ft=bash

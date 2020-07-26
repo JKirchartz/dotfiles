@@ -60,6 +60,9 @@ Plug 'fcpg/vim-waikiki'
 " use <leader>K(K|B|R|P) to access cheat.sh
 Plug 'dbeniamine/cheat.sh-vim'
 
+" try out vim-leader-guide
+Plug 'hecal3/vim-leader-guide'
+
 " vim included plugins
 runtime macros/matchit.vim
 runtime ftplugin/man.vim
@@ -97,13 +100,18 @@ let g:ale_sign_column_always = 1
 let g:ale_linters={
       \ 'html': ['alex', 'htmlhint', 'proselint', 'stylelint', 'tidy', 'writegood', 'eslint', 'standard', 'xo', 'csslint', 'stylelint'],
       \ 'php': ['phpcs'],
-      \ 'javascript': ['eslint']
+      \ 'javascript': ['eslint'],
+      \ 'typescript': ['tsserver', 'eslint'],
+      \ 'typescriptreact': ['tsserver', 'eslint'],
       \}
 let g:ale_fixers = {
       \ 'html': ['tidy', 'prettier'],
       \ 'javascript': ['eslint', 'js-langserver'],
+      \ 'typescript': ['eslint'],
+      \ 'typescriptreact': ['eslint'],
       \ 'json': ['fixjson']
       \}
+let g:ale_completion_tsserver_autoimport = 1 " automatic imports from external modules for typescript
 let g:ale_php_phpcs_standard = 'Wordpress'
 let g:ale_php_phpcs_use_global = 1
 let g:ale_completion_enabled = 1
@@ -408,6 +416,8 @@ if has("autocmd")
   autocmd BufWritePre * silent! %s:\(\S*\) \+$:\1:
   " a safer alternative to `set autochdir`
   " autocmd BufEnter * silent! lcd %:p:h
+  " if a file starts with a shebang, automatically make it executable
+  au BufWritePost * if getline(1) =~ "^#!" | if getline(1) =~ "/bin/" | silent !chmod +x <afile> | endif | endif
 endif
 
 
