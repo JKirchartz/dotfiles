@@ -30,8 +30,8 @@ function gitstatus() {
   esac
   fi
 
-  # make branch display-ready
-  branch="$(echo "$branch" | cut -d'.' -f1)"
+  # remove remote branch name from display (if applicable)
+  branch=$(printf '%s\n' "${branch//.../$'\n'}" | head -1)
 
   # check status of working directory
   unstaged=false

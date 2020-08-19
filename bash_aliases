@@ -17,6 +17,7 @@ alias ping='ping -c 10 '                  # set a default, coz I always forget
 alias rm='rm -i '                         # confirm, just in case...
 alias please='sudo $(fc -ln -1)'          # redo last command as root
 alias M='motd.sh'
+alias gir=git
 
 if test -n "$ZSH_VERSION"; then
 	alias R='source ~/.zshrc'
@@ -35,7 +36,7 @@ alias toilet='toilet -d ~/dotfiles/figlet-fonts/'
 alias f='fortune -ae'
 alias dopewars='dopewars -tn'
 alias RR='[ $[ $RANDOM % 6 ] == 0 ] && echo *BANG* || echo *Click*'
-alias zen="while :; do ~/dotfiles/scripts/bonsai.sh -l -b 2 -c ~oO0%* ; sleep 15; done"
+alias zen="~/dotfiles/scripts/bonsai.sh -i -w 15 -b 2 -c ~oO0%*"
 
 #alternative to cd -
 alias back='cd $OLDPWD'

@@ -5,7 +5,8 @@
 #
 # Add the following lines to your ~/.bashrc
 #
-# export BENPROJECTROOT=/path/to/TCDEAppService/ alias ben=". /path/to/ben.sh"
+# export BENPROJECTROOT=/path/to/TCDEAppService/
+# alias ben=". /path/to/ben.sh"
 #
 # for the best `ben` experience, install tmux.  add the following options to
 # your tmux configuration to bind <hotkey> + r to restart an app in a specific
@@ -15,6 +16,10 @@
 #
 # Now ben will run everywhere and run these commands into the apropriate
 # directories
+#
+# if your system version of node doesn't match the projects you can install
+# nvm (node version manager) after installing nvm run `nvm alias default v12.16.2`
+# to have it use node v12.16.2 as the default node and override system node.
 
 muxer=$(env | grep -i tmux)
 
@@ -23,6 +28,14 @@ if [ -z ${BENPROJECTROOT+x} ]; then
   echo "";
   echo "please add \"export BENPROJECTROOT=/path/to/TCDEAppService/\" to your .bash_profile"
   exit 1;
+fi
+
+if ["$2" -eq "--clone"]; then
+  BENPROJECTROOT="${BENPROJECTROOT}Clone"
+fi
+
+if [-z "$(which nvm)" ]; then
+  nvm use
 fi
 
 # check if we're in tmux
@@ -48,7 +61,7 @@ ben-bootstrap () {
 
 ben-clean () {
   cd "$BENPROJECTROOT"
-  npx lerna clean --yes
+  # npx lerna clean --yes
   npx rimraf node_modules
   # git clean -dx -e "*.local" # nuclear option?
 }
