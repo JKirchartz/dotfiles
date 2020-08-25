@@ -30,37 +30,36 @@ if [ -z ${BENPROJECTROOT+x} ]; then
   exit 1;
 fi
 
-if ["$2" -eq "--clone"]; then
+if [ "$2" = "--clone" ] || [ "$2" = "-c" ]; then
   BENPROJECTROOT="${BENPROJECTROOT}Clone"
 fi
 
-if [-z "$(which nvm)" ]; then
-  nvm use
+if [ -z "$(which nvm)" ]; then
+  nvm use v12.16.2
 fi
 
 # check if we're in tmux
 if [ -z "$muxer" ]; then
   # if we're not, try to start a tmux session
   SESSION="${USER}_${BENPROJECTROOT}"
-  tmux ls $> /dev/null
-  if [ $? != 0 ]
+  if tmux ls $> /dev/null
   then
     # No TMUX sessions - create
-    tmux new-session -s $SESSION
+    tmux new-session -s "$SESSION"
   else
     # One TMUX - resume
-    tmux attach -t $SESSION
+    tmux attach -t "$SESSION"
   fi
 fi
 
 ben-bootstrap () {
-  cd "$BENPROJECTROOT"
+  cd "$BENPROJECTROOT" || exit
   npx lerna bootstrap
-  cd packages/apps/reviewAndApproval/
+  cd packages/apps/reviewAndApproval/ || exit
 }
 
 ben-clean () {
-  cd "$BENPROJECTROOT"
+  cd "$BENPROJECTROOT" || exit
   # npx lerna clean --yes
   npx rimraf node_modules
   # git clean -dx -e "*.local" # nuclear option?
@@ -68,7 +67,7 @@ ben-clean () {
 
 ben-end () {
   # pgrep -f TCDE && kill -9 `pgrep -f TCDE`
-  lsof -ti :9230 && kill $(lsof -ti :9230)
+  lsof -ti :9230 && kill "$(lsof -ti :9230)"
 }
 
 ben-start () {
@@ -76,20 +75,20 @@ ben-start () {
 }
 
 ben-tmux-start () {
-    cd "$BENPROJECTROOT/packages/apps/reviewAndApproval/"
+    cd "$BENPROJECTROOT/packages/apps/reviewAndApproval/" || exit
     tmux rename-window "work"
     tmux split-window "yarn run start-client"
     tmux split-window -h "yarn run start-server"
-    cd client/
+    cd client/ || exit
     yarn run test
 }
 
 shopt -s nocasematch
 
-cd $BENPROJECTROOT;
+cd "$BENPROJECTROOT" || exit;
 
 case $1 in
-  raa) cd packages/apps/reviewAndApproval;;
+  raa) cd packages/apps/reviewAndApproval || exit;;
   dcup) docker-compose up;;
   end) ben-end;;
   clean) ben-clean;;
@@ -114,9 +113,9 @@ case $1 in
     ;;
   install)
     yarn install
-    cd packages/apps/reviewAndApproval/server
+    cd packages/apps/reviewAndApproval/server || exit
     yarn install
-    cd ../client
+    cd ../client || exit
     yarn install
     ;;
   run)
@@ -124,9 +123,9 @@ case $1 in
     ben-tmux-start
     ;;
   locals)
-    cd ${BENPROJECTROOT}
+    cd "${BENPROJECTROOT}" || exit
     find ./ -name "*.local"
-    if [ "$2" == "-s"]; then
+    if [ "$2" == "-s" ]; then
         rsync -a --prune-empty-dirs --include '*/' --include '*.local' --exclude '*' ./ ../TCDElocals
     fi
     ;;

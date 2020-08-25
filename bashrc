@@ -42,6 +42,12 @@ source ~/dotfiles/scripts/npm-completion.bash
 
 function __prompt {
   echo
+  # Bentley:
+  case $OSTYPE in
+    darwin*)
+        nvm use v12.16.2
+    ;;
+  esac
   # sync history across terms
   history -a
   history -n
