@@ -53,14 +53,14 @@ if [ -z "$muxer" ]; then
 fi
 
 ben-bootstrap () {
-  cd "$BENPROJECTROOT" || exit
+  cd "$BENPROJECTROOT" || exit 1
   npx lerna bootstrap
-  cd packages/apps/reviewAndApproval/ || exit
+  cd packages/apps/reviewAndApproval/ || exit 1
 }
 
 ben-clean () {
-  cd "$BENPROJECTROOT" || exit
-  # npx lerna clean --yes
+  cd "$BENPROJECTROOT" || exit 1
+  npx lerna clean --yes
   npx rimraf node_modules
   # git clean -dx -e "*.local" # nuclear option?
 }
@@ -79,7 +79,7 @@ ben-tmux-start () {
     tmux rename-window "work"
     tmux split-window "yarn run start-client"
     tmux split-window -h "yarn run start-server"
-    cd client/ || exit
+    cd client/ || exit 1
     yarn run test
 }
 
@@ -88,7 +88,7 @@ shopt -s nocasematch
 cd "$BENPROJECTROOT" || exit;
 
 case $1 in
-  raa) cd packages/apps/reviewAndApproval || exit;;
+  raa) cd packages/apps/reviewAndApproval || exit 1;;
   dcup) docker-compose up;;
   end) ben-end;;
   clean) ben-clean;;
@@ -113,9 +113,9 @@ case $1 in
     ;;
   install)
     yarn install
-    cd packages/apps/reviewAndApproval/server || exit
+    cd packages/apps/reviewAndApproval/server || exit 1
     yarn install
-    cd ../client || exit
+    cd ../client || exit 1
     yarn install
     ;;
   run)
@@ -132,6 +132,7 @@ case $1 in
   help|*)
     echo -e "Welcome to Ben, the Bentley assistant.\nBen will run it's processes in the ${BENPROJECTROOT} directory\n\nUsage:"
     echo "ben		move to project root & show this message"
+    echo "ben end:		close server"
     echo "ben dcup:		docker-compose up"
     echo "ben install:		install server/client packages"
     echo "ben locals:		list the *.local environment files"
@@ -143,4 +144,3 @@ case $1 in
     echo "ben redo:		clean install & start testing & the reviewAndApproval dev servers in tmux panes"
 esac
 
-# vim: set ft=bash

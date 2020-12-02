@@ -36,6 +36,9 @@ case $OSTYPE in
         export PATH="$PATH:/usr/local/share/dotnet/dotnet"
         source ~/.iterm2_shell_integration.bash
 
+        eval "$(pyenv init -)"
+        eval "$(pyenv virtualenv-init -)"
+
         export NVM_DIR="$HOME/.nvm"
         [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
         [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
@@ -87,6 +90,12 @@ case $OSTYPE in
                 # vagrant
                 export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
                 export PATH="$PATH:/mnt/c/Program Files/Oracle/VirtualBox"
+
+                PATH="/home/kirch/perl5/bin${PATH:+:${PATH}}"; export PATH;
+                PERL5LIB="/home/kirch/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+                PERL_LOCAL_LIB_ROOT="/home/kirch/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+                PERL_MB_OPT="--install_base \"/home/kirch/perl5\""; export PERL_MB_OPT;
+                PERL_MM_OPT="INSTALL_BASE=/home/kirch/perl5"; export PERL_MM_OPT;
                 ;;
             fiddle)
                 export DISPLAY=:0
