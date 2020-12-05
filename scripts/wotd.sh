@@ -9,10 +9,10 @@
 
 
 # replace with a dictionary-finding function ala cowsay.sh & fortune.sh
-local DICTIONARY=/usr/share/dict/words
+DICTIONARY=/usr/share/dict/words
 if [ -f $DICTIONARY ]; then
   # hat-tip to flukiluke@blinkenshell for this hash:
-  local n=$(echo $(date +%D|md5sum) $(wc -l ${DICTIONARY}) |  awk '{print \
+  n=$(echo $(date +%D|md5sum) $(wc -l ${DICTIONARY}) |  awk '{print \
     strtonum("0x"$1)%$3}')
   echo -n "Today's secret word is \"$(sed "$n q;d" ${DICTIONARY})"
   echo -n "\", now you all remember what to do when you hear the secret"

@@ -83,10 +83,10 @@ export PS2="\[$__cr\]└─\[$__cc\]>\[$__nc\]"
 #}}}-----------------------------
 #fix history
 #------------------------------{{{
-export HISTCONTROL=ignoredups             # no duplicate entries
+export HISTCONTROL=ignoreboth             # no duplicate entries or entries that start with whitespace
 export HISTSIZE=50000                     # big history
 export HISTFILESIZE=50000                 # big history
-export HISTIGNORE="&:ls:ll:pwd:exit:clear:[ \t]*"
+export HISTIGNORE="ls:ll:pwd:exit:clear"
 shopt -s histappend                       # append to history, not overwrite it
 
 
@@ -122,10 +122,6 @@ fi
 
 
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 if command -V gdircolors &> /dev/null
 then
   eval "$(gdircolors -b "$HOME/dotfiles/LS_COLORS/LS_COLORS")"
@@ -133,6 +129,11 @@ else
   eval "$(dircolors -b "$HOME/dotfiles/LS_COLORS/LS_COLORS")"
 fi
 
+if [ -z "$SSH_AGENT_PID" ]; then
+  eval `ssh-agent -s`
+  ssh-add ~/.ssh/id_rsa
+fi
 
 # }}} fold up this file
 # vim: foldmethod=marker
+source /home/kirch/perl5/perlbrew/etc/bashrc

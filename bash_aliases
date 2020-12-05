@@ -8,6 +8,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 #basic aliases
+alias less="less -R"
 alias ll='ls -oFhA'
 alias lm='ls -oFhA | less'
 alias cd..='cd ..'
@@ -25,7 +26,12 @@ elif test -n "$BASH_VERSION"; then
 	alias R='. ~/.bash_profile'
 fi
 
+#todo
+alias t=todo.sh
+alias todo="vim \"/mnt/c/Users/kirch.DESKTOP-ET5NNPF/Google Drive/todo/todo.txt\""
+
 #vim-like aliases
+alias vi=vim
 alias :e='vim'
 alias :q='exit'
 alias :wq='exit'
@@ -140,8 +146,9 @@ alias SpeakToTheSphinx="touch SphinxPipe; unbuffer pocketsphinx_continuous -inmi
 alias KillTheSphinx="sudo pkill -9 pocketsphinx; reset; echo ''; rm SphinxPipe; echo ''; ps aux | grep pocketsphinx; echo ''"
 
 # ssh
-alias btown="ssh -tt b ssh -tt town screen -dR"
-alias ttown="ssh -tt teams ssh -tt t screen -dR"
+alias btown="tmut btown && ssh -tt b ssh -tt town screen -dR"
+alias ttown="tmut ttown && ssh -tt teams ssh -tt t screen -dR"
+alias town="tmut town && ssh -tt town screen -dR"
 alias addlink="ssh b -o LogLevel=error ./add_link.sh" # use -o to suppress welcome message
 
 # office assistants

@@ -12,23 +12,21 @@ case $OSTYPE in
         export TERM=xterm-256color
         export GEM_HOME=$HOME/gems
         PATH=$PATH:$HOME/gems/bin
-				PATH=$PATH:$HOME/projects/ghint/
+        PATH=$PATH:$HOME/projects/ghint/
         if hash nvm 2>/dev/null; then
                 export NVM_DIR="$HOME/.nvm"
                 . "/usr/local/opt/nvm/nvm.sh"
         fi
+        export NVM_DIR="$HOME/.nvm"
+        [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+        [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
         # take a screenshot
         alias ss2='screencapture -xP '
         alias ss='screencapture -xwP '
-				alias editbanner='vim *.js *.less *.html'
         export EDITOR="vim"
         export VISUAL="$EDITOR"
         alias vlc='/Applications/VLC.app/Contents/MacOS/VLC -I rc -q'
-        function fix-ssh {
-            eval $(ssh-agent);
-            ssh-add -K;
-        }
         export GOPATH=$HOME/Go
         export GOROOT=/usr/local/opt/go/libexec
         export BENPROJECTROOT=$HOME/projects/TCDEAppService
@@ -39,12 +37,15 @@ case $OSTYPE in
         eval "$(pyenv init -)"
         eval "$(pyenv virtualenv-init -)"
 
-        export NVM_DIR="$HOME/.nvm"
-        [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-        [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+        test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash" || true
     ;;
     linux*)
         # this is linux
+
+        if [ -d $HOME/.linuxbrew ]; then
+          export PATH="/home/kirch/.linuxbrew/bin:$PATH"
+        fi
         export EDITOR=vim
 
         case $HOSTNAME in
@@ -52,15 +53,19 @@ case $OSTYPE in
                 # autostart screen
                 # if [ "$(ps -p $PPID -o comm=)" != screen ]; then scr; fi
                 ;;
-            lucid32)
-                ### Added by the Heroku Toolbelt
-                PATH="$PATH:/usr/local/heroku/bin"
-                export GEM_HOME=~/gems:$GEM_HOME
-                ;;
-            archbox)
-                alias vi=vim
+            AXE)
+                export GEM_HOME=~/gems
                 export NVM_DIR="$HOME/.nvm"
                 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+                [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+                export PATH="$HOME/.local/bin:$HOME/gems/bin:$PATH"
+                PATH="/home/kirch/perl5/bin${PATH:+:${PATH}}"; export PATH;
+                PERL5LIB="/home/kirch/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+                PERL_LOCAL_LIB_ROOT="/home/kirch/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+                PERL_MB_OPT="--install_base \"/home/kirch/perl5\""; export PERL_MB_OPT;
+                PERL_MM_OPT="INSTALL_BASE=/home/kirch/perl5"; export PERL_MM_OPT;
+                alias open="/mnt/c/Windows/explorer.exe ."
+                eval `keychain -q --eval --agents ssh id_rsa`
                 ;;
             arp)
                 # add appengine, npm, and gems bins to path
@@ -107,6 +112,8 @@ case $OSTYPE in
                 export PATH="$PATH:/mnt/c/Program Files/Oracle/VirtualBox"
                 export PATH="$PATH:/mnt/c/Windows/System32"
                 alias vi=vim
+                eval "$(pyenv init -)"
+                eval "$(pyenv virtualenv-init -)"
                 ;;
             nao*)
                 export GEM_HOME=$HOME/gems
@@ -132,11 +139,8 @@ export PAGER="less -F"
 # import bashrc
 source ~/.bashrc
 
-if [ -d $HOME/.linuxbrew ]; then
-  export PATH="/home/kirch/.linuxbrew/bin:$PATH"
+export PATH="$PATH:/usr/local/opt/node@12/bin"
+
+if [[ -f ~/.env_keys ]];then
+    source ~/.env_keys
 fi
-export PATH="/usr/local/opt/node@12/bin:$PATH"
-
-test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash" || true
-
-source /etc/bash_completion.d/azds

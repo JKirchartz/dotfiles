@@ -1,0 +1,3 @@
+#! /bin/bash
+
+curl -s "https://webaim.org/resources/contrastchecker/?fcolor=${1}&bcolor=${2}&api" | tr ',' '\n' | tr -cd '\n :[:alnum:]._-' | column -t -s ':'
