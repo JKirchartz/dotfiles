@@ -37,6 +37,10 @@ alias f='fortune -ae'
 alias dopewars='dopewars -tn'
 alias RR='[ $[ $RANDOM % 6 ] == 0 ] && echo *BANG* || echo *Click*'
 alias zen="~/dotfiles/scripts/bonsai.sh -i -w 15 -b 2 -c ~oO0%*"
+alias beef="cowsay"
+# I keep mispelling these, but they're also humorous.
+alias rocker="docker"
+alias focker="docker"
 
 #alternative to cd -
 alias back='cd $OLDPWD'
@@ -138,7 +142,7 @@ alias KillTheSphinx="sudo pkill -9 pocketsphinx; reset; echo ''; rm SphinxPipe; 
 # ssh
 alias btown="ssh -tt b ssh -tt town screen -dR"
 alias ttown="ssh -tt teams ssh -tt t screen -dR"
+alias addlink="ssh b -o LogLevel=error ./add_link.sh" # use -o to suppress welcome message
 
 # office assistants
-alias GHwork=". GHwork"
 alias ben=". ben"
