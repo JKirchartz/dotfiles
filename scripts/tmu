@@ -7,4 +7,5 @@ else
   SESSION=$1
 fi
 
+# The -A flag makes new-session behave like attach-session if session-name already exists; in this case, -D behaves like -d to attach-session.
 tmux new-session -A -s "$SESSION"
