@@ -4,10 +4,6 @@
 # Bins
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/games"
 
-if [ -d $HOME/.linuxbrew ]; then
-  export PATH="/home/kirch/.linuxbrew/bin:$PATH"
-fi
-
 # system-specific configs
 case $OSTYPE in
     darwin*)
@@ -16,16 +12,18 @@ case $OSTYPE in
         export TERM=xterm-256color
         export GEM_HOME=$HOME/gems
         PATH=$PATH:$HOME/gems/bin
-				PATH=$PATH:$HOME/projects/ghint/
+        PATH=$PATH:$HOME/projects/ghint/
         if hash nvm 2>/dev/null; then
                 export NVM_DIR="$HOME/.nvm"
                 . "/usr/local/opt/nvm/nvm.sh"
         fi
+        export NVM_DIR="$HOME/.nvm"
+        [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+        [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
         # take a screenshot
         alias ss2='screencapture -xP '
         alias ss='screencapture -xwP '
-				alias editbanner='vim *.js *.less *.html'
         export EDITOR="vim"
         export VISUAL="$EDITOR"
         alias vlc='/Applications/VLC.app/Contents/MacOS/VLC -I rc -q'
@@ -43,14 +41,15 @@ case $OSTYPE in
         eval "$(pyenv init -)"
         eval "$(pyenv virtualenv-init -)"
 
-        export NVM_DIR="$HOME/.nvm"
-        [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-        [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
         test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash" || true
     ;;
     linux*)
         # this is linux
+
+        if [ -d $HOME/.linuxbrew ]; then
+          export PATH="/home/kirch/.linuxbrew/bin:$PATH"
+        fi
         export EDITOR=vim
 
         case $HOSTNAME in
@@ -140,5 +139,5 @@ export PAGER="less -F"
 # import bashrc
 source ~/.bashrc
 
-export PATH="/usr/local/opt/node@12/bin:$PATH"
+export PATH="$PATH:/usr/local/opt/node@12/bin"
 

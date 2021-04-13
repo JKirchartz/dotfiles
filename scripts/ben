@@ -21,6 +21,13 @@
 # nvm (node version manager) after installing nvm run `nvm alias default v12.16.2`
 # to have it use node v12.16.2 as the default node and override system node.
 
+ben-nvm () {
+  if [ -z "$(which nvm)" ]; then
+    nvm use v12.16.2
+  fi
+}
+ben-nvm;
+
 muxer=$(env | grep -i tmux)
 
 if [ -z ${BENPROJECTROOT+x} ]; then
@@ -34,9 +41,6 @@ if [ "$2" = "--clone" ] || [ "$2" = "-c" ]; then
   BENPROJECTROOT="${BENPROJECTROOT}Clone"
 fi
 
-if [ -z "$(which nvm)" ]; then
-  nvm use v12.16.2
-fi
 
 # check if we're in tmux
 if [ -z "$muxer" ]; then
@@ -51,6 +55,7 @@ if [ -z "$muxer" ]; then
     tmux attach -t "$SESSION"
   fi
 fi
+
 
 ben-bootstrap () {
   cd "$BENPROJECTROOT" || exit 1
@@ -81,6 +86,8 @@ ben-tmux-start () {
     tmux split-window -h "yarn run start-server"
     cd client/ || exit 1
     yarn run test
+    # experimental: start submodule by providing path to script
+    [ -z "$2" ] && [ -d "$2" ] && tmux split-window -h "cd $2 && yarn run start"
 }
 
 shopt -s nocasematch
@@ -94,11 +101,11 @@ case $1 in
   clean) ben-clean;;
   start)
     ben-bootstrap
-    ben-tmux-start
+    ben-tmux-start "$@"
     ;;
   restart)
     ben-end
-    ben-tmux-start
+    ben-tmux-start "$@"
     ;;
   rebuild)
     ben-end
@@ -109,7 +116,7 @@ case $1 in
     ben-end
     ben-clean
     ben-bootstrap
-    ben-tmux-start
+    ben-tmux-start "$@"
     ;;
   install)
     yarn install
@@ -120,7 +127,7 @@ case $1 in
     ;;
   run)
     ben-end
-    ben-tmux-start
+    ben-tmux-start "$@"
     ;;
   locals)
     cd "${BENPROJECTROOT}" || exit
@@ -136,11 +143,14 @@ case $1 in
     echo "ben dcup:		docker-compose up"
     echo "ben install:		install server/client packages"
     echo "ben locals:		list the *.local environment files"
-    echo "ben locals -s:		list the *.local environment files"
+    echo "ben locals -s:		sync the *.local environment files"
     echo "ben rebuild:		clean install & build the reviewAndApproval dev servers"
     echo "ben start:		start the reviewAndApproval dev servers & tests in tmux panes"
     echo "ben run:		start the dev servers & tests in separate tmux panes"
     echo "ben restart:		restart the reviewAndApproval dev servers & tests in tmux panes"
     echo "ben redo:		clean install & start testing & the reviewAndApproval dev servers in tmux panes"
+    echo ""
+    echo "experimental:"
+    echo "Provide a path after 'ben run/redo/start/restart' to start a submodule"
 esac
 
