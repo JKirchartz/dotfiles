@@ -28,7 +28,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive' | Plug 'junegunn/gv.vim' " a commit browser, requires fugitive
-Plug 'tpope/vim-markdown', { 'for': 'md' }
+Plug 'sheerun/vim-polyglot'
 
 "Plug 'romainl/vim-devdocs'
 
@@ -43,7 +43,7 @@ Plug 'aperezdc/vim-template'
 
 " syntax completion, checking, & highlighting
 Plug 'iloginow/vim-stylus'
-Plug 'othree/html5.vim'
+" Plug 'othree/html5.vim'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'tmux-plugins/vim-tmux'
 " Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
@@ -416,6 +416,8 @@ if has("autocmd")
   " Use correct indenting for python
   autocmd FileType python setlocal shiftwidth=2 softtabstop=2 expandtab
   autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
+  " Use correct indenting for YAML
+  autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
   " Jump to last position when reopening files
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
         \| exe "normal g'\"" | endif

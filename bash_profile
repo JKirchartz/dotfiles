@@ -27,10 +27,6 @@ case $OSTYPE in
         export EDITOR="vim"
         export VISUAL="$EDITOR"
         alias vlc='/Applications/VLC.app/Contents/MacOS/VLC -I rc -q'
-        function fix-ssh {
-            eval $(ssh-agent);
-            ssh-add -K;
-        }
         export GOPATH=$HOME/Go
         export GOROOT=/usr/local/opt/go/libexec
         export BENPROJECTROOT=$HOME/projects/TCDEAppService
@@ -57,15 +53,12 @@ case $OSTYPE in
                 # autostart screen
                 # if [ "$(ps -p $PPID -o comm=)" != screen ]; then scr; fi
                 ;;
-            lucid32)
-                ### Added by the Heroku Toolbelt
-                PATH="$PATH:/usr/local/heroku/bin"
-                export GEM_HOME=~/gems:$GEM_HOME
-                ;;
-            archbox)
-                alias vi=vim
+            AXE)
+                export GEM_HOME=~/gems
                 export NVM_DIR="$HOME/.nvm"
                 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+                [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+                export PATH="$HOME/.local/bin:$HOME/gems/bin:$PATH"
                 ;;
             arp)
                 # add appengine, npm, and gems bins to path

@@ -26,6 +26,7 @@ elif test -n "$BASH_VERSION"; then
 fi
 
 #vim-like aliases
+alias vi=vim
 alias :e='vim'
 alias :q='exit'
 alias :wq='exit'
@@ -142,6 +143,7 @@ alias KillTheSphinx="sudo pkill -9 pocketsphinx; reset; echo ''; rm SphinxPipe; 
 # ssh
 alias btown="ssh -tt b ssh -tt town screen -dR"
 alias ttown="ssh -tt teams ssh -tt t screen -dR"
+alias town="ssh -tt town screen -dR"
 alias addlink="ssh b -o LogLevel=error ./add_link.sh" # use -o to suppress welcome message
 
 # office assistants
