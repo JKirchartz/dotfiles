@@ -15,6 +15,8 @@ call plug#begin('~/.vim/plugged/')
 Plug 'jkirchartz/vim-colors-megapack'
 Plug 'jkirchartz/writegooder.vim' " 3 scripts to improve writing - wanna modify for other words/phrases to avoid
 
+" let's integrate ack instead of using it as a grepprg
+Plug 'mileszs/ack.vim'
 
 " Plugs
 " Plug 'editorconfig/editorconfig-vim' " honor .editorconfig files
@@ -69,6 +71,9 @@ Plug 'dbeniamine/cheat.sh-vim'
 
 " try out vim-leader-guide
 Plug 'hecal3/vim-leader-guide'
+
+" todo.txt
+Plug 'dbeniamine/todo.txt-vim'
 
 " vim included plugins
 runtime macros/matchit.vim
@@ -138,12 +143,6 @@ let g:license = "NPL (Necessary Public License)"
 let g:templates_directory = ["$HOME/.vim/templates"]
 
 
-let hostname = substitute(system('hostname'), '\n', '', '')
-if hostname =~ "aeo.ae"
-  autocmd BufNewFile,BufReadPost *.* let g:templates_global_name_prefix = '=template='
-  autocmd BufNewFile,BufReadPost *.html let g:templates_global_name_prefix = '=ae='
-  autocmd BufNewFile,BufReadPost *.html setlocal indentexpr=GetJavascriptIndent()
-endif
 
 " tree-view
 let g:netrw_liststyle = 3
@@ -234,8 +233,8 @@ if has('persistent_undo')
   set undofile
 endif
 
-" use ack for grepping
-set grepprg=ack\ -H\ --nocolor\ --nogroup
+" use ack for grepping (currently disabled to use ack plugin
+" set grepprg=ack\ -H\ --nocolor\ --nogroup
 
 " Setup colors/theme
 set laststatus=2 " see the last statusline(stl)
@@ -373,11 +372,6 @@ nmap <leader>b :ls<CR>:b<space>
 " reflow text using `par` command
 map <leader>f {v}!par -jw80
 
-if has('mac')
-  " copy file to osx clipboard
-  map <silent> <leader>cc :Silent !pbcopy < %<cr>
-  vnoremap <silent> <leader>cc :Silent <esc>:'<,'>:w !pbcopy<cr>
-endif
 
 
 "}}}---------------------------------------------------------
@@ -432,8 +426,35 @@ if has("autocmd")
   " autocmd BufEnter * silent! lcd %:p:h
   " if a file starts with a shebang, automatically make it executable
   au BufWritePost * if getline(1) =~ "^#!" | if getline(1) =~ "/bin/" | silent !chmod +x <afile> | endif | endif
+  au filetype todo setlocal omnifunc=todo#Complete
 endif
 
+"}}}---------------------------------------------------
+" OS-specific tweaks
+"----------------------------------------------------{{{
+
+let s:hostname = substitute(system('hostname'), '\n', '', '')
+if s:hostname =~ "aeo.ae"
+  autocmd BufNewFile,BufReadPost *.* let g:templates_global_name_prefix = '=template='
+  autocmd BufNewFile,BufReadPost *.html let g:templates_global_name_prefix = '=ae='
+  autocmd BufNewFile,BufReadPost *.html setlocal indentexpr=GetJavascriptIndent()
+endif
+
+" WSL yank support
+let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
+if executable(s:clip)
+  augroup WSLYank
+    autocmd!
+    autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+  augroup END
+endif
+
+
+if has('mac')
+  " copy file to osx clipboard
+  map <silent> <leader>cc :Silent !pbcopy < %<cr>
+  vnoremap <silent> <leader>cc :Silent <esc>:'<,'>:w !pbcopy<cr>
+endif
 
 if has('gui_macvim')
   set macligatures

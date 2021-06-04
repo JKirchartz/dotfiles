@@ -25,6 +25,10 @@ elif test -n "$BASH_VERSION"; then
 	alias R='. ~/.bash_profile'
 fi
 
+#todo
+alias t=todo.sh
+alias todo="vim \"/mnt/c/Users/kirch.DESKTOP-ET5NNPF/Google Drive/todo/todo.txt\""
+
 #vim-like aliases
 alias vi=vim
 alias :e='vim'
