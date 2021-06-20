@@ -83,10 +83,10 @@ export PS2="\[$__cr\]└─\[$__cc\]>\[$__nc\]"
 #}}}-----------------------------
 #fix history
 #------------------------------{{{
-export HISTCONTROL=ignoredups             # no duplicate entries
+export HISTCONTROL=ignoreboth             # no duplicate entries or entries that start with whitespace
 export HISTSIZE=50000                     # big history
 export HISTFILESIZE=50000                 # big history
-export HISTIGNORE="&:ls:ll:pwd:exit:clear:[ \t]*"
+export HISTIGNORE="ls:ll:pwd:exit:clear"
 shopt -s histappend                       # append to history, not overwrite it
 
 
