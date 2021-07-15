@@ -1,1 +1,0 @@
-/home/kirch/dotfiles/vim
