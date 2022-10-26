@@ -40,7 +40,7 @@
 
 [alias]
 	br = branch
-	caa = commit --all --amend --no-edit
+	caa = !git commit --all --amend --no-edit --reset-author --date "$(date)"
 	ci = commit
 	co = checkout
 	cob = checkout -b
