@@ -1,10 +1,6 @@
 [submodule "vim"]
 	path = vim
 	url = https://github.com/JKirchartz/vim.git
-[submodule "fortunes"]
-	path = fortunes
-	branch = master
-	url = https://github.com/JKirchartz/fortunes.git
 [submodule "vimwiki"]
 	path = vimwiki
 	branch = master

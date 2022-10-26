@@ -1,4 +1,5 @@
 #! /bin/bash
+# based off https://twitter.com/deathbybadger/status/1567425842526945280
 
 ORC=0;
 DESTINY=0;
@@ -20,18 +21,24 @@ function checkscore {
     if [[ $DESTINY -gt 9 ]]; then
         echo "An interfering bard or wizard turns up at your doorstep with a quest,";
         echo "you are whisked away against your will on an adventure.";
+        echo "----"
+        echo "Congratulations! You don't lose!";
         GAMEOVER=1;
     fi
     if [[ $POTATOES -gt 9 ]]; then
         echo "You have enough potatoes that you can go underground and not return";
         echo "to the surface until the danger is past. You nestle down into your";
         echo "burrow and enjoy your well-earned rest."
+        echo "----"
+        echo "Congratulations! You win!";
         GAMEOVER=1;
-    fi;
+    fi
     if [[ $ORC -gt 9 ]]; then
         echo "Orcs finally find your potato farm.";
          echo "Alas, orcs are not so interested in potatoes as they are in eating you.";
          echo "You end up in a cookpot."
+        echo "----"
+        echo "Tough Tubers! You lose!";
         GAMEOVER=1;
     fi
 
@@ -117,9 +124,10 @@ function knock {
 
 function escalate {
     echo "The world becomes a darker more dangerous place.";
-    echo "From not on, removing ORC costs an additional POTATO";
+    echo "From now on, removing ORC costs an additional POTATO";
     echo "(this is cumulative)";
     (( ORC_COST++ ));
+    echo "cost: $ORC_COST potatoes"
 }
 
 function throw {
@@ -132,12 +140,13 @@ function throw {
             echo "No orcs to throw potatoes at.";
         fi
     else
-        echo "You can't afford to throw these potatoes";
+        echo "You can't afford to throw $ORC_COST potatoes";
     fi
 }
 
 function roll {
     DICE=$(( RANDOM % 6 ));
+    echo "";
     case $DICE in
         0|1) garden;;
         2|3) knock;;
@@ -149,7 +158,7 @@ function roll {
 function parser {
   shopt -s nocasematch
   case "$*" in
-    exit) exit 0;;
+    exit) echo "Bye!" && exit 0;;
     get*) echo "Ye cannot $*";;
     throw*) throw;;
     *) roll;;
@@ -161,8 +170,13 @@ function parser {
 }
 
 function reset {
-    echo "";
-    echo "POTATO";
+    echo "Death By Badger's";
+    echo " ____   ___ _____  _  _____ ___  ";
+    echo "|  _ \\ / _ \\_   _|/ \\|_   _/ _ \\ ";
+    echo "| |_) | | | || | / _ \\ | || | | |";
+    echo "|  __/| |_| || |/ ___ \\| || |_| |";
+    echo "|_|    \\___/ |_/_/   \\_\\_| \\___/ ";
+    echo "https://twitter.com/deathbybadger/status/1567425842526945280";
     echo "";
     echo "You are a halfling, just trying to exist";
     echo "Meanwhile, the dark lord rampages across the world";
