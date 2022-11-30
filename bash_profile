@@ -64,6 +64,8 @@ case $OSTYPE in
                 PERL_LOCAL_LIB_ROOT="/home/kirch/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
                 PERL_MB_OPT="--install_base \"/home/kirch/perl5\""; export PERL_MB_OPT;
                 PERL_MM_OPT="INSTALL_BASE=/home/kirch/perl5"; export PERL_MM_OPT;
+                alias open="/mnt/c/Windows/explorer.exe ."
+                eval `keychain -q --eval --agents ssh id_rsa`
                 ;;
             arp)
                 # add appengine, npm, and gems bins to path
@@ -139,3 +141,6 @@ source ~/.bashrc
 
 export PATH="$PATH:/usr/local/opt/node@12/bin"
 
+if [[ -f ~/.env_keys ]];then
+    source ~/.env_keys
+fi

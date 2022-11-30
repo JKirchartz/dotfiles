@@ -1,0 +1,5 @@
+#! /bin/bash
+
+while read line; do
+    echo $line | grep -Eo "(http|https)://[a-zA-Z0-9./?=_%:-]*"
+done

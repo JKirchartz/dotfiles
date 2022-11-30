@@ -129,6 +129,11 @@ else
   eval "$(dircolors -b "$HOME/dotfiles/LS_COLORS/LS_COLORS")"
 fi
 
+if [ -z "$SSH_AGENT_PID" ]; then
+  eval `ssh-agent -s`
+  ssh-add ~/.ssh/id_rsa
+fi
 
 # }}} fold up this file
 # vim: foldmethod=marker
+source /home/kirch/perl5/perlbrew/etc/bashrc
