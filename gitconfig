@@ -60,6 +60,7 @@
 	dad = !curl https://icanhazdadjoke.com/
 	joke = !curl -s https://raw.githubusercontent.com/EugeneKay/git-jokes/lulz/Jokes.txt | awk 'BEGIN { srand() } int(rand() * NR) == 0 { x = $0 } END { print x }'
 	erdone = !git commit -am \"git'er done\" && git push
+	techy = !git commit -am \"$(curl -s https://techy-api.vercel.app/api/text)\" && git push
 	pushall = "!f(){ for var in $(git remote show); do echo \"pushing to $var\"; git push $var; done; }; f"
 	find-file = "!for branch in `git for-each-ref --format=\"%(refname)\" refs/heads`; do echo \"${branch}:\"; git ls-tree -r --name-only $branch | nl -bn -w3 | grep \"$1\"; done; :"
 	rename = branch -m
