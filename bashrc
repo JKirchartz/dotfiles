@@ -131,7 +131,7 @@ fi
 
 if [ -z "$SSH_AGENT_PID" ]; then
   eval `ssh-agent -s`
-  ssh-add ~/.ssh/id_rsa
+  ssh-add ~/.ssh/id_*
 fi
 
 # }}} fold up this file

@@ -65,7 +65,8 @@ case $OSTYPE in
                 PERL_MB_OPT="--install_base \"/home/kirch/perl5\""; export PERL_MB_OPT;
                 PERL_MM_OPT="INSTALL_BASE=/home/kirch/perl5"; export PERL_MM_OPT;
                 alias open="/mnt/c/Windows/explorer.exe ."
-                eval `keychain -q --eval --agents ssh id_rsa`
+                [ -s "$HOME/.ssh/id_rsa" ] && eval `keychain -q --eval --agents ssh id_rsa`
+                [ -s "$HOME/.ssh/id_ed25519" ] && eval `keychain -q --eval --agents ssh id_ed25519`
                 ;;
             arp)
                 # add appengine, npm, and gems bins to path

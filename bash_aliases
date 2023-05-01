@@ -87,7 +87,8 @@ alias cap32="cap _3.2.1_"
 alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit  "
 
 # serve dir as static site
-alias serve="python -m SimpleHTTPServer"
+# alias serve="python -m SimpleHTTPServer" # python2 version
+alias serve="python -m http.server 8000"
 alias serveo="ssh -R 80:localhost:8000 serveo.net"
 
 # prettyprint json
