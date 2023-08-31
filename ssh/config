@@ -70,3 +70,18 @@ Host hb1
 Host hb
     HostName hashbang.sh
     User kirch
+
+host p.*
+  ForwardAgent yes
+  User joel
+
+Host p.j
+  HostName jumpbox.pit.pair.net
+
+host p.4
+  HostName dev4.pair.net
+  ProxyJump p.j
+
+host p.5
+  HostName dev5.pair.net
+  ProxyJump p.j
