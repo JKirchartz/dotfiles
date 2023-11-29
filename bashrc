@@ -136,4 +136,3 @@ fi
 
 # }}} fold up this file
 # vim: foldmethod=marker
-source /home/kirch/perl5/perlbrew/etc/bashrc

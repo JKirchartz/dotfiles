@@ -19,6 +19,7 @@ alias rm='rm -i '                         # confirm, just in case...
 alias please='sudo $(fc -ln -1)'          # redo last command as root
 alias M='motd.sh'
 alias gir=git
+alias get=git
 
 if test -n "$ZSH_VERSION"; then
 	alias R='source ~/.zshrc'
@@ -62,29 +63,8 @@ alias iip="ifconfig | grep broadcast | awk '{print $ 2}'" # get internal ip
 alias eip="dig +short myip.opendns.com @resolver1.opendns.com" #get external ip
 
 # get weather from wttr.in
-alias weather="curl wttr.in/Pittsburgh"
+alias weather="curl wttr.in"
 alias moon="curl wttr.in/Moon"
-
-# speed up gulp dev
-alias ggw="gulp && gulp watch"
-
-# speed up grunt dev
-alias gs="grunt server"
-alias ggd="grunt && grunt deploy"
-
-# https://roots.io/trellis/ dev servers
-alias trellis="cd trellis/ && vagrant up && cd ../"
-alias untrellis="cd trellis/ && vagrant halt && cd ../"
-alias trellis-ssh="cd trellis/ && vagrant ssh"
-
-# capistrano
-alias cap2="cap _2.15.4_"
-alias cap3="cap _3.0.0_"
-alias cap32="cap _3.2.1_"
-
-# pretty-print git logs
-# via https://coderwall.com/p/euwpig
-alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit  "
 
 # serve dir as static site
 # alias serve="python -m SimpleHTTPServer" # python2 version
@@ -152,5 +132,22 @@ alias ttown="tmut ttown && ssh -tt teams ssh -tt t screen -dR"
 alias town="tmut town && ssh -tt town screen -dR"
 alias addlink="ssh b -o LogLevel=error ./add_link.sh" # use -o to suppress welcome message
 
-# office assistants
-alias ben=". ben"
+## # speed up gulp dev
+# alias ggw="gulp && gulp watch"
+
+# # speed up grunt dev
+# alias gs="grunt server"
+# alias ggd="grunt && grunt deploy"
+
+# # https://roots.io/trellis/ dev servers
+# alias trellis="cd trellis/ && vagrant up && cd ../"
+# alias untrellis="cd trellis/ && vagrant halt && cd ../"
+# alias trellis-ssh="cd trellis/ && vagrant ssh"
+
+# # capistrano
+# alias cap2="cap _2.15.4_"
+# alias cap3="cap _3.0.0_"
+# alias cap32="cap _3.2.1_"
+
+ # office assistants
+# alias ben=". ben"

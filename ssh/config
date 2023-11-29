@@ -78,6 +78,10 @@ host p.*
 Host p.j
   HostName jumpbox.pit.pair.net
 
+Host p.w
+  HostName web1.pair.com
+  ProxyJump p.j
+
 host p.4
   HostName dev4.pair.net
   ProxyJump p.j
