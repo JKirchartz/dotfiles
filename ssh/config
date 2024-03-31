@@ -1,4 +1,6 @@
 # Host *
+#     PermitLocalCommand yes
+#     LocalCommand tmux rename-window "ssh-%n"
 #     ForwardAgent yes
 #     ForwardX11 yes
 
@@ -13,6 +15,10 @@ Host teams
   Port 443
   HostName ssh.tilde.team
   User kirch
+
+Host bstown
+  HostName town
+  ProxyJump bs
 
 Host btown
   HostName ssh.blinkenshell.org
@@ -82,10 +88,19 @@ Host p.w
   HostName web1.pair.com
   ProxyJump p.j
 
+host p.2
+  HostName dev2.pair.net
+  ProxyJump p.j
+
 host p.4
   HostName dev4.pair.net
   ProxyJump p.j
+  # RemoteCommand screen -RD
 
 host p.5
   HostName dev5.pair.net
+  ProxyJump p.j
+
+host p.6
+  HostName dev6.pair.net
   ProxyJump p.j

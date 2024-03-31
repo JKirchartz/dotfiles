@@ -40,14 +40,19 @@ source ~/dotfiles/scripts/npm-completion.bash
 # setup prompt
 #------------------------------{{{
 
+function set__dtstamp {
+  ## use ddate if available
+  if command -v ddate &> /dev/null
+  then
+    export __dtstamp="$(ddate  +'%d/%B/%Y %N(%H)') $(date +'%T %p')";
+  else
+    export __dtstamp='\D{%x %X}'
+  fi
+}
+
+set__dtstamp;
 function __prompt {
   echo
-  # Bentley:
-  # case $OSTYPE in
-  #   darwin*)
-  #       nvm use --delete-prefix v12.16.2
-  #   ;;
-  # esac
   # sync history across terms
   history -a
   history -n
@@ -56,11 +61,14 @@ function __prompt {
   # Get directory (and git-prompt)
   DIR=$(pwd | sed -e "s!$HOME!~!")
   echo -e "\n${DIR} $(gitstatus)"
-	last=$(history | tail -n 1 | rev | cut -d ' ' -f 2 | rev)
-	if [ "$last" = "cd" ]; then
-		echo $(pwd) >> ~/.bash_cdhistory
-	fi
+  # last=$(history | tail -n 1 | rev | cut -d ' ' -f 2 | rev)
+  # if [ "$last" = "cd" ]
+  # then
+  #   echo $(pwd) >> ~/.bash_cdhistory
+  # fi
+  set__dtstamp;
 }
+
 PROMPT_COMMAND="__prompt"
 export __cr='\e[0;31m'
 export __cc='\e[0;36m'
@@ -77,7 +85,7 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWUPSTREAM="auto"
 export GIT_PS1_SHOWCOLORHINTS=1
 # set prompt
-export PS1="\[$__cr\]┌─[\[$__cc\]\u@\h\[$__cr\]]-[\[$__cc\]\D{%x %X}\[$__cr\]]-[\[$__cc\]\j\[$__cr\]]\n\[$__cr\]└─[\[$__cc\]\!\[$__cr\]]-$__vim\[$__cc\]\$>\[$__nc\]"
+export PS1="\[$__cr\]┌─[\[$__cc\]\u@\h\[$__cr\]]-[\[$__cc\]$__dtstamp\[$__cr\]]-[\[$__cc\]\j\[$__cr\]]\n\[$__cr\]└─[\[$__cc\]\!\[$__cr\]]-$__vim\[$__cc\]\$>\[$__nc\]"
 export PS2="\[$__cr\]└─\[$__cc\]>\[$__nc\]"
 
 #}}}-----------------------------
@@ -120,6 +128,16 @@ if [ -f ~/env.keys ]; then
   source ~/env.keys
 fi
 
+if [ "$TERM_PROGRAM" = tmux ]; then
+  # wrap SSH so tmux shows the hostname
+  tmux_ssh () {
+    og_name=$(tmux display-message -p '#W');
+    tmux rename-window "$*";
+    command ssh "$@";
+    tmux rename-window "$og_name";
+  }
+  alias ssh=tmux_ssh
+fi
 
 
 if command -V gdircolors &> /dev/null
@@ -129,10 +147,19 @@ else
   eval "$(dircolors -b "$HOME/dotfiles/LS_COLORS/LS_COLORS")"
 fi
 
-if [ -z "$SSH_AGENT_PID" ]; then
+if [ -z "$SSH_AGENT_PID" && -z "$SSH_AUTH_SOCK" ]; then
   eval `ssh-agent -s`
-  ssh-add ~/.ssh/id_*
+  ssh-add # ~/.ssh/id_*
 fi
 
 # }}} fold up this file
 # vim: foldmethod=marker
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.local/share/gem/ruby/3.1.0/bin:$HOME/.rvm/bin"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# export DISPLAY=$(grep -oP "(?<=nameserver ).+" /etc/resolv.conf):0.0
