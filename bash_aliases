@@ -29,7 +29,7 @@ fi
 
 #todo
 alias t=todo.sh
-alias todo="vim \"/mnt/c/Users/kirch.DESKTOP-ET5NNPF/Google Drive/todo/todo.txt\""
+alias todo='vim "/mnt/g/My\ Drive/todo/"'
 
 #vim-like aliases
 alias vi=vim
@@ -89,6 +89,8 @@ case $OSTYPE in
 esac
 
 alias notes='history | grep \#'
+
+alias unshorten='curl -Ls -o /dev/null -w %{url_effective}' # follow redirects (eg shortlinks) through to the end
 
 # pastebin-like services, pipe to these
 alias tb="nc termbin.com 9999"
