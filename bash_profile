@@ -2,7 +2,7 @@
 ~/dotfiles/scripts/motd.sh
 
 # Bins
-PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/games"
+PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/games"
 
 # system-specific configs
 case $OSTYPE in
@@ -59,6 +59,12 @@ case $OSTYPE in
                 alias open="/mnt/c/Windows/explorer.exe ."
                 [ -s "$HOME/.ssh/id_rsa" ] && eval `keychain -q --eval --agents ssh id_rsa`
                 [ -s "$HOME/.ssh/id_ed25519" ] && eval `keychain -q --eval --agents ssh id_ed25519`
+                # export DISPLAY=:0;
+                export LIBGL_ALWAYS_INDIRECT=1;
+                alias pbcopy="$HOME/dotfiles/scripts/wsl-pbcopy.sh"
+                alias pbpaste="$HOME/dotfiles/scripts/wsl-pbpaste.sh"
+                # export DISPLAY=$(grep -oP "($?<=nameserver ).+" /etc/resolv.conf):0.0
+                export PATH="$PATH:$HOME/.cargo/bin/"
                 ;;
             AXE)
                 export GEM_HOME=~/gems

@@ -49,6 +49,7 @@ function set__dtstamp {
     export __dtstamp='\D{%x %X}'
   fi
 }
+
 set__dtstamp;
 function __prompt {
   echo
@@ -146,17 +147,19 @@ else
   eval "$(dircolors -b "$HOME/dotfiles/LS_COLORS/LS_COLORS")"
 fi
 
-if [ -z "$SSH_AGENT_PID" ]; then
+if [ -z "$SSH_AGENT_PID" && -z "$SSH_AUTH_SOCK" ]; then
   eval `ssh-agent -s`
-  ssh-add ~/.ssh/id_*
+  ssh-add # ~/.ssh/id_*
 fi
 
 # }}} fold up this file
 # vim: foldmethod=marker
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$PATH:$HOME/.local/share/gem/ruby/3.1.0/bin:$HOME/.rvm/bin"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# export DISPLAY=$(grep -oP "(?<=nameserver ).+" /etc/resolv.conf):0.0

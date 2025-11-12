@@ -16,10 +16,12 @@ white="\033[1;37m"
 black="\033[0;30m"
 grey="\033[0;37m"
 darkgrey="\033[1;30m"
+magenta="\033[1;35m"
+brightmagenta="\033[1;95m"
 # Choose the colors that will be used from the above list
 # space-separated list
 # e.g. `colors=($green $brightgreen $darkgrey $white)`
-colors=($green $brightgreen)
+colors=($green $brightgreen $darkgrey $white $brightmagenta)
 ### End customization
 
 ### Do not edit below this line
