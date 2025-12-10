@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Ingeniux</title>
+  <link rel="Stylesheet" type="text/css" href="style.css" />
+</head>
+<header>
+  <h1>Ingeniux</h1>
+</header>
+<main>
+  
+
+<ul>
+<li>
+IIS-based MVC, a lot of XML
+
+<li>
+lots of click &amp; drag -- ASP.NET/ XSLT
+
+<li>
+interesting software, poor customer service
+
+<li>
+Pages &amp; Components
+
+<ul>
+<li>
+Page - as expected
+
+<li>
+Component - fields that publish to pages (if tried to view as page you get XML)
+
+</ul>
+<li>
+Refresh: refresh display when co-working
+
+<li>
+preview page w. preview tab or button (button better than tab)
+
+<li>
+"transform without stylesheet" shows underlying XML
+
+<li>
+"Publish site" to publish to "target"
+
+<li>
+"incremental" changed since last publish
+
+<li>
+"full" redo publish, cleaning existing content first (more files === longer time)
+
+<ul>
+<li>
+nobody else can publish while publish in progress
+
+</ul>
+<li>
+Xpath
+
+<li>
+RavenDB (new in Ingenuix 9)
+
+<li>
+DSS: Dynamic Site Server (serves from publish destination of CMS)
+
+</ul>
+
+<p>
+[Raxor Syntax](<a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor)">https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor)</a>
+</p>
+
+
+<ul>
+<li>
+Asset Manager -- requires Flash
+
+</ul>
+
+<div id="From Scratch:"><h2 id="From Scratch:">From Scratch:</h2></div>
+
+<ul>
+<li>
+setup VM for IIS (Ian has instructions on intranet)
+
+<li>
+install ingenuix
+
+<li>
+create base components
+
+</ul>
+
+<ul>
+<li>
+schema designer (schema = blueprint for page in CMS -- page OR component)
+
+<ul>
+<li>
+"allow synched pages to be chcked in without review
+
+<li>
+"sync pages without checking out"
+
+<li>
+"overwrite value attribute flats
+
+</ul>
+</ul>
+
+<p>
+save group of fields to "favorites"
+</p>
+
+<p>
+"Insert" good for feeds
+TinyMCE
+"List" infinitely repeatable field, i.e. list of links, list of components
+</p>
+
+<p>
+"share" component breaks itself iyt
+</p>
+
+<p>
+section control/Navigation "Subtree" gives you everything, but burns through memory
+</p>
+
+<p>
+taxonomy navigation: anything can be tagged
+</p>
+
+<div id="System Options"><h2 id="System Options">System Options</h2></div>
+
+<ul>
+<li>
+Navigation Exports
+
+</ul>
+
+<p>
+when it's all XML, the cms can export a schema into the page tag
+</p>
+
+
+<ul>
+<li>
+global exports (batched/cached -- faster &amp; preferred to local)
+
+<li>
+local exports (inefficient, on-demand)
+
+</ul>
+
+<p>
+Component Publish Setting -- publish all referred components [x]
+publish components referenced from pages
+</p>
+
+<p>
+Auto-save config (save when you click away from a page)
+</p>
+
+<p>
+Asset Browser (enable "weird" extensions)
+</p>
+
+<p>
+WorldView -- Ingeniux
+</p>
+
+<p>
+"Presenation Formatter" setup for Foundation
+</p>
+
+<p>
+unclear on insite search config, use Google instead
+</p>
+
+<p>
+---- "Publishing System" -- manage publishing target(s) , where to publish, etc
+</p>
+
+<p>
+-- set homepage
+-- turn off replication
+</p>
+
+<p>
+---- maintenence
+-- export site to migrate
+-- log viewer
+</p>
+
+
+
+<p>
+database has all schema
+content &amp; asset folders are genrally huge (gigs)
+EXPORT DATABASE is all you *<span id="System Options-need"></span><strong id="need">need</strong>*
+</p>
+
+<p>
+bigger the file, the longer it takes -- results in a zip file containing what you ask for
+</p>
+
+
+
+
+<hr />
+
+<p>
+only ever need to modify views &amp; app_code
+</p>
+
+
+<p>
+icmselement
+icmspage
+</p>
+
+<div id="System Options-folder structure"><h3 id="folder structure">folder structure</h3></div>
+
+<p>
+View &gt; Editable &gt; *.cshtml
+	only stuff editable through the CMS view (i.e. Pagebuilder or front-end editor)
+</p>
+
+</main>
+</html>
+

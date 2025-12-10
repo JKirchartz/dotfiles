@@ -33,5 +33,4 @@ brew "tmux", args: ["HEAD"]
 brew "vim", args: ["with-override-system-vi"]
 # Internet file retriever
 brew "wget"
-cask "font-fira-code"
 cask "iterm2"

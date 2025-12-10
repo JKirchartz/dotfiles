@@ -1,0 +1,148 @@
+# enable color support of ls and also add handy aliases (ala ubuntu)
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+#basic aliases
+alias less="less -R"
+alias ll='ls -oFhA'
+alias lm='ls -oFhA | less'
+alias cd..='cd ..'
+alias more='less'                         # less is more, more or less.
+alias py='python '
+alias ping='ping -c 10 '                  # set a default, coz I always forget
+alias rm='rm -i '                         # confirm, just in case...
+alias please='sudo $(fc -ln -1)'          # redo last command as root
+alias M='motd.sh'
+
+if test -n "$ZSH_VERSION"; then
+	alias R='source ~/.zshrc'
+elif test -n "$BASH_VERSION"; then
+	alias R='. ~/.bash_profile'
+fi
+
+#todo
+alias t=todo.sh
+
+#vim-like aliases
+alias vi=vim
+alias :e='vim'
+alias :q='exit'
+alias :wq='exit'
+
+# lil' bit of fun
+alias figlet='figlet -d ~/dotfiles/share/figlet-fonts/'
+alias toilet='toilet -d ~/dotfiles/share/figlet-fonts/'
+alias f='fortune -ae'
+alias dopewars='dopewars -tn'
+alias RR='[ $[ $RANDOM % 6 ] == 0 ] && echo *BANG* || echo *Click*'
+alias zen="$HOME/dotfiles/bin/bonsai.sh -i -w 15 -b 2 -c ~oO0%*"
+alias beef="cowsay"
+# I keep mispelling these, but they're also humorous.
+alias rocker="docker"
+alias focker="docker"
+alias gir=git
+alias get=git
+
+#alternative to cd -
+alias back='cd $OLDPWD'
+alias home='cd ~'
+alias up='cd ..'
+alias dotfiles='cd ~/dotfiles'
+alias paths='echo $PATH | tr ":" "\n" | sort -u'
+
+
+# ip/port helper
+alias ports="sudo lsof -i -P | grep -i \"listen\"" # list listening ports:
+alias iip="ifconfig | grep broadcast | awk '{print $ 2}'" # get internal ip
+alias eip="dig +short myip.opendns.com @resolver1.opendns.com" #get external ip
+
+# get weather from wttr.in
+alias weather="curl wttr.in"
+alias moon="curl wttr.in/Moon"
+
+# serve dir as static site
+# alias serve="python -m SimpleHTTPServer" # python2 version
+alias serve="python -m http.server 8000"
+alias serveo="ssh -R 80:localhost:8000 serveo.net"
+
+# prettyprint json
+alias ppjson='python -m json.tool'
+
+# from dancingpenguinsoflight
+# depends on imagick
+alias imginfo="identify -format '-- %f -- \nType: %m\nSize: %b bytes\nResolution: %wpx x %hpx\nColors: %k'"
+alias imgres="identify -format '%f: %wpx x %hpx\n'"
+
+
+alias notes='history | grep \#'
+
+alias unshorten='curl -Ls -o /dev/null -w %{url_effective}' # follow redirects (eg shortlinks) through to the end
+
+# pastebin-like services, pipe to these
+alias tb="nc termbin.com 9999"
+alias sp="curl -F 'sprunge=<-' http://sprunge.us"
+alias cl="clbin=<-' https://clbin.com"
+alias vp="curl -F 'text=<-' http://vpaste.net"
+alias ix="curl -F 'f:1=<-' ix.io"
+
+alias yt2mp3='youtube-dl --extract-audio --audio-format mp3 '
+
+alias imgsize='identify -format "width: %[w]px;\nheight: %[h]px;"'
+alias imgcolor='convert -unique-colors -depth 8 txt:-'
+
+# Docker
+
+alias dockerstopall='docker stop $(docker ps -a -q)'
+alias dockerremoveall='docker rm $(docker ps -a -q)'
+
+# ssh
+alias btown="tmut btown && ssh -tt b ssh -tt town screen -dR"
+alias ttown="tmut ttown && ssh -tt teams ssh -tt t screen -dR"
+alias town="tmut town && ssh -tt town screen -dR"
+alias addlink="ssh b -o LogLevel=error ./add_link.sh" # use -o to suppress welcome message
+alias tunneltown="ssh -L 9001:localhost:9000 town &"
+
+## # speed up gulp dev
+# alias ggw="gulp && gulp watch"
+
+# # speed up grunt dev
+# alias gs="grunt server"
+# alias ggd="grunt && grunt deploy"
+
+# # https://roots.io/trellis/ dev servers
+# alias trellis="cd trellis/ && vagrant up && cd ../"
+# alias untrellis="cd trellis/ && vagrant halt && cd ../"
+# alias trellis-ssh="cd trellis/ && vagrant ssh"
+
+# # capistrano
+# alias cap2="cap _2.15.4_"
+# alias cap3="cap _3.0.0_"
+# alias cap32="cap _3.2.1_"
+
+ # office assistants
+# alias ben=". ben"
+#
+
+# all the stuff for if this is WSL
+if [ -n "$WSL_DISTRO_NAME}" ]; then
+        alias open="/mnt/c/Windows/explorer.exe"
+        alias pbcopy="$XDG_BIN_HOME"/wsl-pbcopy.sh
+        alias pbpaste="$XDG_BIN_HOME"/wsl-pbpaste.sh
+	alias todo='vim "/mnt/g/My\ Drive/todo/"'
+fi
+
+case $OSTYPE in
+    darwin*) # osx-only
+    alias hosts='sudo vim -v /etc/hosts /private/etc/hosts'
+    alias ss2='screencapture -xP '
+    alias ss='screencapture -xwP '
+    ;;
+esac
+
+# XDG compatibility
+alias wget="wget --hsts-file=$XDG_DATA_HOME/wget-hsts"

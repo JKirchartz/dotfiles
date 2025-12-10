@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Image Magick Tricks</title>
+  <link rel="Stylesheet" type="text/css" href="style.css" />
+</head>
+<header>
+  <h1>Image Magick Tricks</h1>
+</header>
+<main>
+  
+
+
+<ol>
+<li>
+combine 2 images (overlaid) this will combine 2 images, centered, and preserving alpha:
+
+</ol>
+
+<p>
+  composite -gravity center -alpha set top.png bottom.png output.png
+</p>
+
+<ol>
+<li>
+get color data from image
+
+</ol>
+
+<p>
+  convert img.png -unique-colors -depth 8 txt:-
+</p>
+
+</main>
+</html>
+

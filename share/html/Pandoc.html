@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Pandoc</title>
+  <link rel="Stylesheet" type="text/css" href="style.css" />
+</head>
+<header>
+  <h1>Pandoc</h1>
+</header>
+<main>
+  
+
+<p>
+Pandoc can convert just about any document into any other document
+</p>
+
+
+<div id="default LaTeX Layout YAML"><h2 id="default LaTeX Layout YAML">default LaTeX Layout YAML</h2></div>
+
+<pre>
+When pandoc is used with -t markdown to create a Markdown document, a YAML metadata block will be produced only if the -s/--standalone option is used. All of the metadata will appear in a single block at the beginning of the document.
+</pre>
+
+<p>
+Here is a YAML frontmatter with <del>all</del> possible settings of the default latex template
+</p>
+
+<pre YAML>
+    ---
+    title: 'Title of Document'
+    subtitle: 'Subtitle for Document'
+    author:
+    - A. Writer
+    - Ann Other Writer
+    date: November 27, 2018
+    institute:
+    - list of organizations
+    - that the authors
+    - are affiliated with
+    abstract: |
+      This is a blurb about the work.
+
+      The abstract comes from academia where it describes what the work is about.
+    ---
+</pre>
+
+<div id="example command"><h2 id="example command">example command</h2></div>
+
+<pre>
+    pandoc book.md \ # input file
+           -s \ # standalone
+           --toc \ # generate a table of contents
+           --smart \ # Interpret typography more cleverly than the default
+           --wrap=preserve \ # preserve line breaks
+           --latex-engine=xelatex \ # build using XeLaTeX
+           --template=layout.tex \ # use a specific latex template for layout
+           -o book.pdf # output file
+</pre>
+
+
+<div id="Links"><h2 id="Links">Links</h2></div>
+
+<p>
+<a href="https://pandoc.org/MANUAL.html">https://pandoc.org/MANUAL.html</a>
+</p>
+
+<p>
+<a href="http://pandoc.org/MANUAL.html#variables-set-by-pandoc">http://pandoc.org/MANUAL.html#variables-set-by-pandoc</a>
+</p>
+
+<p>
+<a href="https://github.com/jgm/pandoc-templates">https://github.com/jgm/pandoc-templates</a>
+</p>
+
+<p>
+<a href="https://latextemplates.com">https://latextemplates.com</a>
+</p>
+
+</main>
+</html>
+
