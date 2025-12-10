@@ -11,7 +11,7 @@
 [ -s "$HOME/.ssh/id_ed25519" ] && eval `keychain -q --eval --agents ssh id_ed25519`
 
 # motd
-~/dotfiles/scripts/motd.sh
+~/dotfiles/bin/motd.sh
 
 # autostart screen?
 # if [ "$(ps -p $PPID -o comm=)" != screen ]; then scr; fi

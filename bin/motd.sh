@@ -11,25 +11,25 @@ if [ -z "${VIMRUNTIME}" ]; then
   if which fortune > /dev/null; then
     if which cowsay > /dev/null; then
       if which lolcat > /dev/null; then
-        ~/dotfiles/scripts/fortune.sh | ~/dotfiles/scripts/cowsay.sh | lolcat
+        ~/dotfiles/bin/fortune.sh | ~/dotfiles/bin/cowsay.sh | lolcat
       else
-        ~/dotfiles/scripts/fortune.sh | ~/dotfiles/scripts/cowsay.sh
+        ~/dotfiles/bin/fortune.sh | ~/dotfiles/bin/cowsay.sh
       fi
     else
-      ~/dotfiles/scripts/fortune.sh
+      ~/dotfiles/bin/fortune.sh
     fi
   else
     if which cowsay > /dev/null; then
-      ~/dotfiles/scripts/ObliqueStrategies | ~/dotfiles/scripts/cowsay.sh
+      ~/dotfiles/bin/ObliqueStrategies | ~/dotfiles/bin/cowsay.sh
     else
-      ~/dotfiles/scripts/ObliqueStrategies
+      ~/dotfiles/bin/ObliqueStrategies
     fi
   fi
 else
   if which fortune > /dev/null; then
-    ~/dotfiles/scripts/fortune.sh -s
+    ~/dotfiles/bin/fortune.sh -s
   else
-    ~/dotfiles/scripts/ObliqueStrategies
+    ~/dotfiles/bin/ObliqueStrategies
   fi
 fi
 

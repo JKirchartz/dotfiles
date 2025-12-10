@@ -2,7 +2,7 @@
 # set options
 #-----------------------------{{{
 # autoload bashcompinit && bashcompinit
-# source '${HOME}/dotfiles/scripts/wp-completion.bash'
+# source '${HOME}/dotfiles/bin/wp-completion.bash'
 autoload -Uz compinit && compinit
 autoload -U zmv
 
@@ -14,7 +14,7 @@ setopt promptsubst autocd notify hist_ignore_dups hist_ignore_space inc_append_h
 # setopt appendhistory nomatch
 unsetopt beep
 
-export PATH=$HOME/dotfiles/scripts:$PATH
+export PATH=$HOME/dotfiles/bin:$PATH
 export PATH=$HOME/projects/ghint:$PATH
 export PATH=$HOME/.composer/vendor/bin:$PATH
 export PATH=$HOME/go/bin:$PATH
@@ -124,7 +124,7 @@ source ~/dotfiles/bash_functions
 #}}}-----------------------------
 # run scripts
 #-----------------------------{{{
-~/dotfiles/scripts/motd.sh
+~/dotfiles/bin/motd.sh
 
 
 export PATH="/usr/local/opt/mozjpeg/bin:$PATH"

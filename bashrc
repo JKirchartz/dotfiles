@@ -38,7 +38,7 @@ if command -v grunt >/dev/null 2>&1; then eval "$(grunt --completion=bash)"; fi
 # setup prompt
 #------------------------------{{{
 
-source ~/dotfiles/scripts/gitstatus.sh
+source ~/dotfiles/bin/gitstatus.sh
 
 set__dtstamp() {
   ## use ddate if available
@@ -121,7 +121,7 @@ fi
 # put this last, so current dir & my scripts always get preference
 # this is insecure because various bins are overwritten by my script
 # directory versions, for security move $PATH to the beginning of the assignment
-export PATH="$HOME/dotfiles/scripts:$PATH"
+export PATH="$HOME/dotfiles/bin:$PATH"
 
 export NETHACKOPTIONS=color,hilite_pet,boulder:8
 
@@ -153,8 +153,8 @@ export NVM_DIR="$HOME/.nvm"
 # all the stuff for if this is WSL
 if [ -n "$WSL_DISTRO_NAME}" ]; then
         alias open="/mnt/c/Windows/explorer.exe"
-        alias pbcopy="$HOME/dotfiles/scripts/wsl-pbcopy.sh"
-        alias pbpaste="$HOME/dotfiles/scripts/wsl-pbpaste.sh"
+        alias pbcopy="$HOME/dotfiles/bin/wsl-pbcopy.sh"
+        alias pbpaste="$HOME/dotfiles/bin/wsl-pbpaste.sh"
 fi
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*

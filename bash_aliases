@@ -43,7 +43,7 @@ alias toilet='toilet -d ~/dotfiles/figlet-fonts/'
 alias f='fortune -ae'
 alias dopewars='dopewars -tn'
 alias RR='[ $[ $RANDOM % 6 ] == 0 ] && echo *BANG* || echo *Click*'
-alias zen="~/dotfiles/scripts/bonsai.sh -i -w 15 -b 2 -c ~oO0%*"
+alias zen="~/dotfiles/bin/bonsai.sh -i -w 15 -b 2 -c ~oO0%*"
 alias beef="cowsay"
 # I keep mispelling these, but they're also humorous.
 alias rocker="docker"
