@@ -17,6 +17,7 @@ done < <(tmux show-environment)
 
 # ps + grep, incase there's no pgrep(?)
 psgrep(){ ps -ax | grep "$1" | grep -v "grep"; }
+
 # why not history
 function hgrep(){
   grep "$@" "${HISTFILE}"

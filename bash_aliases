@@ -133,6 +133,7 @@ alias btown="tmut btown && ssh -tt b ssh -tt town screen -dR"
 alias ttown="tmut ttown && ssh -tt teams ssh -tt t screen -dR"
 alias town="tmut town && ssh -tt town screen -dR"
 alias addlink="ssh b -o LogLevel=error ./add_link.sh" # use -o to suppress welcome message
+alias tunneltown="ssh -L 9001:localhost:9000 town &"
 
 ## # speed up gulp dev
 # alias ggw="gulp && gulp watch"

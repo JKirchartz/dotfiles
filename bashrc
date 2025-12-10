@@ -25,33 +25,34 @@ LC_ALL="en_US.UTF-8"
 
 source ~/dotfiles/bash_aliases
 source ~/dotfiles/bash_functions
+
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
   . /etc/bash_completion
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-if command -v grunt >/dev/null 2>&1; then eval "$(grunt --completion=bash)"; fi
 
-source ~/dotfiles/scripts/gitstatus.sh
-source ~/dotfiles/scripts/git-completion.bash
-source ~/dotfiles/scripts/npm-completion.bash
+if command -v grunt >/dev/null 2>&1; then eval "$(grunt --completion=bash)"; fi
 
 #}}}-----------------------------
 # setup prompt
 #------------------------------{{{
 
-function set__dtstamp {
+source ~/dotfiles/scripts/gitstatus.sh
+
+set__dtstamp() {
   ## use ddate if available
-  if command -v ddate &> /dev/null
+  if command -v ddate > /dev/null 2>&1
   then
-    export __dtstamp="$(ddate  +'%d/%B/%Y %N(%H)') $(date +'%T %p')";
+    export __dtstamp='$(ddate  +"%d/%B/%Y %N(%H)") $(date +"%T %p")'
   else
     export __dtstamp='\D{%x %X}'
   fi
 }
 
 set__dtstamp;
-function __prompt {
+
+__prompt() {
   echo
   # sync history across terms
   history -a
@@ -74,7 +75,7 @@ export __cr='\e[0;31m'
 export __cc='\e[0;36m'
 export __cw='\e[1;37m'
 export __nc='\e[0m' #no color
-# if shell's running INSIDE vim, mark it in the prompt (as a white V)
+# if shell's running INSIDE vim, mark it with a white V
 if [ -z "${VIMRUNTIME}" ]; then
   export __vim="[";
 else
@@ -118,25 +119,20 @@ fi
 #------------------------------{{{
 
 # put this last, so current dir & my scripts always get preference
-# this is insecure because various bins are overwritten by the current/script
+# this is insecure because various bins are overwritten by my script
 # directory versions, for security move $PATH to the beginning of the assignment
 export PATH="$HOME/dotfiles/scripts:$PATH"
 
 export NETHACKOPTIONS=color,hilite_pet,boulder:8
 
-if [ -f ~/env.keys ]; then
-  source ~/env.keys
-fi
-
-if [ "$TERM_PROGRAM" = tmux ]; then
+if [ -n "$TMUX" ]; then
   # wrap SSH so tmux shows the hostname
-  tmux_ssh () {
+  ssh () {
     og_name=$(tmux display-message -p '#W');
-    tmux rename-window "$*";
+    tmux rename-window "$1";
     command ssh "$@";
     tmux rename-window "$og_name";
   }
-  alias ssh=tmux_ssh
 fi
 
 
@@ -147,14 +143,6 @@ else
   eval "$(dircolors -b "$HOME/dotfiles/LS_COLORS/LS_COLORS")"
 fi
 
-if [ -z "$SSH_AGENT_PID" && -z "$SSH_AUTH_SOCK" ]; then
-  eval `ssh-agent -s`
-  ssh-add # ~/.ssh/id_*
-fi
-
-# }}} fold up this file
-# vim: foldmethod=marker
-
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.local/share/gem/ruby/3.1.0/bin:$HOME/.rvm/bin"
 
@@ -162,4 +150,14 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# export DISPLAY=$(grep -oP "(?<=nameserver ).+" /etc/resolv.conf):0.0
+# all the stuff for if this is WSL
+if [ -n "$WSL_DISTRO_NAME}" ]; then
+        alias open="/mnt/c/Windows/explorer.exe"
+        alias pbcopy="$HOME/dotfiles/scripts/wsl-pbcopy.sh"
+        alias pbpaste="$HOME/dotfiles/scripts/wsl-pbpaste.sh"
+fi
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+#
+# }}} fold up this file
+# vim: foldmethod=marker
