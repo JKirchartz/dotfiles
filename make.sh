@@ -3,6 +3,7 @@
 # .make.sh
 # On *nix this script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
 # Cygwin/msys will have ~/dotfiles copied into the home directory
+# this is basically a replacement for GNU stow... go figure
 ############################
 
 #########
@@ -74,7 +75,7 @@ if [[ $files == *"ssh"* ]]; then
 fi
 
 ##########
-# checkout submodules
+# checkout submodules (the recursiveneess should setup vim/etc for us, too!
 ###
 git submodule init
 git submodule update --recursive --remote
@@ -88,37 +89,37 @@ echo "$fortunes"
 ##########
 # setup vim/vim-plug
 ###
-echo "Attempting to install vim-plug"
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-if type gem >/dev/null 2>&1; then
-  echo "Attempting to setup gist/vim-fist"
-  gem install gist && gist --login
-fi
-echo "Installing vim plugins with Plug"
-vim +PlugInstall +qall
+# echo "Attempting to install vim-plug"
+# curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# if type gem >/dev/null 2>&1; then
+#   echo "Attempting to setup gist/vim-fist"
+#   gem install gist && gist --login
+# fi
+# echo "Installing vim plugins with Plug"
+# vim +PlugInstall +qall
 
 ##########
 # setup neovim/vim-plug
 ###
-
-if type nvim >/dev/null 2>&1; then
-  mkdir -p "${XDG_CONFIG_HOME:=$HOME/.config}"
-  ln -s "$dir/nvim" "$XDG_CONFIG_HOME/nvim"
-
-  curl -fLo "$XDG_CONFIG_HOME/nvim/autoload/plug.vim" --create-dirs \
-      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-  nvim +PlugInstall +qall
-fi
+# 
+# if type nvim >/dev/null 2>&1; then
+#   mkdir -p "${XDG_CONFIG_HOME:=$HOME/.config}"
+#   ln -s "$dir/nvim" "$XDG_CONFIG_HOME/nvim"
+# 
+#   curl -fLo "$XDG_CONFIG_HOME/nvim/autoload/plug.vim" --create-dirs \
+#       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# 
+#   nvim +PlugInstall +qall
+# fi
 
 
 ##########
 # setup zsh
 ###
-
-if type zsh >/dev/null 2>&1; then
-  echo "Attempting to install zplug"
-  curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-  echo "Installing zsh plugins via ZPlug"
-  zplug install
-fi
+# 
+# if type zsh >/dev/null 2>&1; then
+#   echo "Attempting to install zplug"
+#   curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+#   echo "Installing zsh plugins via ZPlug"
+#   zplug install
+# fi

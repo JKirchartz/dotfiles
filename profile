@@ -4,8 +4,6 @@ PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/ga
 [ -s "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
 [ -s "$HOME/.linuxbrew" ] && export PATH="$PATH:$HOME/.linuxbrew/bin"
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
 
 # ruby stuff
 if [ -d "$HOME/gems" ]; then
@@ -53,3 +51,18 @@ export EDITOR=vim
 # The Pager
 export PAGER="less -F"
 
+# XDG compatibility:
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
+export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
+export XDG_STATE_HOME=${XDG_DATA_HOME:-$HOME/.local/state}
+export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/run/user/$UID}
+export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
+export ACKRC="$XDG_CONFIG_HOME"/ack/ackrc
+# maybe I'll use zsh again some day...
+export ZPLUG_HOME="$XDG_DATA_HOME"/zplug
+export ZDOTDIR="$XDG_CONFIG_HOME"/zsh
+ 
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

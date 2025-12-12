@@ -80,8 +80,7 @@ alias imginfo="identify -format '-- %f -- \nType: %m\nSize: %b bytes\nResolution
 alias imgres="identify -format '%f: %wpx x %hpx\n'"
 
 case $OSTYPE in
-    darwin*)
-# osx-only
+    darwin*) # osx-only
     alias hosts='sudo vim -v /etc/hosts /private/etc/hosts'
     alias ss2='screencapture -xP '
     alias ss='screencapture -xwP '
@@ -109,25 +108,6 @@ alias imgcolor='convert -unique-colors -depth 8 txt:-'
 alias dockerstopall='docker stop $(docker ps -a -q)'
 alias dockerremoveall='docker rm $(docker ps -a -q)'
 
-# the following is weirdness GuyNoIR AKA Bob_Dobbs
-# Put these in .bash_aliases
-# Speech > Text > Chinese > Russian > English > Speech
-
-# Issues
-# Need to pkill pocketsphinx when done because we unbuffer it and shove it into the background
-
-# Ubuntu 17.10
-# deps in default repos
-# expect pocketsphinx pocketsphinx-en-us
-
-# deps not in default repos
-# https://github.com/andreineculau/google-translate-cli
-
-
-alias SpeakToTheSphinx="touch SphinxPipe; unbuffer pocketsphinx_continuous -inmic yes -logfn /dev/null >> SphinxPipe & tail -f SphinxPipe | grep --line-buffered -vwE 'READY....|Listening...' | stdbuf -oL trans -b {en=zh-CN} | stdbuf -oL trans -b {zh-CN=ru} | stdbuf -oL trans -b -p {ru=en}"
-
-alias KillTheSphinx="sudo pkill -9 pocketsphinx; reset; echo ''; rm SphinxPipe; echo ''; ps aux | grep pocketsphinx; echo ''"
-
 # ssh
 alias btown="tmut btown && ssh -tt b ssh -tt town screen -dR"
 alias ttown="tmut ttown && ssh -tt teams ssh -tt t screen -dR"
@@ -154,3 +134,6 @@ alias tunneltown="ssh -L 9001:localhost:9000 town &"
 
  # office assistants
 # alias ben=". ben"
+#
+# XDG compatibility
+alias wget="wget --hsts-file=$XDG_DATA_HOME/wget-hsts"
