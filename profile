@@ -59,10 +59,26 @@ export XDG_STATE_HOME=${XDG_DATA_HOME:-$HOME/.local/state}
 export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/run/user/$UID}
 export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 export ACKRC="$XDG_CONFIG_HOME"/ack/ackrc
-# maybe I'll use zsh again some day...
+[ $(less --version | head -n1 | grep -o [[:digit:]]*) -ge 598 ] && export LESSHISTFILE="$XDG_STATE_HOME"/lesshst
+export SCREENRC="$XDG_CONFIG_HOME"/screen/screenrc
+export TLDR_CACHE_DIR="$XDG_CACHE_HOME"/tldr
+# These are necessarily part of my usual workflow, but they might get some use....
+# zsh
 export ZPLUG_HOME="$XDG_DATA_HOME"/zplug
 export ZDOTDIR="$XDG_CONFIG_HOME"/zsh
- 
+# docker (duh)
+export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
+# rust
+export CARGO_HOME="$XDG_CDATA_HOME"/cargo
+# ruby
+export BUNDLE_USER_CONFIG="$XDG_CONFIG_HOME"/bundle                                  │   45         export TODO_DIR="/mnt/g/My\ Drive/todo/"¬
+export BUNDLE_USER_CACHE="$XDG_CACHE_HOME"/bundle                                    │   46 fi¬
+export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME"/bundle
+export rvm_path="$XDG_DATA_HOME"/rvm
+# node
+export NPM_CONFIG_INIT_MODULE="$XDG_CONFIG_HOME"/npm/config/npm-init.js
+export NPM_CONFIG_CACHE="$XDG_CACHE_HOME"/npm
+export NPM_CONFIG_TMP="$XDG_RUNTIME_DIR"/npm
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
