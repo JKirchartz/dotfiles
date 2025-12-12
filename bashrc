@@ -5,26 +5,16 @@
 #------------------------------{{{
 set -o vi
 
-#}}}-----------------------------
-# UTF-8
-#------------------------------{{{
+. "$XDG_CONFIG_HOME"/locale.conf
 
-LANG="en_US.UTF-8"
-LC_COLLATE="en_US.UTF-8"
-LC_CTYPE="en_US.UTF-8"
-LC_MESSAGES="en_US.UTF-8"
-LC_MONETARY="en_US.UTF-8"
-LC_NUMERIC="en_US.UTF-8"
-LC_TIME="en_US.UTF-8"
-LC_ALL="en_US.UTF-8"
 
 #}}}-----------------------------
 # source external files
 # fzf, git, npm, bashisms
 #------------------------------{{{
 
-source ~/dotfiles/bash_aliases
-source ~/dotfiles/bash_functions
+. $XDG_CONFIG_HOME/bash/aliases
+. $XDG_CONFIG_HOME/bash/functions
 
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
   . /etc/bash_completion
@@ -38,7 +28,7 @@ if command -v grunt >/dev/null 2>&1; then eval "$(grunt --completion=bash)"; fi
 # setup prompt
 #------------------------------{{{
 
-source ~/dotfiles/bin/gitstatus.sh
+source "$XDG_BIN_HOME"/gitstatus.sh
 
 set__dtstamp() {
   ## use ddate if available
@@ -118,10 +108,6 @@ fi
 # paths and completions
 #------------------------------{{{
 
-# put this last, so current dir & my scripts always get preference
-# this is insecure because various bins are overwritten by my script
-# directory versions, for security move $PATH to the beginning of the assignment
-export PATH="$HOME/dotfiles/bin:$PATH"
 
 export NETHACKOPTIONS=color,hilite_pet,boulder:8
 
@@ -138,9 +124,15 @@ fi
 
 if command -V gdircolors &> /dev/null
 then
-  eval "$(gdircolors -b "$HOME/dotfiles/LS_COLORS/LS_COLORS")"
+  eval "$(gdircolors -b "$XDG_CONFIG_HOME/LSCOLORS/LS_COLORS")"
 else
-  eval "$(dircolors -b "$HOME/dotfiles/LS_COLORS/LS_COLORS")"
+  eval "$(dircolors -b "$XDG_CONFIG_HOME/LS_COLORS/LS_COLORS")"
+fi
+if command -V gdircolors &> /dev/null
+then
+  eval "$(gdircolor -b "$XDG_CONFIG_HOME/LS_COLORS/LS_COLORS")"
+else
+  eval "$(dircolor -b "$XDG_CONFIG_HOME/LS_COLORS/LS_COLORS")"
 fi
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
@@ -153,8 +145,8 @@ export NVM_DIR="$HOME/.nvm"
 # all the stuff for if this is WSL
 if [ -n "$WSL_DISTRO_NAME}" ]; then
         alias open="/mnt/c/Windows/explorer.exe"
-        alias pbcopy="$HOME/dotfiles/bin/wsl-pbcopy.sh"
-        alias pbpaste="$HOME/dotfiles/bin/wsl-pbpaste.sh"
+        alias pbcopy="$XDG_BIN_HOME"/wsl-pbcopy.sh
+        alias pbpaste="$XDG_BIN_HOME"/wsl-pbpaste.sh
 fi
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
