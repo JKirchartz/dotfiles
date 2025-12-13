@@ -70,3 +70,12 @@ lsd () {
   ls $@ | lolcat
 }
 
+if [ -n "$TMUX" ]; then
+  # if we're inside tmux, wrap SSH so tmux shows the hostname instead of "ssh"
+  ssh () {
+    og_name=$(tmux display-message -p '#W');
+    tmux rename-window "$1";
+    command ssh "$@";
+    tmux rename-window "$og_name";
+  }
+fi

@@ -1,34 +1,38 @@
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
 # avoid shellcheck errors for sourced files:
 # shellcheck source=/dev/null
+
 #}}}-----------------------------
 # set readline to be vi-like
 #------------------------------{{{
+
 set -o vi
-
-. "$XDG_CONFIG_HOME"/locale.conf
-
 
 #}}}-----------------------------
 # source external files
 # fzf, git, npm, bashisms
 #------------------------------{{{
 
-. $XDG_CONFIG_HOME/bash/aliases
-. $XDG_CONFIG_HOME/bash/functions
+source $HOME/dotfiles/.config/locale.conf
+source $HOME/dotfiles/.config/bash/aliases
+source $HOME/dotfiles/.config/bash/functions
+source $HOME/dotfiles/bin/gitstatus.sh
 
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-  . /etc/bash_completion
-fi
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash
+eval "$(fzf --bash)"`
 
 if command -v grunt >/dev/null 2>&1; then eval "$(grunt --completion=bash)"; fi
+
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+  source /etc/bash_completion
+fi
 
 #}}}-----------------------------
 # setup prompt
 #------------------------------{{{
-
-source "$XDG_BIN_HOME"/gitstatus.sh
 
 set__dtstamp() {
   ## use ddate if available
@@ -82,6 +86,7 @@ export PS2="\[$__cr\]└─\[$__cc\]>\[$__nc\]"
 #}}}-----------------------------
 #fix history
 #------------------------------{{{
+export HISTFILE="${XDG_STATE_HOME}"/bash/history
 export HISTCONTROL=ignoreboth             # no duplicate entries or entries that start with whitespace
 export HISTSIZE=50000                     # big history
 export HISTFILESIZE=50000                 # big history
@@ -104,36 +109,18 @@ fi
 # search-path for CD command
 # export CDPATH=".:..:~:~/projects:~/Dropbox/projects"
 
-#}}}-----------------------------
-# paths and completions
-#------------------------------{{{
 
-
-export NETHACKOPTIONS=color,hilite_pet,boulder:8
-
-if [ -n "$TMUX" ]; then
-  # wrap SSH so tmux shows the hostname
-  ssh () {
-    og_name=$(tmux display-message -p '#W');
-    tmux rename-window "$1";
-    command ssh "$@";
-    tmux rename-window "$og_name";
-  }
-fi
-
-
-if command -V gdircolors &> /dev/null
-then
-  eval "$(gdircolors -b "$XDG_CONFIG_HOME/LSCOLORS/LS_COLORS")"
-else
-  eval "$(dircolors -b "$XDG_CONFIG_HOME/LS_COLORS/LS_COLORS")"
-fi
 if command -V gdircolors &> /dev/null
 then
   eval "$(gdircolor -b "$XDG_CONFIG_HOME/LS_COLORS/LS_COLORS")"
 else
   eval "$(dircolor -b "$XDG_CONFIG_HOME/LS_COLORS/LS_COLORS")"
 fi
+
+#}}}-----------------------------
+# paths and completions
+#------------------------------{{{
+
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.local/share/gem/ruby/3.1.0/bin:$HOME/.rvm/bin"

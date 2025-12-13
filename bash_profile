@@ -1,10 +1,9 @@
 [ -s "$HOME/.profile" ] && source ~/.profile
-[ -s "$HOME/.env_keys" ] && source ~/.env_keys
+[ -s "$HOME/.bashrc" &&  ] && source ~/.bashrc
 
  # Load RVM into a shell session *as a function*
 [ -s "$HOME/.rvm/scripts/rvm" ] && source "$HOME/.rvm/scripts/rvm"
 
-[ -s "$HOME/.bashrc" ] && source ~/.bashrc # import bashrc if it's not here.
 
 # get SSH setup
 [ -s "$HOME/.ssh/id_rsa" ] && eval `keychain -q --eval --agents ssh id_rsa`

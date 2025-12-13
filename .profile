@@ -46,7 +46,8 @@ if [ -z "${WSL_DISTRO_NAME+1}" ]; then
 fi
 
 # The Editor
-export EDITOR=vim
+export VISUAL=vim
+export EDITOR=$VISUAL
 
 # The Pager
 export PAGER="less -F"
@@ -54,16 +55,18 @@ export PAGER="less -F"
 # XDG compatibility:
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
-export XDG_BIN_HOME=${XDG_DATA_HOME:-$HOME/.local/bin}
-export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
 export XDG_STATE_HOME=${XDG_DATA_HOME:-$HOME/.local/state}
+export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
 export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/run/user/$UID}
+
+# Forced Conversions
 export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 export ACKRC="$XDG_CONFIG_HOME"/ack/ackrc
 # if less version is 598 or earlier, this might not work:
 export LESSHISTFILE="$XDG_STATE_HOME"/lesshst
 export SCREENRC="$XDG_CONFIG_HOME"/screen/screenrc
 export TLDR_CACHE_DIR="$XDG_CACHE_HOME"/tldr
+
 # These are necessarily part of my usual workflow, but they might get some use....
 # zsh
 export ZPLUG_HOME="$XDG_DATA_HOME"/zplug
@@ -82,10 +85,21 @@ export NPM_CONFIG_INIT_MODULE="$XDG_CONFIG_HOME"/npm/config/npm-init.js
 export NPM_CONFIG_CACHE="$XDG_CACHE_HOME"/npm
 export NPM_CONFIG_TMP="$XDG_RUNTIME_DIR"/npm
 
+# sshhh...
+export NETHACKOPTIONS=color,hilite_pet,boulder:8
+
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
 # put this last, my scripts always get preference this is insecure because
 # various bins are overwritten by my script directory versions, for security
 # move $PATH to the beginning of the assignment
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/dotfiles/bin:$PATH"
+
+# ** Source ~/.bashrc if appropriate {{{
+if [ "$BASH" ]; then
+  if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+  fi
+fi
+# End sourcing ~/.bashrc }}}
