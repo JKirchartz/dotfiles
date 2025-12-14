@@ -10,27 +10,18 @@
 # Variables
 ###
 
-dir=~/dotfiles                    # dotfiles directory
-olddir=~/dotfiles_old             # old dotfiles backup directory
+dir=$HOME/dotfiles                    # dotfiles directory
+olddir=$HOME/dotfiles_old             # old dotfiles backup directory
 case "$OSTYPE" in
-    darwin*)
-        # Files for OSX
-        echo "Preparing files for OSX"
-        files="tern-config jshintrc ackrc inputrc zshrc bashrc bash_profile vimrc vim tmux.conf slate ssh gitconfig screenrc scss-lint.yml"
-        echo "Installing Homebrew"
-        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-        echo "Installing required software via Homebrew (see Brewfile for details)"
-        brew bundle
-        ;;
     msys|cygwin)
         # Files for cygwin & msys << obsoleted by windows 10 anniversary release
         echo "Preparing files for *doze"
-        files="tern-config inputrc zshrc bashrc bash_profile vimrc vim tmux.conf ssh gitconfig screenrc scss-lint.yml"
+        files="bashrc bash_profile profile ssh jshintrc eslint.json"
         ;;
     *)
         # Files for *nix
         echo "Preparing files for *nix"
-        files="tern-config jshintrc ackrc inputrc zshrc bashrc bash_profile vimrc vim tmux.conf gitconfig screenrc profile scss-lint.yml"
+        files="bashrc bash_profile profile profile ssh jshintrc eslint.json"
         ;;
 esac
 
@@ -67,6 +58,12 @@ case $OSTYPE in
             echo "Creating symlink to $file in home directory."
             ln -s "$dir/$file" "$HOME/.$file"
         done
+	for file in config/*/; do
+            echo "Moving existing $file from ~ to $olddir"
+            [ -f "$file" ] && mv "$file" "$HOME/dotfiles_old/"
+            echo "Creating symlink to $file in home directory."
+            ln -s "$dir/$file" "$file"
+	done
         ;;
     esac
 
@@ -83,7 +80,7 @@ git submodule update --recursive --remote
 ##########
 # make fortunes
 ###
-fortunes=$(cd "$dir/fortunes" && make)
+fortunes=$(cd "$dir/share/fortunes" && make)
 echo "$fortunes"
 
 ##########
@@ -111,7 +108,6 @@ echo "$fortunes"
 # 
 #   nvim +PlugInstall +qall
 # fi
-
 
 ##########
 # setup zsh

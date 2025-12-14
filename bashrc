@@ -15,10 +15,10 @@ set -o vi
 # fzf, git, npm, bashisms
 #------------------------------{{{
 
-source $HOME/dotfiles/.config/locale.conf
-source $HOME/dotfiles/.config/bash/aliases
-source $HOME/dotfiles/.config/bash/functions
-source $HOME/dotfiles/bin/gitstatus.sh
+source $HOME/dotfiles/config/locale.conf
+source $HOME/dotfiles/config/shell/aliases
+source $HOME/dotfiles/config/shell/functions
+source $HOME/dotfiles/shell/gitstatus.sh
 
 
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash
@@ -86,7 +86,11 @@ export PS2="\[$__cr\]└─\[$__cc\]>\[$__nc\]"
 #}}}-----------------------------
 #fix history
 #------------------------------{{{
-export HISTFILE="${XDG_STATE_HOME}"/bash/history
+if [ -f "$HOME/.bash_history" ]; then
+	export HISTFILE="${HOME}"/.bash_history
+else
+	export HISTFILE="${XDG_STATE_HOME}"/bash/history
+fi
 export HISTCONTROL=ignoreboth             # no duplicate entries or entries that start with whitespace
 export HISTSIZE=50000                     # big history
 export HISTFILESIZE=50000                 # big history
