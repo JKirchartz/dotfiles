@@ -15,10 +15,10 @@ set -o vi
 # fzf, git, npm, bashisms
 #------------------------------{{{
 
-source $HOME/dotfiles/config/locale.conf
-source $HOME/dotfiles/config/shell/aliases
-source $HOME/dotfiles/config/shell/functions
-source $HOME/dotfiles/shell/gitstatus.sh
+source ${XDG_CONFIG_HOME:-$HOME/.config}/locale.conf
+source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliases
+source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/functions
+source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/gitstatus.sh
 
 
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash
