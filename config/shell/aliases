@@ -35,8 +35,8 @@ alias :q='exit'
 alias :wq='exit'
 
 # lil' bit of fun
-alias figlet='figlet -d ~/dotfiles/figlet-fonts/'
-alias toilet='toilet -d ~/dotfiles/figlet-fonts/'
+alias figlet='figlet -d ~/dotfiles/share/figlet-fonts/'
+alias toilet='toilet -d ~/dotfiles/share/figlet-fonts/'
 alias f='fortune -ae'
 alias dopewars='dopewars -tn'
 alias RR='[ $[ $RANDOM % 6 ] == 0 ] && echo *BANG* || echo *Click*'

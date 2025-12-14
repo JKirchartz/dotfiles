@@ -140,7 +140,7 @@ export NVM_DIR="$HOME/.nvm"
 # motd
 ~/dotfiles/bin/motd.sh
 
-# autostart screen on login?
+# autostart screen on login? ([ -x "$STY"] could work instead of looking for parent processes)
 # if shopt -q login_shell && [ "$(ps -p $PPID -o comm=)" != screen ]; then scr; fi
 # or tmux?
 # if shopt -q login_shell && [ -z "$TMUX" ]; then; tmu; fi
