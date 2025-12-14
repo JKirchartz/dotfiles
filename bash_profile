@@ -1,19 +1,19 @@
-[ -s "$HOME/.profile" ] && source ~/.profile
-[ -s "$HOME/.bashrc" &&  ] && source ~/.bashrc
+[ -s "$HOME/.profile" ] && source $HOME/.profile
+[ -s "$HOME/.bashrc" ] && source $HOME/.bashrc
 
- # Load RVM into a shell session *as a function*
+# Load RVM into a shell session *as a function*
 [ -s "$HOME/.rvm/scripts/rvm" ] && source "$HOME/.rvm/scripts/rvm"
 
 
-# get SSH setup
-[ -s "$HOME/.ssh/id_rsa" ] && eval `keychain -q --eval --agents ssh id_rsa`
-[ -s "$HOME/.ssh/id_ed25519" ] && eval `keychain -q --eval --agents ssh id_ed25519`
-
-# motd
-~/dotfiles/bin/motd.sh
-
-# autostart screen?
-# if [ "$(ps -p $PPID -o comm=)" != screen ]; then scr; fi
+# keychain SSH setup
+if [ command -v keychain ]; then 
+	[ -s "$HOME/.ssh/id_rsa" ] && eval `keychain -q --eval --agents ssh id_rsa`
+	[ -s "$HOME/.ssh/id_ed25519" ] && eval `keychain -q --eval --agents ssh id_ed25519`
+# no keychain? just ssh then?
+elif [ -z "$SSH_AGENT_PID" && -z "$SSH_AUTH_SOCK" ]; then
+  eval `ssh-agent -s`
+  ssh-add # ~/.ssh/id_*
+fi
 
 # RIP this mechanic
 # (note: I added more control to this right before rewriting it all, so if you find it useful, go for it...)
@@ -49,4 +49,3 @@
 #         echo "$OSTYPE not recognized in .bash_profile"
 #         ;;
 # esac
-

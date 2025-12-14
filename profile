@@ -79,7 +79,8 @@ export CARGO_HOME="$XDG_CDATA_HOME"/cargo
 export BUNDLE_USER_CONFIG="$XDG_CONFIG_HOME"/bundle
 export BUNDLE_USER_CACHE="$XDG_CACHE_HOME"/bundle
 export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME"/bundle
-export rvm_path="$XDG_DATA_HOME"/rvm
+# this doesn't exist yet
+# export rvm_path="$XDG_DATA_HOME"/rvm
 # node
 export NPM_CONFIG_INIT_MODULE="$XDG_CONFIG_HOME"/npm/config/npm-init.js
 export NPM_CONFIG_CACHE="$XDG_CACHE_HOME"/npm
@@ -96,10 +97,6 @@ export PATH="$PATH:$HOME/.rvm/bin"
 # move $PATH to the beginning of the assignment
 export PATH="$HOME/dotfiles/bin:$PATH"
 
-# ** Source ~/.bashrc if appropriate {{{
-if [ "$BASH" ]; then
-  if [ -f ~/.bashrc ]; then
-    . ~/.bashrc
-  fi
-fi
-# End sourcing ~/.bashrc }}}
+
+export LOADEDPROFILE="profile:${LOADEDPROFILE}"
+echo $LOADEDPROFILE

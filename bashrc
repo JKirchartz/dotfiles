@@ -1,7 +1,7 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# avoid shellcheck errors for sourced files:
+# avoid shellcheck errors for sourced files?
 # shellcheck source=/dev/null
 
 #}}}-----------------------------
@@ -15,14 +15,15 @@ set -o vi
 # fzf, git, npm, bashisms
 #------------------------------{{{
 
-source ${XDG_CONFIG_HOME:-$HOME/.config}/locale.conf
-source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliases
-source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/functions
-source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/gitstatus.sh
+source "${XDG_CONFIG_HOME:-$HOME/.config}/locale.conf"
+source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliases"
+source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/functions"
+source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/gitstatus.sh"
 
-
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash
-eval "$(fzf --bash)"`
+if command -v fzf >/dev/null 2>&1; then
+  [ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash
+  eval "$(fzf --bash)"
+fi
 
 if command -v grunt >/dev/null 2>&1; then eval "$(grunt --completion=bash)"; fi
 
@@ -87,9 +88,9 @@ export PS2="\[$__cr\]└─\[$__cc\]>\[$__nc\]"
 #fix history
 #------------------------------{{{
 if [ -f "$HOME/.bash_history" ]; then
-	export HISTFILE="${HOME}"/.bash_history
+	export HISTFILE="${HOME}/.bash_history"
 else
-	export HISTFILE="${XDG_STATE_HOME}"/bash/history
+	export HISTFILE="${XDG_STATE_HOME}/bash/history"
 fi
 export HISTCONTROL=ignoreboth             # no duplicate entries or entries that start with whitespace
 export HISTSIZE=50000                     # big history
@@ -116,9 +117,10 @@ fi
 
 if command -V gdircolors &> /dev/null
 then
-  eval "$(gdircolor -b "$XDG_CONFIG_HOME/LS_COLORS/LS_COLORS")"
-else
-  eval "$(dircolor -b "$XDG_CONFIG_HOME/LS_COLORS/LS_COLORS")"
+  eval "$(gdircolors -b "$XDG_CONFIG_HOME/dircolors/LS_COLORS")"
+elif command -V dircolors &> /dev/null
+then
+  eval "$(dircolors -b "$XDG_CONFIG_HOME/dircolors/LS_COLORS")"
 fi
 
 #}}}-----------------------------
@@ -126,21 +128,22 @@ fi
 #------------------------------{{{
 
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.local/share/gem/ruby/3.1.0/bin:$HOME/.rvm/bin"
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change. (?)
+# export PATH="$PATH:$HOME/.local/share/gem/ruby/3.1.0/bin:$HOME/.rvm/bin"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# all the stuff for if this is WSL
-if [ -n "$WSL_DISTRO_NAME}" ]; then
-        alias open="/mnt/c/Windows/explorer.exe"
-        alias pbcopy="$XDG_BIN_HOME"/wsl-pbcopy.sh
-        alias pbpaste="$XDG_BIN_HOME"/wsl-pbpaste.sh
-fi
-
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-#
+
+# motd
+~/dotfiles/bin/motd.sh
+
+# autostart screen on login?
+# if shopt -q login_shell && [ "$(ps -p $PPID -o comm=)" != screen ]; then scr; fi
+# or tmux?
+# if shopt -q login_shell && [ -z "$TMUX" ]; then; tmu; fi
+
 # }}} fold up this file
 # vim: foldmethod=marker

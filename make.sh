@@ -9,7 +9,7 @@
 dir=$HOME/dotfiles                    # dotfiles directory
 olddir=$HOME/dotfiles_old             # old dotfiles backup directory
 
-# this is a list of files that need moved to the home directory
+# this is a list of files that need moved to the home directory, but maybe a blacklist would be better?
 files="bashrc bash_profile profile profile ssh jshintrc eslint.json"
 
 ##########
@@ -25,7 +25,7 @@ fortunes=$(cd "$dir/share/fortunes" && make)
 echo "$fortunes"
 
 ##########
-# setup vim/vim-plug
+# setup vim/vim-plug (this is be managed by my vimrc repo now)
 ###
 # echo "Attempting to install vim-plug"
 # curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -37,7 +37,7 @@ echo "$fortunes"
 # vim +PlugInstall +qall
 
 ##########
-# setup neovim/vim-plug
+# setup neovim/vim-plug (I'm not currently playing with neovim, or vim-plug)
 ###
 # 
 # if type nvim >/dev/null 2>&1; then
@@ -51,7 +51,7 @@ echo "$fortunes"
 # fi
 
 ##########
-# setup zsh
+# setup zsh (Again, not using this much)
 ###
 # 
 # if type zsh >/dev/null 2>&1; then

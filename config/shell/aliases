@@ -18,8 +18,6 @@ alias ping='ping -c 10 '                  # set a default, coz I always forget
 alias rm='rm -i '                         # confirm, just in case...
 alias please='sudo $(fc -ln -1)'          # redo last command as root
 alias M='motd.sh'
-alias gir=git
-alias get=git
 
 if test -n "$ZSH_VERSION"; then
 	alias R='source ~/.zshrc'
@@ -29,7 +27,6 @@ fi
 
 #todo
 alias t=todo.sh
-alias todo='vim "/mnt/g/My\ Drive/todo/"'
 
 #vim-like aliases
 alias vi=vim
@@ -43,11 +40,13 @@ alias toilet='toilet -d ~/dotfiles/figlet-fonts/'
 alias f='fortune -ae'
 alias dopewars='dopewars -tn'
 alias RR='[ $[ $RANDOM % 6 ] == 0 ] && echo *BANG* || echo *Click*'
-alias zen="~/dotfiles/bin/bonsai.sh -i -w 15 -b 2 -c ~oO0%*"
+alias zen="$HOME/dotfiles/bin/bonsai.sh -i -w 15 -b 2 -c ~oO0%*"
 alias beef="cowsay"
 # I keep mispelling these, but they're also humorous.
 alias rocker="docker"
 alias focker="docker"
+alias gir=git
+alias get=git
 
 #alternative to cd -
 alias back='cd $OLDPWD'
@@ -79,13 +78,6 @@ alias ppjson='python -m json.tool'
 alias imginfo="identify -format '-- %f -- \nType: %m\nSize: %b bytes\nResolution: %wpx x %hpx\nColors: %k'"
 alias imgres="identify -format '%f: %wpx x %hpx\n'"
 
-case $OSTYPE in
-    darwin*) # osx-only
-    alias hosts='sudo vim -v /etc/hosts /private/etc/hosts'
-    alias ss2='screencapture -xP '
-    alias ss='screencapture -xwP '
-    ;;
-esac
 
 alias notes='history | grep \#'
 
@@ -135,5 +127,22 @@ alias tunneltown="ssh -L 9001:localhost:9000 town &"
  # office assistants
 # alias ben=". ben"
 #
+
+# all the stuff for if this is WSL
+if [ -n "$WSL_DISTRO_NAME}" ]; then
+        alias open="/mnt/c/Windows/explorer.exe"
+        alias pbcopy="$XDG_BIN_HOME"/wsl-pbcopy.sh
+        alias pbpaste="$XDG_BIN_HOME"/wsl-pbpaste.sh
+	alias todo='vim "/mnt/g/My\ Drive/todo/"'
+fi
+
+case $OSTYPE in
+    darwin*) # osx-only
+    alias hosts='sudo vim -v /etc/hosts /private/etc/hosts'
+    alias ss2='screencapture -xP '
+    alias ss='screencapture -xwP '
+    ;;
+esac
+
 # XDG compatibility
 alias wget="wget --hsts-file=$XDG_DATA_HOME/wget-hsts"
