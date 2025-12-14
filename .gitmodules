@@ -2,7 +2,7 @@
 	path = config/vim
 	url = https://github.com/JKirchartz/vim.git
 [submodule "fortunes"]
-	path = fortunes
+	path = share/fortunes
 	branch = master
 	url = https://github.com/JKirchartz/fortunes.git
 [submodule "vimwiki"]
@@ -13,5 +13,5 @@
 	path = config/dir_colors
 	url = https://github.com/trapd00r/LS_COLORS.git
 [submodule "figlet-fonts"]
-	path = figlet-fonts
+	path = share/figlet-fonts
 	url = https://github.com/JKirchartz/figlet-fonts.git
