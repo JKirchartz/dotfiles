@@ -117,10 +117,10 @@ fi
 
 if command -V gdircolors &> /dev/null
 then
-  eval "$(gdircolors -b "$XDG_CONFIG_HOME/dircolors/LS_COLORS")"
+  eval "$(gdircolors -b "$XDG_CONFIG_HOME/dir_colors/LS_COLORS")"
 elif command -V dircolors &> /dev/null
 then
-  eval "$(dircolors -b "$XDG_CONFIG_HOME/dircolors/LS_COLORS")"
+  eval "$(dircolors -b "$XDG_CONFIG_HOME/dir_colors/LS_COLORS")"
 fi
 
 #}}}-----------------------------

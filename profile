@@ -96,7 +96,3 @@ export PATH="$PATH:$HOME/.rvm/bin"
 # various bins are overwritten by my script directory versions, for security
 # move $PATH to the beginning of the assignment
 export PATH="$HOME/dotfiles/bin:$PATH"
-
-
-export LOADEDPROFILE="profile:${LOADEDPROFILE}"
-echo $LOADEDPROFILE
