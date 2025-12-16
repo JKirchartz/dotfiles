@@ -1,3 +1,4 @@
+# I don't actually know what any of this stuff does anymore, because I haven't touched zsh in a while...
 #------------------------------
 # set options
 #-----------------------------{{{
@@ -14,15 +15,17 @@ setopt promptsubst autocd notify hist_ignore_dups hist_ignore_space inc_append_h
 # setopt appendhistory nomatch
 unsetopt beep
 
-export PATH=$HOME/dotfiles/bin:$PATH
-export PATH=$HOME/projects/ghint:$PATH
-export PATH=$HOME/.composer/vendor/bin:$PATH
-export PATH=$HOME/go/bin:$PATH
-export EDITOR="vim" PAGER="less"
-
 HISTFILE="${HOME}/.zshhistory"
 HISTSIZE=50000
 SAVEHIST=50000
+
+# }}}----------------------------
+# load same aliases/functions as bash
+# ----------------------------{{{
+[ -s "$HOME/.profile" ] && source $HOME/.profile
+[ -s "$HOME/.config/locale.conf" ] && source "$HOME/.config/locale.conf"
+[ -s "$HOME/.config/shell/aliases" ] && source "$HOME/.config/shell/aliases"
+[ -s "$HOME/.config/shell/functions" ] && source "$HOME/.config/shell/functions"
 
 
 #}}}-----------------------------
@@ -50,27 +53,13 @@ bindkey '^?' backward-delete-char
 # ctrl-r starts searching history backward
 # bindkey '^r' history-incremental-search-backward
 
-
-#}}}-----------------------------
-# UTF-8
-#------------------------------{{{
-
-LANG="en_US.UTF-8"
-LC_COLLATE="en_US.UTF-8"
-LC_CTYPE="en_US.UTF-8"
-LC_MESSAGES="en_US.UTF-8"
-LC_MONETARY="en_US.UTF-8"
-LC_NUMERIC="en_US.UTF-8"
-LC_TIME="en_US.UTF-8"
-LC_ALL="en_US.UTF-8"
-
 #}}}-----------------------------
 #detect/install zplug plugins
 #-----------------------------{{{
 
-if [[ -a ~/.zplug/init.zsh ]];then
+if [[ -a "$ZPLUG_HOME/init.zsh" ]];then
   # load zplug
-  source ~/.zplug/init.zsh
+  source "$ZPLUG_HOME/init.zsh"
 
   # have zplug manage itself
   zplug 'zplug/zplug', hook-build:'zplug --self-manage'
@@ -102,9 +91,10 @@ else
   echo "curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh"
 fi
 
-if [[ $HOSTNAME -eq "fiddle" ]]; then
+# IDK if any of this is relevant -- I clearly haven't used this since my VirtualBox days... (circa 2016)
+if [[ -z "${WSL_DISTRO_NAME+1}" ]]; then
   export DISPLAY=:0
-  export BROWSER=/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
+  export BROWSER="/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe"
   export SHELL=zsh
   export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
   # VAGRANT_WSL_WINDOWS_ACCESS_USER - Override current Windows username
@@ -114,12 +104,6 @@ if [[ $HOSTNAME -eq "fiddle" ]]; then
   alias vi=vim
 fi
 
-
-# }}}----------------------------
-# load same aliases/functions as bash
-# ----------------------------{{{
-source ~/dotfiles/bash_aliases
-source ~/dotfiles/bash_functions
 
 #}}}-----------------------------
 # run scripts
