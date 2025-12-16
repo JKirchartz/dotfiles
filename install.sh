@@ -5,7 +5,7 @@
 # I didn't really like stow or any of the alternatives, so I'm just getting the files I want how I want.
 ############################
 PS4="\n\033[1;33m|-->\033[0m "        # just for the looks...
-set -xtrace                           # show everything as it happens ...
+set -o xtrace                         # show everything as it happens ...
 
 dir=$HOME/dotfiles                    # dotfiles directory
 olddir=$HOME/dotfiles_old             # old dotfiles backup directory
@@ -36,7 +36,8 @@ cd "$dir/share/fortunes" && make
 [ ! -d "$olddir" ] & mkdir -p $olddir
 
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks
-for f in ./home/*; do
+for f in $(git ls-files home/ | sort -u); do
+    echo "working on $f..."
     file=$(basename $f)
     [ -f "$HOME/.$file" ] && mv "$HOME/.$file" "$olddir"
     ln -s "${dir}/home/${file}" "$HOME/.$file"
@@ -45,7 +46,8 @@ done
 # now lets do the same thing for files in the ./config/ directory
 # git ls-files doesn't list the contents of submodules
 # so some directories will be symlinked directly. (the way I want it. :P)
-for file in $(git ls-files config/); do
+for file in $(git ls-files config/ | sort -u); do
+    echo "working on $file..."
     [ ! -d $(dirname $file) ] && mkdir $(dirname $file)
     [ -f "$file" ] && mv "$file" "$olddir"
     ln -s "${dir}/${file}" ".$file"
