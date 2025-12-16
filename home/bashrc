@@ -145,4 +145,4 @@ export NVM_DIR="$HOME/.nvm"
 # if shopt -q login_shell && [ -z "$TMUX" ]; then; tmu; fi
 
 # }}} fold up this file
-# vim: foldmethod=marker,ft=bash
+# vim: foldmethod=marker filetype=bash

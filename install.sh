@@ -40,7 +40,7 @@ for f in $(git ls-files home/ | sort -u); do
     [ -f "$HOME/.$file" ] && [ ! -L "$HOME/.$file" ] && mv "$HOME/.$file" "$olddir"
     # if it's not a file or a link, it's probably broken
     rm -rf "$HOME/.$file"
-    ln -s "${dir}/home/${file}" "$HOME/.$file"
+    ln -s "${dir}/${f}" "$HOME/.$file"
 done
 
 # now lets do the same thing for files in the ./config/ directory
@@ -49,6 +49,8 @@ done
 for file in $(git ls-files config/ | sort -u); do
     echo "working on $file..."
     filedir=$(dirname "$file")
+    # if the filedir is config we want the file to link directly
+    [ "$filedir" = "config" ] && filedir="$file"
     [ ! -d "$HOME/.$filedir" ] && mkdir -p "$HOME/.$filedir"
     [ -f "$HOME/.$file" ] && [ ! -L "$HOME/.$file" ] && mv "$HOME/.$file" "$olddir"
     rm -rf "$HOME/.$file"
