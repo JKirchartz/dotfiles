@@ -1,14 +1,14 @@
-#!/bin/bash
+#!/bin/sh
 ############################
 # install.sh
 # this is basically a dumber replacement for GNU stow... go figure
 # I didn't really like stow or any of the alternatives, so I'm just getting the files I want how I want.
 ############################
-PS4="\n\033[1;33m>_>\033[0m "        # just for the looks... <_<
-set -o xtrace                         # show everything as it happens ... except for the stuff above this line...
+PS4=">_> "                  # just for the looks... <_<
+set -o xtrace               # show everything as it happens ... except for the stuff above this line...
 
-dir="$HOME/dotfiles"                    # dotfiles directory
-olddir="$HOME/dotfiles_old"             # old dotfiles backup directory
+dir="$HOME/dotfiles"        # dotfiles directory
+olddir="$HOME/dotfiles_old" # old dotfiles backup directory
 
 #########
 # we should be here, but maybe for some reason I might not be? IDK
@@ -32,11 +32,14 @@ cd "$dir/share/fortunes" && make
 ###
 cd "$dir" || exit
 
-# move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks
+# move any existing dotfiles in $HOME to dotfiles_old directory, then create symlinks
 for f in $(git ls-files home/ | sort -u); do
     echo "working on $f..."
     file=$(basename "$f")
-    [ -f "$HOME/.$file" ] && mv "$HOME/.$file" "$olddir"
+    # if it's a file and not a link, back it up
+    [ -f "$HOME/.$file" ] && [ ! -L "$HOME/.$file" ] && mv "$HOME/.$file" "$olddir"
+    # if it's not a file or a link, it's probably broken
+    rm -rf "$HOME/.$file"
     ln -s "${dir}/home/${file}" "$HOME/.$file"
 done
 
@@ -47,8 +50,9 @@ for file in $(git ls-files config/ | sort -u); do
     echo "working on $file..."
     filedir=$(dirname "$file")
     [ ! -d "$HOME/.$filedir" ] && mkdir -p "$HOME/.$filedir"
-    [ -f "$file" ] && mv "$file" "$olddir"
-    ln -s "${dir}/${file}" ".$file"
+    [ -f "$HOME/.$file" ] && [ ! -L "$HOME/.$file" ] && mv "$HOME/.$file" "$olddir"
+    rm -rf "$HOME/.$file"
+    ln -s "${dir}/${file}" "$HOME/.$file"
 done
 
 # aaand skootch over this thang
