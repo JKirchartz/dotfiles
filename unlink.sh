@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# unmake.sh
+# unlink.sh (was unmake before 2025, but it really unlinks)
 #
 # Copyleft (ↄ) 2018 jkirchartz <me@jkirchartz.com>
 #
