@@ -50,8 +50,7 @@ for file in $(git ls-files config/ | sort -u); do
     echo "working on $file..."
     filedir=$(dirname "$file")
     # if the filedir is config we want the file to link directly
-    [ "$filedir" = "config" ] && filedir="$file"
-    [ ! -d "$HOME/.$filedir" ] && mkdir -p "$HOME/.$filedir"
+    [ "$filedir" != "config" ] && [ ! -d "$HOME/.$filedir" ] && mkdir -p "$HOME/.$filedir"
     [ -f "$HOME/.$file" ] && [ ! -L "$HOME/.$file" ] && mv "$HOME/.$file" "$olddir"
     rm -rf "$HOME/.$file"
     ln -s "${dir}/${file}" "$HOME/.$file"
