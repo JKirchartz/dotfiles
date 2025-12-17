@@ -50,7 +50,7 @@ set__dtstamp() {
 set__dtstamp;
 
 __prompt() {
-  printf "\n"
+  echo
   # sync history across terms
   history -a
   history -n
@@ -58,7 +58,7 @@ __prompt() {
   printf '\e[0;31m%*s\n\e[m' "${COLUMNS:-$(tput cols)}" '' | tr ' ' '#'
   # Get directory (and git-prompt)
   DIR=$(pwd | sed -e "s!$HOME!~!")
-  printf "\n%s %s", "${DIR}" "$(gitstatus)"
+  echo -e "${DIR} $(gitstatus)"
   # last=$(history | tail -n 1 | rev | cut -d ' ' -f 2 | rev)
   # if [ "$last" = "cd" ]
   # then
@@ -125,7 +125,6 @@ fi
 #}}}-----------------------------
 # paths and completions
 #------------------------------{{{
-
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change. (?)
 # export PATH="$PATH:$HOME/.local/share/gem/ruby/3.1.0/bin:$HOME/.rvm/bin"
