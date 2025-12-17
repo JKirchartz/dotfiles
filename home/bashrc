@@ -55,7 +55,7 @@ __prompt() {
   history -a
   history -n
   #draw horizontal rule
-  printf '\e[0;31m%*s\n\e[m' "${COLUMNS:-$(tput cols)}" '' | tr ' ' '#'
+  printf '\e[0;31m%*s\n\e[m' "${COLUMNS:-$(tput cols)}" '' | tr ' ' '-'
   # Get directory (and git-prompt)
   DIR=$(pwd | sed -e "s!$HOME!~!")
   echo -e "${DIR} $(gitstatus)"
