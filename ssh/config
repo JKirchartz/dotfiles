@@ -1,8 +1,11 @@
-# Host *
-#     PermitLocalCommand yes
-#     LocalCommand tmux rename-window "ssh-%n"
-#     ForwardAgent yes
-#     ForwardX11 yes
+Match Host *
+    # PermitLocalCommand yes
+    # LocalCommand tmux rename-window "ssh-%n"
+    AddKeysToAgent yes
+    ForwardAgent yes
+    IdentityFile ~/.ssh/id_ed25519
+    IdentitiesOnly yes
+    # ForwardX11 yes
 
 Host bs
   HostName ssh.blinkenshell.org
@@ -27,10 +30,6 @@ Host btown
   ServerAliveInterval 30
   # ProxyJump town
   ProxyCommand ssh -q -W %h:%p town
-
-Host stash.ae.com
-  IdentitiesOnly yes
-  IdentityFile ~/.ssh/ae_rsa
 
 Host c
   Hostname cosmic.voyage
@@ -77,9 +76,11 @@ Host hb
     HostName hashbang.sh
     User kirch
 
-host p.*
-  ForwardAgent yes
+Match Host p.*
   User joel
+  ForwardAgent yes
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/pair.id_ed25519
 
 Host p.j
   HostName jumpbox.pit.pair.net

@@ -5,14 +5,17 @@
 [ -s "$HOME/.rvm/scripts/rvm" ] && . "$HOME/.rvm/scripts/rvm"
 
 
-# keychain SSH setup
-if keychain; then 
-	[ -s "$HOME/.ssh/id_rsa" ] && eval "keychain -q --eval --agents ssh id_rsa"
-	[ -s "$HOME/.ssh/id_ed25519" ] && eval "keychain -q --eval --agents ssh id_ed25519"
-# no keychain? just ssh then?
-elif [ -z "$SSH_AGENT_PID" ] && [ -z "$SSH_AUTH_SOCK" ]; then
-  eval "ssh-agent -s"
-  ssh-add # ~/.ssh/id_*
+if [ -z "$SSH_AGENT_PID" ]; then
+  keys=$(ls $HOME/.ssh/*id_* | grep -v ':');
+  # keychain SSH setup
+  if keychain; then 
+    keychain $keys
+    . "$HOME/.keychain/$HOSTNAME-sh"
+  # no keychain? just ssh then?
+  else
+    eval "ssh-agent -s"
+    ssh-add $keys
+  fi
 fi
 
 # RIP this mechanic
