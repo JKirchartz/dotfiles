@@ -35,56 +35,71 @@ fi
 # setup prompt
 #------------------------------{{{
 
-set__dtstamp() {
+# OS_RELEASE=$(grep -oP '^NAME="\K[^ "]+' /etc/os-release)
+# setup our color scheme...
+_cr='\e[0;31m' # color red
+_cc='\e[0;36m' # color cyan
+_cw='\e[1;37m' # color white
+_nc='\e[0m'    # no color
+# reuse the colors, but in the format the prompt expects
+__cr="\[$_cr\]" # color red
+__cc="\[$_cc\]" # color cyan
+__cw="\[$_cw\]" # color white
+__nc="\[$_nc\]"   # no color
+
+# draw horizontal rule with the directory name & git status in it
+__drawHR() {
+  # printf '\e[0;31m%*s\n\e[m' "${COLUMNS:-$(tput cols)}" '' | tr ' ' '=' # ASCII-only
+  # printf '\e[0;31m%*s\n\e[m' "${COLUMNS:-$(tput cols)}" '' | sed 's/ /═/g' # Unicode
   ## use ddate if available
   if command -v ddate > /dev/null 2>&1
   then
     dd=$(ddate  +"%d/%B/%Y %N(%H)")
     dt=$(date +"%T %p")
-    export __dtstamp="$dd $dt"
+    __dtstamp="$dd $dt"
   else
-    export __dtstamp='\D{%x %X}'
+  ## otherwise show "Gregorian" date
+    __dtstamp='\D{%x %X}'
   fi
+  # Get directory (and git-prompt)
+  DIR=$(pwd | sed -e "s!$HOME!~!")
+  PRE="${DIR} $(gitstatus)"
+  PRE=$(echo "$PRE" | xargs) # trim whitespace
+  WID="${COLUMNS:-$(tput cols)}" # get column count from the term, or tputs
+  # 7 = magic number of characters NOT to include in the HR width
+  # (by counting how many characters the unicode adds, or trial & error)
+  # PREWID=$(((${#PRE} + ${#OS_RELEASE} + ${#__dtstamp} + 12) % WID))
+  PREWID=$(((${#PRE} + ${#__dtstamp} + 7) % WID))
+  printf '\e[0;31m╔═╡\e[m\e[0;36m%s\e[0;31m╞' "$PRE"
+  # instead of filling a column with spaces then replacing the spaces,
+  # let's draw directly counting from PREWID+1 to the full width
+  printf '\e[0;31m%.0s═\e[m' $(seq $((PREWID + 1)) "${WID}")
+  printf '\e[0;31m═╡\e[m \e[0;36m%s' "$__dtstamp"
+  # printf '\e[0;31m ╞═╡\e[m \e[0;36m%s\n' "$OS_RELEASE"
+  echo -e '\n\e[0;31m║\e[m'
 }
-
-set__dtstamp;
 
 __prompt() {
   echo
   # sync history across terms
   history -a
   history -n
-  #draw horizontal rule
-  printf '\e[0;31m%*s\n\e[m' "${COLUMNS:-$(tput cols)}" '' | tr ' ' '-'
-  # Get directory (and git-prompt)
-  DIR=$(pwd | sed -e "s!$HOME!~!")
-  echo -e "${DIR} $(gitstatus)"
-  # last=$(history | tail -n 1 | rev | cut -d ' ' -f 2 | rev)
-  # if [ "$last" = "cd" ]
-  # then
-  #   echo $(pwd) >> ~/.bash_cdhistory
-  # fi
-  set__dtstamp;
+  __drawHR;
+  # construct the same prompt as below, but more intelligently
+  PS1="$__cr╚╡$__cc"
+  [ -n "$(jobs -p)" ] && PS1+="$__cr($__cc\j$__cr)$__cc"
+  [ -z "$STY$TMUX" ] && PS1+="\u@\h"
+  [ -e "${VIMRUNTIME}" ] && PS1+="${__cr}(${__cc}vim${__cr})${__nc}"
+  PS1+="$__cc\$▸ $__nc"
+  export PS1
 }
 
 PROMPT_COMMAND="__prompt"
-export __cr='\e[0;31m'
-export __cc='\e[0;36m'
-export __cw='\e[1;37m'
-export __nc='\e[0m' #no color
-# if shell's running INSIDE vim, mark it with a white V
-if [ -z "${VIMRUNTIME}" ]; then
-  export __vim="[";
-else
-  export __vim="(\[$__cw\]V\[$__cr\])-[";
-fi
-# git-prompt settings
-export GIT_PS1_SHOWDIRTYSTATE=1
-export GIT_PS1_SHOWUPSTREAM="auto"
-export GIT_PS1_SHOWCOLORHINTS=1
+
 # set prompt
-export PS1="\[$__cr\]┌─[\[$__cc\]\u@\h\[$__cr\] $SHLVL]-[\[$__cc\]$__dtstamp\[$__cr\]]-[\[$__cc\]\j\[$__cr\]]\n\[$__cr\]└─[\[$__cc\]\!\[$__cr\]]-$__vim\[$__cc\]\$>\[$__nc\]"
-export PS2="\[$__cr\]└─\[$__cc\]>\[$__nc\]"
+# export PS0="$__cr╠╡$__nc" # returns before the output of a command
+export PS1="$__cr╚╡$__cc\u@\h$__cr$__cc\$$__cc▸ $__nc"
+export PS2="$__cc▸ $__nc"
 
 #}}}-----------------------------
 #fix history
@@ -138,8 +153,10 @@ export NVM_DIR="$HOME/.nvm"
 # motd
 ~/dotfiles/bin/motd.sh
 
-# autostart screen on login? ([ -x "$STY"] could work instead of looking for parent processes)
+# autostart screen on login?
 # if shopt -q login_shell && [ "$(ps -p $PPID -o comm=)" != screen ]; then scr; fi
+# "$STY" could work instead of looking for parent processes
+# if shopt -q login_shell && [ -z "$STY" ]; then; tmu; fi
 # or tmux?
 # if shopt -q login_shell && [ -z "$TMUX" ]; then; tmu; fi
 
