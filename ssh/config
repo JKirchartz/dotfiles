@@ -1,11 +1,37 @@
 Match Host *
-    # PermitLocalCommand yes
-    # LocalCommand tmux rename-window "ssh-%n"
     AddKeysToAgent yes
     ForwardAgent yes
     IdentityFile ~/.ssh/id_ed25519
     IdentitiesOnly yes
     # ForwardX11 yes
+
+Host hb1
+  ServerAliveInterval 30
+  HostName ny1.hashbang.sh
+  User kirch
+
+Host hb
+    HostName hashbang.sh
+    User kirch
+
+Host sdf
+  ServerAliveInterval 30
+  HostName sdf.org
+  User kirch
+
+Host team
+  ServerAliveInterval 30
+  HostName tilde.team
+  User kirch
+  # RequestTTY force
+  # RemoteCommand screen -r
+
+Host town
+  ServerAliveInterval 30
+  HostName tilde.town
+  User kirch
+  # RequestTTY force
+  # RemoteCommand screen -r
 
 Host bs
   HostName ssh.blinkenshell.org
@@ -48,34 +74,6 @@ Host fu
   HostName fuckup.solutions
   User derkirche
 
-Host sdf
-  ServerAliveInterval 30
-  HostName sdf.org
-  User kirch
-
-Host team
-  ServerAliveInterval 30
-  HostName tilde.team
-  User kirch
-  # RequestTTY force
-  # RemoteCommand screen -r
-
-Host town
-  ServerAliveInterval 30
-  HostName tilde.town
-  User kirch
-  # RequestTTY force
-  # RemoteCommand screen -r
-
-Host hb1
-  ServerAliveInterval 30
-  HostName ny1.hashbang.sh
-  User kirch
-
-Host hb
-    HostName hashbang.sh
-    User kirch
-
 Match Host p.*
   User joel
   ForwardAgent yes
@@ -83,7 +81,7 @@ Match Host p.*
   IdentityFile ~/.ssh/pair.id_ed25519
 
 Host p.j
-  HostName jumpbox.pit.pair.net
+  HostName jumpbox3.pit.pair.net
 
 Host p.w
   HostName web1.pair.com
