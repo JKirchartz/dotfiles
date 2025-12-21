@@ -8,14 +8,16 @@
 #
 
 # find all symlinks in $HOME
-for f in $(find $HOME -maxdepth 1 -type l)
+for f in $(find $HOME -maxdepth 3 -type l)
 do
   # find where the link points to
-  l=$(readlink $f)
+  l=$(readlink "$f")
   # if linked file exists and contains the "dotfiles" dir
   if [ -e "$l" ] && [ -z "${l##*$HOME/dotfiles*}" ]; then
     # copy dotfiles to their symlinked location
+    echo "unlinking $f"
+    unlink "$f"
     echo "copying $l to $f"
-    cp --remove-destination $l $f
+    cp -r --remove-destination "$l" "$f"
   fi
 done
