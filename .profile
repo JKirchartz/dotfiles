@@ -1,3 +1,5 @@
+export DOTFILES=$HOME/bare-dotfiles.git
+
 # Bins
 PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/games"
 
