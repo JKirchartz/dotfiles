@@ -56,6 +56,10 @@ for file in $(git ls-files config/ | sort -u); do
     ln -s "${dir}/${file}" "$HOME/.$file"
 done
 
+# link my bin into .local
+[ ! -d "$HOME/.local" ] && mkdir "$HOME/.local"
+[ ! -d "$XDG_BIN_HOME" ] && ln -s "${dir}/local/bin" "$XDG_BIN_HOME"
+
 # aaand skootch over this thang
 [ ! -d "$HOME/.ssh" ] && mkdir "$HOME/.ssh"
 [ ! -f "$HOME/.ssh/config" ] && ln -s "$dir/ssh/config" "$HOME/.ssh/config"

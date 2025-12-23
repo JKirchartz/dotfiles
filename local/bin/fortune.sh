@@ -7,9 +7,7 @@
 #
 # Distributed under terms of the NPL (Necessary Public License) license.
 #
-#
-#
 
 fortunedir=$(fortune -f 2>&1 | head -n1 | cut -d' ' -f2)
 
-fortune -a "$fortunedir" "$HOME/dotfiles/share/fortunes/"
+fortune -a "$fortunedir" "$XDG_SHARE_HOME/fortunes/"
