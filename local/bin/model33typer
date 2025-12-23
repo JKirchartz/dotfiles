@@ -1,0 +1,14 @@
+#!/bin/bash
+# dumb script that makes it look like a Model 33 Teletype is printing stuff
+clear
+while read line
+do
+while IFS= read -r -n1 char
+do
+  # display one upper-case character at a time
+  echo -n  "${char^^}"
+  # 10 characters per second
+  sleep 0.1
+done <<< "$line"
+printf "\n"
+done < "${@:-/dev/stdin}"

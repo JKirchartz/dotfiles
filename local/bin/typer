@@ -1,0 +1,15 @@
+#!/bin/bash
+# dumb script that makes it look like somebody's typing on the screen
+clear
+while read line
+do
+while IFS= read -r -n1 char
+do
+  # display one character at a time
+  echo -n  "$char"
+  # randomize the delay time between letters (0.XX)
+  delay=$(bc <<< "scale=2;$RANDOM/32765")
+  sleep $delay
+done <<< "$line"
+printf "\n"
+done < "${@:-/dev/stdin}"
