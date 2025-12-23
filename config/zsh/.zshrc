@@ -3,7 +3,7 @@
 # set options
 #-----------------------------{{{
 # autoload bashcompinit && bashcompinit
-# source '${HOME}/dotfiles/bin/wp-completion.bash'
+# source '${XDG_BIN_HOME}/bin/wp-completion.bash'
 autoload -Uz compinit && compinit
 autoload -U zmv
 
@@ -24,7 +24,6 @@ SAVEHIST=50000
 # load same aliases/functions as bash
 # ----------------------------{{{
 [ -s "$HOME/.profile" ] && source $HOME/.profile
-[ -s "$HOME/.config/locale.conf" ] && source "$HOME/.config/locale.conf"
 [ -s "$HOME/.config/shell/aliases" ] && source "$HOME/.config/shell/aliases"
 [ -s "$HOME/.config/shell/functions" ] && source "$HOME/.config/shell/functions"
 
@@ -109,7 +108,7 @@ fi
 #}}}-----------------------------
 # run scripts
 #-----------------------------{{{
-~/dotfiles/bin/motd.sh
+"$XDG_BIN_HOME"/motd.sh
 
 
 export PATH="/usr/local/opt/mozjpeg/bin:$PATH"
