@@ -1,4 +1,4 @@
 splitw -h -t 0 -p 50                        # Split pane 0 vertically by 50%
 splitw -v -t 1 -p 25                        # Split pane 1 horizontally by 25%
-if-shell ~/dotfiles/sizetmux.sh 85
+if-shell "$XDG_BIN_HOME"/sizetmux.sh 85
 selectp -t 0                                # Select pane 0

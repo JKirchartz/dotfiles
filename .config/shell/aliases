@@ -35,12 +35,12 @@ alias :q='exit'
 alias :wq='exit'
 
 # lil' bit of fun
-alias figlet='figlet -d ~/dotfiles/share/figlet-fonts/'
-alias toilet='toilet -d ~/dotfiles/share/figlet-fonts/'
+alias figlet='figlet -d $XDG_DATA_HOME/figlet-fonts/'
+alias toilet='toilet -d $XDG_DATA_HOME/figlet-fonts/'
 alias f='fortune -ae'
 alias dopewars='dopewars -tn'
 alias RR='[ $[ $RANDOM % 6 ] == 0 ] && echo *BANG* || echo *Click*'
-alias zen="$HOME/dotfiles/bin/bonsai.sh -i -w 15 -b 2 -c ~oO0%*"
+alias zen="$XDG_BIN_HOME/bonsai.sh -i -w 15 -b 2 -c ~oO0%*"
 alias beef="cowsay"
 # I keep mispelling these, but they're also humorous.
 alias rocker="docker"

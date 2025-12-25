@@ -12,4 +12,4 @@
 
 fortunedir=$(fortune -f 2>&1 | head -n1 | cut -d' ' -f2)
 
-fortune -a "$fortunedir" "$HOME/dotfiles/share/fortunes/"
+fortune -a "$fortunedir" "$XDG_DATA_HOME/fortunes/"

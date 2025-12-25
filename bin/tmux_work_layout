@@ -1,3 +1,3 @@
 splitw -h -t 0 -p 50 'htop'                      # Split pane 0 vertically by 50%
-splitw -v -t 1 -p 25 '~/dotfiles/sizetmux.sh 85; node' # Split pane 1 horizontally by 25%
+splitw -v -t 1 -p 25 "$XDG_BIN_HOME/sizetmux.sh 85; node" # Split pane 1 horizontally by 25%
 selectp -t 0                                     # Select pane 0

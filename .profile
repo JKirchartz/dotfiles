@@ -57,6 +57,7 @@ export PAGER="less -F"
 # XDG compatibility:
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
+export XDG_BIN_HOME=${XDG_BIN_HOME:-$HOME/.local/bin}
 export XDG_STATE_HOME=${XDG_DATA_HOME:-$HOME/.local/state}
 export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
 export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/run/user/$UID}
@@ -73,7 +74,7 @@ export TLDR_CACHE_DIR="$XDG_CACHE_HOME"/tldr
 # zsh
 export ZPLUG_HOME="$XDG_DATA_HOME"/zplug
 export ZDOTDIR="$XDG_CONFIG_HOME"/zsh
-# docker (duh)
+# docker
 export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
 # rust
 export CARGO_HOME="$XDG_CDATA_HOME"/cargo
@@ -81,8 +82,7 @@ export CARGO_HOME="$XDG_CDATA_HOME"/cargo
 export BUNDLE_USER_CONFIG="$XDG_CONFIG_HOME"/bundle
 export BUNDLE_USER_CACHE="$XDG_CACHE_HOME"/bundle
 export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME"/bundle
-# this doesn't exist yet
-# export rvm_path="$XDG_DATA_HOME"/rvm
+[ -d '$XDG_DATA_HOME/rvm' ] && export rvm_path="$XDG_DATA_HOME"/rvm
 # node
 export NPM_CONFIG_INIT_MODULE="$XDG_CONFIG_HOME"/npm/config/npm-init.js
 export NPM_CONFIG_CACHE="$XDG_CACHE_HOME"/npm
@@ -92,9 +92,9 @@ export NPM_CONFIG_TMP="$XDG_RUNTIME_DIR"/npm
 export NETHACKOPTIONS=color,hilite_pet,boulder:8
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+[ -d '$HOME/.rvm/bin' ] && export PATH="$PATH:$HOME/.rvm/bin"
 
 # put this last, my scripts always get preference this is insecure because
 # various bins are overwritten by my script directory versions, for security
 # move $PATH to the beginning of the assignment
-export PATH="$HOME/dotfiles/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"

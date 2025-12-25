@@ -3,7 +3,7 @@
 # set options
 #-----------------------------{{{
 # autoload bashcompinit && bashcompinit
-# source '${HOME}/dotfiles/bin/wp-completion.bash'
+# source '$XDG_BIN_HOME/wp-completion.bash'
 autoload -Uz compinit && compinit
 autoload -U zmv
 
@@ -108,7 +108,7 @@ fi
 #}}}-----------------------------
 # run scripts
 #-----------------------------{{{
-~/dotfiles/bin/motd.sh
+"$XDG_BIN_HOME"/motd.sh
 
 
 export PATH="/usr/local/opt/mozjpeg/bin:$PATH"

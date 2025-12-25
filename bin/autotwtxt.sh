@@ -10,7 +10,7 @@
 
 fortunedir=$(fortune -f 2>&1 | head -n1 | cut -d' ' -f2)
 
-fortunetxt=$(fortune -ae "$fortunedir" "$HOME/dotfiles/bin/fortune/" -s -n 131) # | tr '(\t|\r\n)' ' ' |  tr -s '[:blank:]')
+fortunetxt=$(fortune -ae "$fortunedir" "$XDG_DATA_HOME/fortunes" -s -n 131) # | tr '(\t|\r\n)' ' ' |  tr -s '[:blank:]')
 
 
 fortunetxt="$fortunetxt #fortune"
