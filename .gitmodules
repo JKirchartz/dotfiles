@@ -1,5 +1,5 @@
 [submodule "vim"]
-	path = config/vim
+	path = vim
 	url = https://github.com/JKirchartz/vim.git
 [submodule "fortunes"]
 	path = local/share/fortunes

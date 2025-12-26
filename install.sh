@@ -56,6 +56,10 @@ for file in $(git ls-files config/ | sort -u); do
     ln -s "${dir}/${file}" "$HOME/.$file"
 done
 
+# link my vimrc into ~/.vim
+[ -f "$HOME/.vim" ] && [ ! -L "$HOME/.vim" ] && mv "$HOME/.$file" "$olddir"
+[ ! -d "$HOME/.vim" ] && ln -sf "${dir}/vim" "$HOME/.vim"
+
 # link my bin into .local
 [ ! -d "$HOME/.local" ] && mkdir "$HOME/.local"
 [ ! -d "$XDG_BIN_HOME" ] && ln -s "${dir}/local/bin" "$XDG_BIN_HOME"
