@@ -59,8 +59,8 @@ submodules:
 # https://github.com/staticshock/dotfiles/blob/87d04bf68039fb52485e2c83e3fbe8eacc2683d6/Makefile#L48C1-L70C29
 define mkdir_and_export_target
   @mkdir -p "$$(dirname "$@")"
-$(export_target)
-  endef
+  $(export_target)
+endef
 
 ifeq ($(RSYNC),y)
   export_target = @[[ -d "$<" ]] && sl='/' || sl=''; rsync -ai --del "$<$$sl" "$@"
