@@ -57,12 +57,13 @@ provision () {
 
 linkfiles() {
 	# move any existing dotfiles in $HOME to dotfiles_old directory, then create symlinks
+	# from the $HOME directory to it's place in the dotfiles/home directory.
 	# note: ${HOME:?} makes sure $HOME never expands to `/` (via shellcheck)
 	for file in "$@"; do
 		# if it's a file and is not a link, back it up
 		[ -f "${HOME:?}/$file" ] && [ ! -L "${HOME:?}/$file" ] && mv "${HOME:?}/$file" "$old_dir"
-		# if it's not file or directory, it's probably a broken link
-		[ ! -d "${HOME:?}/$file" ] && rm -rf "${HOME:?}/$file"
+		# if it's not file or link, it's probably a broken link?
+		rm -rf "${HOME:?}/$file"
 		ln -nsfv "${src_dir}/home/${file}" "${HOME:?}/$file" # Not Safe For Verbose(?)
 	done
 }
@@ -126,8 +127,23 @@ unlink() {
   done
 }
 
+install_vim() {
+  LABEL=$(uname -a | tr '[:upper:]' '[:lower:]')
+  case "$LABEL" in
+    *alpine*) doas apk add git make clang libtool-bin libxt-dev libncurses-dev;;
+    *arch*) sudo pacman -S git make clang libtool-bin libxt-dev libncurses-dev;;
+    *debian*|*ubuntu*) sudo apt-get install git make clang libtool-bin libxt-dev libncurses-dev;;
+  esac
+  git clone https://github.com/vim/vim.git
+  cd vim/src
+  make
+  echo "now try:"
+  echo "    cd ${src_dir}/vim/src && make test && make install"
+}
+
 
 case $1 in
+  install_vim) install_vim;;
   install) install;;
   provision) provision;;
   unlink) unlink;;
@@ -140,6 +156,7 @@ case $1 in
     dfm provision: try to install things I need/want \n \
     dfm unlink: replace dotfiles symlinks with the actual files... :(after which we can delete this dotfiles repo) \n \
     dfm setup: try to do the whole shebang :(probably want this for working on things & updating dotfiles) \n \
+    dfm install_vim: try to install dependencies and build vim (experimental) \n \
     dfm all: try to do the whole shebang :(probably don't want this unless you plan to delete the repo)" | column -t -s:
   ;;
 esac;
