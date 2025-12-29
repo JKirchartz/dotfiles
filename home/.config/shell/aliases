@@ -146,6 +146,3 @@ esac
 
 # XDG compatibility
 alias wget="wget --hsts-file=$XDG_DATA_HOME/wget-hsts"
-
-# bare repo dotfile manager
-alias dfm='git --git-dir=$DOTFILES --work-tree=$HOME'

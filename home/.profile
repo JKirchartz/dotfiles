@@ -1,9 +1,8 @@
-export DOTFILES=$HOME/bare-dotfiles.git
+export DOTFILES=$HOME/.dotfiles
 
 # Bins
 PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/games"
 
-[ -s "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
 [ -s "$HOME/.linuxbrew" ] && export PATH="$PATH:$HOME/.linuxbrew/bin"
 
 
@@ -95,6 +94,7 @@ export NETHACKOPTIONS=color,hilite_pet,boulder:8
 [ -d '$HOME/.rvm/bin' ] && export PATH="$PATH:$HOME/.rvm/bin"
 
 # put this last, my scripts always get preference this is insecure because
-# various bins are overwritten by my script directory versions, for security
-# move $PATH to the beginning of the assignment
-export PATH="$HOME/.local/bin:$PATH"
+# various bins are overwritten by my script directory versions, for added
+# security move $PATH to the beginning of the assignment
+
+[ -s "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
