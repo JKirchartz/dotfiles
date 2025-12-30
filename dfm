@@ -141,9 +141,20 @@ install_vim() {
   echo "    cd ${src_dir}/vim/src && make test && make install"
 }
 
+install_fzf() {
+  KERNEL=$(uname -s | tr '[:upper:]' '[:lower:]')
+	ARCHITECTURE=$(dpkg --print-architecture)
+	# scrape for URLs and find one that matches our Kernel/Architecture`
+	URI=$(curl -Ls https://github.com/junegunn/fzf/releases | grep -oP 'href="\K[^"]+' | grep $ARCHITECTURE | grep $KERNEL)
+	wget "https://github.com${URI}"
+	FILE=$(echo "$URI" | rev | cut -d/ -f1 | rev)
+	tar -xvzf "$FILE" -C "${src_dir}/home/.local/bin"
+	rm -rf "$FILE"
+}
 
 case $1 in
   install_vim) install_vim;;
+  install_fzf) install_fzf;;
   install) install;;
   provision) provision;;
   unlink) unlink;;
@@ -157,6 +168,7 @@ case $1 in
     dfm unlink: replace dotfiles symlinks with the actual files... :(after which we can delete this dotfiles repo) \n \
     dfm setup: try to do the whole shebang :(probably want this for working on things & updating dotfiles) \n \
     dfm install_vim: try to install dependencies and build vim (experimental) \n \
+    dfm install_fzf: try to install dependencies and build fzf (experimental) \n \
     dfm all: try to do the whole shebang :(probably don't want this unless you plan to delete the repo)" | column -t -s:
   ;;
 esac;

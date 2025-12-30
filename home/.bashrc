@@ -15,7 +15,6 @@ set -o vi
 # fzf, git, npm, bashisms
 #------------------------------{{{
 
-. "${XDG_CONFIG_HOME:-$HOME/.config}/locale.conf"
 . "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliases"
 . "${XDG_CONFIG_HOME:-$HOME/.config}/shell/functions"
 . "${XDG_CONFIG_HOME:-$HOME/.config}/shell/gitstatus.sh"
@@ -59,7 +58,7 @@ __drawHR() {
     __dtstamp="$dd $dt"
   else
   ## otherwise show "Gregorian" date
-    __dtstamp='\D{%x %X}'
+    __dtstamp=$(date +"%Y/%m/%d %H:%M")
   fi
   # Get directory (and git-prompt)
   DIR=$(pwd | sed -e "s!$HOME!~!")
@@ -131,10 +130,10 @@ shopt -s dirspell                         # spellcheck for directories(?)
 
 if command -V gdircolors &> /dev/null
 then
-  eval "$(gdircolors -b "$XDG_CONFIG_HOME/dir_colors/LS_COLORS")"
+  eval "$(gdircolors -b "$XDG_CONFIG_HOME/dir_colors")"
 elif command -V dircolors &> /dev/null
 then
-  eval "$(dircolors -b "$XDG_CONFIG_HOME/dir_colors/LS_COLORS")"
+  eval "$(dircolors -b "$XDG_CONFIG_HOME/dir_colors")"
 fi
 
 #}}}-----------------------------

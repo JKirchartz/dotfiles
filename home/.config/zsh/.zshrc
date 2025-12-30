@@ -23,7 +23,6 @@ SAVEHIST=50000
 # load same aliases/functions as bash
 # ----------------------------{{{
 [ -s "$HOME/.profile" ] && source $HOME/.profile
-[ -s "$HOME/.config/locale.conf" ] && source "$HOME/.config/locale.conf"
 [ -s "$HOME/.config/shell/aliases" ] && source "$HOME/.config/shell/aliases"
 [ -s "$HOME/.config/shell/functions" ] && source "$HOME/.config/shell/functions"
 

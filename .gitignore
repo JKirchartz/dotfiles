@@ -11,7 +11,9 @@ home/.config/nvim/autoload/
 home/.config/ssh/id_*
 home/.config/ssh/known_hosts
 home/.config/ssh/authorized_keys
+home/.local/bin/fzf
 .DS_Store
+*.tar.gz
 *.swp
 *.dat
 *id_rsa*
