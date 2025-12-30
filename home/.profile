@@ -97,4 +97,4 @@ export NETHACKOPTIONS=color,hilite_pet,boulder:8
 # various bins are overwritten by my script directory versions, for added
 # security move $PATH to the beginning of the assignment
 
-[ -s "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
+[ -d "$XDG_BIN_HOME" ] && export PATH="$XDG_BIN_HOME:$PATH"
