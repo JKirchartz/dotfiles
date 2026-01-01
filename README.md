@@ -1,3 +1,22 @@
+# Announcement 1/1/2026
+
+I will no longer be maintaining my dotfiles here on github; you can see what I
+was doing in the branch `TheBigClean2025`, but you can follow along with future
+updates at
+[https://tildegit.org/kirch/dotfiles](https://tildegit.org/kirch/dotfiles) I
+wish there was some grand statement to be made about the end of this era; but
+none of the below text has been completely right in a long time, I started this
+repo to keep dotfiles on a work Mac in sync with my home PC, originally the
+files were copied over sneakernet -- I remember installing Ubuntu on a Pentium
+III around this time in 2012, and having to install dependencies over said
+sneakernet because I couldn't afford home internet; and look at me now! with an
+Internet bill of my own!
+
+Anyhow, this is getting archived; find the new hotness on tildegit going forward.
+
+We now return you to your regularly scheduled, old README.md:
+
+
 #My dotfiles
 
 1. clone into home
