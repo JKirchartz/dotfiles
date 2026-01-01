@@ -1,0 +1,7 @@
+#! /bin/sh
+
+if [ -z "$1" ]; then
+  cd "$HOME/Documents/Workspace/" || exit
+else
+  cd "$HOME/Documents/Workspace/$1" || exit
+fi

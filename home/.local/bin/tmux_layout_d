@@ -1,0 +1,5 @@
+splitw -v -p 40                              # Split pane 0 horizontally by 50%
+splitw -h -p 20                              # Split pane 1 vertically by 50%
+selectp -t 1                                 # Select pane 0
+clock-mode -t 2                              # Show time in bottom right
+send-keys -t 1 " ssh derkirche@blinken" C-m  # Blinken in bottom left

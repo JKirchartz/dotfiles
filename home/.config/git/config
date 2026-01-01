@@ -1,0 +1,98 @@
+[user]
+	user = jkirchartz
+	name = JKirchartz
+	email = jkirchartz@gmail.com
+
+[apply]
+	# Detect whitespace errors when applying a patch
+	whitespace = fix
+
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	ui = auto
+
+[push]
+	default = current
+	followTags = true
+
+[core]
+	pager = less -R
+	excludesfile = $XDG_CONFIG_HOME/git/ignore
+
+[diff]
+	tool = vim
+
+[merge]
+	log = true
+	tool = fugitive
+
+[difftool]
+	prompt = false
+
+[mergetool]
+	prompt = false
+	keepBackup = false
+
+[mergetool "vim"]
+	cmd = vim -f -c \"Gvdiff\" \"$MERGED\"
+
+[alias]
+	br = branch
+	caa = !git commit --all --amend --no-edit --reset-author --date "$(date)"
+	ci = commit
+	co = checkout
+	cob = checkout -b
+	df = diff
+	ds = diff --staged
+	edit = !$EDITOR $(git status -s | awk '{print $2}')
+	last = log  --show-notes="*" --name-status HEAD^..HEAD
+	lo = log --graph --branches --tags --decorate --format=oneline --abbrev-commit --show-notes="*"
+	lob = for-each-ref  --show-notes="*"--sort=committerdate refs/heads/ --format='%(HEAD) %(refname:short) - %(objectname:short) - %(contents:subject) - %(authorname) (%(committerdate:relative))'
+	loc = !git ls-files | xargs wc -l
+	ls = ls-files
+	st = status
+	undo = reset HEAD~1
+	unstage = reset HEAD --
+	up = pull --all --rebase --autostash
+	this = !git init && git add . && git commmit -m \"Initial commit.\"
+	dad = !curl https://icanhazdadjoke.com/
+	joke = !curl -s https://raw.githubusercontent.com/EugeneKay/git-jokes/lulz/Jokes.txt | awk 'BEGIN { srand() } int(rand() * NR) == 0 { x = $0 } END { print x }'
+	erdone = !git commit -am \"git'er done\" && git push
+	techy = !git commit -am \"$(curl -s https://techy-api.vercel.app/api/text)\" && git push
+	pushall = "!f(){ for var in $(git remote show); do echo \"pushing to $var\"; git push $var; done; }; f"
+	find-file = "!for branch in `git for-each-ref --format=\"%(refname)\" refs/heads`; do echo \"${branch}:\"; git ls-tree -r --name-only $branch | nl -bn -w3 | grep \"$1\"; done; :"
+	rename = branch -m
+	alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
+
+[url "https://github.com/"]
+    insteadOf = gh:
+
+[url "https://gist.github.com/"]
+    insteadOf = gist:
+
+[url "https://bitbucket.org/"]
+    insteadOf = bb:
+
+[url "https://gitlab.com/"]
+    insteadOf = gl:
+
+[includeIf "gitdir:~/work/*"]
+  path = ~/work/.gitconfig
+
+[http]
+	postBuffer = 1048576000
+
+[credential]
+	helper = cache --timeout=28800
+[pager]
+	status = true
+
+[url "https://"]
+	insteadOf = git://
+
+
+# vim: ft=gitconfig
+[init]
+	defaultBranch = main

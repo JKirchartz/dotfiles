@@ -1,0 +1,3 @@
+splitw -v -p 50                        # Split pane 1 horizontally by 50%
+splitw -h -p 50                        # Split pane 0 vertically by 50%
+selectp -t 1                                # Select pane 0

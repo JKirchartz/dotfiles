@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# if [ -z ${1+x} ]; then
+#   SESSION=$USER
+# else
+#   SESSION=$1
+# fi
+SESSION="WORK"
+
+# No TMUX sessions named $SESSION - create
+if tmux has-session -t "$SESSION" 2>/dev/null; then
+  tmux new-session -AD -s "$SESSION"
+else
+  tmux new-session -AD -s "$SESSION" -n dash
+  tmux new-window -t "$SESSION" -n work
+  # tmux send-keys -t "$SESSION:dash" " vim +':h|on'" 'C-m' # open help in vim
+  # tmux send-keys -t "$SESSION:dash" " vim +':Sb|on'" 'C-m' # open a scratch buffer in vim
+  tmux send-keys -t "$SESSION:dash" "zen" 'C-m' # open a scratch buffer and help in vim
+  tmux split-window -t "$SESSION:dash" -v -p 40
+  tmux send-keys -t "$SESSION:dash.1" "town" 'C-m'
+  tmux split-window -t "$SESSION:dash.1" -h -p 20
+  tmux clock-mode
+  # tmux split-window -t "$SESSION:dash.0" -h -p 50
+  # tmux send-keys -t "$SESSION:dash.1" "weather.sh" 'C-m'
+  tmux select-pane -t "$SESSION:dash.2"
+  tmux new-window -t "$SESSION" -a 'dash'
+  tmux send-keys -t "$SESSION:2:0" " cd ~/projects/" 'C-m'
+  tmux split-window -t "$SESSION:2:0" -h -p 30
+fi
+echo "print after close?"

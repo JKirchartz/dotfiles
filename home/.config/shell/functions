@@ -1,0 +1,72 @@
+# Function to update a shell inside tmux with new environment variables (really
+# useful for switching between ssh and local) function update-environment
+# stolen from L105 in like 2017, but now it's on
+# https://github.com/xanderman/dotfiles/blob/master/.bashrc#L116
+update-environment() {
+  eval $(tmux show-environment ${1:+-t $1} -s);
+}
+
+# ps + grep, incase there's no pgrep(?)
+psgrep(){ ps -ax | grep "$1" | grep -v "grep"; }
+
+# why not history
+function hgrep(){
+  grep "$@" "${HISTFILE}"
+}
+
+#simple calculator
+calc () { echo "$*" | bc -l; }
+
+# tmux title changer
+tmut () {
+  if [[ $# -eq 0 ]]; then
+    # rename tmux window after current directory
+    tmux rename-window "${PWD##*/}";
+  else
+    # rename tmux window after input
+    tmux rename-window "$@";
+  fi
+}
+
+# tmux split and run
+tmus () { tmux split-window -p 20 $@; }
+
+# mk & cd
+mkcd() { mkdir "$@" && cd "$@"; }
+
+# open files specified by other utilities
+gitvim () { vim $(git diff --name-only $@ ); }
+ackvim () { vim $(ack -l $@ ); }
+rgvim () { vim $(command rg -l $@ ); }
+
+cwd () {
+  if [ $# -eq 0 ]; then
+    echo "Enter a word pattern to search for, use a . for unknowns";
+  fi
+  grep -w -i $1 /usr/share/dict/words;
+}
+
+fixssh () {
+  ssh-add -K;
+  eval $(ssh-agent);
+  ssh-add -K;
+}
+
+rg () {
+  command rg -p $@ | less -MRFX;
+  # TODO: investigate less -rFiXSw
+}
+
+lsd () {
+  ls $@ | lolcat
+}
+
+if [ -n "$TMUX" ]; then
+  # if we're inside tmux, wrap SSH so tmux shows the hostname instead of "ssh"
+  ssh () {
+    og_name=$(tmux display-message -p '#W');
+    tmux rename-window "ssh@$1";
+    command ssh "$@";
+    tmux rename-window "$og_name";
+  }
+fi

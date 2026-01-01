@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# publish jekyll post made with new_post.sh
+
+if [ -z "$1" ]
+then
+    read -p "Post filename:"  FILENAME
+else
+    FILENAME="$1"
+fi
+if [ -f "$FILENAME" ]
+then
+    DATE=$(date +%Y-%m-%d)
+    NEWFILE=$(echo "$DATE-$FILENAME")
+    sed -e 4d "$FILENAME" > "$NEWFILE"
+    rm -f "$FILENAME"
+    mv "$NEWFILE" ../_posts
+else
+    echo "not a filename"
+fi

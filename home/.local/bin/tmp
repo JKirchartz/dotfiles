@@ -1,0 +1,5 @@
+echo sleep 1 >> tmp
+sleep 1
+sleep 1
+sleep 1
+sleep 1

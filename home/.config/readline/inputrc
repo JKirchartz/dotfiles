@@ -1,0 +1,49 @@
+set bell-style none
+# Better completions
+set completion-ignore-case on
+set show-all-if-unmodified on
+set page-completions on
+# TAB: menu-complete
+#search with arrow keys
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+# be vimlike
+set editing-mode vi
+$if mode=vi
+#
+# COMMAND-MODE
+#
+  set keymap vi-command
+
+  "gg": beginning-of-history
+  "G": end-of-history
+
+  # Shift-tab for backwards
+  "\e[Z": menu-complete-backwards
+
+  # make ctrl+l clear the screen (like in vim)
+  "\C-l": clear-screen
+
+  # re-init without logout
+  "\C-R\C-R": re-read-init-file
+
+#
+# INPUT MODE
+#
+  set keymap vi-insert
+
+  "jj": vi-movement-mode
+  "\C-p": history-search-backward
+
+  # make ctrl+l clear the screen (like in vim)
+  "\C-l": clear-screen
+
+  # re-init without logout
+  "\C-R\C-R": re-read-init-file
+
+  # ctrl+e edit & execute command
+  "\C-e": edit-and-execute-command
+
+
+$endif
+

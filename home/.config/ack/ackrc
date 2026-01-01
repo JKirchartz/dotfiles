@@ -1,0 +1,153 @@
+### nice settings
+# --ignore-ack-defaults
+--pager=less -rFiXSw
+# vim-like pattern matching
+--smart-case
+
+
+
+### There are four different ways to match
+#
+# is:  Match the filename exactly
+#
+# ext: Match the extension of the filename exactly
+#
+# match: Match the filename against a Perl regular expression
+#
+# firstlinematch: Match the first 250 characters of the first line
+#   of text against a Perl regular expression.  This is only for
+#   the --type-add option.
+
+
+### Directories to ignore
+
+# Mercurial
+# http://mercurial-scm.com/
+--ignore-directory=is:.hg
+
+# Git
+# http://git-scm.com/
+--ignore-directory=is:.git
+
+# Subversion
+# http://subversion.tigris.org/
+--ignore-directory=is:.svn
+
+# other directories that probably don't contain stuff I'm not currently looking for
+--ignore-directory=is:node_modules/
+--ignore-directory=is:bower_components/
+--ignore-directory=is:gems/
+--ignore-directory=is:log/
+--ignore-directory=is:tmp/
+--ignore-directory=is:vendor/
+--ignore-directory=is:.idea/
+--ignore-directory=is:.meteor/
+--ignore-directory=is:.bundler/
+--ignore-directory=is:.bundle/
+--ignore-directory=is:.cache/
+--ignore-directory=is:.gem/
+--ignore-directory=is:.gnupg/
+--ignore-directory=is:.ssh/
+--ignore-directory=is:.vagrant/
+--ignore-directory=is:_builds/
+--ignore-directory=is:_projects/
+--ignore-directory=is:_steps/
+--ignore-directory=is:_site/
+--ignore-directory=is:dist/
+--ignore-directory=is:coverage/
+
+
+### filetypes
+
+# CoffeeScript
+# http://coffeescript.org/
+--type-add=coffeescript:ext:coffee
+
+# CSS
+# http://www.w3.org/Style/CSS/
+--type-add=css:ext:css
+
+# HTML
+--type-add=html:ext:htm,html
+
+# Jade
+# http://jade-lang.com/
+--type-add=jade:ext:jade
+
+# JavaScript
+--type-add=js:ext:js
+
+# JSX
+--type-add=jsx:ext:jsx
+
+# JSON
+# http://www.json.org/
+--type-add=json:ext:json
+
+# Less
+# http://www.lesscss.org/
+--type-add=less:ext:less
+
+# PHP
+# http://www.php.net/
+--type-add=php:ext:php,phpt,php3,php4,php5,phtml
+--type-add=php:firstlinematch:/^#!.*\bphp/
+
+# Python
+# http://www.python.org/
+--type-add=python:ext:py
+--type-add=python:firstlinematch:/^#!.*\bpython/
+
+# Ruby
+# http://www.ruby-lang.org/
+--type-add=ruby:ext:rb,rhtml,rjs,rxml,erb,rake,spec
+--type-add=ruby:is:Rakefile
+--type-add=ruby:firstlinematch:/^#!.*\bruby/
+
+# Sass
+# http://sass-lang.com
+--type-add=sass:ext:sass,scss
+
+# Shell
+--type-add=shell:ext:sh,bash,csh,tcsh,ksh,zsh,fish
+--type-add=shell:firstlinematch:/^#!.*\b(?:ba|t?c|k|z|fi)?sh\b/
+
+# SQL
+# http://www.iso.org/iso/catalogue_detail.htm?csnumber=45498
+--type-add=sql:ext:sql,ctl
+
+# Vim
+# http://www.vim.org/
+--type-add=vim:ext:vim
+
+# XML
+# http://www.w3.org/TR/REC-xml/
+--type-add=xml:ext:xml,dtd,xsl,xslt,ent
+--type-add=xml:firstlinematch:/<[?]xml/
+
+# YAML
+# http://yaml.org/
+--type-add=yaml:ext:yaml,yml
+
+
+
+# Pat's ackrc
+# custom types
+--type-add=ruby:ext:haml,builder,rake,slim
+--type-add=markdown:ext:markdown,md,mdown
+--type-add=actionscript:ext:as
+--type-add=rdoc:ext:rdoc
+--type-add=sql:ext:ddl
+
+# make sure ack knows how to search common filetypes used in rails projects
+--type-set=mustache:ext:mustache,handlebars,hbs
+--type-add=css:ext:scss
+--type-add=ruby:ext:haml,rselm,feature,ru,lock
+--type-set=dockerfile:is:Dockerfile
+--type-set=rakefile:is:Rakefile
+--type-set=cakefile:is:Cakefile
+
+
+# become aware of svg files, but don't search them by default
+--type-add=svg:ext:svg
+--nosvg
