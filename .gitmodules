@@ -1,5 +1,5 @@
 [submodule "vim"]
-	path = home/.vim
+	path = home/.config/vim
 	url = https://github.com/JKirchartz/vim.git
 [submodule "LS_COLORS"]
 	path = home/.config/dir_colors

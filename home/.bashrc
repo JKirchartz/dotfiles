@@ -1,3 +1,4 @@
+#! /bin/bash
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -54,11 +55,11 @@ __drawHR() {
   if command -v ddate > /dev/null 2>&1
   then
     dd=$(ddate  +"%d/%B/%Y %N(%H)")
-    dt=$(date +"%T %p")
+    dt=$(date +"%a %T %p")
     __dtstamp="$dd $dt"
   else
   ## otherwise show "Gregorian" date
-    __dtstamp=$(date +"%Y/%m/%d %H:%M")
+    __dtstamp=$(date +"%a %d/%B/%Y %T %p")
   fi
   # Get directory (and git-prompt)
   DIR=$(pwd | sed -e "s!$HOME!~!")
@@ -86,7 +87,7 @@ __prompt() {
   __drawHR;
   # construct the same prompt as below, but more intelligently
   PS1="$__cr╚╡$__cc"
-  [ -n "$(jobs -p)" ] && PS1+="$__cr($__cc\j$__cr)$__cc"
+  [ -e "$(jobs -p)" ] && PS1+="$__cr(${__cc}\j$__cr)$__cc"
   [ -z "$STY$TMUX" ] && PS1+="\u@\h"
   [ -e "${VIMRUNTIME}" ] && PS1+="${__cr}(${__cc}vim${__cr})${__nc}"
   PS1+="$__cc\$▸ $__nc"

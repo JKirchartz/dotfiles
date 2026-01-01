@@ -19,7 +19,7 @@ old_dir="${src_dir}_old"                        # old dotfiles backup directory
 
 if [ ! -d "$src_dir" ]; then
 	echo "this should be run from the root of my dotfiles directory..."
-	src_dir=$(dirname $0)
+	src_dir=$(dirname "$0")
 	[ ! -e "$src_dir" ] && echo "    ... $src_dir, really?"
 	
 fi
@@ -49,6 +49,8 @@ provision () {
       fi
       ;;
   esac
+
+  vim -es -u vimrc -i NONE -c "PlugInstall" -c "qa"
 }
 
 ########
@@ -97,34 +99,36 @@ install() {
 	linkfiles $(git ls-files home/ --deduplicate | grep -vE ".local" | sed "s|home/||" | cut -d/ -f1-2 | sort -u)
 
 	# OK, now let's do local...
-	[ ! -d "${HOME/.local}" ] && mkdir "${HOME}/.local"
-	[ ! -e "${HOME/.local/bin}" ] && ln -nsfv "${src_dir}/home/.local/bin" "${HOME}/.local/bin"
+
+	[ ! -d "${HOME}/.local" ] && mkdir "${HOME}/.local"
+	[ ! -e "${HOME}/.local/bin" ] && ln -nsfv "${src_dir}/home/.local/bin" "${HOME}/.local/bin"
 	linkfiles $(git ls-files home/.local/share --deduplicate | sed "s|home/||" | sort -u)
+
+	vim -es -u vimrc -i NONE -c "PlugInstall" -c "qa"
 }
 
 
 ########
-# convert the symlinks from my dotfiles into actual files... 
+# convert the symlinks from my dotfiles into actual files...
 ###
 
 unlink() {
-
   # find all symlinks in $HOME (up to 3 folders deep, because I'm pretty sure
   # that's how deep the install script goes...)
-
-  for f in $(find $HOME -maxdepth 3 -type l)
+  find "$HOME" -maxdepth 3 -type l -print0 > tmp
+  while IFS= read -r f
   do
     # find where the link points to
     l=$(readlink "$f")
     # if linked file exists and contains this "dotfiles" dir
-    if [ -e "$l" ] && [ -z "${l##*$src_dir*}" ]; then
+    if [ -e "$l" ] && [ -z "${l##*"$src_dir"*}" ]; then
       # copy dotfiles to their symlinked location
       echo "unlinking $f"
       unlink "$f"
       echo "copying $l to $f"
       cp -r --remove-destination "$l" "$f"
     fi
-  done
+  done < tmp
 }
 
 install_vim() {
@@ -135,7 +139,7 @@ install_vim() {
     *debian*|*ubuntu*) sudo apt-get install git make clang libtool-bin libxt-dev libncurses-dev;;
   esac
   git clone https://github.com/vim/vim.git
-  cd vim/src
+  cd vim/src || echo "no vim/src?" && exit
   make
   echo "now try:"
   echo "    cd ${src_dir}/vim/src && make test && make install"
